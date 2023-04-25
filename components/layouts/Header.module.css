@@ -1,0 +1,26 @@
+.headerContainer {
+  width: 100%;
+  padding: 2rem;
+  background-color: var(--billita-white);
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.headerContainer nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerContainer nav ul li {
+  list-style: none;
+  width: 2rem;
+  height: 2rem;
+}
+
+.headerContainer nav ul li img {
+  width: 100%;
+  height: auto;
+}
