@@ -1,4 +1,3 @@
-import React from 'react'
 import { footerMenuData } from '@/datas/staticMenuDatas'
 import { footerType } from '@/types/footerType'
 import { useRouter } from 'next/router'

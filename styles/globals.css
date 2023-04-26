@@ -6,9 +6,10 @@
   --billita-black: #1E1E1E;
   --billita-blue: #0071FF;
   --billita-gray: #D9D9D9;
-  --billita-primary: #00C4DF;
+  --billita-primary: #070b0b;
   --billita-secondary: #FF4974;
-  
+  --billita-blueHighlight: #00C4DF;
+
   /* font */
   --billita-hangul: 'Noto Sans KR', sans-serif;
   --billita-dongle: 'Dongle', sans-serif;

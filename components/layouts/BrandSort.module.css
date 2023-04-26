@@ -1,0 +1,38 @@
+.sectionWrap {
+  padding: 0 1.57rem 0 1.5rem;
+}
+
+.brandNav {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: scroll;
+}
+
+.brandNav::-webkit-scrollbar {
+  display: none;
+}
+
+.circlePad { 
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: var(--billita-gray);
+  position: relative;
+}
+
+.circlePad img {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+}
+
+.brandName {
+  padding: 1rem 0;
+  text-align: center;
+  color: var(--billita-gray);
+  font-weight: 500;
+}
+
+.circlePad .active {
+  border: 1px solid var(--billita-blue);
+}

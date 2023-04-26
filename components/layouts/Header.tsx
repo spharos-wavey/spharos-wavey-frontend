@@ -1,4 +1,3 @@
-import React from 'react'
 import { headerMenuData } from '@/datas/staticMenuDatas'
 import HeaderMenuItem from './HeaderMenuItem'
 import { headerMenuType } from '@/types/headerType'

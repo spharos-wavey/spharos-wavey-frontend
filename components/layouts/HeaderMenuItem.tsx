@@ -1,6 +1,5 @@
 import { headerMenuType } from '@/types/headerType'
 import Image from 'next/image'
-import React from 'react'
 
 export default function HeaderMenuItem(props:{ menuItem:headerMenuType }) {
   return (

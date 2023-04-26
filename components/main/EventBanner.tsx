@@ -1,8 +1,8 @@
-import { eventBannerType } from '@/types/eventBannerType'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import { eventBannerType } from '@/types/eventBannerType'
 import { mainEventData } from '@/datas/mainEventData'
-import style from '@/components/pages/main/EventBanner.module.css'
+import style from '@/components/main/EventBanner.module.css'
 
 export default function EventBanner() {
 
@@ -30,6 +30,7 @@ export default function EventBanner() {
             </div>
           </div>
           <div className={style.bannerOverlay}>
+            <div className={style.bannerTopText}>Hot Today</div>
             <div className={style.bannerText}>
               지금 당장 확 마 빌리 타 뿌까? 
             </div>

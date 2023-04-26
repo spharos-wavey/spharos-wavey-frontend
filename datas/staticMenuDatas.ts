@@ -43,3 +43,18 @@ export const footerMenuData = [
     iconActive: 'assets/images/icons/userIconContaine.svg',
   }
 ]
+
+export const vehicleMapListIconData = [
+  {
+    id: 1,
+    name: 'list',
+    path: '/list',
+    icon: 'assets/images/icons/listIcon.svg'
+  },
+  {
+    id: 2,
+    name: 'mapToAction',
+    path: '/mapToAction',
+    icon: 'assets/images/icons/locateIcon.svg'
+  }
+]
