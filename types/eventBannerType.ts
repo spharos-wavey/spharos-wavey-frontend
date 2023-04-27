@@ -5,3 +5,11 @@ export interface eventBannerType {
   carBrandImage: string,
   carImage: string,
 }
+
+export interface mainVehicleCardType {
+  id: number,
+  carName: string,
+  carBrand: string,
+  carImage: string,
+  pickUpArea: string
+}

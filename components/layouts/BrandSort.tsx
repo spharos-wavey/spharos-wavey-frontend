@@ -11,12 +11,12 @@ export default function BrandSort() {
       <Separator gutter={2} />
       <div className={style.sectionWrap}>
         <SectionTitle>브랜드 별 검색</SectionTitle>
+      </div>
         <div className={style.brandNav}>
           {brandSortData.map((item: brandSortType) => {
             return <BrandSortItem item={item} key={item.id} />;
           })}
         </div>
-      </div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import EventBanner from "@/components/main/EventBanner";
+import EventBanner from "@/components/pages/main/EventBanner";
 import type { NextPageWithLayout } from "./_app";
 import Layout from "@/components/layouts/layout";
 

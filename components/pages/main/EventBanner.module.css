@@ -54,14 +54,15 @@
   justify-content: flex-start;
   border-radius: 1rem 1rem 0 0;
   height: 12rem;
-  padding: 2rem;
+  padding: 1rem 2rem;
   background-color: var(--billita-blueHighlight);
   background-blend-mode: multiply;
+  -webkit-filter: saturate(1.8);
+  opacity: 0.6;
 }
 
 .bannerTopText {
   color: white;
-  margin-top: 3rem;
 }
 .bannerText {
   color: white;

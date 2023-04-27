@@ -4,8 +4,8 @@
 
 .brandNav {
   display: flex;
-  gap: 1.5rem;
   overflow-x: scroll;
+  padding: 0 0.7rem;
 }
 
 .brandNav::-webkit-scrollbar {
@@ -13,11 +13,12 @@
 }
 
 .circlePad { 
-  width: 4rem;
-  height: 4rem;
+  width: 6rem;
+  height: 6rem;
   border-radius: 50%;
-  background-color: var(--billita-gray);
+  background-color: #F5F6F8;
   position: relative;
+  border: 1rem solid #FFFFFF;
 }
 
 .circlePad img {
@@ -27,7 +28,6 @@
 }
 
 .brandName {
-  padding: 1rem 0;
   text-align: center;
   color: var(--billita-gray);
   font-weight: 500;

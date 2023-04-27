@@ -1,0 +1,15 @@
+.sectionWrap {
+  padding: 0 1.57rem 0 1.57rem;
+  display: flex;
+}
+
+.cardsWrap {
+  display: flex;
+}
+
+.spotCard {
+  display: flex;
+  background-color: cadetblue;
+  width: 100%;
+
+}

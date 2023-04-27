@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { eventBannerType } from '@/types/eventBannerType'
 import { mainEventData } from '@/datas/mainEventData'
-import style from '@/components/main/EventBanner.module.css'
+import style from '@/components/pages/main/EventBanner.module.css'
 
 export default function EventBanner() {
 

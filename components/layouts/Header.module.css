@@ -1,11 +1,10 @@
 .headerContainer {
   width: 100%;
-  padding: 2rem 2rem 1rem 2rem;
+  padding: 2rem 1.25rem 1rem 1.25rem;
   background-color: var(--billita-white);
   position: fixed;
   top: 0;
   z-index: 100;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .headerContainer nav ul {
@@ -21,6 +20,6 @@
 }
 
 .headerContainer nav ul li img {
-  width: 100%;
+  width: 80%;
   height: auto;
 }
