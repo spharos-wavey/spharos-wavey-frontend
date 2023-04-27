@@ -1,15 +1,15 @@
 import React from "react";
-import { headerMenuData } from "@/datas/staticMenuDatas";
-import HeaderMenuItem from "./HeaderMenuItem";
+import style from "./DatailHeader.module.css";
+import HeaderMenuItem from "@/components/layouts/HeaderMenuItem";
 import { headerMenuType } from "@/types/headerType";
-import style from "@/components/layouts/Header.module.css";
+import { detailMenuData } from "@/datas/staticMenuDatas";
 
-export default function Header() {
+export default function DetailHeader() {
   return (
     <header className={style.headerContainer}>
       <nav>
         <ul>
-          {headerMenuData.map((menuItem: headerMenuType) => {
+          {detailMenuData.map((menuItem: headerMenuType) => {
             return <HeaderMenuItem menuItem={menuItem} key={menuItem.id} />;
           })}
         </ul>
