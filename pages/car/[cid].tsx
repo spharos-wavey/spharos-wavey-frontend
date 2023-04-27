@@ -1,8 +1,13 @@
 import React from "react";
 import DetailLayout from "@/components/pages/carDetail/DatilLayout";
+import DetailInfoTop from "@/components/pages/carDetail/DetailInfoTop";
 
 export default function carDetail() {
-  return <div>하하 차량페이진</div>;
+  return (
+    <>
+      <DetailInfoTop />
+    </>
+  );
 }
 
 carDetail.getLayout = function getLayout(Page: React.ReactNode) {

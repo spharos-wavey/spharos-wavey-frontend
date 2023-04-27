@@ -1,0 +1,25 @@
+.topContainer {
+  padding: 5rem 1rem 1rem;
+}
+
+.carName {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 1.5rem 0 0;
+}
+
+.review {
+  font-size: 0.8rem;
+  padding: 0.5rem 0 1rem 0;
+  opacity: 50%;
+}
+
+.carImage {
+  width: 70%;
+  margin: auto;
+}
+
+.carImage img {
+  width: 100%;
+  height: auto;
+}

@@ -52,3 +52,9 @@ export const footerMenuData = [
     iconActive: "assets/images/icons/userIconContaine.svg",
   },
 ];
+
+export const carDetailData = {
+  id: 1,
+  name: "Tesla Model X",
+  src: "/assets/images/car/tesla-x.png",
+};
