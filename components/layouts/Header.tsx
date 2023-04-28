@@ -1,6 +1,6 @@
 import React from "react";
 import { headerMenuData } from "@/datas/staticMenuDatas";
-import HeaderMenuItem from "./HeaderMenuItem";
+import HeaderMenuItem from "./MenuItem";
 import { headerMenuType } from "@/types/headerType";
 import style from "@/components/layouts/Header.module.css";
 

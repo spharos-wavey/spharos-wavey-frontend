@@ -23,3 +23,25 @@
   width: 100%;
   height: auto;
 }
+
+.carStatus {
+  width: 60%;
+  margin: auto;
+  border: 1px;
+}
+
+.carStatus ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carStatus ul li {
+  list-style: none;
+  width: 2rem;
+}
+
+.carStatus ul li img {
+  width: 100%;
+  height: auto;
+}
