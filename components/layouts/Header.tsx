@@ -1,8 +1,8 @@
 import React from "react";
 import { headerMenuData } from "@/datas/staticMenuDatas";
-import HeaderMenuItem from "./MenuItem";
 import { headerMenuType } from "@/types/headerType";
 import style from "@/components/layouts/Header.module.css";
+import MenuItem from "./MenuItem";
 
 export default function Header() {
   return (
@@ -10,7 +10,7 @@ export default function Header() {
       <nav>
         <ul>
           {headerMenuData.map((menuItem: headerMenuType) => {
-            return <HeaderMenuItem menuItem={menuItem} key={menuItem.id} />;
+            return <MenuItem menuItem={menuItem} key={menuItem.id} />;
           })}
         </ul>
       </nav>

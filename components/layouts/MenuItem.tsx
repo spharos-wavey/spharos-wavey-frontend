@@ -2,25 +2,32 @@ import { headerMenuType } from "@/types/headerType";
 import Image from "next/image";
 import React from "react";
 
-export default function HeaderMenuItem(props: {
+export default function MenuItem(props: {
   menuItem: headerMenuType;
   discription?: boolean;
   status?: string;
+  width?: string;
 }) {
   return (
-    <li>
-      <Image
-        src={props.menuItem.icon}
-        width={200}
-        height={200}
-        alt={props.menuItem.name}
-        priority
-      />
-      {props.discription && props.discription === true ? (
-        <p>{props.status}</p>
-      ) : (
-        ""
-      )}
-    </li>
+    <>
+      <li>
+        <div style={{ width: `${props.width}`, margin: "auto" }}>
+          <Image
+            src={props.menuItem.icon}
+            width={200}
+            height={200}
+            alt={props.menuItem.name}
+            priority
+          />
+        </div>
+        {props.discription && props.discription === true ? (
+          <p style={{ fontSize: "0.6rem", textAlign: "center" }}>
+            {props.status}
+          </p>
+        ) : (
+          ""
+        )}
+      </li>
+    </>
   );
 }

@@ -15,7 +15,7 @@
 }
 
 .carImage {
-  width: 70%;
+  width: 80%;
   margin: auto;
 }
 
@@ -28,6 +28,7 @@
   width: 60%;
   margin: auto;
   border: 1px;
+  padding-top: 2rem;
 }
 
 .carStatus ul {
@@ -38,10 +39,16 @@
 
 .carStatus ul li {
   list-style: none;
-  width: 2rem;
+}
+
+.carStatusImg {
+  width: 50%;
+  margin: auto;
 }
 
 .carStatus ul li img {
   width: 100%;
   height: auto;
+  text-align: center;
+  opacity: 60%;
 }

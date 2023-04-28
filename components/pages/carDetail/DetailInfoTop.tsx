@@ -3,8 +3,8 @@ import style from "./DetailInfoTop.module.css";
 import Image from "next/image";
 import { carDetailData } from "@/datas/staticCarData";
 import { carStatusData } from "@/datas/staticCarData";
-import HeaderMenuItem from "@/components/layouts/MenuItem";
 import { headerMenuType } from "@/types/headerType";
+import MenuItem from "@/components/layouts/MenuItem";
 
 export default function DetailInfoTop() {
   return (
@@ -23,27 +23,24 @@ export default function DetailInfoTop() {
         </div>
         <div className={style.carStatus}>
           <ul>
-            <li>
-              <HeaderMenuItem
-                menuItem={carStatusData[0]}
-                discription={true}
-                status="90%"
-              />
-            </li>
-            <li>
-              <HeaderMenuItem
-                menuItem={carStatusData[1]}
-                discription={true}
-                status="2023.04.20%"
-              />
-            </li>
-            <li>
-              <HeaderMenuItem
-                menuItem={carStatusData[2]}
-                discription={true}
-                status="23원/km"
-              />
-            </li>
+            <MenuItem
+              menuItem={carStatusData[0]}
+              discription={true}
+              status="90%"
+              width="40%"
+            />
+            <MenuItem
+              menuItem={carStatusData[1]}
+              discription={true}
+              status="2023.04.20"
+              width="40%"
+            />
+            <MenuItem
+              menuItem={carStatusData[2]}
+              discription={true}
+              status="23원/km"
+              width="40%"
+            />
           </ul>
         </div>
       </div>
