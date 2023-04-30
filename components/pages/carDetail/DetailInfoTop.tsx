@@ -11,7 +11,7 @@ export default function DetailInfoTop() {
     <>
       <div className={style.topContainer}>
         <div className={style.carName}>{carDetailData.name}</div>
-        <div className={style.review}> 150 reviews </div>
+        <div className={style.review}> 150 reviews {">"} </div>
         <div className={style.carImage}>
           <Image
             src={carDetailData.src}

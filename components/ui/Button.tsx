@@ -6,8 +6,9 @@ export default function Button(props: {
   btnType: "button" | "submit" | "reset" | undefined;
   type?: string;
   btnEvent: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  shadow?: boolean;
 }) {
-  const { btnType, children, type, btnEvent } = props;
+  const { btnType, children, type, btnEvent, shadow } = props;
 
   let backgroundColor = "var(--billita-primary)";
   let fontColor = "var(--billita-white)";
@@ -19,8 +20,12 @@ export default function Button(props: {
     fontColor = "var(--billita-white)";
   }
 
+  if (shadow === true) {
+    boxShadow = "0px 4px 4px rgba(255, 73, 116, 0.3)";
+  }
+
   const StyledButton = styled.button`
-    border-radius: 30px;
+    border-radius: 50px;
     width: 90%;
     height: 3rem;
     border: none;

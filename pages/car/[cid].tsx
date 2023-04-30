@@ -1,11 +1,13 @@
 import React from "react";
 import DetailLayout from "@/components/pages/carDetail/DatilLayout";
 import DetailInfoTop from "@/components/pages/carDetail/DetailInfoTop";
+import DetailInfo from "@/components/pages/carDetail/DetailInfo";
 
 export default function carDetail() {
   return (
     <>
       <DetailInfoTop />
+      <DetailInfo />
     </>
   );
 }
