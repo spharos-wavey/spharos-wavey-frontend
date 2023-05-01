@@ -1,5 +1,5 @@
 import Link from "next/link"
-import style from "@/components/layouts/BrandSort.module.css"
+import style from "@/components/pages/main/brandsortSection/BrandSortItem.module.css"
 import { brandSortType } from "@/types/brandSortType"
 import Image from 'next/image'
 

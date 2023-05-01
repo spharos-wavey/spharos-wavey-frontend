@@ -1,5 +1,6 @@
 import { headerMenuType } from "@/types/headerType";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 
 export default function MenuItem(props: {
@@ -8,9 +9,15 @@ export default function MenuItem(props: {
   status?: string;
   width?: string;
 }) {
+
+  const router = useRouter();
+  const handler = () => {
+    if(props.menuItem.path) router.back();
+    else console.log("no path")
+  }
   return (
     <>
-      <li>
+      <li onClick={handler}>
         <div style={{ width: `${props.width}`, margin: "auto" }}>
           <Image
             src={props.menuItem.icon}

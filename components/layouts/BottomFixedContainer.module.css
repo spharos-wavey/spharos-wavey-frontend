@@ -6,6 +6,6 @@
   text-align: center;
   padding: 0;
   margin: 0;
-  box-shadow: 0 -3px 0.3em 3px rgba(139, 139, 139, 0.08);
-  background-color: var(--color-white);
+  /* box-shadow: 0 -3px 0.3em 3px rgba(139, 139, 139, 0.08);
+  background-color: var(--color-white); */
 }

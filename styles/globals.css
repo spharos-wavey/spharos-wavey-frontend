@@ -53,3 +53,15 @@ h1 {
   font-weight: 100;
 }
 
+main {
+  margin-top: 6rem;
+}
+
+main#carDetail {
+  margin-top: 2.5rem;
+}
+
+section {
+  margin: 2rem auto;
+}
+
