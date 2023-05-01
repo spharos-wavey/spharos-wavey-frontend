@@ -4,3 +4,6 @@
   position: relative;
   margin-top: 60px;
 }
+.logoImgWrap h1 {
+  font-size: 0;
+}

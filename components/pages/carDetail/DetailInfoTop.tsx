@@ -3,13 +3,23 @@ import style from "./DetailInfoTop.module.css";
 import Image from "next/image";
 import { carDetailData } from "@/datas/staticCarData";
 import { carStatusData } from "@/datas/staticCarData";
-import { headerMenuType } from "@/types/headerType";
 import MenuItem from "@/components/layouts/MenuItem";
 
 export default function DetailInfoTop() {
+
+  const [isActive, setIsActive] = React.useState(false);
+  const handleActive = () => {
+    setIsActive(!isActive);
+  };
   return (
     <>
-      <div className={style.topContainer}>
+      <div className={isActive ? `${style.slideDown} ${style.active}` :style.slideDown} onClick={handleActive}>
+        <Image src="/assets/images/icons/slideDownIcon.svg" width={200} height={200} alt="slideDownBtn"/>
+      </div>
+      <div className={isActive ? `${style.topBackContainer} ${style.active}` : style.topBackContainer}>
+      </div>
+      <div className={isActive ? `${style.topContainer} ${style.active}` : style.topContainer }>
+        <div className={style.innerContainer}>
         <div className={style.carName}>{carDetailData.name}</div>
         <div className={style.review}> 150 reviews {">"} </div>
         <div className={style.carImage}>
@@ -42,6 +52,7 @@ export default function DetailInfoTop() {
               width="40%"
             />
           </ul>
+        </div>
         </div>
       </div>
     </>

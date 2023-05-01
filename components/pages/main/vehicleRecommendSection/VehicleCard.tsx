@@ -1,11 +1,14 @@
 import Image from "next/image";
 import { mainVehicleCardType } from "@/types/eventBannerType";
-import style from "@/components/pages/main/VehicleRecommendMain.module.css";
+import style from "@/components/pages/main/vehicleRecommendSection/VehicleCard.module.css";
+import { useRouter } from "next/router";
 
 export default function VehicleCard(props: { item: mainVehicleCardType }) {
+
+  const router = useRouter();
   return (
-    <div>
-      <div className={style.card} key={props.item.id}>
+    <>
+      <div className={style.card} onClick={()=>router.push(`/car/${props.item.id}`)}>
         <div>
           <Image
             src={props.item.carImage}
@@ -21,6 +24,6 @@ export default function VehicleCard(props: { item: mainVehicleCardType }) {
         <div className={style.carTitle}>{props.item.carName}</div>
         <div className={style.greySubTitle}>{props.item.pickUpArea}</div>
       </div>
-    </div>
+    </>
   );
 }

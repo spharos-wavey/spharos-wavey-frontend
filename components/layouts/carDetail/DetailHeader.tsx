@@ -10,7 +10,7 @@ export default function DetailHeader() {
       <nav>
         <ul>
           {detailMenuData.map((menuItem: headerMenuType) => {
-            return <MenuItem menuItem={menuItem} key={menuItem.id} />;
+            return <MenuItem menuItem={menuItem} key={menuItem.id}/>;
           })}
         </ul>
       </nav>

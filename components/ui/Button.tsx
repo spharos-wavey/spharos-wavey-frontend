@@ -10,7 +10,7 @@ export default function Button(props: {
 }) {
   const { btnType, children, type, btnEvent, shadow } = props;
 
-  let backgroundColor = "var(--billita-primary)";
+  let backgroundColor = "var(--billita-blueHighlight)";
   let fontColor = "var(--billita-white)";
   let border = "none";
   let boxShadow = "none";
