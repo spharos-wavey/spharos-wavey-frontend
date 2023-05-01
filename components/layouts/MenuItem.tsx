@@ -22,7 +22,7 @@ export default function MenuItem(props: {
         </div>
         {props.discription && props.discription === true ? (
           <p
-            style={{ fontSize: "0.6rem", textAlign: "center", opacity: "90%" }}
+            style={{ fontSize: "0.8rem", textAlign: "center", opacity: "90%" }}
           >
             {props.status}
           </p>
