@@ -13,3 +13,13 @@ export interface mainVehicleCardType {
   carImage: string,
   pickUpArea: string
 }
+
+export interface spotCardType {
+  id: number,
+  img: string,
+  spotName: string,
+  viewCount: number,
+  writer: string,
+  profile: string,
+  distanceInMinutes: number,
+}

@@ -12,6 +12,7 @@ export default function VehicleCard(props: { item: mainVehicleCardType }) {
             width={200}
             height={90}
             alt={props.item.carName}
+            priority
           />
         </div>
         <div className={style.saveToggle}>

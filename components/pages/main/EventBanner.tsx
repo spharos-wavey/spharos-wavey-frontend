@@ -26,7 +26,7 @@ export default function EventBanner() {
               </div>
             </div>
             <div className={style.bannerRight}>
-              <Image src={bannerData.carImage} width={426} height={244} alt={bannerData.carName} priority/>
+              <Image src={bannerData.carImage} width={500} height={304} alt={bannerData.carName} priority/>
             </div>
           </div>
           <div className={style.bannerOverlay}>
@@ -35,7 +35,8 @@ export default function EventBanner() {
               지금 당장 확 마 빌리 타 뿌까? 
             </div>
             <div className={style.bannerButton}>
-              예약하기
+              예약하러 가기
+              <img src="assets/images/icons/longRightArrow.svg" />
             </div>
           </div>
         </>

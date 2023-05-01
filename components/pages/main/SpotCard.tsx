@@ -1,21 +1,42 @@
-import React from 'react'
-import style from "@/components/pages/main/SpotRecommend.module.css"
+import style from "@/components/pages/main/SpotRecommend.module.css";
+import { spotCardType } from "@/types/eventBannerType";
+import Image from "next/image";
 
-export default function SpotCard() {
+export default function SpotCard(props: { item: spotCardType }) {
+  console.log(props.item.img);
   return (
-    <>
-      <div className={style.spotCard}>
-        <div>
-          <div>
-            <div></div>
-            <div>빌리타</div>
-            <div></div>
-            <div>321</div>
-            <div></div>
-            오시리아 관광단지(롯데월드) 현재위치에서 30분컷
+    <div className={style.spotCardImg}>
+      <Image
+        src="assets/images/dummy/lotteWorld.svg"
+        alt={props.item.spotName}
+        fill
+        placeholder="empty"
+      />
+      <div className={style.spotCardInfo}>
+        <div className={style.cardInfoTop}>
+          <div className={style.writer}>
+            <div className={style.profile}>
+              <img src={props.item.profile} />
+            </div>
+            <div className={style.writersName}>{props.item.writer}</div>
+          </div>
+          <div className={style.cardView}>
+            <div className={style.visible}>
+              <img src="assets/images/icons/visible.svg" />
+            </div>
+            <div className={style.viewCount}>{props.item.viewCount}</div>
+            <div className={style.likeHeart}>
+              <img src="assets/images/icons/like.svg" />
+            </div>
           </div>
         </div>
+        <div className={style.spotName}>
+          {props.item.spotName}
+          현재위치에서{" "}
+          <span className={style.minutes}>{props.item.distanceInMinutes}</span>
+          분컷
+        </div>
       </div>
-    </>
-  )
+    </div>
+  );
 }

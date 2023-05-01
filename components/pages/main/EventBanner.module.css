@@ -4,7 +4,7 @@
   bottom: -4rem;
   z-index: 80;
   min-height: 20rem;
-  background: linear-gradient(180deg, #ffffff00 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #ffffff00 0%, #ffffff 10%);
   transition: all 0.3s ease-in-out;
 }
 
@@ -18,6 +18,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: linear-gradient(180deg, #ffffff00 0%, #ffffff 100%);
+
 }
 
 .bannerContents .bannerLeft {
@@ -59,12 +61,28 @@
   background-blend-mode: multiply;
   -webkit-filter: saturate(1.8);
   opacity: 0.6;
+  backdrop-filter: blur(10px);
 }
 
 .bannerTopText {
   color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 .bannerText {
   color: white;
+  font-size: 1.1rem;
   font-weight: 300;
+  margin-top: 3rem;
+}
+
+.bannerButton {
+  position: relative;
+  margin-top: 0.3rem;
+  bottom: -4px;
+}
+.bannerButton img{
+  position: absolute;
+  margin-left: 0.4rem;
+  bottom: -4px;
 }

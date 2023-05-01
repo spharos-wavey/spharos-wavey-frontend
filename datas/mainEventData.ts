@@ -18,14 +18,14 @@ export const mainVehicleCardData = [
     id: 2,
     carName: 'Model 3',
     carBrand: 'Tesla',
-    carImage: '',
+    carImage: '/assets/images/dummy/model3.svg',
     pickUpArea: '벡스코 지하 3층'
   },
   {
     id: 3,
     carName: 'Model 33',
     carBrand: 'Tesla33',
-    carImage: '',
+    carImage: '/assets/images/dummy/model3.svg',
     pickUpArea: '벡스코 지하 13층'
   },
   {
@@ -34,5 +34,26 @@ export const mainVehicleCardData = [
     carBrand: 'KIA',
     carImage: '/assets/images/dummy/kia-ev6_card.svg',
     pickUpArea: '벡스코 지하 13층'
+  },
+]
+
+export const mainSpotData = [
+  {
+    id: 1,
+    img: '/assets/images/dummy/lotteWorld.svg',
+    spotName: '오시리아 관광단지(롯데월드)',
+    viewCount: 321,
+    writer: '빌리타',
+    profile: '/assets/images/icons/dummyProfile.svg',
+    distanceInMinutes: 30,
+  },
+  {
+    id: 2,
+    img: '/assets/images/icons/lotteWorld.svg',
+    spotName: '오시리아 관광단지(롯데월드)',
+    viewCount: 321,
+    writer: '빌리타',
+    profile: '/assets/images/icons/dummyProfile.svg',
+    distanceInMinutes: 30,
   },
 ]
