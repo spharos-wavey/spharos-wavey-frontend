@@ -3,7 +3,7 @@ import { mainSpotData } from "@/datas/mainEventData";
 import { spotCardType } from "@/types/eventBannerType";
 import SpotCard from "./SpotCard";
 
-export default function SpotCards() {
+export default function SpotCardContainer() {
   return (
     <div className={style.spotCardsWrap}>
         {

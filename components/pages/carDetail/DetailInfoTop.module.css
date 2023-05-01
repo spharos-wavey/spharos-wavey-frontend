@@ -1,0 +1,55 @@
+.topContainer {
+  padding: 5rem 1rem 1rem;
+}
+
+.carName {
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 1.5rem 0 0;
+}
+
+.review {
+  font-size: 0.9rem;
+  padding: 0.5rem 0 1rem 0;
+  opacity: 80%;
+}
+
+.carImage {
+  width: 80%;
+  margin: auto;
+}
+
+.carImage img {
+  width: 100%;
+  height: auto;
+}
+
+.carStatus {
+  width: 80%;
+  margin: auto;
+  border: 1px;
+  margin-top: 2rem;
+  padding: 0.5rem;
+}
+
+.carStatus ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carStatus ul li {
+  list-style: none;
+}
+
+.carStatusImg {
+  width: 50%;
+  margin: auto;
+}
+
+.carStatus ul li img {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  opacity: 60%;
+}

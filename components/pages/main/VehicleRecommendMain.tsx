@@ -29,9 +29,7 @@ export default function VehicleRecommendMain() {
           <div className={style.cardsWrap}>
             {mainVehicleCardData.map((item: mainVehicleCardType) => {
               return (
-                <>
-                  <VehicleCard item={item} key={item.id}/>
-                </>
+                <VehicleCard item={item} key={item.id}/>
               );
             })}
           </div>
@@ -42,9 +40,7 @@ export default function VehicleRecommendMain() {
             {
               mainVehicleCardData.map((item: mainVehicleCardType) => {
                 return (
-                  <>
-                    <ScrollDot key={item.id} />
-                  </>
+                  <ScrollDot key={item.id} />
                 )
               })
             }

@@ -15,7 +15,7 @@ export default function Layout(props: { children: React.ReactNode }) {
       <BrandSort />
       <VehicleRecommendMain />
       <SpotRecommand />
-        <Separator gutter={30} />
+      <Separator gutter={30} />
       <Footer />
     </>
   );

@@ -10,7 +10,7 @@
   font-family: var(--billita-hangul);
   font-weight: 500;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .overflowWrap {

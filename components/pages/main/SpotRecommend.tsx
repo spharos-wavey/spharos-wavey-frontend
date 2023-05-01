@@ -1,7 +1,7 @@
 import SectionTitle from '@/components/layouts/SectionTitle'
 import Separator from '@/components/ui/Separator'
 import style from '@/components/pages/main/SpotRecommend.module.css'
-import SpotCards from './SpotCards'
+import SpotCardContainer from './SpotCardContainer'
 
 
 export default function SpotRecommand() {
@@ -14,9 +14,7 @@ export default function SpotRecommand() {
       </div>
         <Separator gutter={0.7} />
         <div className={style.sectionWrap}>
-          {
-            <SpotCards />
-          }
+          <SpotCardContainer />
         </div>
     </>
   )
