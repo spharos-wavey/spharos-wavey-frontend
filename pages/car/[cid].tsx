@@ -1,13 +1,11 @@
 import React from "react";
 import DetailLayout from "@/components/layouts/carDetail/DatilLayout";
-import DetailInfoTop from "@/components/pages/carDetail/DetailInfoWrapper";
-import DetailInfo from "@/components/pages/carDetail/DetailInfo";
+import DetailInfoWrapper from "@/components/pages/carDetail/DetailInfoWrapper";
 
 export default function carDetail() {
   return (
     <main id="carDetail">
-      <DetailInfoTop />
-      <DetailInfo />
+      <DetailInfoWrapper />
     </main>
   );
 }
