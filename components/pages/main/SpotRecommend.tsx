@@ -1,4 +1,4 @@
-import SectionTitle from '@/components/layouts/SectionTitle'
+import SectionTitle from '@/components/ui/SectionTitle'
 import Separator from '@/components/ui/Separator'
 import style from '@/components/pages/main/SpotRecommend.module.css'
 import SpotCardContainer from './SpotCardContainer'
