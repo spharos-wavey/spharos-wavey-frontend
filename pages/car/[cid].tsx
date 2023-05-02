@@ -1,10 +1,10 @@
 import React from "react";
 import DetailLayout from "@/components/layouts/carDetail/DatilLayout";
-import DetailInfoTop from "@/components/pages/carDetail/DetailInfoTop";
+import DetailInfoTop from "@/components/pages/carDetail/DetailInfoWrapper";
 import DetailInfo from "@/components/pages/carDetail/DetailInfo";
 
 export default function carDetail() {
-  return (  
+  return (
     <main id="carDetail">
       <DetailInfoTop />
       <DetailInfo />
