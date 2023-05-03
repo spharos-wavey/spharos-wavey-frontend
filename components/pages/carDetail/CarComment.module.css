@@ -1,0 +1,32 @@
+.comment {
+  width: 100%;
+}
+
+.profile {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.profileImg {
+  width: 10%;
+}
+
+.profileImg img {
+  width: 100%;
+  height: 100%;
+  border-radius: 70%;
+  overflow: hidden;
+}
+
+.profileInfo {
+  padding: 1rem 1.7rem;
+  font-size: 0.8rem;
+}
+
+.contents {
+  padding: 0 1rem 1.5rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--billita-gray);
+}

@@ -1,53 +1,39 @@
 import React, { ReactNode } from "react";
-import styled from "styled-components";
 
-export default function Button(props: {
+interface buttonStyle {
   children: ReactNode;
   btnType: "button" | "submit" | "reset" | undefined;
-  type?: string;
   btnEvent: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  submitType?: string;
   shadow?: boolean;
-}) {
-  const { btnType, children, type, btnEvent, shadow } = props;
+}
 
-  let backgroundColor = "var(--billita-blueHighlight)";
-  let fontColor = "var(--billita-white)";
-  let border = "none";
-  let boxShadow = "none";
-
-  if (type === "disabled") {
-    backgroundColor = "var(--billita-gray)";
-    fontColor = "var(--billita-white)";
-  }
-
-  if (shadow === true) {
-    boxShadow = "0px 4px 4px rgba(255, 73, 116, 0.3)";
-  }
-
-  const StyledButton = styled.button`
-    border-radius: 50px;
-    width: 90%;
-    height: 3rem;
-    border: none;
-    color: ${fontColor};
-    background-color: ${backgroundColor};
-    border: ${border};
-    margin: 15px 0;
-    letter-spacing: -0.2px;
-    box-shadow: ${boxShadow};
-    font-size: 1.1rem;
-    white-space: nowrap;
-    &:hover {
-      filter: brightness(110%);
-    }
-    &:active {
-      filter: brightness(120%);
-    }
-  `;
-
+export default function Button(props: buttonStyle) {
   return (
-    <StyledButton type={btnType} onClick={btnEvent}>
-      {children}
-    </StyledButton>
+    <button
+      style={{
+        borderRadius: "50px",
+        width: "90%",
+        height: "3rem",
+        border: "none",
+        color: "var(--billita-white)",
+        backgroundColor: `${
+          props.submitType === "disabled"
+            ? "var(--billita-gray)"
+            : "var(--billita-blueHighlight)"
+        }`,
+        margin: "15px 0",
+        letterSpacing: "-0.2px",
+        boxShadow: `${
+          props.shadow ? "0px 4px 4px rgba(255, 73, 116, 0.3)" : "none"
+        }`,
+        fontSize: "1.1rem",
+        whiteSpace: "nowrap",
+      }}
+      type={props.btnType}
+      onClick={props.btnEvent}
+    >
+      {props.children}
+    </button>
   );
 }
