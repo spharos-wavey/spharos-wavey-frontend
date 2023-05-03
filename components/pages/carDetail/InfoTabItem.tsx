@@ -3,6 +3,7 @@ import React from "react";
 export default function InfoTabItem(props: {
   name: string;
   isActive: boolean;
+  btnEvent: React.MouseEventHandler<HTMLDivElement> | undefined;
 }) {
   return (
     <div
@@ -19,6 +20,7 @@ export default function InfoTabItem(props: {
         fontSize: "0.8rem",
         opacity: "80%",
       }}
+      onClick={props.isActive ? undefined : props.btnEvent}
     >
       {props.name}
     </div>
