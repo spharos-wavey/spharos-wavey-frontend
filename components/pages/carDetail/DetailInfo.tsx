@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InfoTabItem from "./InfoTabItem";
 import style from "./DetailInfo.module.css";
 import CarOption from "./CarOption";
 import CarManual from "./CarManual";
-import CarComment from "./CarComment";
+import CarCommentContainer from "./CarCommentContainer";
+import Separator from "@/components/ui/Separator";
 
 export default function DetailInfo() {
   const [optionView, setOptionView] = useState(true);
@@ -47,9 +48,10 @@ export default function DetailInfo() {
           btnEvent={commentHandler}
         />
       </div>
+      <Separator gutter={0.4} padding={true} />
       {optionView ? <CarOption /> : ""}
       {manualView ? <CarManual /> : ""}
-      {commentView ? <CarComment /> : ""}
+      {commentView ? <CarCommentContainer /> : ""}
     </>
   );
 }
