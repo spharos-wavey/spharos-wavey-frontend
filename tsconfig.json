@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/map/index.jsx",
+    "pages/map/index.tsx",
     "pages/map/map.jsx"
   ],
   "exclude": ["node_modules"]
