@@ -1,5 +1,4 @@
 import React from "react";
-import style from "./DetailLocation.module.css";
 import Title from "@/components/ui/Title";
 import LocationButton from "@/components/ui/LocationButton";
 import Separator from "@/components/ui/Separator";

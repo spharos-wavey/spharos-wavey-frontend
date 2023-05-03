@@ -4,6 +4,7 @@ import Image from "next/image";
 import DetailInfoTop from "./DetailInfoTop";
 import Separator from "@/components/ui/Separator";
 import DetailLocation from "./DetailLocation";
+import DetailInfo from "./DetailInfo";
 
 export default function DetailInfoWrapper() {
   const [isActive, setIsActive] = React.useState(false);
@@ -42,6 +43,8 @@ export default function DetailInfoWrapper() {
         <DetailInfoTop />
         <Separator gutter={1} padding={true} />
         <DetailLocation />
+        <Separator gutter={1.5} padding={true} />
+        <DetailInfo />
       </div>
     </>
   );
