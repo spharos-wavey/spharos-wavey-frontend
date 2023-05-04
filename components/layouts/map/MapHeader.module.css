@@ -1,8 +1,27 @@
 .header {
   width: 100%;
-  padding: 2rem 1.25rem 1rem 1.25rem;
+  padding: 1rem;
   background-color: var(--billita-white);
+  background-blend-mode: multiply;
+  opacity: 0.6;
+  backdrop-filter: blur(10px);
+  border-radius: 1rem 1rem 0 0;
   position: fixed;
   top: 0;
   z-index: 100;
+}
+
+.header nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header nav ul li {
+  list-style: none;
+}
+
+.header nav ul li img {
+  width: 100%;
+  height: auto;
 }
