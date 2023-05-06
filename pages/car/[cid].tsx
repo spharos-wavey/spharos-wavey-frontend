@@ -1,6 +1,7 @@
 import React from "react";
 import DetailLayout from "@/components/layouts/carDetail/DatilLayout";
 import DetailInfoWrapper from "@/components/pages/carDetail/DetailInfoWrapper";
+import { useRouter } from "next/router";
 
 export default function carDetail() {
   return (
