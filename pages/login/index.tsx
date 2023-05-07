@@ -10,8 +10,7 @@ declare global {
   }
 }
 
-export default function page() {
-  const REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
+export default function Page() {
   const REDIRECT_URI = "https://billita.xyz";
 
   useEffect(() => {
@@ -22,8 +21,6 @@ export default function page() {
     }
   }, []);
 
-  const KAKAO_AUTH_URI = `/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  
   function handleLogin() {
     if (!window.Kakao.isInitialized()) {
       return;
@@ -55,6 +52,6 @@ export default function page() {
   );
 }
 
-page.getLayout = function getLayout(Page: React.ReactNode) {
+Page.getLayout = function getLayout(Page: React.ReactNode) {
   return <SimpleBackLayout>{Page}</SimpleBackLayout>;
 };
