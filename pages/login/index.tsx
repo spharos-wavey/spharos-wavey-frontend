@@ -1,8 +1,7 @@
 import Image from "next/image";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import Logo from "@/components/ui/Logo";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 
 declare global {
   interface Window {
