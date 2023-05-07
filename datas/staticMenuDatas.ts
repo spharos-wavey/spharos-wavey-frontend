@@ -56,14 +56,34 @@ export const footerMenuData = [
 export const vehicleMapListIconData = [
   {
     id: 1,
-    name: 'list',
-    path: '/list',
-    icon: 'assets/images/icons/listIcon.svg'
+    name: "list",
+    path: "/list",
+    icon: "assets/images/icons/listIcon.svg",
   },
   {
     id: 2,
-    name: 'mapToAction',
-    path: '/mapToAction',
-    icon: 'assets/images/icons/locateIcon.svg'
-  }
-]
+    name: "mapToAction",
+    path: "/mapToAction",
+    icon: "assets/images/icons/locateIcon.svg",
+  },
+];
+export const mapHeaderIcon = [
+  {
+    id: 1,
+    name: "blackBackIcon",
+    path: "/",
+    icon: "/assets/images/icons/leftArrowIconBlack.svg",
+  },
+  {
+    id: 2,
+    name: "logo",
+    path: "/",
+    icon: "/assets/images/common/billitaLogoOnly.svg",
+  },
+  {
+    id: 3,
+    name: "blank",
+    path: "",
+    icon: "/assets/images/icons/blank.png",
+  },
+];
