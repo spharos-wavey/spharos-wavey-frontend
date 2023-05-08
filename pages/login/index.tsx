@@ -10,7 +10,7 @@ declare global {
 }
 
 export default function Page() {
-  const REDIRECT_URI = `${process.env.NEXT_PUBLIC_BASE_URL}/login/callback`;
+  const REDIRECT_URI = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
