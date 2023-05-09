@@ -10,7 +10,7 @@ declare global {
 }
 
 export default function Page() {
-  const REDIRECT_URI = `${process.env.NEXT_PUBLIC_BASE_URL}`;
+  const REDIRECT_URI = `${process.env.NEXT_PUBLIC_BASE_URL}/login/kakao`;
 
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
@@ -28,7 +28,6 @@ export default function Page() {
     window.Kakao.Auth.authorize({
       redirectUri: REDIRECT_URI,
     });
-
   }
 
   return (
