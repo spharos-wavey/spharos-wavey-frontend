@@ -8,10 +8,15 @@
   z-index: 0;
 }
 
+.headerContainer nav {
+  position: relative;
+}
+
 .headerContainer nav ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .headerContainer nav ul li {
@@ -20,7 +25,17 @@
   height: 1.5rem;
 }
 
-.headerContainer nav ul li img {
+.headerContainer nav ul .img {
   width: 100%;
   height: auto;
+  position: absolute;
+  top: 0.4rem;
+}
+
+.headerContainer .title {
+  width: 20rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 0.4rem;
 }
