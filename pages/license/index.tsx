@@ -3,14 +3,17 @@ import style from "./index.module.css";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import SectionTitle from "@/components/ui/SectionTitle";
 import LicenseType from "./LicenseType";
+import PersonalInfo from "./PersonalInfo";
 
 export default function Page() {
   return (
   <main>
     <section>
       <div className={style.sectionWrap}>
-        <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
+        <SectionTitle fontSize={0.85}>운전면허정보 입력</SectionTitle>
         <LicenseType />
+        <SectionTitle fontSize={0.85}>개인정보 입력</SectionTitle>
+        <PersonalInfo />
       </div>
     </section>
   </main>

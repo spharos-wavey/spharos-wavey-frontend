@@ -18,7 +18,7 @@ export default function SimpleBackLayout(props: {
                   alt="Back"
                   width={20}
                   height={20}
-                  priority
+                  priority={true}
                 />
               </div>
             </Link>
