@@ -2,6 +2,7 @@ import React from "react";
 import style from "./index.module.css";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import SectionTitle from "@/components/ui/SectionTitle";
+import LicenseType from "./LicenseType";
 
 export default function Page() {
   return (
@@ -9,6 +10,7 @@ export default function Page() {
     <section>
       <div className={style.sectionWrap}>
         <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
+        <LicenseType />
       </div>
     </section>
   </main>
