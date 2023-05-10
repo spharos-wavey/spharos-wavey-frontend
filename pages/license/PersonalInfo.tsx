@@ -46,9 +46,9 @@ export default function PersonalInfo() {
         InputLabelProps={{ style: { fontSize: 12 } }}
         fullWidth
         // helperText={value ? "" : "필수 입력창 입니다."}
-        placeholder="예: YYYYY-MM-DD"
+        placeholder="예: YYYYYMMDD"
       />
-      <Separator gutter={3} />
+      <Separator gutter={7} />
     </Box>
   );
 }

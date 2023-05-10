@@ -4,6 +4,8 @@ import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import SectionTitle from "@/components/ui/SectionTitle";
 import LicenseType from "./LicenseType";
 import PersonalInfo from "./PersonalInfo";
+import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
+import Button from "@/components/ui/Button";
 
 export default function Page() {
   return (
@@ -15,6 +17,11 @@ export default function Page() {
         <SectionTitle fontSize={0.85}>개인정보 입력</SectionTitle>
         <PersonalInfo />
       </div>
+      <BottomFixedContainer>
+        <Button btnType={"button"} btnEvent={() => alert("g")} shadow={true}>
+          등록하기
+        </Button>
+      </BottomFixedContainer>
     </section>
   </main>
   );
