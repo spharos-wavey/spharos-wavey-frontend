@@ -93,7 +93,7 @@ const Kakao: NextPage = () => {
                 nickName: data.properties.nickname,
                 profileImageUrl: data.properties.profile_image,
               })
-              .then((response) => (window.location.href = "/"))
+              // .then((response) => (window.location.href = "/"))
               .catch((err) => (window.location.href = "/login"));
           } catch (err) {
             console.log(err);
