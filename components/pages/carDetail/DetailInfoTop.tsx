@@ -6,11 +6,11 @@ import { carDetailData, carStatusData } from "@/datas/staticCarData";
 import Separator from "@/components/ui/Separator";
 
 interface headerType {
-  name: string;
-  imageUrl: string;
-  charge: number;
-  wash: string;
-  fare: number;
+  name: string | undefined;
+  imageUrl: string | undefined;
+  charge: number | undefined;
+  wash: string | undefined;
+  fare: number | undefined;
 }
 
 export default function DetailInfoTop({
@@ -25,7 +25,13 @@ export default function DetailInfoTop({
       <div className={style.carName}>{name}</div>
       <Separator gutter={1.3} padding={true} />
       <div className={style.carImage}>
-        <Image src={imageUrl} width={200} height={200} alt={name} priority />
+        <Image
+          src={imageUrl || ""}
+          width={200}
+          height={200}
+          alt={name || "사진"}
+          priority
+        />
       </div>
       <div className={style.carStatus}>
         <ul>

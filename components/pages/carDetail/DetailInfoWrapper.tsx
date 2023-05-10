@@ -11,6 +11,7 @@ import { carDataType } from "@/types/carDataType";
 
 export default function DetailInfoWrapper() {
   const [isActive, setIsActive] = useState(false);
+  // car default 값 필요
   const [carData, setCarData] = useState<carDataType>();
   const router = useRouter();
 
