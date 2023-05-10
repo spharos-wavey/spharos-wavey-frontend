@@ -10,12 +10,12 @@ declare global {
 }
 
 export default function Page() {
-  const REDIRECT_URI = `${process.env.NEXT_PUBLIC_BASE_URL}`;
+  const REDIRECT_URI = `${process.env.NEXT_PUBLIC_BASE_URL}/kakao`;
 
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
-      console.log(window.Kakao.isInitialized);
+      console.log(window.Kakao.isInitialized());
       console.log(window.Kakao.Auth);
     }
   }, []);
@@ -27,8 +27,8 @@ export default function Page() {
 
     window.Kakao.Auth.authorize({
       redirectUri: REDIRECT_URI,
+      scope: "profile_nickname, profile_image, account_email",
     });
-
   }
 
   return (
