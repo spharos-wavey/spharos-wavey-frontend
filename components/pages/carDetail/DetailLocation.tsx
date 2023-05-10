@@ -8,7 +8,7 @@ export default function DetailLocation() {
     <>
       <Title title={"Location"} padding="0px" />
       <Separator gutter={0.5} padding={true} />
-      <LocationButton btnEvent={() => alert("꺼져")} />
+      <LocationButton btnEvent={() => alert("구현예정")} />
     </>
   );
 }
