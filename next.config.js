@@ -8,6 +8,7 @@ const nextConfig = {
 
   images: {
     domains: ["i.ibb.co"],
+    domains: ["storage.googleapis.com"],
   },
 };
 
