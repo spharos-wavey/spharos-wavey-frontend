@@ -70,7 +70,10 @@ export default function DetailInfoWrapper() {
           fare={carData?.frameInfo.distancePrice}
         />
         <Separator gutter={1} padding={true} />
-        <DetailLocation />
+        <DetailLocation
+          location="주소 주소 상세주소"
+          locationName={carData?.place.name}
+        />
         <Separator gutter={1.5} padding={true} />
         <DetailInfo />
       </div>

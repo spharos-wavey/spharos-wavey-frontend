@@ -4,6 +4,8 @@ import Image from "next/image";
 import Separator from "./Separator";
 
 export default function LocationButton(props: {
+  locationName: string | undefined;
+  location: string | undefined;
   btnEvent: React.MouseEventHandler<HTMLDivElement> | undefined;
 }) {
   return (
@@ -24,12 +26,10 @@ export default function LocationButton(props: {
             color: "var(--billita-blueHighlight)",
           }}
         >
-          해운대 센텀 지점
+          {props.locationName}
         </div>
         <Separator gutter={0.3} padding={true} />
-        <div style={{ fontSize: "0.85rem" }}>
-          부산광역시 해운대구 센텀시티 1234
-        </div>
+        <div style={{ fontSize: "0.8rem" }}>{props.location}</div>
       </div>
     </div>
   );
