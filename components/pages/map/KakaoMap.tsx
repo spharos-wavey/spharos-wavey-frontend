@@ -5,8 +5,6 @@ export default function KakaoMap() {
   const [lat, setLat] = useState<number>(33.5563);
   const [lng, setLng] = useState<number>(126.79581);
 
-  const target = useRef(null);
-
   useEffect(() => {
     const getLocation = () => {
       if (navigator.geolocation) {
@@ -51,49 +49,33 @@ export default function KakaoMap() {
   return (
     <>
       <Map
-        center={{ lat: lat-0.001, lng: lng-0.001 }}
+        center={{ lat: lat, lng: lng }}
         style={{ width: "100%", height: "100vh" }}
+        level={4}
       >
         <CustomOverlayMap // 커스텀 오버레이를 표시할 Container
           // 커스텀 오버레이가 표시될 위치입니다
           position={{
-            lat: lat-0.001,
-            lng: lng-0.001,
+            lat: lat - 0.001,
+            lng: lng - 0.001,
           }}
         >
           {/* 커스텀 오버레이에 표시할 내용입니다 */}
-          <div className="label" style={{color: "white", backgroundColor: 'red'}} onClick={handleClick}>
-            <span className="left"></span>
-            <span className="center">카카오!</span>
-            <span className="right"></span>
+          <div
+            className="label"
+            style={{
+              width: "40px",
+              height: "40px",
+              borderRadius: "70%",
+              color: "white",
+              backgroundColor: "var(--billita-blue)",
+              textAlign: "center",
+            }}
+            onClick={handleClick}
+          >
+            <span style={{ fontSize: "0.9rem", lineHeight: "40px" }}>3</span>
           </div>
         </CustomOverlayMap>
-        {/* <MapMarker position={{ lat: lat, lng: lng }}>
-          <div style={{ color: "#000" }}>Hello World!</div>
-        </MapMarker> */}
-        {/* <MapMarker position={{ lat: lat-0.001, lng: lng-0.001 }} 
-          clickable onClick={handleClick} 
-          ref={target}
-          image={{
-            src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커이미지의 주소입니다
-            size: {
-              width: 64,
-              height: 69,
-            }, // 마커이미지의 크기입니다
-            options: {
-              offset: {
-                x: 27,
-                y: 69,
-              }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-            },
-
-          }}
-        >
-          <div style={{ color: "#fff", border:'none', textAlign: 'center' }}>뭐? 12</div>
-        </MapMarker> */}
-        <MapMarker position={{ lat: lat-0.002, lng: lng-0.002 }}>
-          <div style={{ color: "#000"}}>?</div>
-        </MapMarker>
       </Map>
     </>
   );
