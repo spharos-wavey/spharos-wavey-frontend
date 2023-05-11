@@ -47,7 +47,7 @@ export const footerMenuData = [
   {
     id: 4,
     name: "myPage",
-    path: "/myPage",
+    path: "/login",
     icon: "assets/images/icons/userIconOutline.svg",
     iconActive: "assets/images/icons/userIconContaine.svg",
   },
