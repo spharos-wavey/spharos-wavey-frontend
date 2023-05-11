@@ -94,7 +94,10 @@ const Kakao: NextPage = () => {
                 profileImageUrl: data.properties.profile_image,
               })
               .then((res) => {
-                console.log(res);
+                console.log(res.headers.authorization);
+                const jwtToken = res.headers.authorization;
+                localStorage.setItem("Authorization", jwtToken);
+                router.push("/");
               })
               .catch((err) => router.push("/login"));
           } catch (err) {
