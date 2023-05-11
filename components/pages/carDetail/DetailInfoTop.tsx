@@ -20,16 +20,16 @@ export default function DetailInfoTop({
   wash,
   fare,
 }: headerType) {
-  return (
+  return imageUrl !== undefined ? (
     <>
       <div className={style.carName}>{name}</div>
       <Separator gutter={1.3} padding={true} />
       <div className={style.carImage}>
         <Image
-          src={imageUrl || ""}
+          src={imageUrl}
           width={200}
           height={200}
-          alt={name || "사진"}
+          alt={name || ""}
           priority
         />
       </div>
@@ -56,5 +56,7 @@ export default function DetailInfoTop({
         </ul>
       </div>
     </>
+  ) : (
+    <></>
   );
 }

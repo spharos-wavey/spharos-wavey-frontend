@@ -9,7 +9,6 @@ export interface carDataType {
   longitude: number;
   available: boolean;
   charge: number;
-  image: string;
   lastZone: number;
   smartKey: string;
   frameInfo: {
@@ -26,6 +25,7 @@ export interface carDataType {
     carType: string;
     appearance: string;
     manuel: string;
+    image: string;
   };
   washTime: string;
   place: {

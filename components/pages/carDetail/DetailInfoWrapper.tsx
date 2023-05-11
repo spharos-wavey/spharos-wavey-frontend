@@ -25,8 +25,8 @@ export default function DetailInfoWrapper() {
         const result = await axios.get(
           `https://api-billita.xyz/vehicle/${router.query.cid}`
         );
-        console.log(result.data);
-        console.log(result.data.image);
+        console.log("data : ", result.data);
+        console.log("img url : ", result.data.frameInfo.image);
         setCarData(result.data);
       };
       getData();
@@ -64,13 +64,16 @@ export default function DetailInfoWrapper() {
       >
         <DetailInfoTop
           name={carData?.frameInfo.name}
-          imageUrl={carData?.image}
+          imageUrl={carData?.frameInfo.image}
           charge={carData?.charge}
           wash={carData?.washTime.slice(0, 10).replace(/-/gi, ".")}
           fare={carData?.frameInfo.distancePrice}
         />
         <Separator gutter={1} padding={true} />
-        <DetailLocation />
+        <DetailLocation
+          location="주소 주소 상세주소"
+          locationName={carData?.place.name}
+        />
         <Separator gutter={1.5} padding={true} />
         <DetailInfo />
       </div>

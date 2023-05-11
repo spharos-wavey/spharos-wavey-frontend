@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+// import { useEffect, useState } from "react";
+// import axios from "axios";
 
 
-export default function getData(url: string) {
-  const [data, setData] = useState({});
+// export default function getData(url: string) {
+//   const [data, setData] = useState({});
 
-  useEffect(() => {
-    axios.get('https://api-billita.xyz/'+url)
-    .then(res => {
-      return res
-    })
-    .then(data => {
-      setData(data);
-    })
-  }, [url])
+//   useEffect(() => {
+//     axios.get('https://api-billita.xyz/'+url)
+//     .then(res => {
+//       return res
+//     })
+//     .then(data => {
+//       setData(data);
+//     })
+//   }, [url])
 
 
-  return data;
-}
+//   return data;
+// }
