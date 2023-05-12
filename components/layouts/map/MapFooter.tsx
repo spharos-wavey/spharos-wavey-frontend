@@ -6,8 +6,8 @@ export default function MapFooter() {
     <BottomFixedContainer>
       <div className={style.footer}>
         <input type="text" placeholder="어디에서 출발하세요?" />
-        <div className={style.filterItem}>ㅋ</div>
-        <div className={style.filterItem}>ㅎ</div>
+        <div className={style.filterItem}>시간</div>
+        <div className={style.filterItem}>차종</div>
       </div>
     </BottomFixedContainer>
   );
