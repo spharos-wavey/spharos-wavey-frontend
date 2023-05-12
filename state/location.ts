@@ -5,7 +5,7 @@ import { recoilPersist } from "recoil-persist";
 const { persistAtom } = recoilPersist();
 
 export const locationState = atom<locationType>({
-  key: "locationType",
+  key: "locationState",
   default: {
     latitude: 0,
     longitude: 0,
