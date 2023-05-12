@@ -1,4 +1,6 @@
 import { locationState } from "@/state/location";
+import { locationType } from "@/types/location";
+import { init } from "next/dist/compiled/@vercel/og/satori";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
@@ -7,6 +9,10 @@ import { useRecoilState } from "recoil";
 export default function KakaoMap() {
   const [currentLat, setCurrentLat] = useState<number>(33.5563);
   const [currentLng, setCurrentLng] = useState<number>(126.79581);
+  const [initLoc, setInitLoc] = useState<locationType>({
+    latitude: 0,
+    longitude: 0,
+  });
   const [carLocation, setCarLocation] = useRecoilState(locationState);
   const [center, setCenter] = useState({
     lat: 0,
@@ -24,8 +30,8 @@ export default function KakaoMap() {
             const time = new Date(position.timestamp);
             setCurrentLat(position.coords.latitude);
             setCurrentLng(position.coords.longitude);
-            console.log(position);
-            console.log(`현재시간 : ${time}`);
+            // console.log(position);
+            // console.log(`현재시간 : ${time}`);
             // console.log(`현재위도 : ${position.coords.latitude}`);
             // console.log(`현재경도 : ${position.coords.longitude}`);
           },
@@ -46,12 +52,20 @@ export default function KakaoMap() {
     getLocation();
   }, []);
 
-  if (carLocation.latitude !== 0 && carLocation.longitude !== 0) {
-    center.lat = carLocation.latitude;
-    center.lng = carLocation.longitude;
-  }
+  useEffect(() => {
+    setInitLoc((loc) => {
+      const tempLoc = { ...loc };
+      if (carLocation.latitude !== 0 && carLocation.longitude !== 0) {
+        (loc.latitude = carLocation.latitude),
+          (loc.longitude = carLocation.longitude);
+      } else {
+        (loc.latitude = currentLat), (loc.longitude = currentLng);
+      }
+      return tempLoc;
+    });
+  }, [currentLat, currentLng]);
 
-  console.log("carLocation : ", carLocation);
+  console.log("recoil로 넘어온 차 위치 : ", carLocation);
 
   const centerChangeHandler = (map: kakao.maps.Map) => {
     setCenter({
@@ -63,14 +77,18 @@ export default function KakaoMap() {
       longitude: 0,
     });
   };
+
+  console.log("init : ", initLoc);
   console.log("센터 좌표 :", center);
 
   const overLayClickHandler = () => {};
 
-  return (
+  return initLoc.latitude == 0 && initLoc.longitude == 0 ? (
+    <></>
+  ) : (
     <>
       <Map
-        center={{ lat: center.lat, lng: center.lng }}
+        center={{ lat: initLoc.latitude, lng: initLoc.longitude }}
         style={{ width: "100%", height: "100vh" }}
         level={4}
         onCenterChanged={centerChangeHandler}
