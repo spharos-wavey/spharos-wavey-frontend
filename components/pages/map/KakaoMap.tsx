@@ -1,6 +1,5 @@
 import { locationState } from "@/state/location";
 import { locationType } from "@/types/location";
-import { init } from "next/dist/compiled/@vercel/og/satori";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
