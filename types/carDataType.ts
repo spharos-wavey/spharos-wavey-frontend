@@ -33,5 +33,6 @@ export interface carDataType {
     name: string;
     latitude: number;
     longitude: number;
+    zoneAddress: string;
   };
 }

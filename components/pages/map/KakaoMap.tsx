@@ -1,9 +1,15 @@
+import { locationState } from "@/state/location";
 import React, { useEffect, useRef, useState } from "react";
 import { CustomOverlayMap, Map, MapMarker } from "react-kakao-maps-sdk";
+import { useRecoilState } from "recoil";
 
 export default function KakaoMap() {
   const [lat, setLat] = useState<number>(33.5563);
   const [lng, setLng] = useState<number>(126.79581);
+
+  const [loc, setLoc] = useRecoilState(locationState);
+
+  console.log("차량 위치:", loc);
 
   useEffect(() => {
     const getLocation = () => {
@@ -49,7 +55,7 @@ export default function KakaoMap() {
   return (
     <>
       <Map
-        center={{ lat: lat, lng: lng }}
+        center={{ lat: loc.latitude, lng: loc.longitude }}
         style={{ width: "100%", height: "100vh" }}
         level={4}
       >

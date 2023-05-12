@@ -71,8 +71,10 @@ export default function DetailInfoWrapper() {
         />
         <Separator gutter={1} padding={true} />
         <DetailLocation
-          location="주소 주소 상세주소"
+          location={carData?.place.zoneAddress}
           locationName={carData?.place.name}
+          latitude={carData?.place.latitude}
+          longitude={carData?.place.longitude}
         />
         <Separator gutter={1.5} padding={true} />
         <DetailInfo />
