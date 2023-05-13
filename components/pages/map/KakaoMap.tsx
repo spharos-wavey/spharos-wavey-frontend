@@ -29,6 +29,7 @@ export default function KakaoMap() {
             const time = new Date(position.timestamp);
             setCurrentLat(position.coords.latitude);
             setCurrentLng(position.coords.longitude);
+            console.log("렌더링됨");
             // console.log(position);
             // console.log(`현재시간 : ${time}`);
             // console.log(`현재위도 : ${position.coords.latitude}`);
