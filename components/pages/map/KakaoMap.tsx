@@ -1,13 +1,13 @@
 import { locationState } from "@/state/location";
 import { locationType } from "@/types/location";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
 import { useRecoilState } from "recoil";
 
 export default function KakaoMap() {
-  const [currentLat, setCurrentLat] = useState<number>(33.5563);
-  const [currentLng, setCurrentLng] = useState<number>(126.79581);
+  const [currentLat, setCurrentLat] = useState<number>(0);
+  const [currentLng, setCurrentLng] = useState<number>(0);
   const [initLoc, setInitLoc] = useState<locationType>({
     latitude: 0,
     longitude: 0,
@@ -19,7 +19,8 @@ export default function KakaoMap() {
   });
 
   const router = useRouter();
-  // console.log("router: ", router);
+
+  console.log("recoil로 넘어온 차 위치 : ", carLocation);
 
   useEffect(() => {
     const getLocation = () => {
@@ -29,11 +30,25 @@ export default function KakaoMap() {
             const time = new Date(position.timestamp);
             setCurrentLat(position.coords.latitude);
             setCurrentLng(position.coords.longitude);
+            if (carLocation.latitude == 0 && carLocation.longitude == 0) {
+              setInitLoc({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              });
+            } else {
+              setInitLoc({
+                latitude: carLocation.latitude,
+                longitude: carLocation.longitude,
+              });
+            }
+
             console.log("렌더링됨");
-            // console.log(position);
-            // console.log(`현재시간 : ${time}`);
             // console.log(`현재위도 : ${position.coords.latitude}`);
             // console.log(`현재경도 : ${position.coords.longitude}`);
+            setCarLocation({
+              latitude: 0,
+              longitude: 0,
+            });
           },
           (error) => {
             console.error(error);
@@ -52,33 +67,15 @@ export default function KakaoMap() {
     getLocation();
   }, []);
 
-  useEffect(() => {
-    setInitLoc((loc) => {
-      const tempLoc = { ...loc };
-      if (carLocation.latitude !== 0 && carLocation.longitude !== 0) {
-        (loc.latitude = carLocation.latitude),
-          (loc.longitude = carLocation.longitude);
-      } else {
-        (loc.latitude = currentLat), (loc.longitude = currentLng);
-      }
-      return tempLoc;
-    });
-  }, [currentLat, currentLng]);
-
-  console.log("recoil로 넘어온 차 위치 : ", carLocation);
-
   const centerChangeHandler = (map: kakao.maps.Map) => {
     setCenter({
       lat: map.getCenter().getLat(),
       lng: map.getCenter().getLng(),
     });
-    setCarLocation({
-      latitude: 0,
-      longitude: 0,
-    });
   };
 
-  console.log("init : ", initLoc);
+  // console.log("init : ", initLoc);
+  // console.log("세팅된 현재 위도 : ", currentLat);
   console.log("센터 좌표 :", center);
 
   const overLayClickHandler = () => {};
