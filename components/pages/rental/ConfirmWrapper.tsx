@@ -34,11 +34,12 @@ export default function RentalWrapper() {
 
           <BottomFixedContainer>
             <Button
-              children={`잘 알겠어요, 예약할게요`}
               btnType={"button"}
               btnEvent={() => alert("action")}
               shadow={true}
-            />
+            >
+              잘 알겠어요, 예약할게요
+            </Button>
           </BottomFixedContainer>
         </Box>
       </Drawer>
@@ -56,12 +57,11 @@ export default function RentalWrapper() {
 
           <BottomFixedContainer>
             <Button
-              children={`잘 알겠어요, 예약할게요`}
               btnType={"button"}
               btnEvent={() => setNextDrawer(true)}
               // 안되는데 히히
               shadow={true}
-            />
+            >잘 알겠어요, 예약할게요</Button>
           </BottomFixedContainer>
         </Box>
       </Drawer>
@@ -85,11 +85,12 @@ export default function RentalWrapper() {
 
       <BottomFixedContainer>
         <Button
-          children={`결제하기 5030원`}
           btnType={"button"}
           btnEvent={() => handleDrawer()}
           shadow={true}
-        />
+        >
+          결제하기 5030원
+        </Button>
       </BottomFixedContainer>
     </main>
   );

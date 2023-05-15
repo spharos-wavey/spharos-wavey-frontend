@@ -28,15 +28,16 @@ export default function RentalWrapper() {
         variant="temporary"
       >
         <Box position="relative" width="100%" height="370px">
-          <ModalBookCancel setDrawer={setDrawer}/>
+          <ModalBookCancel setDrawer={setDrawer} />
 
           <BottomFixedContainer>
             <Button
-              children={`네, 진행해주세요`}
               btnType={"button"}
               btnEvent={() => alert("action")}
               shadow={true}
-            />
+            >
+              네, 진행해주세요
+            </Button>
           </BottomFixedContainer>
         </Box>
       </Drawer>
@@ -60,17 +61,19 @@ export default function RentalWrapper() {
 
       <BottomFixedContainer>
         <Button
-          children={`대여취소 색깔바꿔주세염`}
           btnType={"reset"}
           btnEvent={() => setDrawer(true)}
           shadow={true}
-        />
+        >
+          대여취소 색깔바꿔주세염
+        </Button>
         <Button
-          children={`결제하기 5030원`}
           btnType={"button"}
           btnEvent={() => alert("action")}
           shadow={true}
-        />
+        >
+          결제하기 5030원
+        </Button>
       </BottomFixedContainer>
     </main>
   );

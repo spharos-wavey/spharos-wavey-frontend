@@ -19,7 +19,7 @@ export default function VehicleCard(props: { item: mainVehicleCardType }) {
           />
         </div>
         <div className={style.saveToggle}>
-          <img src="assets/images/icons/saveToggleContaine.svg" />
+          <Image src="assets/images/icons/saveToggleContaine.svg" alt="" width="20" height="20"/>
         </div>
         <div className={style.carTitle}>{props.item.carName}</div>
         <div className={style.greySubTitle}>{props.item.pickUpArea}</div>
