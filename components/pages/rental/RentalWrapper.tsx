@@ -3,7 +3,6 @@ import RentalTop from "./RentalTop";
 import RentalMiddle from "./RentalMiddle";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
-import axios from "axios";
 
 export default function RentalWrapper() {
   // useEffect(() => {
@@ -21,14 +20,15 @@ export default function RentalWrapper() {
         charge={undefined}
         imageUrl={undefined}
       />
-      <RentalMiddle 
+      <RentalMiddle
         fare={undefined}
         startTime={undefined}
         endTime={undefined}
         totalRentTime={undefined}
         billitazone={undefined}
         rentalfee={undefined}
-        insurancefee={undefined}/>
+        insurancefee={undefined}
+      />
 
       <BottomFixedContainer>
         <Button
@@ -36,7 +36,6 @@ export default function RentalWrapper() {
           btnType={"button"}
           btnEvent={() => alert("action")}
           shadow={true}
-          border= {"var(--billita-pink"}
         />
         <Button
           children={`결제하기 5030원`}

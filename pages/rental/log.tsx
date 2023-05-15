@@ -5,7 +5,9 @@ import RentalLogWrapper from '@/components/pages/rental/RentalLogWrapper'
 export default function Page() {
   return (
     <main>
-      <RentalLogWrapper />
+      <RentalLogWrapper xx={true}/>
+      
+
     </main>
   )
 }

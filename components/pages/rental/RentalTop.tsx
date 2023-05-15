@@ -1,8 +1,5 @@
 import React from "react";
 import style from "./RentalTop.module.css";
-import MenuItem from "@/components/layouts/MenuItem";
-import { carStatusData } from "@/datas/staticCarData";
-import ChargeInfo from "./ChargeInfo";
 import Image from "next/image";
 import {rentalTopDataType } from "@/types/rentalDataType";
 

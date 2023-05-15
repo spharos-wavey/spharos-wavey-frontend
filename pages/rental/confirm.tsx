@@ -1,11 +1,11 @@
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import React from "react";
-import RentalWrapper from "@/components/pages/rental/RentalWrapper";
+import ConfirmWrapper from "@/components/pages/rental/ConfirmWrapper";
 
 export default function Page() {
   return (
     <main>
-      <RentalWrapper />
+      <ConfirmWrapper />
     </main>
   );
 }

@@ -3,12 +3,12 @@ import RentalLogCard from "./RentalLogCard";
 import style from "./RentalLogWrapper.module.css";
 import RentalLogNotExist from '@/components/pages/rental/RentalLogNotExist'
 
-export default function RentalLogWrapper() {
+export default function RentalLogWrapper(props: any) {
   return (
     <main>
       <div  className={style.wrapper}>
-        <RentalLogCard />
-        {/* <RentalLogNotExist /> */}
+        {props.xx ? <RentalLogCard /> : <RentalLogNotExist />}
+        
       </div>
     </main>
   );

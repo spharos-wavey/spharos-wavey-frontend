@@ -1,0 +1,51 @@
+.closeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eeeeee;
+  position: absolute;
+  border-radius: 100%;
+  width: 62px;
+  height: 62px;
+  background: #0067df;
+  mix-blend-mode: hard-light;
+  box-shadow: 0px 4px 4px #01c5df;
+  right: 13px;
+  top: 13px;
+  z-index: 999;
+}
+
+.modalWrap {
+  padding: 3rem;
+}
+.modalTitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+  display: flex;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1rem;
+}
+
+.greyText {
+  font-weight: bold;
+  opacity: 0.6;
+  margin-bottom: 0.4rem;
+}
+
+.redText {
+  color: #f52d56;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.ulWrapper ul {
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.ulWrapper ul li {
+  padding: 4px;
+  margin-left: 1rem;
+}

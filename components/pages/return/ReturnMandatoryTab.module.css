@@ -22,7 +22,7 @@
   justify-content: flex-end;
 }
 
-.hr{
+.hr {
   width: 4rem;
   background-color: var(--billita-blueHighlight);
   border: 0;
