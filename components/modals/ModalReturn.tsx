@@ -2,17 +2,17 @@ import React from "react";
 import style from "./ModalBookCancel.module.css"
 import Image from "next/image";
 
-export default function ModalBookCancel(props: any) {
+export default function ModalReturn(props: any) {
   return (
     <div className={style.modalWrap}>
       <div className={style.closeBtn} onClick={() => props.setDrawer(false)}>
         <Image src="/assets/images/icons/modalCloseX.svg" width="20" height="20" alt="close" />
       </div>
-      <div className={style.modalTitle}>예약취소</div>
-      <div className={style.greyText}>지금 취소하시면 수수료가 발생하지 않습니다.</div>
-      <div className={style.greyText}>계속 진행하시겠습니까?</div>
+      <div className={style.modalTitle}>반납하기</div>
+      <div className={style.greyText}>반납장소에 무사히 도착하셨나요?</div>
+      <div className={style.greyText}>반납을 진행 하시겠습니까?</div>
       <div>
-        <p className={style.redText}>취소수수료 안내</p>
+        <p className={style.redText}>반납지연 수수료 안내</p>
         <div className={style.ulWrapper}>
           <ul>
             <li>수수료는 예약을 취소한 시점 기준으로 적용</li>
