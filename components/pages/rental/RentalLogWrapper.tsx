@@ -7,8 +7,8 @@ export default function RentalLogWrapper() {
   return (
     <main>
       <div  className={style.wrapper}>
-        {/* <RentalLogCard /> */}
-        <RentalLogNotExist />
+        <RentalLogCard />
+        {/* <RentalLogNotExist /> */}
       </div>
     </main>
   );
