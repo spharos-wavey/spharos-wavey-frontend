@@ -1,8 +1,12 @@
-export interface rentalDataType {
+export interface rentalTopDataType {
   rentalId: number | undefined;
   carModel: string | undefined;
+  maker: string | undefined;
   charge: number | undefined;
   imageUrl: string | undefined;
+}
+
+export interface rentalMiddleDataType {
   fare: number | undefined;
   startTime: string | undefined;
   endTime: string | undefined;

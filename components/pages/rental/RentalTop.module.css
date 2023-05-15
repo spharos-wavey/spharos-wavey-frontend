@@ -12,9 +12,27 @@
   margin: auto;
   display: flex;
   justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
 }
 
 .charge {
   display: flex;
   justify-content: center;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.harrypotterBinding {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.7rem;
+  position: relative;
+}
+
+.harrypotterBinding img {
+  position: absolute;
+  top: 3px;
+  left: 145px;
 }

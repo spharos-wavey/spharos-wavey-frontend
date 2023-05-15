@@ -2,8 +2,17 @@ import React from "react";
 import Image from "next/image";
 import style from "./RentalMiddle.module.css";
 import Separator from "@/components/ui/Separator";
+import { rentalMiddleDataType } from "@/types/rentalDataType";
 
-export default function RentalMiddle() {
+export default function RentalMiddle({
+  fare,
+  startTime,
+  endTime,
+  totalRentTime,
+  billitazone,
+  rentalfee,
+  insurancefee,
+}: rentalMiddleDataType) {
   return (
     <div className={style.middleWrap}>
       <div className={style.subWrap}>
@@ -14,7 +23,7 @@ export default function RentalMiddle() {
         *주행요금은 반납 후 실주행거리에 따라 별도로 청구됩니다.
       </div>
 
-      <Separator gutter={1}/>
+      <Separator gutter={2}/>
 
       <div className={style.subtitle}>대여시간</div>
       <div className={style.subWrap}>
@@ -22,7 +31,7 @@ export default function RentalMiddle() {
         <div className={style.subtitle}>총 1일 00시간</div>
       </div>
 
-      <Separator gutter={1}/>
+      <Separator gutter={2}/>
 
       <div className={style.subtitle}>주차장소</div>
       <div className={style.subWrap}>
@@ -44,19 +53,19 @@ export default function RentalMiddle() {
         </div>
       </div>
 
-      <Separator gutter={1}/>
+      <Separator gutter={2}/>
 
       <div className={style.subtitle}>결제정보</div>
       <div className={style.subWrap}>
-        <div className={style.content}>대여정보</div>
-        <div className={style.content}>5030원</div>
+        <div className={style.content}>대여요금</div>
+        <div className={style.subtitle}>5030원</div>
       </div>
 
-      <Separator gutter={1}/>
+      <Separator gutter={2}/>
 
       <div className={style.subtitle}>결제수단</div>
       <div className={style.subWrap}>
-        <div className={style.content}>카카오페이</div>
+        <div className={style.kakaopay}>카카오페이</div>
         <div className={style.subtitle}>5030원</div>
       </div>
     </div>

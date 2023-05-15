@@ -36,13 +36,6 @@ export default function RentalWrapper() {
           btnType={"button"}
           btnEvent={() => alert("action")}
           shadow={true}
-          border= {"var(--billita-pink"}
-        />
-        <Button
-          children={`결제하기 5030원`}
-          btnType={"button"}
-          btnEvent={() => alert("action")}
-          shadow={true}
         />
       </BottomFixedContainer>
     </main>
