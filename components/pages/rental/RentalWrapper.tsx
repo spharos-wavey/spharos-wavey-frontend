@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RentalTop from "./RentalTop";
 import RentalMiddle from "./RentalMiddle";
+import style from "./RentalWrapper.module.css";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Drawer from "@mui/material/Drawer";
@@ -58,22 +59,23 @@ export default function RentalWrapper() {
         rentalfee={undefined}
         insurancefee={undefined}
       />
-
       <BottomFixedContainer>
-        <Button
-          btnType={"reset"}
-          btnEvent={() => setDrawer(true)}
-          shadow={true}
-        >
-          대여취소 색깔바꿔주세염
-        </Button>
-        <Button
-          btnType={"button"}
-          btnEvent={() => alert("action")}
-          shadow={true}
-        >
-          결제하기 5030원
-        </Button>
+        <div className={style.twoBtnWrap}>
+          <Button
+            btnType={"reset"}
+            btnEvent={() => setDrawer(true)}
+            shadow={true}
+          >
+            대여취소 색깔바꿔주세염
+          </Button>
+          <Button
+            btnType={"button"}
+            btnEvent={() => alert("action")}
+            shadow={true}
+          >
+            결제하기 5030원
+          </Button>
+        </div>
       </BottomFixedContainer>
     </main>
   );
