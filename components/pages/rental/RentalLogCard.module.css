@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.carName {
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.7rem;
+}
+
+.period {
+  font-size: 0.9rem;
+  opacity: 0.5;
+}
+
+.hr{
+  width: 4rem;
+  background-color: var(--billita-blueHighlight);
+  border: 0;
+  height: 1px;
+}

@@ -111,7 +111,7 @@ const Kakao: NextPage = () => {
       }
     };
     getToken();
-  }, [authCode]);
+  }, [authCode, CLIENT_ID, REDIRECT_URI, REST_API_KEY]);
 
   return <h2>로그인 중입니다..</h2>;
 };
