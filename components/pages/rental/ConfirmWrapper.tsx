@@ -7,8 +7,10 @@ import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import ModalMustRead from "@/components/modals/ModalMustRead";
 import ModalActionToPay from "@/components/modals/ModalActionToPay";
+import { rentalDataType } from "@/types/rentalDataType";
 
-export default function RentalWrapper() {
+export default function ConfirmWrapper(props: { data: rentalDataType }) {
+  const data = props.data;
   // useEffect(() => {
   //   const getData = async () => {
   //     const result = await axios.get(`https://api-billita.xyz/rental/`);
@@ -80,22 +82,8 @@ export default function RentalWrapper() {
           </Box>
         </Drawer>
       )}
-      <RentalTop
-        rentalId={undefined}
-        carModel={undefined}
-        maker={undefined}
-        charge={undefined}
-        imageUrl={undefined}
-      />
-      <RentalMiddle
-        fare={undefined}
-        startTime={undefined}
-        endTime={undefined}
-        totalRentTime={undefined}
-        billitazone={undefined}
-        rentalfee={undefined}
-        insurancefee={undefined}
-      />
+      <RentalTop data={data} />
+      <RentalMiddle data={data} />
 
       <BottomFixedContainer>
         <Button
