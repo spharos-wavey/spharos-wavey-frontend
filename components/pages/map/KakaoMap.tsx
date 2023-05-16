@@ -1,7 +1,7 @@
 import { locationState } from "@/state/location";
 import { locationType } from "@/types/location";
 import { useRouter } from "next/router";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
 import { useRecoilState } from "recoil";
 
