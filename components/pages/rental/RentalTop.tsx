@@ -1,25 +1,21 @@
 import React from "react";
 import style from "./RentalTop.module.css";
 import Image from "next/image";
-import {rentalTopDataType } from "@/types/rentalDataType";
+import { rentalDataType } from "@/types/rentalDataType";
 
+export default function RentalTop(props:{ data: rentalDataType }) {
 
-export default function RentalTop({
-  rentalId,
-  carModel,
-  maker,
-  imageUrl,
-  charge,
-}: rentalTopDataType) {
+  const { carModel, maker, imageUrl, charge } = props.data;
+  console.log(imageUrl)
   return (
   
     <div className={style.topWrap}>
       <div className={style.carImage}>
         <Image
-          src={imageUrl || ""}
+          src={imageUrl }
           width={200}
           height={200}
-          alt={carModel || "차량이미지"}
+          alt={carModel}
           priority
         />
       </div>
