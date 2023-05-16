@@ -2,17 +2,11 @@ import React from "react";
 import Image from "next/image";
 import style from "./RentalMiddle.module.css";
 import Separator from "@/components/ui/Separator";
-import { rentalMiddleDataType } from "@/types/rentalDataType";
+import { rentalDataType } from "@/types/rentalDataType";
 
-export default function RentalMiddle({
-  fare,
-  startTime,
-  endTime,
-  totalRentTime,
-  billitazone,
-  rentalfee,
-  insurancefee,
-}: rentalMiddleDataType) {
+export default function RentalMiddle(props: {data: rentalDataType}) {
+
+  const data = props.data;
   return (
     <div className={style.middleWrap}>
       <div className={style.subWrap}>
@@ -46,7 +40,7 @@ export default function RentalMiddle({
       <div className={style.subWrap}>
         <div className={style.content}>반납위치</div>
         <div className={style.arrowWrap}>
-          <div className={style.location}>센텀프리미어 호텔</div>
+          <div className={style.location}></div>
           <div className={style.arrow}>
             <Image src="/assets/images/icons/rightArrowGreyBold.svg" width="10" height="10" alt="arrow"/>
           </div>
@@ -58,7 +52,7 @@ export default function RentalMiddle({
       <div className={style.subtitle}>결제정보</div>
       <div className={style.subWrap}>
         <div className={style.content}>대여요금</div>
-        <div className={style.subtitle}>5030원</div>
+        <div className={style.subtitle}>{data.rentalfee}원</div>
       </div>
 
       <Separator gutter={2}/>
