@@ -18,54 +18,68 @@ export default function RentalWrapper() {
 
   const [drawer, setDrawer] = useState(false);
   const [nextDrawer, setNextDrawer] = useState(false);
+
   const handleDrawer = () => setDrawer(true);
   return (
     <main>
-      <Drawer
-        open={drawer}
-        PaperProps={{
-          sx: { width: 390, borderTopLeftRadius: 18, borderTopRightRadius: 18 },
-        }}
-        anchor="bottom"
-        variant="temporary"
-      >
-        <Box position="relative" width="100%" height="370px">
-          <ModalMustRead setDrawer={setDrawer} />
+      {drawer && (
+        <Drawer
+          open={drawer}
+          PaperProps={{
+            sx: {
+              width: 390,
+              borderTopLeftRadius: 18,
+              borderTopRightRadius: 18,
+            },
+          }}
+          anchor="bottom"
+          variant="temporary"
+        >
+          <Box position="relative" width="100%" height="370px">
+            <ModalMustRead setDrawer={setDrawer} />
 
-          <BottomFixedContainer>
-            <Button
-              btnType={"button"}
-              btnEvent={() => alert("action")}
-              shadow={true}
-            >
-              잘 알겠어요, 예약할게요
-            </Button>
-          </BottomFixedContainer>
-        </Box>
-      </Drawer>
+            <BottomFixedContainer>
+              <Button
+                btnType={"button"}
+                btnEvent={() => setNextDrawer(true)}
+                shadow={true}
+              >
+                잘 알겠어요, 예약할게요
+              </Button>
+            </BottomFixedContainer>
+          </Box>
+        </Drawer>
+      )}
 
-      <Drawer
-        open={nextDrawer}
-        PaperProps={{
-          sx: { width: 390, borderTopLeftRadius: 18, borderTopRightRadius: 18 },
-        }}
-        anchor="bottom"
-        variant="temporary"
-      >
-        <Box position="relative" width="100%" height="370px">
-          <ModalActionToPay />
+      {nextDrawer && (
+        <Drawer
+          open={nextDrawer}
+          PaperProps={{
+            sx: {
+              width: 390,
+              borderTopLeftRadius: 18,
+              borderTopRightRadius: 18,
+            },
+          }}
+          anchor="bottom"
+          variant="temporary"
+        >
+          <Box position="relative" width="100%" height="370px">
+            <ModalActionToPay />
 
-          <BottomFixedContainer>
-            <Button
-              btnType={"button"}
-              btnEvent={() => setNextDrawer(true)}
-              // 안되는데 히히
-              shadow={true}
-            >잘 알겠어요, 예약할게요</Button>
-          </BottomFixedContainer>
-        </Box>
-      </Drawer>
-
+            <BottomFixedContainer>
+              <Button
+                btnType={"button"}
+                btnEvent={() => alert("hihi")}
+                // 안되는데 히히
+                shadow={true}
+              >
+                잘 알겠어요, 예약할게요
+              </Button>
+            </BottomFixedContainer>
+          </Box>
+        </Drawer>
+      )}
       <RentalTop
         rentalId={undefined}
         carModel={undefined}
