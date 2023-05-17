@@ -9,17 +9,17 @@ type Props = {
   onClose: () => void;
 };
 
-export default function ModalSideBar(props:any) {
+export default function ModalSideBar(props: any) {
   const [isOpen, setIsOpen] = useState(true);
   const handleClose = () => {
     setIsOpen(false);
     props.onClose();
   };
 
+  
+
   return (
-    
     <div className={style.wrap}>
-      
       <div className={style.topWrap}>
         <div className={style.greetingBinding}>
           <div className={style.greeting}>빌리타님</div>
@@ -62,16 +62,19 @@ export default function ModalSideBar(props:any) {
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
           <a href="">
-            <li>이용상품 안내</li>
+            <li>이용내역</li>
           </a>
           <a href="">
-            <li>사고접수 현황</li>
+            <li>스마트키</li>
           </a>
           <a href="">
-            <li>이용상품 안내</li>
+            <li>결제카드 등록</li>
           </a>
           <a href="">
-            <li>이용상품 안내</li>
+            <li>이벤트/쿠폰</li>
+          </a>
+          <a href="">
+            <li>고객센터</li>
           </a>
         </ul>
       </div>
@@ -92,8 +95,6 @@ export default function ModalSideBar(props:any) {
           </a>
         </ul>
       </div>
-
     </div>
-    
   );
 }
