@@ -5,13 +5,12 @@ import MenuItem from "./MenuItem";
 import ModalSideBar from "../modals/ModalSideBar";
 
 
-
 export default function Header() {
   const [isSideOpen, setIsSideOpen] = useState(false);
   console.log("isOpen", isSideOpen);
 
   const toggleMenu = (event: any) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     setIsSideOpen(!isSideOpen);
   }
 
