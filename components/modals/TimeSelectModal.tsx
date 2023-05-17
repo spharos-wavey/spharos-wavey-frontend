@@ -4,7 +4,6 @@ import Button from "../ui/Button";
 import style from "./TimeSelectModal.module.css";
 import { MobileDateTimePicker } from "@mui/x-date-pickers-pro";
 import dayjs, { Dayjs } from "dayjs";
-import { createTheme } from "@mui/material";
 
 export default function TimeSelect() {
   const [timeMuiActive, setTimeMuiActive] = useState(false);
@@ -32,11 +31,11 @@ export default function TimeSelect() {
         <div style={{ height: "80%" }}>
           <MobileDateTimePicker
             label={"출발시간"}
-            format={"YYYY/MM/DD hh:mm"}
+            format={"YYYY/MM/DD HH:mm"}
             value={startTime}
             onChange={(value) => value && setStartTime(value)}
-            defaultValue={currentTime}
-            minDate={dayjs().startOf("hour")}
+            defaultValue={currentTime.add(10, "minute")}
+            minDateTime={dayjs().add(10, "minute").startOf("minute")}
           />
         </div>
         <div>
@@ -46,7 +45,7 @@ export default function TimeSelect() {
             value={endTime}
             onChange={(value) => value && setEndTime(value)}
             defaultValue={startTime}
-            minDate={startTime.startOf("minute")}
+            minDateTime={startTime.add(1, "hour").startOf("minute")}
           />
         </div>
       </div>
