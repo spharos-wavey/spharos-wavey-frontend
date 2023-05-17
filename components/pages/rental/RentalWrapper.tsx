@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import RentalTop from "./RentalTop";
 import RentalMiddle from "./RentalMiddle";
+import style from "./RentalWrapper.module.css";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Drawer from "@mui/material/Drawer";
 import ModalActionToPay from "@/components/modals/ModalActionToPay";
 import Box from "@mui/material/Box";
 import ModalBookCancel from "@/components/modals/ModalBookCancel";
+import { rentalDataType } from "@/types/rentalDataType";
 
-export default function RentalWrapper() {
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const result = await axios.get(`https://api-billita.xyz/rental/`);
-  //   };
-  //   getData();
-  // },[]);
+export default function RentalWrapper(props:{data: rentalDataType}) {
+
+  const data = props.data;
   const [drawer, setDrawer] = useState(false);
 
   return (
@@ -41,39 +39,30 @@ export default function RentalWrapper() {
           </BottomFixedContainer>
         </Box>
       </Drawer>
-
-      <RentalTop
-        rentalId={undefined}
-        carModel={undefined}
-        maker={undefined}
-        charge={undefined}
-        imageUrl={undefined}
-      />
+        <RentalTop
+          data={data}
+        />
+     
       <RentalMiddle
-        fare={undefined}
-        startTime={undefined}
-        endTime={undefined}
-        totalRentTime={undefined}
-        billitazone={undefined}
-        rentalfee={undefined}
-        insurancefee={undefined}
+        data={data}
       />
-
       <BottomFixedContainer>
-        <Button
-          btnType={"reset"}
-          btnEvent={() => setDrawer(true)}
-          shadow={true}
-        >
-          대여취소 색깔바꿔주세염
-        </Button>
-        <Button
-          btnType={"button"}
-          btnEvent={() => alert("action")}
-          shadow={true}
-        >
-          결제하기 5030원
-        </Button>
+        <div className={style.twoBtnWrap}>
+          <Button
+            btnType={"reset"}
+            btnEvent={() => setDrawer(true)}
+            shadow={true}
+          >
+            대여취소 색깔바꿔주세염
+          </Button>
+          <Button
+            btnType={"button"}
+            btnEvent={() => alert("action")}
+            shadow={true}
+          >
+            결제하기 5030원
+          </Button>
+        </div>
       </BottomFixedContainer>
     </main>
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 import style from "./SimpleBackLayout.module.css";
 
 export default function SimpleBackLayout(props: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   title?: React.ReactNode;
 }) {
   return (
