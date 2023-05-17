@@ -1,17 +1,14 @@
-export interface rentalTopDataType {
-  rentalId: number | undefined;
-  carModel: string | undefined;
-  maker: string | undefined;
-  charge: number | undefined;
-  imageUrl: string | undefined;
-}
-
-export interface rentalMiddleDataType {
-  fare: number | undefined;
-  startTime: string | undefined;
-  endTime: string | undefined;
-  totalRentTime: string | undefined;
-  billitazone: string | undefined;
-  rentalfee: number | undefined;
-  insurancefee: number | undefined;
+export interface rentalDataType {
+  rentalId: number;
+  carModel: string;
+  maker: string;
+  charge: number;
+  imageUrl: string;
+  fare: number;
+  startTime: string;
+  endTime: string;
+  totalRentTime: string;
+  billitazone: string;
+  rentalfee: number;
+  insurancefee: number;
 }
