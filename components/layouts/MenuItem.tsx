@@ -8,6 +8,7 @@ export default function MenuItem(props: {
   discription?: boolean;
   status?: string;
   width?: string;
+  onClick?: React.MouseEventHandler<HTMLLIElement> | undefined;
 }) {
 
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function MenuItem(props: {
   }
   return (
     <>
-      <li onClick={handler}>
+      <li onClick={props.onClick}>
         <div style={{ width: `${props.width}`, margin: "auto" }}>
           <Image
             src={props.menuItem.icon}
@@ -40,3 +41,4 @@ export default function MenuItem(props: {
     </>
   );
 }
+
