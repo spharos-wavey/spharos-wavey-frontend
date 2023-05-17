@@ -9,7 +9,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function ModalSideBar(props:Props) {
+export default function ModalSideBar(props:any) {
   const [isOpen, setIsOpen] = useState(true);
   const handleClose = () => {
     setIsOpen(false);
