@@ -5,7 +5,11 @@ import style from "./ModalSideBar.module.css";
 import SectionTitle from "../ui/SectionTitle";
 import Separator from "../ui/Separator";
 
-export default function ModalSideBar(props: Props) {
+type Props = {
+  onClose: () => void;
+};
+
+export default function ModalSideBar(props:Props) {
   const [isOpen, setIsOpen] = useState(true);
   const handleClose = () => {
     setIsOpen(false);
@@ -57,7 +61,7 @@ export default function ModalSideBar(props: Props) {
 
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
-          <a href="ㅎ">
+          <a href="">
             <li>이용상품 안내</li>
           </a>
           <a href="">
