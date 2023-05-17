@@ -2,7 +2,7 @@ export const headerMenuData = [
   {
     id: 1,
     name: "menu",
-    path: "/menu",
+    path: "/sidebar",
     icon: "assets/images/icons/menuIcon.svg",
   },
   {
