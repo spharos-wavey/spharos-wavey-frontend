@@ -2,25 +2,15 @@ import React, { useEffect, useState } from "react";
 import BottomFixedContainer from "../layouts/BottomFixedContainer";
 import Button from "../ui/Button";
 import style from "./TimeSelectModal.module.css";
-import { MobileDateTimePicker } from "@mui/x-date-pickers";
+import { MobileDateTimePicker } from "@mui/x-date-pickers-pro";
 import dayjs, { Dayjs } from "dayjs";
 import { createTheme } from "@mui/material";
 
-const theme = createTheme({
-  typography: {
-    // In Chinese and Japanese the characters are usually larger,
-    // so a smaller fontsize may be appropriate.
-    fontSize: 12,
-  },
-});
-
 export default function TimeSelect() {
   const [timeMuiActive, setTimeMuiActive] = useState(false);
-  const [startTime, setStartTime] = useState<string>("");
-  const [endTime, setEndTime] = useState();
-  const [currentTime, setCurrentTime] = useState<string>(
-    dayjs().format("YYYY/MM/DD hh:mm")
-  );
+  const [startTime, setStartTime] = useState<dayjs.Dayjs>(dayjs());
+  const [endTime, setEndTime] = useState<dayjs.Dayjs>(startTime);
+  const [currentTime, setCurrentTime] = useState<dayjs.Dayjs>(dayjs());
 
   const timeMuiHandler = () => {
     setTimeMuiActive(true);
@@ -35,27 +25,28 @@ export default function TimeSelect() {
         style={{
           display: "flex",
           gap: "15px",
-          padding: "20px 30px",
+          padding: "20px",
           justifyContent: "space-evenly",
         }}
       >
-        <div style={{ height: "80%", fontSize: "0.5rem" }}>
+        <div style={{ height: "80%" }}>
           <MobileDateTimePicker
-            className="timePicker"
             label={"출발시간"}
             format={"YYYY/MM/DD hh:mm"}
             value={startTime}
             onChange={(value) => value && setStartTime(value)}
-            defaultValue={dayjs().format()}
+            defaultValue={currentTime}
+            minDate={dayjs().startOf("hour")}
           />
         </div>
         <div>
           <MobileDateTimePicker
             label={"반납시간"}
             format={"YYYY/MM/DD hh:mm"}
-            value={startTime}
-            onChange={(value) => value && setStartTime(value)}
-            defaultValue={dayjs().format()}
+            value={endTime}
+            onChange={(value) => value && setEndTime(value)}
+            defaultValue={startTime}
+            minDate={startTime.startOf("minute")}
           />
         </div>
       </div>
