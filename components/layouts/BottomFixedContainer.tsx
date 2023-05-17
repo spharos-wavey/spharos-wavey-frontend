@@ -4,6 +4,7 @@ import style from "./BottomFixedContainer.module.css";
 export default function BottomFixedContainer(props: {
   children: ReactNode;
   backgroundColor: string;
+  animation?: boolean;
 }) {
   return (
     <div
