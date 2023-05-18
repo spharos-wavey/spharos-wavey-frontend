@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { headerMenuData } from "@/datas/staticMenuDatas";
 import style from "@/components/layouts/Header.module.css";
 import MenuItem from "./MenuItem";
-import ModalSideBar from "../modals/ModalSideBar";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { carDataType } from "@/types/carDataType";
-
-
+import SlidingPane from "react-sliding-pane";
+import "react-sliding-pane/dist/react-sliding-pane.css";
+import Image from "next/image";
+import SectionTitle from "../ui/SectionTitle";
+import Separator from "../ui/Separator";
+import ModalSideBar from "../modals/ModalSideBar";
 
 export default function Header() {
   const [carData, setCarData] = useState<carDataType>();
@@ -27,8 +30,8 @@ export default function Header() {
   }
 
 
-  const [isSideOpen, setIsSideOpen] = useState(false);
-  console.log("isOpen", isSideOpen);
+  const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
+  // console.log("isOpen", isSideOpen);
 
   const toggleMenu = (event: any) => {
     // event.stopPropagation();
@@ -39,6 +42,21 @@ export default function Header() {
 
   return (
     <>
+    <SlidingPane
+        className="some-custom-class"
+        overlayClassName="some-custom-overlay-class"
+        from ='left'
+        width='100%'
+        isOpen={isSideOpen}
+        hideHeader={true}
+        onRequestClose={() => {
+          setIsSideOpen(false);
+        }}
+      >
+        <>
+        <ModalSideBar setIsSideOpen={setIsSideOpen} isSideOpen={isSideOpen}/>
+        </>
+      </SlidingPane>
     <header className={style.headerContainer}>
       <nav>
         <ul>
@@ -47,7 +65,6 @@ export default function Header() {
         </ul>
       </nav>
     </header>
-    {isSideOpen && <ModalSideBar onClose={handleClose} />}
     </>
   );
 }
