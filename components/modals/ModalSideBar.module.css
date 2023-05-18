@@ -1,17 +1,21 @@
 .wrap {
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  user-select:none
+  position: relative;
+  z-index: 200;
+  
+}
+.wrap.open {
+  animation: slideIn 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
 
+.close {
+  animation: slideOut 0.5s ease-in-out;
 }
 
 .topWrap {
   display: flex;
-  position: relative;
   padding: 2rem;
   margin-top: 1rem;
-  z-index: 200;
   background-color: #ffffff;
 }
 
@@ -112,4 +116,22 @@
   font-size: 0.7rem;
   font-weight: bold;
   list-style: none;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
