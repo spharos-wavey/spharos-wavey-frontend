@@ -4,10 +4,7 @@ import Separator from "@/components/ui/Separator";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { licenseType } from "@/types/licenseType";
 
-export default function PersonalInfo(props: {
-  title: string;
-  license: licenseType;
-}) {
+export default function PersonalInfo(props: { title: string }) {
   return (
     <>
       <SectionTitle fontSize={0.85}>{props.title}</SectionTitle>

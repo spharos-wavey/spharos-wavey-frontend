@@ -5,33 +5,38 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import { licenseType } from "@/types/licenseType";
 import { licenseData } from "@/datas/licenseData";
 
-export default function LicenseTop(props: {
-  title: string;
-  license: licenseType;
-}) {
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setType(event.target.value as string);
-  // };
-  const [value, setValue] = useState("");
-  console.log(props.license);
+export default function LicenseTop(props: { title: string }) {
+  const [level, setLevel] = useState("");
+  const [selectedClass, setSelectedClass] = useState("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLevel(event.target.value);
+    setSelectedClass("");
+  };
+  const handleClassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedClass = event.target.value;
+    setSelectedClass(selectedClass);
+  };
+
   return (
     <>
       <SectionTitle fontSize={0.85}>{props.title}</SectionTitle>
       <Box width="320px">
         <Separator gutter={1} />
-
         <TextField
           label="면허 구분"
           select
-          // onChange={handleChange}
+          value={level}
+          onChange={handleChange}
           fullWidth
           size="small"
           color="primary"
           variant="standard"
           InputLabelProps={{ style: { fontSize: 12 } }}
         >
-          <MenuItem value={props.license.classes == "1종" ? undefined : "1종"}>1종</MenuItem>
-          <MenuItem value={props.license.classes == "2종" ? undefined : "2종"}>2종</MenuItem>
+          {licenseData.map((item) => {
+            return <MenuItem key={item.classes} value={item.classes}>{item.classes}</MenuItem>;
+          })}
         </TextField>
 
         <Separator gutter={1} />
@@ -39,30 +44,25 @@ export default function LicenseTop(props: {
         <TextField
           label="면허 구분"
           select
-          // onChange={handleChange}
+          value={selectedClass}
+          onChange={handleClassChange}
           fullWidth
           size="small"
           color="primary"
           variant="standard"
           InputLabelProps={{ style: { fontSize: 12 } }}
         >
-          <MenuItem value={props.license.categories[0]}>1종 대형</MenuItem>
-          <MenuItem value={props.license.categories[1]}>1종 보통</MenuItem>
-          <MenuItem value={props.license.categories[2]}>1종 특수</MenuItem>
-        </TextField>
-        <Separator gutter={1} />
-
-        <TextField
-          label="면허 구분"
-          select
-          // onChange={handleChange}
-          fullWidth
-          size="small"
-          color="primary"
-          variant="standard"
-          InputLabelProps={{ style: { fontSize: 12 } }}
-        >
-          <MenuItem value="2종 보통">2종 보통</MenuItem>
+          {level === "1종" ? (
+            <>
+              {licenseData.find((item) => item.classes === "1종")?.categories.map((category) => (
+                <MenuItem key={category} value={category}>
+                  {category}
+                </MenuItem>
+              ))}
+            </>
+          ) : (
+            <MenuItem value="2종 보통">2종 보통</MenuItem>
+          )}
         </TextField>
         <Separator gutter={1} />
 
@@ -75,7 +75,7 @@ export default function LicenseTop(props: {
           required
           // onChange={(e) => setValue(e.target.value)}
           // helperText={value ? "" : "필수 입력창 입니다."}
-          placeholder="00-000000-00"
+          placeholder="YYYY-MM-DD"
         />
 
         <Separator gutter={1} />
@@ -90,7 +90,7 @@ export default function LicenseTop(props: {
           // value={value}
           // onChange={(e) => setValue(e.target.value)}
           // helperText={value ? "" : "필수 입력창 입니다."}
-          placeholder="00-000000-00"
+          placeholder="YYYY-MM-DD"
         />
 
         <Separator gutter={1} />
@@ -105,7 +105,6 @@ export default function LicenseTop(props: {
           // helperText={value ? "" : "필수 입력창 입니다."}
           placeholder="00-000000-00"
         />
-
         <Separator gutter={3} />
       </Box>
     </>
