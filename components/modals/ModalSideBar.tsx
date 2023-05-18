@@ -17,9 +17,10 @@ export default function ModalSideBar(props: any) {
   };
 
   
+  
 
   return (
-    <div className={style.wrap}>
+    <div className={isOpen ? `${style.wrap} ${style.open}` :  `${style.wrap} ${style.close}`} >
       <div className={style.topWrap}>
         <div className={style.greetingBinding}>
           <div className={style.greeting}>빌리타님</div>
