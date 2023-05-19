@@ -82,7 +82,7 @@ export default function ConfirmWrapper(props: { data: rentalDataType }) {
           btnEvent={() => handleDrawer()}
           shadow={true}
         >
-          결제하기 5030원
+          결제하기 {props.data.defaultTimePrice.toLocaleString('kr-KO')}원
         </Button>
       </BottomFixedContainer>
     </main>

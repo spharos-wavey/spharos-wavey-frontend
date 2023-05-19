@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Box, Drawer } from "@mui/material";
 import style from "./ReturnMandatoryTab.module.css";
 import Separator from "@/components/ui/Separator";
-import ModalBookCancel from "@/components/modals/ModalBookCancel";
+import ModalForm from "@/components/modals/ModalForm";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import { staticReturnQuestionData } from "@/datas/staticReturnQuestionData";
@@ -20,7 +20,7 @@ export default function ReturnMandatoryTab() {
         variant="temporary"
       >
         <Box position="relative" width="100%" height="370px">
-          <ModalBookCancel />
+          <ModalForm title="반납하기" />
 
           <BottomFixedContainer>
             <Button

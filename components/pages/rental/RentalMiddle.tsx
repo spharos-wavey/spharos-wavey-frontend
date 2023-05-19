@@ -6,15 +6,15 @@ import { rentalDataType } from "@/types/rentalDataType";
 
 export default function RentalMiddle(props: { data: rentalDataType }) {
   const data = props.data;
-  const timeStamp1 = data.startTime.split("/");
-  const timeStamp2 = data.endTime.split("/");
+  const startDate = data.startDate.split("-");
+  const endDate = data.endDate.split("-");
 
 
   return (
     <div className={style.middleWrap}>
       <div className={style.subWrap}>
         <div className={style.subtitle}>주행요금</div>
-        <div className={style.fare}>{data.fare}원/km</div>
+        <div className={style.fare}>{data.distancePrice}원/km</div>
       </div>
       <div className={style.description}>
         *주행요금은 반납 후 실주행거리에 따라 별도로 청구됩니다.
@@ -25,8 +25,8 @@ export default function RentalMiddle(props: { data: rentalDataType }) {
       <div className={style.subtitle}>대여시간</div>
       <div className={style.subWrap}>
         <div className={style.content}>
-          {timeStamp1[0]}월 {timeStamp1[1]}일 {timeStamp1[2]} <span>- </span>
-          {timeStamp2[0]}월 {timeStamp2[1]}일 {timeStamp2[2]}
+          {startDate[1]}월 {startDate[2]}일 {data.startTime} <span>- </span>
+          {endDate[1]}월 {endDate[2]}일 {data.endTime}
         </div>
         <div className={style.subtitle}>총 1일 00시간</div>
       </div>
@@ -68,7 +68,7 @@ export default function RentalMiddle(props: { data: rentalDataType }) {
       <div className={style.subtitle}>결제정보</div>
       <div className={style.subWrap}>
         <div className={style.content}>대여요금</div>
-        <div className={style.subtitle}>{data.rentalfee.toLocaleString('kr-KO')}원</div>
+        <div className={style.subtitle}>{data.defaultTimePrice.toLocaleString('kr-KO')}원</div>
       </div>
 
       <Separator gutter={1.5} />
@@ -76,7 +76,7 @@ export default function RentalMiddle(props: { data: rentalDataType }) {
       <div className={style.subtitle}>결제수단</div>
       <div className={style.subWrap}>
         <div className={style.kakaopay}>카카오페이</div>
-        <div className={style.subtitle}>{data.rentalfee.toLocaleString('kr-KO')}원</div>
+        <div className={style.subtitle}>{data.defaultTimePrice.toLocaleString('kr-KO')}원</div>
       </div>
     </div>
   );
