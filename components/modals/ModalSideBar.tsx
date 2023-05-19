@@ -5,16 +5,20 @@ import style from "./ModalSideBar.module.css";
 import SectionTitle from "../ui/SectionTitle";
 import Separator from "../ui/Separator";
 
-export default function ModalSideBar(props: {setIsSideOpen:Dispatch<SetStateAction<boolean>>, isSideOpen:boolean}) {
-  const {setIsSideOpen, isSideOpen} = props;  
+export default function ModalSideBar(props: {
+  onClose: () => void;
+  setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isSideOpen: boolean;
+}) {
+  const { setIsSideOpen, isSideOpen } = props;
   return (
     <>
-    <div className={style.topWrap}>
+      <div className={style.topWrap}>
         <div className={style.greetingBinding}>
           <div className={style.greeting}>빌리타님</div>
           <div className={style.greeting}>안녕하세요!</div>
         </div>
-        <div className={style.backBtn} onClick={()=>setIsSideOpen(false)}>
+        <div className={style.backBtn} onClick={() => setIsSideOpen(false)}>
           <Image
             src="/assets/images/icons/chevrons-down.svg"
             width="25"
