@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ModalSideBar from "@/components/modals/ModalSideBar";
 
-export default function sidebar() {
+export default function Sidebar() {
   const [isSideOpen, setIsSideOpen] = useState(false);
 
   const handleClose = () => {
