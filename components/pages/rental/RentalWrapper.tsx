@@ -5,13 +5,11 @@ import style from "./RentalWrapper.module.css";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Drawer from "@mui/material/Drawer";
-import ModalActionToPay from "@/components/modals/ModalActionToPay";
+import ModalForm from "@/components/modals/ModalForm";
 import Box from "@mui/material/Box";
-import ModalBookCancel from "@/components/modals/ModalBookCancel";
 import { rentalDataType } from "@/types/rentalDataType";
 
-export default function RentalWrapper(props:{data: rentalDataType}) {
-
+export default function RentalWrapper(props: { data: rentalDataType }) {
   const data = props.data;
   const [drawer, setDrawer] = useState(false);
 
@@ -26,7 +24,7 @@ export default function RentalWrapper(props:{data: rentalDataType}) {
         variant="temporary"
       >
         <Box position="relative" width="100%" height="370px">
-          <ModalBookCancel setDrawer={setDrawer} />
+          <ModalForm setDrawer={setDrawer} title="대여취소" />
 
           <BottomFixedContainer>
             <Button
@@ -39,13 +37,9 @@ export default function RentalWrapper(props:{data: rentalDataType}) {
           </BottomFixedContainer>
         </Box>
       </Drawer>
-        <RentalTop
-          data={data}
-        />
-     
-      <RentalMiddle
-        data={data}
-      />
+      <RentalTop data={data} />
+
+      <RentalMiddle data={data} />
       <BottomFixedContainer>
         <div className={style.twoBtnWrap}>
           <Button
