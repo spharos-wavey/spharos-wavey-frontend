@@ -6,6 +6,7 @@ import { rentalDataType } from "@/types/rentalDataType";
 
 export default function RentalMiddle(props: { data: rentalDataType }) {
   const data = props.data;
+  console.log(props.data);
   const startDate = data.startDate.split("-");
   const endDate = data.endDate.split("-");
 

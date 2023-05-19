@@ -34,7 +34,6 @@ export default function ModalForm(props: any) {
       )}
       {props.title === "예약 취소" && (
         <>
-          <div className={style.modalTitle}>예약취소</div>
           <div className={style.greyText}>
             지금 뒤로가면 선택하신 예약정보가 저장되지 않습니다.
           </div>
@@ -43,7 +42,6 @@ export default function ModalForm(props: any) {
       )}
       {props.title === "대여 취소" && (
         <>
-          <div className={style.modalTitle}>예약취소</div>
           <div className={style.greyText}>
             지금 취소하시면 수수료가 발생하지 않습니다.
           </div>
