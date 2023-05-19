@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import RentalTop from "./RentalTop";
 import RentalMiddle from "./RentalMiddle";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
@@ -6,7 +6,6 @@ import Button from "@/components/ui/Button";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import ModalForm from "@/components/modals/ModalForm";
-import ModalActionToPay from "@/components/modals/ModalActionToPay";
 import { rentalDataType } from "@/types/rentalDataType";
 
 export default function ConfirmWrapper(props: { data: rentalDataType }) {
@@ -60,7 +59,7 @@ export default function ConfirmWrapper(props: { data: rentalDataType }) {
           variant="temporary"
         >
           <Box position="relative" width="100%" height="370px">
-            <ModalForm title="예약결제 안내" />
+            <ModalForm setDrawer={setDrawer} title="예약결제 안내" />
 
             <BottomFixedContainer>
               <Button
