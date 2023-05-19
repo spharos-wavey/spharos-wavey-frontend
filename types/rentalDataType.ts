@@ -2,13 +2,14 @@ export interface rentalDataType {
   rentalId: number;
   carModel: string;
   maker: string;
+  capacity: number;
+  defaultTimePrice: number;
+  distancePrice: number;
   charge: number;
   imageUrl: string;
-  fare: number;
+  startDate: string;
+  endDate: string;
   startTime: string;
   endTime: string;
-  totalRentTime: string;
   billitazone: string;
-  rentalfee: number;
-  insurancefee: number;
 }

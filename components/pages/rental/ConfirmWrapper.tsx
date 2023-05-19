@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import RentalTop from "./RentalTop";
 import RentalMiddle from "./RentalMiddle";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import ModalMustRead from "@/components/modals/ModalMustRead";
-import ModalActionToPay from "@/components/modals/ModalActionToPay";
+import ModalForm from "@/components/modals/ModalForm";
 import { rentalDataType } from "@/types/rentalDataType";
 
 export default function ConfirmWrapper(props: { data: rentalDataType }) {
   const data = props.data;
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const result = await axios.get(`https://api-billita.xyz/rental/`);
-  //   };
-  //   getData();
-  // },[]);
-
   const [drawer, setDrawer] = useState(false);
   const [nextDrawer, setNextDrawer] = useState(false);
-
   const handleDrawer = () => setDrawer(true);
+  
   return (
     <main>
       {drawer && (
@@ -38,7 +30,7 @@ export default function ConfirmWrapper(props: { data: rentalDataType }) {
           variant="temporary"
         >
           <Box position="relative" width="100%" height="370px">
-            <ModalMustRead setDrawer={setDrawer} />
+            <ModalForm setDrawer={setDrawer} title="예약 전, 필수 확인 사항" />
 
             <BottomFixedContainer>
               <Button
@@ -67,13 +59,12 @@ export default function ConfirmWrapper(props: { data: rentalDataType }) {
           variant="temporary"
         >
           <Box position="relative" width="100%" height="370px">
-            <ModalActionToPay />
+            <ModalForm setDrawer={setDrawer} title="예약결제 안내" />
 
             <BottomFixedContainer>
               <Button
                 btnType={"button"}
                 btnEvent={() => alert("hihi")}
-                // 안되는데 히히
                 shadow={true}
               >
                 잘 알겠어요, 예약할게요
@@ -91,7 +82,7 @@ export default function ConfirmWrapper(props: { data: rentalDataType }) {
           btnEvent={() => handleDrawer()}
           shadow={true}
         >
-          결제하기 5030원
+          결제하기 {props.data.defaultTimePrice.toLocaleString('kr-KO')}원
         </Button>
       </BottomFixedContainer>
     </main>
