@@ -6,6 +6,7 @@ interface buttonStyle {
   btnEvent: React.MouseEventHandler<HTMLButtonElement> | undefined;
   submitType?: string;
   shadow?: boolean;
+  border?: string;
 }
 
 export default function Button(props: buttonStyle) {
@@ -15,7 +16,7 @@ export default function Button(props: buttonStyle) {
         borderRadius: "50px",
         width: "90%",
         height: "3rem",
-        border: "none",
+        border: props.border ? `{props.border}` : "none",
         color: "var(--billita-white)",
         backgroundColor: `${
           props.submitType === "cancel"

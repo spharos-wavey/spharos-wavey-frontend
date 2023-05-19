@@ -11,7 +11,7 @@ export default function RentalTop(props: { data: rentalDataType }) {
       <div className={style.carImage}>
         <Image
           src={imageUrl}
-          width={325}
+          width={345}
           height={200}
           alt={carModel}
           priority

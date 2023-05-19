@@ -1,51 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import RentalTop from "./RentalTop";
 import RentalMiddle from "./RentalMiddle";
-import style from "./RentalWrapper.module.css";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Drawer from "@mui/material/Drawer";
-import ModalActionToPay from "@/components/modals/ModalActionToPay";
 import Box from "@mui/material/Box";
-import ModalBookCancel from "@/components/modals/ModalBookCancel";
+import ModalForm from "@/components/modals/ModalForm";
 import { rentalDataType } from "@/types/rentalDataType";
+import style from "./RentalWrapper.module.css";
 
-export default function RentalWrapper(props:{data: rentalDataType}) {
-
+export default function RentalWrapper(props: { data: rentalDataType }) {
   const data = props.data;
   const [drawer, setDrawer] = useState(false);
+  const [nextDrawer, setNextDrawer] = useState(false);
+  const handleDrawer = () => setDrawer(true);
 
   return (
     <main>
-      <Drawer
-        open={drawer}
-        PaperProps={{
-          sx: { width: 390, borderTopLeftRadius: 18, borderTopRightRadius: 18 },
-        }}
-        anchor="bottom"
-        variant="temporary"
-      >
-        <Box position="relative" width="100%" height="370px">
-          <ModalBookCancel setDrawer={setDrawer} />
+      {drawer && (
+        <Drawer
+          open={drawer}
+          PaperProps={{
+            sx: {
+              width: 390,
+              borderTopLeftRadius: 18,
+              borderTopRightRadius: 18,
+            },
+          }}
+          anchor="bottom"
+          variant="temporary"
+        >
+          <Box position="relative" width="100%" height="370px">
+            <ModalForm setDrawer={setDrawer} title="대여 취소" />
 
-          <BottomFixedContainer>
-            <Button
-              btnType={"button"}
-              btnEvent={() => alert("action")}
-              shadow={true}
-            >
-              네, 진행해주세요
-            </Button>
-          </BottomFixedContainer>
-        </Box>
-      </Drawer>
-        <RentalTop
-          data={data}
-        />
-     
-      <RentalMiddle
-        data={data}
-      />
+            <BottomFixedContainer>
+              <Button
+                btnType={"button"}
+                btnEvent={() => setNextDrawer(true)}
+                shadow={true}
+              >
+                대여 취소하기
+              </Button>
+            </BottomFixedContainer>
+          </Box>
+        </Drawer>
+      )}
+
+      <RentalTop data={data} />
+      <RentalMiddle data={data} />
+
       <BottomFixedContainer>
         <div className={style.twoBtnWrap}>
           <Button

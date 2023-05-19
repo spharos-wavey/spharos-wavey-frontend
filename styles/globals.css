@@ -65,3 +65,18 @@ section {
 .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
   font-size: 0.7rem !important;
 }
+
+/* slide panel */
+.some-custom-overlay-class {
+  z-index: 1000;
+  overflow: hidden;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.slide-pane__content {
+  overflow: hidden !important;
+  height: none;
+  margin: 0px !important;
+  padding: 0px !important;
+}
