@@ -1,5 +1,5 @@
 export interface rentalDataType {
-  rentId: number;
+  rentalId: number;
   carModel: string;
   maker: string;
   capacity: number;
