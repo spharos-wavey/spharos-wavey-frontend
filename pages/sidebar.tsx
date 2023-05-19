@@ -10,7 +10,6 @@ export default function Sidebar() {
 
   return (
     <ModalSideBar
-      onClose={handleClose}
       setIsSideOpen={setIsSideOpen}
       isSideOpen={isSideOpen}
     />

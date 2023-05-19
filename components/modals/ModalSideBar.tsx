@@ -6,7 +6,6 @@ import SectionTitle from "../ui/SectionTitle";
 import Separator from "../ui/Separator";
 
 export default function ModalSideBar(props: {
-  onClose: () => void;
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSideOpen: boolean;
 }) {
