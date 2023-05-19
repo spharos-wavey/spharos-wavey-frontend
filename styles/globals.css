@@ -65,3 +65,18 @@ section {
   margin: 2rem auto;
 }
 
+/* slide panel */
+.some-custom-overlay-class {
+  z-index: 1000;
+  overflow: hidden;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+
+.slide-pane__content {
+  overflow: hidden !important;
+  height: none;
+  margin: 0px !important;
+  padding: 0px !important;
+}

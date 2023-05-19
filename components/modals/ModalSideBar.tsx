@@ -1,32 +1,23 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import style from "./ModalSideBar.module.css";
 import SectionTitle from "../ui/SectionTitle";
 import Separator from "../ui/Separator";
 
-type Props = {
-  onClose: () => void;
-};
-
-export default function ModalSideBar(props: any) {
-  const [isOpen, setIsOpen] = useState(true);
-  const handleClose = () => {
-    setIsOpen(false);
-    props.onClose();
-  };
-
-  
-  
-
+export default function ModalSideBar(props: {
+  setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isSideOpen: boolean;
+}) {
+  const { setIsSideOpen, isSideOpen } = props;
   return (
-    <div className={isOpen ? `${style.wrap} ${style.open}` :  `${style.wrap} ${style.close}`} >
+    <>
       <div className={style.topWrap}>
         <div className={style.greetingBinding}>
           <div className={style.greeting}>빌리타님</div>
           <div className={style.greeting}>안녕하세요!</div>
         </div>
-        <div className={style.backBtn} onClick={handleClose}>
+        <div className={style.backBtn} onClick={() => setIsSideOpen(false)}>
           <Image
             src="/assets/images/icons/chevrons-down.svg"
             width="25"
@@ -96,6 +87,6 @@ export default function ModalSideBar(props: any) {
           </a>
         </ul>
       </div>
-    </div>
+    </>
   );
 }
