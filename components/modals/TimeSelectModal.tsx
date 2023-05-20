@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import BottomFixedContainer from "../layouts/BottomFixedContainer";
 import Button from "../ui/Button";
-import style from "./TimeSelectModal.module.css";
 import { MobileDateTimePicker } from "@mui/x-date-pickers-pro";
-import dayjs, { Dayjs } from "dayjs";
+import { useRecoilState } from "recoil";
+import { timeState } from "@/state/rentalTime";
+import dayjs from "dayjs";
+import { timeType } from "@/types/rentalDataType";
 
 interface timeModal {
   setTimeModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,17 +13,23 @@ interface timeModal {
 
 export default function TimeSelect({ setTimeModal }: timeModal) {
   const [startTime, setStartTime] = useState<dayjs.Dayjs>(dayjs());
-  const [endTime, setEndTime] = useState<dayjs.Dayjs>(startTime);
+  const [endTime, setEndTime] = useState<dayjs.Dayjs>(dayjs());
   const [currentTime, setCurrentTime] = useState<dayjs.Dayjs>(dayjs());
 
+  // Dayjs 타입이 Recoil-persist에 적용되지 않는 이슈 때문에, 변수 따로 관리
+  const [recoilTime, setRecoilTime] = useRecoilState<timeType>(timeState);
+
   const timeModalHandler = () => {
-    alert("선택되었습니다 ~!~!~!");
+    alert("시간이 설정되었습니다!");
     setTimeModal(false);
+    setRecoilTime({
+      startTime: startTime.format("YYYY-MM-DD HH:mm"),
+      endTime: endTime.format("YYYY-MM-DD HH:mm"),
+    });
   };
 
-  // console.log("현재시간 : ", currentTime);
-  console.log("선택된 출발 시간 : ", startTime.format("YYYY/MM/DD HH:mm"));
-  console.log("선택된 반납 시간 : ", endTime.format("YYYY/MM/DD HH:mm"));
+  // console.log("선택된 출발 시간 : ", startTime.format("YYYY/MM/DD HH:mm"));
+  // console.log("선택된 반납 시간 : ", endTime.format("YYYY/MM/DD HH:mm"));
 
   return (
     <BottomFixedContainer backgroundColor="white">
@@ -64,15 +72,15 @@ export default function TimeSelect({ setTimeModal }: timeModal) {
           padding: "0px 30px",
         }}
       >
-        <Button btnType="button" btnEvent={timeModalHandler}>
-          시간 선택
-        </Button>
         <Button
           btnType="button"
           submitType="cancel"
           btnEvent={() => setTimeModal(false)}
         >
           취소
+        </Button>
+        <Button btnType="button" btnEvent={timeModalHandler}>
+          시간 선택
         </Button>
       </div>
     </BottomFixedContainer>

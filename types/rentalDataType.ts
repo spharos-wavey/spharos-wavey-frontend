@@ -13,3 +13,8 @@ export interface rentalDataType {
   endTime: string;
   billitazone: string;
 }
+
+export interface timeType {
+  startTime: string;
+  endTime: string;
+}
