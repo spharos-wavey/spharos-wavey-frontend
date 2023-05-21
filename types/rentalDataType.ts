@@ -9,7 +9,6 @@ export interface rentalDataType {
   imageUrl: string;
   startDate: string;
   endDate: string;
-  startTime: string;
-  endTime: string;
   billitazone: string;
+  purchaseState: string;
 }

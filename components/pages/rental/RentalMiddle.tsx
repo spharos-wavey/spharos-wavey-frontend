@@ -7,9 +7,9 @@ import { rentalDataType } from "@/types/rentalDataType";
 export default function RentalMiddle(props: { data: rentalDataType }) {
   const data = props.data;
   console.log(props.data);
-  const startDate = data.startDate.split("-");
-  const endDate = data.endDate.split("-");
 
+  const serviceStartTime = new Date(data.startDate);
+  const serviceEndTime = new Date(data.endDate);
 
   return (
     <div className={style.middleWrap}>
@@ -26,8 +26,13 @@ export default function RentalMiddle(props: { data: rentalDataType }) {
       <div className={style.subtitle}>대여시간</div>
       <div className={style.subWrap}>
         <div className={style.content}>
-          {startDate[1]}월 {startDate[2]}일 {data.startTime} <span>- </span>
-          {endDate[1]}월 {endDate[2]}일 {data.endTime}
+          {serviceStartTime.getMonth()}월 {serviceStartTime.getDay()}일{" "}
+          {serviceStartTime.getHours()}:
+          {String(serviceStartTime.getMinutes()).padStart(2, "0")}{" "}
+          <span>- </span>
+          {serviceEndTime.getMonth()}월 {serviceEndTime.getDay()}일{" "}
+          {serviceEndTime.getHours()}:
+          {String(serviceEndTime.getMinutes()).padStart(2, "0")}{" "}
         </div>
         <div className={style.subtitle}>총 1일 00시간</div>
       </div>
@@ -69,7 +74,9 @@ export default function RentalMiddle(props: { data: rentalDataType }) {
       <div className={style.subtitle}>결제정보</div>
       <div className={style.subWrap}>
         <div className={style.content}>대여요금</div>
-        <div className={style.subtitle}>{data.defaultTimePrice.toLocaleString('kr-KO')}원</div>
+        <div className={style.subtitle}>
+          {data.defaultTimePrice.toLocaleString("kr-KO")}원
+        </div>
       </div>
 
       <Separator gutter={1.5} />
@@ -77,7 +84,9 @@ export default function RentalMiddle(props: { data: rentalDataType }) {
       <div className={style.subtitle}>결제수단</div>
       <div className={style.subWrap}>
         <div className={style.kakaopay}>카카오페이</div>
-        <div className={style.subtitle}>{data.defaultTimePrice.toLocaleString('kr-KO')}원</div>
+        <div className={style.subtitle}>
+          {data.defaultTimePrice.toLocaleString("kr-KO")}원
+        </div>
       </div>
     </div>
   );
