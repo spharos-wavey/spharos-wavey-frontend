@@ -26,7 +26,7 @@ export default function RentalWrapper(props: { data: rentalDataType }) {
         `https://api-billita.xyz/rental/${router.query.rentId}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
           },
         }
       );
