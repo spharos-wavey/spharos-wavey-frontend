@@ -11,13 +11,13 @@
   background: #0067df;
   mix-blend-mode: hard-light;
   box-shadow: 0px 4px 4px #01c5df;
-  right: 13px;
-  top: 13px;
+  right: 8vw;
+  top: 2.3vh;
   z-index: 999;
 }
 
 .modalWrap {
-  padding: 3rem;
+  padding: 3rem 2.5rem;
 }
 .modalTitle {
   font-size: 1.3rem;

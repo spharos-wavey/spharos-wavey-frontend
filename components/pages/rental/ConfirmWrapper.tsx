@@ -76,7 +76,7 @@ export default function ConfirmWrapper(props: { data: rentalDataType }) {
       )}
       <RentalTop data={data} />
       <RentalMiddle data={data} />
-      <Separator gutter={5.5} />
+      <Separator gutter={7.5} />
       <BottomFixedContainer>
         <Button
           btnType={"button"}

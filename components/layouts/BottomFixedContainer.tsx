@@ -6,6 +6,7 @@ export default function BottomFixedContainer(props: { children: ReactNode }) {
     <div
       className={style.container}
       style={{
+        padding: 14,
         background: "linear-gradient(180deg, #ffffff00 0%, #ffffff 10%)",
       }}
     >

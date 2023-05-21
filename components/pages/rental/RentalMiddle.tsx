@@ -6,7 +6,6 @@ import { rentalDataType } from "@/types/rentalDataType";
 
 export default function RentalMiddle(props: { data: rentalDataType }) {
   const data = props.data;
-  console.log(props.data);
 
   const serviceStartTime = new Date(data.startDate);
   const serviceEndTime = new Date(data.endDate);

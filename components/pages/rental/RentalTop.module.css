@@ -3,8 +3,12 @@
 }
 
 .carImage {
-  width: 100%;
+  width: 95%;
   margin: auto;
+}
+
+.carImage img {
+  width: 100%;
 }
 
 .carName {
@@ -34,5 +38,5 @@
 .harrypotterBinding img {
   position: absolute;
   top: 3px;
-  left: 145px;
+  left: 135px;
 }
