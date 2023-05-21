@@ -9,7 +9,6 @@ export default function MapLayout(props: { children: React.ReactNode }) {
     <RecoilRoot>
       <MapHeader />
       <div>{props.children}</div>
-      <MapFooter />
     </RecoilRoot>
   );
 }

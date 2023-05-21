@@ -1,3 +1,4 @@
+import MapFooter from "@/components/layouts/map/MapFooter";
 import { locationState } from "@/state/location";
 import { timeState } from "@/state/rentalTime";
 import { locationType } from "@/types/location";
@@ -44,10 +45,11 @@ export default function KakaoMap() {
 
   useEffect(() => {
     setRecoilTime({
-      startTime: dayjs().format("YYYY-MM-DD HH:mm"),
-      endTime: dayjs().add(2, "hour").format("YYYY-MM-DD HH:mm"),
+      startTime: dayjs().add(10, "minute").format("YYYY-MM-DD HH:mm"),
+      endTime: dayjs().add(130, "minute").format("YYYY-MM-DD HH:mm"),
     });
   }, []);
+
   useEffect(() => {
     const getLocation = () => {
       if (navigator.geolocation) {
@@ -61,8 +63,16 @@ export default function KakaoMap() {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
               });
+              setReqLocation({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              });
             } else {
               setInitLoc({
+                latitude: carLocation.latitude,
+                longitude: carLocation.longitude,
+              });
+              setReqLocation({
                 latitude: carLocation.latitude,
                 longitude: carLocation.longitude,
               });
@@ -71,12 +81,8 @@ export default function KakaoMap() {
               startTime: dayjs().format("YYYY-MM-DD HH:mm"),
               endTime: dayjs().add(2, "hour").format("YYYY-MM-DD HH:mm"),
             });
-            setReqLocation({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            });
 
-            console.log("렌더링됨");
+            // console.log("렌더링됨");
             // console.log(`현재위도 : ${position.coords.latitude}`);
             // console.log(`현재경도 : ${position.coords.longitude}`);
             setCarLocation({
@@ -123,7 +129,7 @@ export default function KakaoMap() {
         const result = await axios.get(
           `https://api-billita.xyz/billitazone/filter?sDate=${recoilTime.startTime}&eDate=${recoilTime.endTime}&lat=${reqLocation.latitude}&lng=${reqLocation.longitude}`
         );
-        console.log("데이터: ", result);
+        console.log("데이터: ", result.data);
         // console.log("센터 좌표 :", center);
         console.log("설정한 시간: ", recoilTime);
         console.log("reqLoc : ", reqLocation);
@@ -142,7 +148,7 @@ export default function KakaoMap() {
       <Map
         center={{ lat: initLoc.latitude, lng: initLoc.longitude }}
         style={{ width: "100%", height: "100vh" }}
-        level={4}
+        level={5}
         onCenterChanged={centerChangeHandler}
       >
         <CustomOverlayMap // 커스텀 오버레이를 표시할 Container
@@ -169,9 +175,7 @@ export default function KakaoMap() {
           </div>
         </CustomOverlayMap>
       </Map>
+      <MapFooter />
     </>
   );
-}
-function setRecoilTime(arg0: { startTime: any; endTime: any }) {
-  throw new Error("Function not implemented.");
 }
