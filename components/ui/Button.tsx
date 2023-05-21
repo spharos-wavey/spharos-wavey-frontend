@@ -7,6 +7,9 @@ interface buttonStyle {
   submitType?: string;
   shadow?: boolean;
   border?: string;
+  backgroundColor?: string | undefined;
+  color?: string | undefined;
+  fontWeight?: string | undefined;
 }
 
 export default function Button(props: buttonStyle) {
@@ -16,12 +19,12 @@ export default function Button(props: buttonStyle) {
         borderRadius: "50px",
         width: "90%",
         height: "3rem",
-        border: props.border ? `{props.border}` : "none",
-        color: "var(--billita-white)",
+        border: props.border ? props.border : "none",
+        color: props.color === undefined ? "var(--billita-white)" : props.color,
         backgroundColor: `${
-          props.submitType === "disabled"
-            ? "var(--billita-gray)"
-            : "var(--billita-blueHighlight)"
+          props.backgroundColor === undefined
+            ? "var(--billita-blueHighlight)"
+            : props.backgroundColor
         }`,
         margin: "15px 0",
         letterSpacing: "-0.2px",
@@ -30,6 +33,7 @@ export default function Button(props: buttonStyle) {
         }`,
         fontSize: "1.1rem",
         whiteSpace: "nowrap",
+        fontWeight: props.fontWeight ? props.fontWeight : "normal",
       }}
       type={props.btnType}
       onClick={props.btnEvent}

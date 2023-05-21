@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import ModalForm from "@/components/modals/ModalForm";
 import { rentalDataType } from "@/types/rentalDataType";
 import style from "./RentalWrapper.module.css";
+import Separator from "@/components/ui/Separator";
 
 export default function RentalWrapper(props: { data: rentalDataType }) {
   const data = props.data;
@@ -48,15 +49,19 @@ export default function RentalWrapper(props: { data: rentalDataType }) {
 
       <RentalTop data={data} />
       <RentalMiddle data={data} />
-
+          <Separator gutter={6.5} />
       <BottomFixedContainer>
         <div className={style.twoBtnWrap}>
           <Button
             btnType={"reset"}
             btnEvent={() => setDrawer(true)}
             shadow={true}
+            backgroundColor="var(--billita-white"
+            color= "var(--billita-secondary)"
+            border="1px solid var(--billita-secondary)"
+            fontWeight="bold"
           >
-            대여취소 색깔바꿔주세염
+            대여취소
           </Button>
           <Button
             btnType={"button"}

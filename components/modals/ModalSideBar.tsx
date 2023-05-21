@@ -22,7 +22,7 @@ export default function ModalSideBar(props: {
 
   useEffect(() => {
     // const getData = async () => {
-    //   const res = await fetch(`http://api-billita.xyz/api/rental/PAID`);
+    //   const res = await fetch(`http://api-billita.xyz/api/rental/${rentId}`);
     //   const data = await res.json();
     //   console.log(data);
     //   return data;

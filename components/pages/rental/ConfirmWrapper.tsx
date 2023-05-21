@@ -7,6 +7,7 @@ import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import ModalForm from "@/components/modals/ModalForm";
 import { rentalDataType } from "@/types/rentalDataType";
+import Separator from "@/components/ui/Separator";
 
 export default function ConfirmWrapper(props: { data: rentalDataType }) {
   const data = props.data;
@@ -75,7 +76,7 @@ export default function ConfirmWrapper(props: { data: rentalDataType }) {
       )}
       <RentalTop data={data} />
       <RentalMiddle data={data} />
-
+      <Separator gutter={5.5} />
       <BottomFixedContainer>
         <Button
           btnType={"button"}
