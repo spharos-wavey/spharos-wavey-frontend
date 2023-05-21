@@ -19,7 +19,7 @@ export default function Button(props: buttonStyle) {
         border: props.border ? `{props.border}` : "none",
         color: "var(--billita-white)",
         backgroundColor: `${
-          props.submitType === "disabled"
+          props.submitType === "cancel"
             ? "var(--billita-gray)"
             : "var(--billita-blueHighlight)"
         }`,

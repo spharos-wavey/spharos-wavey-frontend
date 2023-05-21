@@ -1,6 +1,5 @@
 import { headerMenuType } from "@/types/headerType";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React from "react";
 
 export default function MenuItem(props: {
@@ -10,12 +9,6 @@ export default function MenuItem(props: {
   width?: string;
   onClick?: React.MouseEventHandler<HTMLLIElement> | undefined;
 }) {
-
-  const router = useRouter();
-  const handler = () => {
-    if(props.menuItem.path) router.back();
-    else console.log("no path")
-  }
   return (
     <>
       <li onClick={props.onClick}>
