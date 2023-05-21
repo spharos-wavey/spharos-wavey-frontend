@@ -1,7 +1,8 @@
+import CustomOverlay from "@/components/layouts/map/CustomOverlay";
 import MapFooter from "@/components/layouts/map/MapFooter";
 import { locationState } from "@/state/location";
 import { locationType } from "@/types/location";
-import { timeType } from "@/types/rentalDataType";
+import { billitaZoneListType, timeType } from "@/types/rentalDataType";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
@@ -36,7 +37,7 @@ export default function KakaoMap() {
   });
 
   // 빌리타존 목록
-  const [zoneList, setZoneList] = useState();
+  const [zoneList, setZoneList] = useState<billitaZoneListType>();
 
   // 대여 시간
   const [reqTime, setReqTime] = useState<timeType>({
@@ -44,7 +45,7 @@ export default function KakaoMap() {
     endTime: "",
   });
 
-  console.log("recoil로 넘어온 차 위치 : ", carLocation);
+  // console.log("recoil로 넘어온 차 위치 : ", carLocation);
 
   useEffect(() => {
     setReqTime({
@@ -84,10 +85,6 @@ export default function KakaoMap() {
               startTime: dayjs().format("YYYY-MM-DD HH:mm"),
               endTime: dayjs().add(2, "hour").format("YYYY-MM-DD HH:mm"),
             });
-
-            // console.log("렌더링됨");
-            // console.log(`현재위도 : ${position.coords.latitude}`);
-            // console.log(`현재경도 : ${position.coords.longitude}`);
             setCarLocation({
               latitude: 0,
               longitude: 0,
@@ -121,11 +118,6 @@ export default function KakaoMap() {
     });
   };
 
-  console.log("init : ", initLoc);
-  console.log("reqLoc : ", reqLocation);
-
-  // console.log("세팅된 현재 위도 : ", currentLat);
-
   useEffect(() => {
     if (
       reqLocation.latitude !== 0 &&
@@ -136,51 +128,44 @@ export default function KakaoMap() {
         const result = await axios.get(
           `https://api-billita.xyz/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${reqLocation.latitude}&lng=${reqLocation.longitude}`
         );
-        // setZoneList(result.data);
-        console.log("빌리타존: ", result.data);
-        console.log("설정한 시간: ", reqTime);
+        setZoneList(result.data);
+        // console.log("빌리타존: ", result.data);
+        console.log("reqTime: ", reqTime);
         console.log("reqLoc : ", reqLocation);
       };
       getData();
     }
-  });
+  }, [reqTime, reqLocation]);
 
-  const overLayClickHandler = () => {};
+  const overLayClickHandler = () => {
+    alert("[준비중] 이용가능 차량 목록 표시");
+  };
 
-  return initLoc.latitude == 0 && initLoc.longitude == 0 ? (
-    <></>
-  ) : (
+  console.log("zonelist: ", zoneList);
+
+  return (
     <>
-      <Map
-        center={{ lat: initLoc.latitude, lng: initLoc.longitude }}
-        style={{ width: "100%", height: "100vh" }}
-        level={5}
-        onCenterChanged={centerChangeHandler}
-      >
-        <CustomOverlayMap // 커스텀 오버레이를 표시할 Container
-          // 커스텀 오버레이가 표시될 위치입니다
-          position={{
-            lat: currentLat - 0.001,
-            lng: currentLng - 0.001,
-          }}
-        >
-          {/* 커스텀 오버레이에 표시할 내용입니다 */}
-          <div
-            className="label"
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "70%",
-              color: "white",
-              backgroundColor: "var(--billita-blue)",
-              textAlign: "center",
-            }}
-            onClick={overLayClickHandler}
+      {initLoc.latitude !== 0 && initLoc.longitude !== 0 && (
+        <>
+          <Map
+            center={{ lat: initLoc.latitude, lng: initLoc.longitude }}
+            style={{ width: "100%", height: "100vh" }}
+            level={5}
+            onCenterChanged={centerChangeHandler}
           >
-            <span style={{ fontSize: "0.9rem", lineHeight: "40px" }}>3</span>
-          </div>
-        </CustomOverlayMap>
-      </Map>
+            {zoneList?.length !== 0 &&
+              zoneList?.map((zone) => (
+                <CustomOverlay
+                  key={zone.billitaZoneId}
+                  lat={zone.billitaZoneLat}
+                  lng={zone.billitaZoneLng}
+                  onClickHandler={overLayClickHandler}
+                  availableNumber={zone.rentAbleAmount}
+                />
+              ))}
+          </Map>
+        </>
+      )}
       <MapFooter setReqTime={setReqTime} />
     </>
   );

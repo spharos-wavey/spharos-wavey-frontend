@@ -18,3 +18,12 @@ export interface timeType {
   startTime: string;
   endTime: string;
 }
+
+export interface billitaZoneType {
+  billitaZoneLat: number;
+  billitaZoneLng: number;
+  billitaZoneId: number;
+  rentAbleAmount: number;
+}
+
+export interface billitaZoneListType extends Array<billitaZoneType> {}
