@@ -21,6 +21,11 @@ export default function Button(props: buttonStyle) {
         height: "3rem",
         border: props.border ? props.border : "none",
         color: props.color === undefined ? "var(--billita-white)" : props.color,
+        backgroundColor: `${
+          props.backgroundColor === undefined
+            ? "var(--billita-gray)"
+            : props.backgroundColor
+        }`,
         margin: "15px 0",
         letterSpacing: "-0.2px",
         boxShadow: `${

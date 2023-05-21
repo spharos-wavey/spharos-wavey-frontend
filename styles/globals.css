@@ -1,20 +1,18 @@
-@import url('./common/font.css');
+@import url("./common/font.css");
 
 :root {
   /* common color */
   --billita-white: #ffffff;
-  --billita-black: #1E1E1E;
-  --billita-blue: #0071FF;
-  --billita-gray: #D9D9D9;
+  --billita-black: #1e1e1e;
+  --billita-blue: #0071ff;
+  --billita-gray: #d9d9d9;
   --billita-primary: #070b0b;
-  --billita-secondary: #FF4974;
-  --billita-blueHighlight: #00C4DF;
+  --billita-secondary: #ff4974;
+  --billita-blueHighlight: #00c4df;
 
   /* font */
-  --billita-hangul: 'Noto Sans KR', sans-serif;
-  --billita-dongle: 'Dongle', sans-serif;
-
-
+  --billita-hangul: "Noto Sans KR", sans-serif;
+  --billita-dongle: "Dongle", sans-serif;
 
   /* --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -28,7 +26,6 @@
     rgba(255, 255, 255, 1),
     rgba(255, 255, 255, 0)
   ); */
-
 }
 
 * {
@@ -65,6 +62,10 @@ section {
   margin: 2rem auto;
 }
 
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  font-size: 0.7rem !important;
+}
+
 /* slide panel */
 .some-custom-overlay-class {
   z-index: 1000;
@@ -72,7 +73,6 @@ section {
   margin: 0px !important;
   padding: 0px !important;
 }
-
 
 .slide-pane__content {
   overflow: hidden !important;

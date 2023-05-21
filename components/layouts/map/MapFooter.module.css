@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.footer input {
+.footer > input {
   width: 60%;
   height: 3rem;
   border: 1px solid #bbb;

@@ -8,7 +8,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     <>
       <DetailHeader />
       <div>{props.children}</div>
-      <BottomFixedContainer>
+      <BottomFixedContainer backgroundColor="transparent">
         <Button btnType={"button"} btnEvent={() => alert("g")} shadow={true}>
           예약하기
         </Button>
