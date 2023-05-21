@@ -1,6 +1,5 @@
 import MapFooter from "@/components/layouts/map/MapFooter";
 import { locationState } from "@/state/location";
-import { timeState } from "@/state/rentalTime";
 import { locationType } from "@/types/location";
 import { timeType } from "@/types/rentalDataType";
 import axios from "axios";
@@ -8,7 +7,7 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 
 export default function KakaoMap() {
   // 사용자 위치
@@ -36,17 +35,21 @@ export default function KakaoMap() {
     longitude: 0,
   });
 
+  // 빌리타존 목록
   const [zoneList, setZoneList] = useState();
-  const [recoilTime, setRecoilTime] = useRecoilState<timeType>(timeState);
 
-  const router = useRouter();
+  // 대여 시간
+  const [reqTime, setReqTime] = useState<timeType>({
+    startTime: "",
+    endTime: "",
+  });
 
   console.log("recoil로 넘어온 차 위치 : ", carLocation);
 
   useEffect(() => {
-    setRecoilTime({
+    setReqTime({
       startTime: dayjs().add(10, "minute").format("YYYY-MM-DD HH:mm"),
-      endTime: dayjs().add(130, "minute").format("YYYY-MM-DD HH:mm"),
+      endTime: dayjs().add(70, "minute").format("YYYY-MM-DD HH:mm"),
     });
   }, []);
 
@@ -77,7 +80,7 @@ export default function KakaoMap() {
                 longitude: carLocation.longitude,
               });
             }
-            setRecoilTime({
+            setReqTime({
               startTime: dayjs().format("YYYY-MM-DD HH:mm"),
               endTime: dayjs().add(2, "hour").format("YYYY-MM-DD HH:mm"),
             });
@@ -124,21 +127,24 @@ export default function KakaoMap() {
   // console.log("세팅된 현재 위도 : ", currentLat);
 
   useEffect(() => {
-    if (reqLocation.latitude !== 0 && reqLocation.longitude !== 0) {
+    if (
+      reqLocation.latitude !== 0 &&
+      reqLocation.longitude !== 0 &&
+      reqTime !== undefined
+    ) {
       const getData = async () => {
         const result = await axios.get(
-          `https://api-billita.xyz/billitazone/filter?sDate=${recoilTime.startTime}&eDate=${recoilTime.endTime}&lat=${reqLocation.latitude}&lng=${reqLocation.longitude}`
+          `https://api-billita.xyz/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${reqLocation.latitude}&lng=${reqLocation.longitude}`
         );
-        console.log("데이터: ", result.data);
-        // console.log("센터 좌표 :", center);
-        console.log("설정한 시간: ", recoilTime);
+        // setZoneList(result.data);
+        console.log("빌리타존: ", result.data);
+        console.log("설정한 시간: ", reqTime);
         console.log("reqLoc : ", reqLocation);
       };
       getData();
     }
   });
 
-  console.log(recoilTime);
   const overLayClickHandler = () => {};
 
   return initLoc.latitude == 0 && initLoc.longitude == 0 ? (
@@ -175,7 +181,7 @@ export default function KakaoMap() {
           </div>
         </CustomOverlayMap>
       </Map>
-      <MapFooter />
+      <MapFooter setReqTime={setReqTime} />
     </>
   );
 }

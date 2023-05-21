@@ -3,33 +3,31 @@ import BottomFixedContainer from "../layouts/BottomFixedContainer";
 import Button from "../ui/Button";
 import { MobileDateTimePicker } from "@mui/x-date-pickers-pro";
 import { useRecoilState } from "recoil";
-import { timeState } from "@/state/rentalTime";
 import dayjs from "dayjs";
 import { timeType } from "@/types/rentalDataType";
 
 interface timeModal {
+  setReqTime: React.Dispatch<React.SetStateAction<timeType>>;
   setTimeModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function TimeSelect({ setTimeModal }: timeModal) {
-  const [startTime, setStartTime] = useState<dayjs.Dayjs>(dayjs());
-  const [endTime, setEndTime] = useState<dayjs.Dayjs>(dayjs());
+export default function TimeSelect({ setReqTime, setTimeModal }: timeModal) {
+  const [startTime, setStartTime] = useState<dayjs.Dayjs>(
+    dayjs().add(10, "minute")
+  );
+  const [endTime, setEndTime] = useState<dayjs.Dayjs>(
+    dayjs().add(70, "minute")
+  );
   const [currentTime, setCurrentTime] = useState<dayjs.Dayjs>(dayjs());
-
-  // Dayjs 타입이 Recoil-persist에 적용되지 않는 이슈 때문에, 변수 따로 관리
-  const [recoilTime, setRecoilTime] = useRecoilState<timeType>(timeState);
 
   const timeModalHandler = () => {
     alert("시간이 설정되었습니다!");
-    setTimeModal(false);
-    setRecoilTime({
+    setReqTime({
       startTime: startTime.format("YYYY-MM-DD HH:mm"),
       endTime: endTime.format("YYYY-MM-DD HH:mm"),
     });
+    setTimeModal(false);
   };
-
-  // console.log("선택된 출발 시간 : ", startTime.format("YYYY/MM/DD HH:mm"));
-  // console.log("선택된 반납 시간 : ", endTime.format("YYYY/MM/DD HH:mm"));
 
   return (
     <BottomFixedContainer backgroundColor="white">
