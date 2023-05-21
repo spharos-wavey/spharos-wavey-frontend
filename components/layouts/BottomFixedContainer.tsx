@@ -10,8 +10,9 @@ export default function BottomFixedContainer(props: {
     <div
       className={style.container}
       style={{
+        padding: 14,
         backgroundColor: `${
-          props.backgroundColor === "white"
+          props.backgroundColor === undefined
             ? "var(--billita-white)"
             : "transparent"
         }`,

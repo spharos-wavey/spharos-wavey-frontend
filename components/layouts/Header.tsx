@@ -7,9 +7,6 @@ import axios from "axios";
 import { carDataType } from "@/types/carDataType";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-import Image from "next/image";
-import SectionTitle from "../ui/SectionTitle";
-import Separator from "../ui/Separator";
 import ModalSideBar from "../modals/ModalSideBar";
 
 export default function Header() {

@@ -1,21 +1,44 @@
 import * as React from "react";
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import style from "./ModalSideBar.module.css";
 import SectionTitle from "../ui/SectionTitle";
 import Separator from "../ui/Separator";
+import { useRouter } from "next/router";
+import { RentalData } from "@/datas/RentalData";
+import { rentalDataType } from "@/types/rentalDataType";
 
 export default function ModalSideBar(props: {
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSideOpen: boolean;
 }) {
-  const { setIsSideOpen, isSideOpen } = props;
+  const { isSideOpen, setIsSideOpen } = props;
+  const [rentCarData, setRentCarData] = useState<rentalDataType>(
+    {} as rentalDataType
+  );
+  const router = useRouter();
+  console.log(router.query);
+
+  useEffect(() => {
+    // const getData = async () => {
+    //   const res = await fetch(`http://api-billita.xyz/api/rental/${rentId}`);
+    //   const data = await res.json();
+    //   console.log(data);
+    //   return data;
+    // }
+    // getData();
+    const data = RentalData.find((item) => item.purchaseState === "PAID");
+    if (!data) return;
+    setRentCarData(data);
+  }, []);
   return (
     <>
       <div className={style.topWrap}>
         <div className={style.greetingBinding}>
           <div className={style.greeting}>빌리타님</div>
           <div className={style.greeting}>안녕하세요!</div>
+          <div className={style.bluehighlightsmfont}>마이페이지</div>
         </div>
         <div className={style.backBtn} onClick={() => setIsSideOpen(false)}>
           <Image
@@ -26,36 +49,14 @@ export default function ModalSideBar(props: {
           />
         </div>
       </div>
-      <div className={style.bluehighlightsmfont}>마이페이지</div>
 
-      <div className={style.grayWrapper}>
-        <div className={style.paddingWrap}>
-          <SectionTitle fontSize={1}>대여 차량</SectionTitle>
-          <Separator gutter={2} />
-          <div className={style.reserveWrapper}>
-            <div className={style.textWrap}>
-              <div className={style.carName}>Tesla Model 3</div>
-              <div className={style.period}>
-                4월 19일 21:00 - 4월 20일 16:00
-              </div>
-            </div>
-            <div className={style.imgWrap}>
-              <Image
-                src="/assets/images/car/tesla-x.png"
-                width="100"
-                height="70"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <RentCar rentCarData={rentCarData} setIsSideOpen={setIsSideOpen} />
 
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
-          <a href="">
+          <Link href={""}>
             <li>이용내역</li>
-          </a>
+          </Link>
           <a href="">
             <li>스마트키</li>
           </a>
@@ -73,20 +74,66 @@ export default function ModalSideBar(props: {
 
       <div className={style.bottomMenuWrap}>
         <ul className={style.blueMenu}>
-          <a href="">
+          {/* <a href="">
             <li>이용상품 안내</li>
-          </a>
-          <a href="">
+          </a> */}
+          {/* <a href="">
             <li>사고접수 현황</li>
+          </a> */}
+          <a href="">
+            <li>개인정보 처리방침</li>
           </a>
           <a href="">
-            <li>이용상품 안내</li>
-          </a>
-          <a href="">
-            <li>이용상품 안내</li>
+            <li>About Billita</li>
           </a>
         </ul>
       </div>
     </>
   );
 }
+
+const RentCar = (props: {
+  rentCarData: rentalDataType;
+  setIsSideOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
+  const router = useRouter();
+  const { rentCarData } = props;
+  const handlePush = () => {
+    props.setIsSideOpen(false);
+    router.push(`/rental/${rentCarData.rentalId}/detail`);
+  };
+  const serviceStartTime = new Date(rentCarData.startDate);
+  const serviceEndTime = new Date(rentCarData.endDate);
+
+  return (
+    <div className={style.grayWrapper} onClick={handlePush}>
+      <div className={style.paddingWrap}>
+        <SectionTitle fontSize={1}>대여 차량</SectionTitle>
+        <Separator gutter={1.2} />
+        <div className={style.reserveWrapper}>
+          <div className={style.textWrap}>
+            <div className={style.carName}>
+              {rentCarData.maker} {rentCarData.carModel}
+            </div>
+            <div className={style.period}>
+              {serviceStartTime.getMonth()}월 {serviceStartTime.getDate()}일{" "}
+              {serviceStartTime.getHours()}:
+              {String(serviceStartTime.getMinutes()).padStart(2, "0")} -{" "}
+              {serviceEndTime.getMonth()}월 {serviceEndTime.getDate()}일{" "}
+              {serviceEndTime.getHours()}:
+              {String(serviceEndTime.getMinutes()).padStart(2, "0")}
+            </div>
+          </div>
+          <div className={style.imgWrap}>
+            <Image
+              src={rentCarData.imageUrl}
+              width="300"
+              height="300"
+              alt={rentCarData.carModel}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

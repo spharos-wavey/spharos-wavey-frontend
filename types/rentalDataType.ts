@@ -9,9 +9,8 @@ export interface rentalDataType {
   imageUrl: string;
   startDate: string;
   endDate: string;
-  startTime: string;
-  endTime: string;
   billitazone: string;
+  purchaseState: string;
 }
 
 export interface timeType {
@@ -27,3 +26,4 @@ export interface billitaZoneType {
 }
 
 export interface billitaZoneListType extends Array<billitaZoneType> {}
+
