@@ -2,9 +2,16 @@
   background: #FFFFFF;
   box-shadow: 0px 0px 30px rgba(3, 2, 36, 0.2);
   border-radius: 0.7rem;
-  padding: 1rem 2rem;
+  padding: 1rem 3.5rem 1rem 2rem;
   margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   position: relative;
+}
+
+.carWrap img{
+  margin-left: -1rem;
 }
 
 .saveToggle {
@@ -26,13 +33,12 @@
 
 .carTitle {
   font-weight: 600;
-  font-size: 1.2rem;
-  letter-spacing: 1px;
+  font-size: 1.1rem;
 }
 
 .greySubTitle {
+  font-size: 0.8rem;
   margin-top: 4px;
   font-weight: 700;
-  letter-spacing: 0.5px;
   color: #AAAAAA;
 }
