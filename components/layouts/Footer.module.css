@@ -1,6 +1,6 @@
 .footer {
   width: 100%;
-  padding: 1.2rem 3rem;
+  padding: 1.0rem 3rem;
   background-color: var(--billita-white);
   border-radius: 1rem 1rem 0 0;
   position: fixed;
@@ -17,7 +17,13 @@
 .footer nav ul li {
   list-style: none;
 }
-
+.footer nav ul li .footerIconContainer {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .footer nav ul li img {
   filter: grayscale(100%);
 }

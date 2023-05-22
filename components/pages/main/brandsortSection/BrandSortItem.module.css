@@ -31,6 +31,7 @@
   text-align: center;
   color: var(--billita-primary);
   font-weight: bold;
+  opacity: 0.6;
 }
 
 .circlePad:hover {
