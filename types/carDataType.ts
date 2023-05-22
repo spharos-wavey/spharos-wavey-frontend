@@ -9,14 +9,14 @@ export interface carDataType {
   longitude: number;
   available: boolean;
   charge: number;
-  lastZone: number;
+  actualReturnedZone: number;
   smartKey: string;
   frameInfo: {
     createDate: string | null;
     updateDate: string | null;
     id: number;
-    maker: string;
-    foreignCar: boolean;
+    carBrand: string;
+    foreignCar: boolean; 
     name: string;
     capacity: string;
     recommend: boolean;

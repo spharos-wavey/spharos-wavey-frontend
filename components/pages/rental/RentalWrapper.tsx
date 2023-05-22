@@ -6,24 +6,24 @@ import Button from "@/components/ui/Button";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import ModalForm from "@/components/modals/ModalForm";
-import { rentalDataType } from "@/types/rentalDataType";
+import { RentalDataType } from "@/types/rentalDataType";
 import style from "./RentalWrapper.module.css";
 import Separator from "@/components/ui/Separator";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-export default function RentalWrapper(props: { data: rentalDataType }) {
+export default function RentalWrapper(props: { data: RentalDataType }) {
   const data = props.data;
   const router = useRouter();
   const [drawer, setDrawer] = useState(false);
   const [nextDrawer, setNextDrawer] = useState(false);
   const handleDrawer = () => setDrawer(true);
   const handleCancel = () => {
-    console.log(router.query.rentId);
+    console.log(router.query.bookId);
     setDrawer(false);
     const getData = async () => {
       const result = await axios.delete(
-        `https://api-billita.xyz/rental/${router.query.rentId}`,
+        `https://api-billita.xyz/rental/${router.query.bookId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("Authorization")}`,

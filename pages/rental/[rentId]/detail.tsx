@@ -1,10 +1,10 @@
 import React from "react";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import RentalWrapper from "@/components/pages/rental/RentalWrapper";
-import { rentalDataType } from "@/types/rentalDataType";
+import { RentalDataType } from "@/types/rentalDataType";
 import { RentalData } from "@/datas/RentalData";
 
-export default function Detail(props: { data: rentalDataType }) {
+export default function Detail(props: { data: RentalDataType }) {
   const data = props.data;
   return (
     <main>

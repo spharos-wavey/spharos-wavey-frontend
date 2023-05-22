@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { headerMenuData } from "@/datas/staticMenuDatas";
 import style from "@/components/layouts/Header.module.css";
 import MenuItem from "./MenuItem";
@@ -28,14 +28,10 @@ export default function Header() {
 
 
   const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
-  // console.log("isOpen", isSideOpen);
 
   const toggleMenu = (event: any) => {
-    // event.stopPropagation();
     setIsSideOpen(!isSideOpen);
   }
-
-  const handleClose = () => setIsSideOpen(false);
 
   return (
     <>

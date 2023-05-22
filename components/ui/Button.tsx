@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-interface buttonStyle {
+interface ButtonStyle {
   children: ReactNode;
   btnType: "button" | "submit" | "reset" | undefined;
   btnEvent: React.MouseEventHandler<HTMLButtonElement> | undefined;
@@ -12,7 +12,7 @@ interface buttonStyle {
   fontWeight?: string | undefined;
 }
 
-export default function Button(props: buttonStyle) {
+export default function Button(props: ButtonStyle) {
   return (
     <button
       style={{

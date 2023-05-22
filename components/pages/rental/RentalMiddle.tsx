@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 import style from "./RentalMiddle.module.css";
 import Separator from "@/components/ui/Separator";
-import { rentalDataType } from "@/types/rentalDataType";
+import { RentalDataType } from "@/types/rentalDataType";
 
-export default function RentalMiddle(props: { data: rentalDataType }) {
+export default function RentalMiddle(props: { data: RentalDataType }) {
   const data = props.data;
 
   const serviceStartTime = new Date(data.startDate);
@@ -74,7 +74,7 @@ export default function RentalMiddle(props: { data: rentalDataType }) {
       <div className={style.subWrap}>
         <div className={style.content}>대여요금</div>
         <div className={style.subtitle}>
-          {data.defaultTimePrice.toLocaleString("kr-KO")}원
+          {data.defaultPrice.toLocaleString("kr-KO")}원
         </div>
       </div>
 
@@ -84,7 +84,7 @@ export default function RentalMiddle(props: { data: rentalDataType }) {
       <div className={style.subWrap}>
         <div className={style.kakaopay}>카카오페이</div>
         <div className={style.subtitle}>
-          {data.defaultTimePrice.toLocaleString("kr-KO")}원
+          {data.defaultPrice.toLocaleString("kr-KO")}원
         </div>
       </div>
     </div>

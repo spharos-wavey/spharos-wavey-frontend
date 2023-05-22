@@ -70,7 +70,6 @@
   width: 100%;
   height: 300px;
   position: absolute;
-  z-index: 2;
   background-color: var(--billita-gray);
   border-radius: 1rem 1rem 0 0;
   top: 160px;
