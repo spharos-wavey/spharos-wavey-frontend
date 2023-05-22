@@ -5,7 +5,7 @@ import RentalLogWrapper from '@/components/pages/rental/RentalLogWrapper'
 export default function RentHistory() {
   return (
     <main>
-      <RentalLogWrapper xx={true}/>
+      <RentalLogWrapper xx={true} title="대여차량"/>
       
 
     </main>

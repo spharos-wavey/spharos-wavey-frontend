@@ -2,7 +2,9 @@
   display: flex;
   justify-content: space-between;
 }
-
+.textWrap{
+  width: 70%;
+}
 .carName {
   font-size: 1.1rem;
   font-weight: bold;
@@ -14,10 +16,17 @@
   font-size: 0.9rem;
   opacity: 0.5;
 }
-
+.imgWrap {
+  width: 30%;
+}
+.imgWrap img {
+  width: 100%;
+  height: auto;
+}
 .hr{
   width: 4rem;
   background-color: var(--billita-blueHighlight);
   border: 0;
   height: 1px;
+  margin-top: 1rem;
 }
