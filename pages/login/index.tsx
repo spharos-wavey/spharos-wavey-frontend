@@ -33,19 +33,44 @@ export default function Page() {
 
   return (
     <main>
-      <Logo />
-      <div style={{ padding: "2rem", marginTop: "8rem" }}>
-        <h1>kakao oauth</h1>
-        <p>test page</p>
-        <div onClick={handleLogin}>
+      <div style={{ padding: "2rem", marginTop: "9rem" }}>
+        <h1
+          style={{
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+            textAlign: "center",
+            marginBottom: "10vh",
+          }}
+        >
+          로그인
+        </h1>
+        <div
+          onClick={handleLogin}
+          style={{ width: "100%", textAlign: "center" }}
+        >
           <Image
             src="/assets/images/etc/kakao_login_large_wide.svg"
-            width={339}
-            height={60}
+            width={300}
+            // fill
+            sizes="(max-width: 600px) 100vw, 600px"
+            height={45}
             alt="카카오톡으로 로그인"
             priority
           />
         </div>
+        <p
+          style={{
+            opacity: "0.5",
+            fontSize: "0.8rem",
+            marginTop: "3vh",
+            textAlign: "center",
+          }}
+        >
+          서비스를 위한 최소예약가능 연령은 만 21세입니다.
+        </p>
+      </div>
+      <div  style={{ textAlign: "center" }}>
+        <Logo />
       </div>
     </main>
   );

@@ -19,27 +19,28 @@ export default function ModalSideBar(props: {
     {} as rentalDataType
   );
   const router = useRouter();
-  console.log(router.query);
+  const PURCASE_STATE = "RESERVATION";
+  console.log(`router.query:`, router.query);
 
-
-  if(router.query === undefined) return (<>로딩중</>) 
-  else{
-    useEffect(() => {
-      const getData = async () => {
-        const res = await axios.get(`http://api-billita.xyz/api/rental/${router.query}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
-          }
-        });
-        console.log(res.data);
-        return res.data;
+  const getData = async () => {
+    const res = await axios.get(
+      `http://api-billita.xyz/rental/${PURCASE_STATE}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
+        },
       }
-      getData();
-      // const data = RentalData.find((item) => item.purchaseState === "PAID");
-      // if (!data) return;
-      // setRentCarData(data);
-    }, []);
-  }
+    );
+    console.log(res.data);
+    return res.data;
+  };
+
+  useEffect(() => {
+    getData();
+    // const data = RentalData.find((item) => item.purchaseState === "PAID");
+    // if (!data) return;
+    // setRentCarData(data);
+  }, []);
   return (
     <>
       <div className={style.topWrap}>
