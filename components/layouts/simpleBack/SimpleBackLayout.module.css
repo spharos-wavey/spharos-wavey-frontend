@@ -1,6 +1,5 @@
 .headerContainer {
   width: 100%;
-  height: 5rem;
   padding: 1.5rem;
   background-color: var(--billita-white);
   position: fixed;
@@ -8,34 +7,18 @@
   z-index: 0;
 }
 
-.headerContainer nav {
-  position: relative;
-}
-
 .headerContainer nav ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-}
-
-.headerContainer nav ul li {
   list-style: none;
-  width: 1.5rem;
-  height: 1.5rem;
 }
 
-.headerContainer nav ul .img {
-  width: 100%;
-  height: auto;
-  position: absolute;
-  top: 0.4rem;
-}
-
-.headerContainer .title {
-  width: 25rem;
-  text-align: center;
-  font-weight: bold;
+.title {
   font-size: 1.1rem;
-  margin-top: 0.4rem;
+  font-weight: 600;
+}
+
+.hidden {
+  visibility: hidden;
 }

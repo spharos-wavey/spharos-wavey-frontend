@@ -1,25 +1,42 @@
+.brandWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem 0.5rem;
+}
 
+.brandWrap:first-child {
+  margin-left: 0;
+}
 .circlePad { 
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
   background-color: #F5F6F8;
   position: relative;
-  border: 1rem solid #FFFFFF;
+  border: 5px solid var(--billita-gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
 }
 
 .circlePad img {
-  position: absolute;
-  left: 0.75rem;
-  top: 0.75rem;
+  width: 50%;
+  height: auto;
 }
 
 .brandName {
+  margin-top: 1rem;
   text-align: center;
-  color: var(--billita-gray);
-  font-weight: 500;
+  color: var(--billita-primary);
+  font-weight: bold;
 }
 
-.circlePad .active {
-  border: 1px solid var(--billita-blue);
+.circlePad:hover {
+  background-color: var(--billita-white);
+  border: 5px solid var(--billita-blueHighlight);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
+

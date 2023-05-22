@@ -36,3 +36,15 @@ export interface carDataType {
     zoneAddress: string;
   };
 }
+
+
+export interface carListType {
+  id: number,
+  carName: string,
+  carBrand: string,
+  carImage: string,
+  billitaZone: string,
+  defaultPrice: number,
+  canBook: boolean,
+}
+  
