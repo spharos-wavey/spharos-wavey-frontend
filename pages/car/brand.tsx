@@ -25,7 +25,7 @@ function BrandSort(props: { data: carListType[] }) {
 
   return (
     <main>
-      <SectionTitle children={`${brand} 브랜드`} fontSize={0.8}/>
+      <SectionTitle fontSize={0.8}>{`${brand} 브랜드`}</SectionTitle>
       <CarList data={data}/>
     </main>
   )
