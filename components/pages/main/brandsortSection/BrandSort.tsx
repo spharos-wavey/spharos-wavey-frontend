@@ -11,13 +11,10 @@ export default function BrandSort(props: { data: brandSortType[] }) {
   const data = props.data;
 
   useEffect(() => {
-    console.log(data);
-    console.log(brandSortData);
     const billitaBrands:brandSortType[] = []
     brandSortData.map((item) => {
       data.forEach((dataItem) => {
         if (item.name === dataItem.name) {
-          console.log(item);
           billitaBrands.push(item);
         }
       })

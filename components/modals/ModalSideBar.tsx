@@ -21,9 +21,7 @@ export default function ModalSideBar(props: {
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
   console.log(`router.query:`, router.query);
-  const authorization = localStorage.getItem("Authorization");
-  
-
+    
   const getData = async () => {
     const res = await axios.get(
       `http://api-billita.xyz/rental/${PURCASE_STATE}`,

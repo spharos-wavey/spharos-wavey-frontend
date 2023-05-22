@@ -16,7 +16,7 @@ export interface carDataType {
     updateDate: string | null;
     id: number;
     carBrand: string;
-    foreignCar: boolean; 
+    foreignCar: boolean;
     name: string;
     capacity: string;
     recommend: boolean;
@@ -37,14 +37,13 @@ export interface carDataType {
   };
 }
 
-
 export interface carListType {
-  id: number,
-  carName: string,
-  carBrand: string,
-  carImage: string,
-  billitaZone: string,
-  defaultPrice: number,
-  canBook: boolean,
+  id: number;
+  carName: string;
+  carBrand: string;
+  carImage: string;
+  billitaZone: string;
+  defaultPrice: number;
+  canBook: boolean;
+  purchaseStatus: string;
 }
-  

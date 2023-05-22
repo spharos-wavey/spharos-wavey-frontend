@@ -54,6 +54,7 @@ export const getServerSideProps = async (context:Params) => {
       defaultPrice: 27000,
       billitaZone: "센텀프리미어 호텔",
       canBook: true,
+      purchaseStatus: "REVERSATION",
     },
     {
       id: 2,
@@ -64,6 +65,7 @@ export const getServerSideProps = async (context:Params) => {
       defaultPrice: 27000,
       billitaZone: "센텀프리미어 호텔",
       canBook: true,
+      purchaseStatus: "REVERSATION",
     },
   ]
 
