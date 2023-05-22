@@ -97,6 +97,7 @@ const Kakao: NextPage = () => {
                 console.log(res.headers.authorization);
                 const jwtToken = res.headers.authorization;
                 localStorage.setItem("Authorization", jwtToken);
+                localStorage.setItem("uid", res.headers.uid);
                 router.push("/");
               })
               .catch((err) => router.push("/login"));

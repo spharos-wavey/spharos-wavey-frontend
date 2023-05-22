@@ -22,20 +22,37 @@ export default function ModalSideBar(props: {
   const PURCASE_STATE = "RESERVATION";
   console.log(`router.query:`, router.query);
 
-  const getData = async () => {
-    const res = await axios.get(
-      `http://api-billita.xyz/rental/${PURCASE_STATE}`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
-        },
-      }
-    );
-    console.log(res.data);
-    return res.data;
-  };
+  console.log('auth', localStorage.getItem("Authorization"));
+  console.log('uid', localStorage.getItem("uid"));
+
+  
 
   useEffect(() => {
+    if(!localStorage.getItem("Authorization") && !localStorage.getItem("uid")) return;
+    const getData = async () => {
+      try {
+        const token = "Bearer "+localStorage.getItem("Authorization");
+        const uid = localStorage.getItem("uid");
+        const res = await axios.get(
+          `http://api-billita.xyz/rental/ALL`,
+          {
+            headers: {
+              Authorization: token,
+              uuid: uid,
+            },
+          })
+        const data = res.data;
+        console.log(data);
+        // const rentalData = data.find(
+        //   (item: rentalDataType) => item.purchaseState === PURCASE_STATE
+        // );
+        // if (!rentalData) return;
+        // setRentCarData(rentalData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     getData();
     // const data = RentalData.find((item) => item.purchaseState === "PAID");
     // if (!data) return;
