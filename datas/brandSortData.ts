@@ -13,7 +13,7 @@ export const brandSortData = [
   },
   {
     id: 3,
-    name: '테슽라',
+    name: '테슬라',
     path: '/tesla',
     icon: 'assets/images/common/teslaCircleLogo.svg'
   },

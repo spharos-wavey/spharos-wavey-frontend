@@ -3,7 +3,6 @@
   position: fixed;
   bottom: -4rem;
   z-index: 80;
-  min-height: 20rem;
   background: linear-gradient(180deg, #ffffff00 0%, #ffffff 10%);
   transition: all 0.3s ease-in-out;
 }
@@ -14,7 +13,7 @@
 }
 
 .bannerContents {
-  padding: 1rem;
+  padding: 2rem 1rem 0 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,7 +25,8 @@
   width: 40%;
 }
 .bannerLeft h3 {
-  font-size: 1.2rem;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
   font-family: var(--billita-hangul);
   font-weight: 600;
 }
@@ -39,8 +39,7 @@
   height: auto;
 }
 .bannerContents .bannerRight {
-  width: 60%;
-  height: 5rem;
+  width: 45%;
 }
 .bannerRight img {
   width: 100%;
@@ -55,7 +54,7 @@
   flex-direction: column;
   justify-content: flex-start;
   border-radius: 1rem 1rem 0 0;
-  height: 12rem;
+  height: 10rem;
   padding: 1rem 2rem;
   background-color: var(--billita-blueHighlight);
   background-blend-mode: multiply;

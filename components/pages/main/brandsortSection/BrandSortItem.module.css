@@ -9,8 +9,8 @@
   margin-left: 0;
 }
 .circlePad { 
-  width: 6rem;
-  height: 6rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   background-color: #F5F6F8;
   position: relative;
@@ -22,7 +22,7 @@
 }
 
 .circlePad img {
-  width: 50%;
+  width: 40%;
   height: auto;
 }
 
