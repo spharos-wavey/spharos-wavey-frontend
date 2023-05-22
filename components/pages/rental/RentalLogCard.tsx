@@ -4,10 +4,10 @@ import Image from 'next/image'
 import style from "./RentalLogCard.module.css"
 import Separator from '@/components/ui/Separator'
 
-export default function RentalLogCard() {
+export default function RentalLogCard(props:{title: string}) {
   return (
     <div>
-      <SectionTitle fontSize={1}>대여 차량</SectionTitle>
+      <SectionTitle fontSize={1}>{props.title}</SectionTitle>
       <Separator gutter={2} />
       <div className={style.wrapper}>
         <div className={style.textWrap}>
