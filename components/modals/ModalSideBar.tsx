@@ -8,6 +8,7 @@ import Separator from "../ui/Separator";
 import { useRouter } from "next/router";
 import { RentalData } from "@/datas/RentalData";
 import { rentalDataType } from "@/types/rentalDataType";
+import axios from "axios";
 
 export default function ModalSideBar(props: {
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,19 +19,27 @@ export default function ModalSideBar(props: {
     {} as rentalDataType
   );
   const router = useRouter();
-  console.log(router.query);
+  const PURCASE_STATE = "RESERVATION";
+  console.log(`router.query:`, router.query);
+
+  const getData = async () => {
+    const res = await axios.get(
+      `http://api-billita.xyz/rental/${PURCASE_STATE}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
+        },
+      }
+    );
+    console.log(res.data);
+    return res.data;
+  };
 
   useEffect(() => {
-    // const getData = async () => {
-    //   const res = await fetch(`http://api-billita.xyz/api/rental/${rentId}`);
-    //   const data = await res.json();
-    //   console.log(data);
-    //   return data;
-    // }
-    // getData();
-    const data = RentalData.find((item) => item.purchaseState === "PAID");
-    if (!data) return;
-    setRentCarData(data);
+    getData();
+    // const data = RentalData.find((item) => item.purchaseState === "PAID");
+    // if (!data) return;
+    // setRentCarData(data);
   }, []);
   return (
     <>

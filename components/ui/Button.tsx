@@ -21,11 +21,6 @@ export default function Button(props: buttonStyle) {
         height: "3rem",
         border: props.border ? props.border : "none",
         color: props.color === undefined ? "var(--billita-white)" : props.color,
-        backgroundColor: `${
-          props.backgroundColor === undefined
-            ? "var(--billita-gray)"
-            : props.backgroundColor
-        }`,
         margin: "15px 0",
         letterSpacing: "-0.2px",
         boxShadow: `${
@@ -34,11 +29,11 @@ export default function Button(props: buttonStyle) {
         fontSize: "1.1rem",
         whiteSpace: "nowrap",
         fontWeight: props.fontWeight === undefined? "normal" : props.fontWeight,
-        backgroundColor: `${
+        backgroundColor: 
           props.backgroundColor === undefined
             ? "var(--billita-blueHighlight)"
             : props.backgroundColor
-        }`,
+        ,
       }}
       type={props.btnType}
       onClick={props.btnEvent}
