@@ -1,9 +1,13 @@
 .logoImgWrap {
-  /* width: 6rem; */
-  height: auto;
-  position: relative;
-  margin-top: 60px;
+  display: flex;
+  justify-content: flex-start;
+  width: 35%;
 }
+
+.logoImgWrap img {
+  width: 100%;
+}
+
 .logoImgWrap h1 {
   font-size: 0;
 }

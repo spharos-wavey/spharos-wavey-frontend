@@ -1,7 +1,7 @@
 export const brandSortData = [
   {
     id: 1,
-    name: 'Mercedes',
+    name: '벤츠',
     path: '/mercedes',
     icon: 'assets/images/common/mercedesCircleLogo.svg'
   },
@@ -13,20 +13,20 @@ export const brandSortData = [
   },
   {
     id: 3,
-    name: 'Tesla',
+    name: '테슽라',
     path: '/tesla',
     icon: 'assets/images/common/teslaCircleLogo.svg'
   },
   {
     id: 4,
-    name: 'Hyundai',
+    name: '현대',
     path: '/hyundai',
     icon: 'assets/images/common/hyundaiCircleLogo.svg'
   },
   {
     id: 5,
-    name: 'Lamborghini',
-    path: '/lamborghini',
+    name: '기아',
+    path: '/kia',
     icon: 'assets/images/common/lamborghiniCircleLogo.svg'
   },
 ]

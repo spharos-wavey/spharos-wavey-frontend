@@ -3,9 +3,9 @@ import style from "@/components/ui/Logo.module.css"
 
 export default function Logo() {
   return (
-    <div className={style.logoImgWrap}>
+    <section className={style.logoImgWrap}>
       <h1>Billita</h1>
-      <Image src="/assets/images/common/billitaLogo.svg" width={160} height={56} alt="Welcome to Billita"/>
-    </div>
+      <Image src="/assets/images/common/billitaLogo.svg" width={129} height={65} alt="Welcome to Billita"/>
+    </section>
   )
 }

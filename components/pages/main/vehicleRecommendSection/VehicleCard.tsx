@@ -2,14 +2,23 @@ import Image from "next/image";
 import { mainVehicleCardType } from "@/types/eventBannerType";
 import style from "@/components/pages/main/vehicleRecommendSection/VehicleCard.module.css";
 import { useRouter } from "next/router";
+import { IconButton } from "@mui/material";
+import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import { useState } from "react";
 
 export default function VehicleCard(props: { item: mainVehicleCardType }) {
 
   const router = useRouter();
+  const [active, setActive] = useState<boolean>(false);
+  const handleActive = () => {
+    setActive(!active);
+  }  
+  
   return (
     <>
-      <div className={style.card} onClick={()=>router.push(`/car/${props.item.id}`)}>
-        <div>
+      <div className={style.card}>
+        <div className={style.carWrap}>
           <Image
             src={props.item.carImage}
             width={200}
@@ -18,10 +27,12 @@ export default function VehicleCard(props: { item: mainVehicleCardType }) {
             priority
           />
         </div>
-        <div className={style.saveToggle}>
-          <Image src="assets/images/icons/saveToggleContaine.svg" alt="" width="20" height="20"/>
-        </div>
-        <div className={style.carTitle}>{props.item.carName}</div>
+        <IconButton sx={{position:'absolute', right:'1rem'}}>
+          {
+            active ? <BookmarkAddedIcon sx={{ color: '#00c4df'}} onClick={handleActive}/> : <BookmarkAddOutlinedIcon onClick={handleActive}/>
+          }
+        </IconButton>
+        <div className={style.carTitle}  onClick={()=>router.push(`/car/${props.item.id}`)} >{props.item.carName}</div>
         <div className={style.greySubTitle}>{props.item.pickUpArea}</div>
       </div>
     </>
