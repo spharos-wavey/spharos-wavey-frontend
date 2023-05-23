@@ -14,6 +14,11 @@ export default function VehicleRecommendMain() {
               <VehicleCard item={item} key={item.id}/>
             );
           })}
+          {mainVehicleCardData.map((item: mainVehicleCardType) => {
+            return (
+              <VehicleCard item={item} key={item.id}/>
+            );
+          })}
         </div>
       </div>
     </div>
