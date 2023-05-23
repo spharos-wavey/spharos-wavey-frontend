@@ -9,13 +9,13 @@ export interface carDataType {
   longitude: number;
   available: boolean;
   charge: number;
-  lastZone: number;
+  actualReturnedZone: number;
   smartKey: string;
   frameInfo: {
     createDate: string | null;
     updateDate: string | null;
     id: number;
-    maker: string;
+    carBrand: string;
     foreignCar: boolean;
     name: string;
     capacity: string;
@@ -37,14 +37,13 @@ export interface carDataType {
   };
 }
 
-
 export interface carListType {
-  id: number,
-  carName: string,
-  carBrand: string,
-  carImage: string,
-  billitaZone: string,
-  defaultPrice: number,
-  canBook: boolean,
+  id: number;
+  carName: string;
+  carBrand: string;
+  carImage: string;
+  billitaZone: string;
+  defaultPrice: number;
+  canBook: boolean;
+  purchaseStatus: string;
 }
-  

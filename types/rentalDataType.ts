@@ -1,9 +1,9 @@
-export interface rentalDataType {
+export interface RentalDataType {
   rentalId: number;
   carModel: string;
-  maker: string;
+  carBrand: string;
   capacity: number;
-  defaultTimePrice: number;
+  defaultPrice: number;
   distancePrice: number;
   charge: number;
   imageUrl: string;
@@ -25,5 +25,5 @@ export interface billitaZoneType {
   rentAbleAmount: number;
 }
 
-export interface billitaZoneListType extends Array<billitaZoneType> {}
+export interface BillitaZoneListType extends Array<billitaZoneType> {}
 

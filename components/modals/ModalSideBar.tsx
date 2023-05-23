@@ -7,7 +7,7 @@ import SectionTitle from "../ui/SectionTitle";
 import Separator from "../ui/Separator";
 import { useRouter } from "next/router";
 import { RentalData } from "@/datas/RentalData";
-import { rentalDataType } from "@/types/rentalDataType";
+import { RentalDataType } from "@/types/rentalDataType";
 import axios from "axios";
 
 export default function ModalSideBar(props: {
@@ -15,12 +15,13 @@ export default function ModalSideBar(props: {
   isSideOpen: boolean;
 }) {
   const { isSideOpen, setIsSideOpen } = props;
-  const [rentCarData, setRentCarData] = useState<rentalDataType>(
-    {} as rentalDataType
+  const [rentCarData, setRentCarData] = useState<RentalDataType>(
+    {} as RentalDataType
   );
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
   console.log(`router.query:`, router.query);
+
 
   if (typeof window !== 'undefined') {
     console.log('auth', localStorage.getItem("Authorization"));
@@ -56,9 +57,6 @@ export default function ModalSideBar(props: {
     };
 
     getData();
-    // const data = RentalData.find((item) => item.purchaseState === "PAID");
-    // if (!data) return;
-    // setRentCarData(data);
   }, []);
   return (
     <>
@@ -82,21 +80,11 @@ export default function ModalSideBar(props: {
 
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
-          <Link href={""}>
-            <li>이용내역</li>
-          </Link>
-          <a href="">
-            <li>스마트키</li>
-          </a>
-          <a href="">
-            <li>결제카드 등록</li>
-          </a>
-          <a href="">
-            <li>이벤트/쿠폰</li>
-          </a>
-          <a href="">
-            <li>고객센터</li>
-          </a>
+          <li>이용내역</li>
+          <li>스마트키</li>
+          <li>결제카드 등록</li>
+          <li>이벤트/쿠폰</li>
+          <li>고객센터</li>
         </ul>
       </div>
 
@@ -121,7 +109,7 @@ export default function ModalSideBar(props: {
 }
 
 const RentCar = (props: {
-  rentCarData: rentalDataType;
+  rentCarData: RentalDataType;
   setIsSideOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const router = useRouter();
@@ -141,8 +129,8 @@ const RentCar = (props: {
         <div className={style.reserveWrapper}>
           <div className={style.textWrap}>
             <div className={style.carName}>
-              {rentCarData.maker} {rentCarData.carModel}
-             </div>
+              {rentCarData.carBrand} {rentCarData.carModel}
+            </div>
             <div className={style.period}>
               {serviceStartTime.getMonth()}월 {serviceStartTime.getDate()}일{" "}
               {serviceStartTime.getHours()}:

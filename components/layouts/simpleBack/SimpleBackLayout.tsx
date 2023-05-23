@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import style from "./SimpleBackLayout.module.css";
 import { useRouter } from "next/router";
 

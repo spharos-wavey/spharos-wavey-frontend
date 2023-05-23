@@ -1,10 +1,10 @@
 import React from "react";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import ConfirmWrapper from "@/components/pages/rental/ConfirmWrapper";
-import { rentalDataType } from '@/types/rentalDataType'
+import { RentalDataType } from '@/types/rentalDataType'
 import { RentalData } from "@/datas/RentalData";
 
-export default function RentalConfirm( props: {data: rentalDataType} ) {
+export default function RentalConfirm( props: {data: RentalDataType} ) {
  
   console.log(props.data)
   const data = props.data;

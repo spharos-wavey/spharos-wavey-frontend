@@ -6,10 +6,10 @@ import Button from "@/components/ui/Button";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import ModalForm from "@/components/modals/ModalForm";
-import { rentalDataType } from "@/types/rentalDataType";
+import { RentalDataType } from "@/types/rentalDataType";
 import Separator from "@/components/ui/Separator";
 
-export default function ConfirmWrapper(props: { data: rentalDataType }) {
+export default function ConfirmWrapper(props: { data: RentalDataType }) {
   const data = props.data;
   const [drawer, setDrawer] = useState(false);
   const [nextDrawer, setNextDrawer] = useState(false);
@@ -83,7 +83,7 @@ export default function ConfirmWrapper(props: { data: rentalDataType }) {
           btnEvent={() => handleDrawer()}
           shadow={true}
         >
-          결제하기 {props.data.defaultTimePrice.toLocaleString('kr-KO')}원
+          결제하기 {props.data.defaultPrice.toLocaleString('kr-KO')}원
         </Button>
       </BottomFixedContainer>
     </main>

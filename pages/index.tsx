@@ -37,7 +37,7 @@ export const getStaticProps = async () => {
     },
     {
       id: 2,
-      name: "테슽라",
+      name: "테슬라",
     },
     {
       id: 3,

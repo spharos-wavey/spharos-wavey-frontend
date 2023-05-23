@@ -5,7 +5,7 @@ import MenuItem from "@/components/layouts/MenuItem";
 import { carDetailData, carStatusData } from "@/datas/staticCarData";
 import Separator from "@/components/ui/Separator";
 
-interface headerType {
+interface HeaderType {
   name: string | undefined;
   imageUrl: string | undefined;
   charge: number | undefined;
@@ -19,7 +19,7 @@ export default function DetailInfoTop({
   charge,
   wash,
   fare,
-}: headerType) {
+}: HeaderType) {
   return imageUrl !== undefined ? (
     <>
       <div className={style.carName}>{name}</div>

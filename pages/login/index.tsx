@@ -51,7 +51,6 @@ export default function Page() {
           <Image
             src="/assets/images/etc/kakao_login_large_wide.svg"
             width={300}
-            // fill
             sizes="(max-width: 600px) 100vw, 600px"
             height={45}
             alt="카카오톡으로 로그인"
@@ -69,8 +68,8 @@ export default function Page() {
           서비스를 위한 최소예약가능 연령은 만 21세입니다.
         </p>
       </div>
-      <div  style={{ textAlign: "center" }}>
-        <Logo />
+      <div  style={{ display: "flex" }}>
+        <Logo center={true}/>
       </div>
     </main>
   );

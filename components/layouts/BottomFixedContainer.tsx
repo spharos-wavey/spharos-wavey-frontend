@@ -14,7 +14,7 @@ export default function BottomFixedContainer(props: {
         backgroundColor: `${
           props.backgroundColor === undefined
             ? "var(--billita-white)"
-            : "transparent"
+            : props.backgroundColor
         }`,
       }}
     >

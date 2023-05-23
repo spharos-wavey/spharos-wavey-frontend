@@ -2,7 +2,7 @@ import CustomOverlay from "@/components/layouts/map/CustomOverlay";
 import MapFooter from "@/components/layouts/map/MapFooter";
 import { locationState } from "@/state/location";
 import { locationType } from "@/types/location";
-import { billitaZoneListType, timeType } from "@/types/rentalDataType";
+import { BillitaZoneListType, timeType } from "@/types/rentalDataType";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
@@ -37,7 +37,7 @@ export default function KakaoMap() {
   });
 
   // 빌리타존 목록
-  const [zoneList, setZoneList] = useState<billitaZoneListType>();
+  const [zoneList, setZoneList] = useState<BillitaZoneListType>();
 
   // 대여 시간
   const [reqTime, setReqTime] = useState<timeType>({

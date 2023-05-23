@@ -1,10 +1,10 @@
 import React from "react";
 import style from "./RentalTop.module.css";
 import Image from "next/image";
-import { rentalDataType } from "@/types/rentalDataType";
+import { RentalDataType } from "@/types/rentalDataType";
 
-export default function RentalTop(props: { data: rentalDataType }) {
-  const { carModel, maker, imageUrl, charge } = props.data;
+export default function RentalTop(props: { data: RentalDataType }) {
+  const { carModel, carBrand, imageUrl, charge } = props.data;
 
   return (
     <div className={style.topWrap}>
@@ -18,7 +18,7 @@ export default function RentalTop(props: { data: rentalDataType }) {
         />
       </div>
       <div className={style.carName}>
-        {maker} {carModel}
+        {carBrand} {carModel}
       </div>
       <div className={style.harrypotterBinding}>
         <Image

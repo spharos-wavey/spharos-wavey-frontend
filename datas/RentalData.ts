@@ -2,9 +2,9 @@ export const RentalData = [
   {
     rentalId: 1,
     carModel: "Model 3",
-    maker: "Tesla",
+    carBrand: "Tesla",
     capacity: 4,
-    defaultTimePrice: 27000,
+    defaultPrice: 27000,
     distancePrice: 160,
     charge: 75,
     imageUrl:
@@ -17,7 +17,7 @@ export const RentalData = [
   {
     rentalId: 2,
     carModel: "Model Random2",
-    maker: "Tesla",
+    carBrand: "Tesla",
     capacity: 4,
     defaultTimePrice: 27000,
     distancePrice: 160,
@@ -32,7 +32,7 @@ export const RentalData = [
   {
     rentalId: 3,
     carModel: "Model Random3",
-    maker: "Tesla",
+    carBrand: "Tesla",
     capacity: 4,
     defaultTimePrice: 27000,
     distancePrice: 160,
