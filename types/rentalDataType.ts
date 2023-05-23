@@ -1,6 +1,6 @@
 export interface RentalDataType {
   rentalId: number;
-  carModel: string;
+  carName: string;
   carBrand: string;
   capacity: number;
   defaultPrice: number;

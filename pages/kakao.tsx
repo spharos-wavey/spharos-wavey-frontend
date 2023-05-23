@@ -66,14 +66,13 @@ const Kakao: NextPage = () => {
           });
           const data = await res.json();
           console.log(data);
+          localStorage.setItem("nickName", data.properties.nickname);
 
           const postData: loginDataType = {
             email: data.kakao_account.email,
             nickName: data.properties.nickname,
             profileImageUrl: data.properties.profile_image,
           };
-
-          console.log(postData);
 
           // setUserEmail(data.email);
           // setNickName(data.properties.nickname);
@@ -94,6 +93,7 @@ const Kakao: NextPage = () => {
                 profileImageUrl: data.properties.profile_image,
               })
               .then((res) => {
+                console.log(res); //body 값없음
                 console.log(res.headers.authorization);
                 const jwtToken = res.headers.authorization;
                 localStorage.setItem("Authorization", jwtToken);
