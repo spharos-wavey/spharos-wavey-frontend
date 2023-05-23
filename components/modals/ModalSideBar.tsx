@@ -22,8 +22,10 @@ export default function ModalSideBar(props: {
   const PURCASE_STATE = "RESERVATION";
   console.log(`router.query:`, router.query);
 
-  console.log('auth', localStorage.getItem("Authorization"));
-  console.log('uid', localStorage.getItem("uid"));
+  if (typeof window !== 'undefined') {
+    console.log('auth', localStorage.getItem("Authorization"));
+    console.log('uid', localStorage.getItem("uid"));
+  }
 
   
 
