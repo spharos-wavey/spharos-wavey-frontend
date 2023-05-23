@@ -8,12 +8,13 @@ export default function CarList(props: { data: carListType[] }) {
   console.log(data);
 
   return (
-    <div>
+    <div className={style.carListCard}>
       {data.map((item: carListType) => {
         return (
           <div key={item.id} className={style.wrapper}>
             <div className={style.textWrap}>
-              <div className={style.carName}> {item.carName}</div>
+              <div className={style.availability}>{item.billitaZone}에서 이용가능</div>
+              <div className={style.carName}> {item.carBrand} {item.carName}</div>
               <div className={style.period}>
                 4월 19일 21:00 - 4월 20일 16:00
               </div>

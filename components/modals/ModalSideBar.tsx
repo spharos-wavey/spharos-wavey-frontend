@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import style from "./ModalSideBar.module.css";
 import SectionTitle from "../ui/SectionTitle";
 import Separator from "../ui/Separator";

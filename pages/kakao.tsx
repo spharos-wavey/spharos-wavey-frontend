@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import qs from "qs";
 import axios from "axios";
+import { Box, Stack, CircularProgress } from "@mui/material";
+import React from "react";
 
 interface ResponseType {
   ok: boolean;
@@ -114,7 +116,18 @@ const Kakao: NextPage = () => {
     getToken();
   }, [authCode, CLIENT_ID, REDIRECT_URI, REST_API_KEY]);
 
-  return <h2>로그인 중입니다..</h2>;
+  return (
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      height="100vh"
+    >
+      <Stack spacing={2}>
+        <CircularProgress color="primary" />
+      </Stack>
+    </Box>
+  );
 };
 
 export default Kakao;
