@@ -6,7 +6,10 @@ import SectionTitle from "../ui/SectionTitle";
 import Separator from "../ui/Separator";
 import { useRouter } from "next/router";
 import { RentalData } from "@/datas/RentalData";
-import { RentalDataType } from "@/types/rentalDataType";
+import {
+  RentalDataType,
+  isUserRentalNowDataType,
+} from "@/types/rentalDataType";
 import axios from "axios";
 
 export default function ModalSideBar(props: {
@@ -18,11 +21,10 @@ export default function ModalSideBar(props: {
     [] as RentalDataType[]
   );
   const [userName, setUserName] = useState<string>("");
+  const [bookList, setBookList] = useState<isUserRentalNowDataType[]>([]);
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
   console.log(`router.query:`, router.query);
-
-
 
   const handleLogout = () => {
     localStorage.removeItem("Authorization");
@@ -38,18 +40,15 @@ export default function ModalSideBar(props: {
       try {
         const token = "Bearer " + localStorage.getItem("Authorization");
         const uid = localStorage.getItem("uid");
-        const res = await axios.get(`http://api-billita.xyz/rental/RESERVATION`, {
-          headers: {
-            Authorization: token,
-            uuid: uid,
-          },
-        });
-        // const res = await axios.get(`http://api-billita.xyz/rental/RESERVATION`, {
-        //   headers: {
-        //     Authorization: token,
-        //     uuid: uid,
-        //   },
-        // });
+        const res = await axios.get(
+          `https://api-billita.xyz/rental/RESERVATION`,
+          {
+            headers: {
+              Authorization: token,
+              uid: uid,
+            },
+          }
+        );
         const data = res.data;
         setRentCarData(data);
         console.log(data);
@@ -70,6 +69,29 @@ export default function ModalSideBar(props: {
       }
       console.log(userName);
     }
+  }, []);
+
+  useEffect(() => {
+    const getCurrentRentKeyData = async () => {
+      try {
+        const token = "Bearer " + localStorage.getItem("Authorization");
+        const uid = localStorage.getItem("uid");
+        const res = await axios.get(
+          `https://api-billita.xyz/booklist/summary/${vehicleId}`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        const data = res.data;
+        setBookList(data);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getCurrentRentKeyData();
   }, []);
 
   const actionToHistory = () => {
@@ -95,9 +117,10 @@ export default function ModalSideBar(props: {
 
       {rentCarData.length > 0 ? (
         <RentCar rentCarData={rentCarData[0]} setIsSideOpen={setIsSideOpen} />
-      ) : <RentCarNonExist />
-      }
-      
+      ) : (
+        <RentCarNonExist />
+      )}
+
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
           <li onClick={() => actionToHistory()}>이용내역</li>
@@ -116,8 +139,8 @@ export default function ModalSideBar(props: {
           {/* <a href="">
             <li>사고접수 현황</li>
           </a> */}
-            <li>개인정보 처리방침</li>
-            <li>About Billita</li>
+          <li>개인정보 처리방침</li>
+          <li>About Billita</li>
         </ul>
       </div>
     </>
@@ -125,16 +148,16 @@ export default function ModalSideBar(props: {
 }
 
 const RentCarNonExist = () => {
-    return (
-      <div className={style.grayWrapper}>
-        <div className={style.nonRentNotice}>
-          <SectionTitle fontSize={0.8}>
-            현재 대여중인 차량이 없습니다.
-          </SectionTitle>
-        </div>
+  return (
+    <div className={style.grayWrapper}>
+      <div className={style.nonRentNotice}>
+        <SectionTitle fontSize={0.8}>
+          현재 대여중인 차량이 없습니다.
+        </SectionTitle>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
 const RentCar = (props: {
   rentCarData: RentalDataType;

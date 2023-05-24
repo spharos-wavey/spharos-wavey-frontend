@@ -13,17 +13,21 @@ export default function VehicleCard(props: { item: mainVehicleCardType }) {
   const [active, setActive] = useState<boolean>(false);
   const handleActive = () => {
     setActive(!active);
-  }  
+  }
+  const data = props.item;
+  const handleOpenCarDetail = () => {
+    router.push(`/car/${data.vehicleId}`)
+  }
   
   return (
     <>
-      <div className={style.card}>
+      <div className={style.card} onClick={()=> handleOpenCarDetail()}>
         <div className={style.carWrap}>
           <Image
-            src={props.item.carImage}
+            src={data.carImage}
             width={200}
             height={90}
-            alt={props.item.carName}
+            alt={data.carName}
             priority
           />
         </div>
@@ -32,8 +36,8 @@ export default function VehicleCard(props: { item: mainVehicleCardType }) {
             active ? <BookmarkAddedIcon sx={{ color: '#00c4df'}} onClick={handleActive}/> : <BookmarkAddOutlinedIcon onClick={handleActive}/>
           }
         </IconButton>
-        <div className={style.carTitle}  onClick={()=>router.push(`/car/${props.item.id}`)} >{props.item.carName}</div>
-        <div className={style.greySubTitle}>{props.item.pickUpArea}</div>
+        <div className={style.carTitle}  onClick={()=>router.push(`/car/${data.vehicleId}`)} >{data.carName}</div>
+        <div className={style.greySubTitle}>{data.billitaZoneName}</div>
       </div>
     </>
   );

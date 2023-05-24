@@ -27,8 +27,6 @@ const Kakao: NextPage = () => {
   const CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
   //const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
-  console.log(authCode);
-
   useEffect(() => {
     // if (!window.Kakao.isInitialized()) {
     //   window.Kakao.init(NEXT_PUBLIC_KAKAO_JS_KEY);
@@ -95,12 +93,13 @@ const Kakao: NextPage = () => {
                 profileImageUrl: data.properties.profile_image,
               })
               .then((res) => {
-                console.log(res); //body 값없음
-                console.log(res.headers.authorization);
                 const jwtToken = res.headers.authorization;
                 localStorage.setItem("Authorization", jwtToken);
                 localStorage.setItem("uid", res.headers.uid);
-                router.push("/");
+
+                sessionStorage.getItem("carDetail")
+                  ? router.push(sessionStorage.getItem("carDetail") as string)
+                  : router.push("/");
               })
               .catch((err) => router.push("/login"));
           } catch (err) {
