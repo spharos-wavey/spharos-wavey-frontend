@@ -4,7 +4,7 @@ import Image from "next/image";
 import { RentalDataType } from "@/types/rentalDataType";
 
 export default function RentalTop(props: { data: RentalDataType }) {
-  const { carModel, carBrand, imageUrl, charge } = props.data;
+  const { carName, carBrand, imageUrl, charge } = props.data;
 
   return (
     <div className={style.topWrap}>
@@ -13,12 +13,12 @@ export default function RentalTop(props: { data: RentalDataType }) {
           src={imageUrl}
           width={345}
           height={200}
-          alt={carModel}
+          alt={carName}
           priority
         />
       </div>
       <div className={style.carName}>
-        {carBrand} {carModel}
+        {carBrand} {carName}
       </div>
       <div className={style.harrypotterBinding}>
         <Image

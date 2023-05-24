@@ -5,14 +5,6 @@ import Image from "next/image";
 export default function ModalForm(props: any) {
   return (
     <div className={style.modalWrap}>
-      <div onClick={() => props.setDrawer(false)} className={style.closeBtn}>
-        <Image
-          src="/assets/images/icons/modalCloseX.svg"
-          width="20"
-          height="20"
-          alt="close"
-        />
-      </div>
       <div className={style.modalTitle}>{props.title}</div>
       {props.title === "예약 전, 필수 확인 사항" && (
         <>

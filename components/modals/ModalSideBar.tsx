@@ -41,12 +41,18 @@ export default function ModalSideBar(props: {
       try {
         const token = "Bearer " + localStorage.getItem("Authorization");
         const uid = localStorage.getItem("uid");
-        const res = await axios.get(`http://api-billita.xyz/rental/ALL`, {
+        const res = await axios.get(`http://api-billita.xyz/rental/RESERVATION`, {
           headers: {
             Authorization: token,
             uuid: uid,
           },
         });
+        // const res = await axios.get(`http://api-billita.xyz/rental/RESERVATION`, {
+        //   headers: {
+        //     Authorization: token,
+        //     uuid: uid,
+        //   },
+        // });
         const data = res.data;
         setRentCarData(data);
         console.log(data);
@@ -69,6 +75,9 @@ export default function ModalSideBar(props: {
     }
   }, []);
 
+  const actionToHistory = () => {
+    router.push("/rentHistory");
+  };
   return (
     <>
       <div className={style.topWrap}>
@@ -94,7 +103,7 @@ export default function ModalSideBar(props: {
       
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
-          <li>이용내역</li>
+          <li onClick={() => actionToHistory()}>이용내역</li>
           <li>스마트키</li>
           <li>결제카드 등록</li>
           <li>이벤트/쿠폰</li>

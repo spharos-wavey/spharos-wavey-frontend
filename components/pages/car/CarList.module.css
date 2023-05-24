@@ -1,12 +1,10 @@
-.carListCard {
-  
-}
+
 .wrapper {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #D6D6D6;
   margin-top: 1rem;
-  padding: 1rem 1rem 1.5rem;
+  padding: 1rem;
   align-items: center;
 }
 .textWrap{
@@ -17,14 +15,14 @@
   background-color: var(--billita-blueHighlight);
   border-radius: 5px;
   color: white;
-  padding: 3px;
+  padding: 4px 6px 3px;
   display: flex;
   justify-content: flex-start;
   margin-bottom: 10px;
   width: fit-content;
 }
 .carName {
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: bold;
   letter-spacing: 0.5px;
   margin-bottom: 0.5rem;

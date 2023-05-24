@@ -7,7 +7,7 @@ export default function BrandSortItem(props: { item: brandSortType }) {
   const router = useRouter();
 
   const handleSortbyBrand = () => {
-    router.push(`/car/brand?brandName=${props.item.name}`);
+    router.push(`/car/brand?brandName=${props.item.brandName}`);
   };
 
   console.log(props.item);
@@ -17,17 +17,17 @@ export default function BrandSortItem(props: { item: brandSortType }) {
       <div className={style.circlePad} onClick={handleSortbyBrand}>
         <Image
           src={
-            props.item.icon !== undefined
-              ? props.item.icon
+            props.item.brandImgUrl !== undefined
+              ? props.item.brandImgUrl
               : "/assets/images/common/billitaLogoOnly.svg"
           }
           width={40}
           height={40}
-          alt={props.item.name}
+          alt={props.item.brandName}
           priority
         />
       </div>
-      <div className={style.brandName}>{props.item.name}</div>
+      <div className={style.brandName}>{props.item.brandName}</div>
     </div>
   );
 }

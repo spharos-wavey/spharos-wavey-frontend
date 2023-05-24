@@ -1,38 +1,74 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import { useRouter } from "next/router";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import CarList from "@/components/pages/car/CarList";
-import { carListType } from "@/types/carDataType";
+import { carListType, carListbyBrandDataType } from "@/types/carDataType";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Separator from "@/components/ui/Separator";
 import axios from "axios";
+import { brandSortType } from "@/types/brandSortType";
 
 function BrandSort(props: { data: carListType[] }) {
   const router = useRouter();
   const { brandName } = router.query;
   const [brand, setBrand] = useState<string>("");
   const { data } = props;
-  console.log(brandName);
+  const [allBrand, setAllBrand] = useState<brandSortType[]>();
+  const [carList, setCarList] = useState<carListbyBrandDataType[]>([]);
+  const [id, setId] = useState<number>(0);
 
   useEffect(() => {
     if (brandName) {
       setBrand(brandName as string);
     }
   }, [brandName]);
+  console.log("brandName", brandName);
 
   useEffect(() => {
-    const getCarListByBrand = async () => {
-      try {
-        const res = await axios.get(
-          `https://api-billita.xyz/carbrand/maker/${id}`
-        );
-        console.log(`불러오나요?, ${res}`);
-      } catch (err) {
-        console.log(err);
+    axios
+      .get(`https://api-billita.xyz/carbrand`)
+      .then((res) => {
+        setAllBrand(res.data);
+        console.log(`모든 브랜드 데이터:`, allBrand);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    if (allBrand) {
+      const idData = allBrand?.find((item) => {
+        item.brandName === brandName && setId(item.id);
+      });
+      if (idData) {
+        setId(idData.id);
+        console.log(`매칭 아이디`, idData.id);
       }
-    };
-  }, [brandName]);
+    }
+  }, [allBrand, brandName]);
+
+
+  console.log(`전체 브랜드 리스트`, allBrand);
+
+  // useEffect(() => {
+  //   const getCarListByBrand = async () => {
+  //     try {
+  //       const idData = await axios.get(
+  //         `https://api-billita.xyz/carbrand`
+  //       );
+  //       setIdData(idData.data);
+  //       console.log(`idData:`, idData)
+
+  //       const res = await axios.get(
+  //         `https://api-billita.xyz/carbrand/maker/${id}`
+  //       );
+  //       console.log(`불러오나요?, ${res}`);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //     getCarListByBrand();
+  //   };
+  // }, [brandName]);
 
   return (
     <main>
@@ -41,7 +77,7 @@ function BrandSort(props: { data: carListType[] }) {
           fontSize={0.9}
         >{`빌리타에서 이용가능한 ${brand} 차량`}</SectionTitle>
         <Separator gutter={1} />
-        <CarList data={data} />
+        <CarList data={carList} idData={id} />
       </section>
     </main>
   );
@@ -61,7 +97,6 @@ export const getServerSideProps = async (context: Params) => {
 
   const dummy: carListType[] = [
     {
-      id: 1,
       carBrand: "Tesla",
       carName: "Model 3",
       carImage:
@@ -72,7 +107,6 @@ export const getServerSideProps = async (context: Params) => {
       purchaseStatus: "REVERSATION",
     },
     {
-      id: 2,
       carBrand: "Benz",
       carName: "Model 3",
       carImage:
