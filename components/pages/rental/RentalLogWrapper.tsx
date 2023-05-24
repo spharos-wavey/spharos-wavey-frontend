@@ -20,13 +20,13 @@ export default function RentalLogWrapper(props: {
       try {
         const token = "Bearer " + localStorage.getItem("Authorization");
         const uid = localStorage.getItem("uid");
-        const res = await axios.get(`http://api-billita.xyz/rental/ALL`, {
+        const res = await axios.get(`https://api-billita.xyz/rental/ALL`, {
           headers: {
             Authorization: token,
             uuid: uid,
           },
         });
-        // const res = await axios.get(`http://api-billita.xyz/rental/RESERVATION`, {
+        // const res = await axios.get(`https://api-billita.xyz/rental/RESERVATION`, {
         //   headers: {
         //     Authorization: token,
         //     uuid: uid,
