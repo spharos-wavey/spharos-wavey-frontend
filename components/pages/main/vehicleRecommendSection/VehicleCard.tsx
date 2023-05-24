@@ -15,10 +15,13 @@ export default function VehicleCard(props: { item: mainVehicleCardType }) {
     setActive(!active);
   }
   const data = props.item;
+  const handleOpenCarDetail = () => {
+    router.push(`/car/${data.vehicleId}`)
+  }
   
   return (
     <>
-      <div className={style.card}>
+      <div className={style.card} onClick={()=> handleOpenCarDetail()}>
         <div className={style.carWrap}>
           <Image
             src={data.carImage}
