@@ -7,11 +7,12 @@ export interface eventBannerType {
 }
 
 export interface mainVehicleCardType {
-  id: number,
-  carName: string,
-  carBrand: string,
-  carImage: string,
-  pickUpArea: string
+  vehicleId : number
+  billitaZoneId : number
+  billitaZoneName : string
+  carBrand : string
+  carName : string
+  carImage : string
 }
 
 export interface spotCardType {
