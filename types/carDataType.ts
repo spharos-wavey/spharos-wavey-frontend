@@ -48,6 +48,7 @@ export interface carListType {
 }
 
 export interface carListbyBrandDataType {
+  id: number;
   carName: string;
   imageUrl: string;
   charge: number;

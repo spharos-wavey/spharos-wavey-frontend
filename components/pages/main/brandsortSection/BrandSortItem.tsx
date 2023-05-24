@@ -7,7 +7,7 @@ export default function BrandSortItem(props: { item: brandSortType }) {
   const router = useRouter();
 
   const handleSortbyBrand = () => {
-    router.push(`/car/brand?brandName=${props.item.brandName}`);
+    router.push(`/car/brand?brandId=${props.item.id}&brandName=${props.item.brandName}`);
   };
 
   return (
@@ -24,6 +24,7 @@ export default function BrandSortItem(props: { item: brandSortType }) {
           alt={props.item.brandName}
           priority
         />
+        <div className={style.circleOuter}></div>
       </div>
       <div className={style.brandName}>{props.item.brandName}</div>
     </div>

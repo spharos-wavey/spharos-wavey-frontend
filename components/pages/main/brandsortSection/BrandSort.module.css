@@ -1,7 +1,9 @@
 .brandNav {
   display: flex;
+  padding: 0 1rem;
   overflow-x: scroll;
   animation: slideIn 0.5s ease-in-out;
+  margin-bottom: 2rem;
 }
 
 .brandNav::-webkit-scrollbar {

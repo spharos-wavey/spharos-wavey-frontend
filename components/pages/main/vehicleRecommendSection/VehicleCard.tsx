@@ -25,8 +25,8 @@ export default function VehicleCard(props: { item: mainVehicleCardType }) {
         <div className={style.carWrap}>
           <Image
             src={data.carImage}
-            width={200}
-            height={90}
+            width={300}
+            height={300}
             alt={data.carName}
             priority
           />
