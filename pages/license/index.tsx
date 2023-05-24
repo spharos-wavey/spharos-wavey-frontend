@@ -6,24 +6,24 @@ import Button from "@/components/ui/Button";
 import LicenseWrapper from "@/components/pages/license/LicenseWrapper";
 
 export default function License() {
-  const router = useRouter();
-  const [extractedPageNo, setExtractedPageNo] = useState<string>("");
-  const handleRedirectPrevPage = () => {
-    sessionStorage.setItem("userLicense", "true");
-    router.push(sessionStorage.getItem("carDetail") as string);
-    alert("뀨");
-  };
+  // const router = useRouter();
+  // const [extractedPageNo, setExtractedPageNo] = useState<string>("");
+  // const handleRedirectPrevPage = () => {
+  //   sessionStorage.setItem("userLicense", "true");
+  //   router.push(sessionStorage.getItem("carDetail") as string);
+  //   alert("뀨");
+  // };
   
-  const extractIdForBookPage = sessionStorage.getItem("carDetail")?.split("/")[2];
-  const handleOpenBookPage = () => {
-    router.push(`rental/${extractIdForBookPage}`);
-  }
+  // const extractIdForBookPage = sessionStorage.getItem("carDetail")?.split("/")[2];
+  // const handleOpenBookPage = () => {
+  //   // router.push(`rental/${extractIdForBookPage}`);
+  // }
 
   const handleRegister = () => {
-    console.log(extractIdForBookPage);
-    sessionStorage.getItem("userLicense")
-      ? handleOpenBookPage()
-      : handleRedirectPrevPage();
+    // console.log(extractIdForBookPage);
+    // sessionStorage.getItem("userLicense")
+    //   ? handleOpenBookPage()
+    //   : handleRedirectPrevPage();
   };
   return (
     <main>

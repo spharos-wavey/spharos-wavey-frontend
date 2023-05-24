@@ -2,16 +2,30 @@
   background: #FFFFFF;
   box-shadow: 0px 0px 30px rgba(3, 2, 36, 0.2);
   border-radius: 0.7rem;
-  padding: 1rem 3.5rem 1rem 2rem;
+  padding: 1rem 3.5rem 0.5rem 2rem;
   margin-right: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
+  transition: all 0.3s ease-in-out;
+  animation: slideInFromLeft 0.5s ease-in-out;
+}
+
+.carWrap {
+  width: 130px;
+  height: 80px;
 }
 
 .carWrap img{
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: -2rem;
   margin-left: -1rem;
+  /* 좌우반전 */
+  -moz-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .saveToggle {
@@ -32,6 +46,7 @@
 }
 
 .carTitle {
+  margin-top: -2rem;
   font-weight: 600;
   font-size: 1.1rem;
 }
@@ -41,4 +56,17 @@
   margin-top: 4px;
   font-weight: 700;
   color: #AAAAAA;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-80%);
+    filter: blur(5px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    filter: blur(0);
+    opacity: 1;
+  }
 }

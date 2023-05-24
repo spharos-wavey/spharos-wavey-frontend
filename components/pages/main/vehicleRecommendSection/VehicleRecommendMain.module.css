@@ -10,6 +10,7 @@
 }
 
 .overflowWrap {
+  margin-top: 1rem;
   overflow-x: scroll;
 }
 
@@ -60,6 +61,49 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-295%);
+    transform: translateX(-100%);
+  }
+}
+
+
+.myLoader {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.5;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: spin 1s linear infinite;
+  width: 2rem;
+  height: 2rem;
+}
+
+.loader img {
+  width: 100%;
+  height: auto; 
+}
+
+.myLoader p {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-family: var(--billita-hangul);
+  color: var(--billita-black);
+  font-weight: bold;
+  text-align: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

@@ -7,6 +7,7 @@ export default function SimpleBackLayout(props: {
   title?: React.ReactNode;
 }) {
   const router = useRouter();
+  const { brandName } = router.query;
 
   const handleBack = () => {
     router.back();
@@ -26,7 +27,7 @@ export default function SimpleBackLayout(props: {
                 priority={true}
               />
             </li>
-            <li className={style.title}>{props.title}</li>
+            <li className={style.title}>{brandName}{props.title}</li>
             <li className={style.hidden}>
               <Image
                 src="/assets/images/icons/leftArrowIconBlack.svg"
