@@ -8,7 +8,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   const router = useRouter();
   const handleLicensePage = () => {
     sessionStorage.setItem("carDetail", router.asPath);
-    router.push("/license"); 
+    // router.push("/license"); 
   }
   const handleLoginPage = () => {
     sessionStorage.setItem("carDetail", router.asPath);

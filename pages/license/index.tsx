@@ -16,7 +16,7 @@ export default function License() {
   
   const extractIdForBookPage = sessionStorage.getItem("carDetail")?.split("/")[2];
   const handleOpenBookPage = () => {
-    router.push(`rental/${extractIdForBookPage}`);
+    // router.push(`rental/${extractIdForBookPage}`);
   }
 
   const handleRegister = () => {
