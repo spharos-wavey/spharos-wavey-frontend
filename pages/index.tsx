@@ -8,7 +8,6 @@ import Separator from "@/components/ui/Separator";
 import { brandSortType } from "@/types/brandSortType";
 
 function Page(props: { data: brandSortType[]; }) {
-console.log(props.data);
   return (
     <main>
       <LogoMainPage />
@@ -31,7 +30,7 @@ export const getStaticProps = async () => {
   const res = await fetch("https://api-billita.xyz/carbrand");
   const data = await res.json();
 
-  console.log(data);
+
 
 
   return {

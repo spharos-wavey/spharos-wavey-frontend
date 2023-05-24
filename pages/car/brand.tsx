@@ -30,10 +30,9 @@ function BrandSort(props: { data: carListType[] }) {
       .get(`https://api-billita.xyz/carbrand`)
       .then((res) => {
         setAllBrand(res.data);
-        console.log(`모든 브랜드 데이터:`, allBrand);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [allBrand]);
 
   useEffect(() => {
     if (allBrand) {
@@ -42,13 +41,11 @@ function BrandSort(props: { data: carListType[] }) {
       });
       if (idData) {
         setId(idData.id);
-        console.log(`매칭 아이디`, idData.id);
       }
     }
   }, [allBrand, brandName]);
 
 
-  console.log(`전체 브랜드 리스트`, allBrand);
 
   return (
     <main>

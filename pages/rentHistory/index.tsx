@@ -15,7 +15,7 @@ export default function RentHistory() {
       }
       console.log(userName);
     }
-  }, []);
+  }, [userName]);
 
   return (
     <main>

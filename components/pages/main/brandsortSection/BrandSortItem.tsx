@@ -10,8 +10,6 @@ export default function BrandSortItem(props: { item: brandSortType }) {
     router.push(`/car/brand?brandName=${props.item.brandName}`);
   };
 
-  console.log(props.item);
-
   return (
     <div className={style.brandWrap}>
       <div className={style.circlePad} onClick={handleSortbyBrand}>

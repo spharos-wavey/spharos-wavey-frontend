@@ -6,7 +6,6 @@ import BrandSortItem from "./BrandSortItem";
 
 export default function BrandSort(props: { data: brandSortType[] }) {
   const data = props.data;
-  console.log(data);
 
   return (
     <section>
