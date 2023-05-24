@@ -50,26 +50,6 @@ function BrandSort(props: { data: carListType[] }) {
 
   console.log(`전체 브랜드 리스트`, allBrand);
 
-  // useEffect(() => {
-  //   const getCarListByBrand = async () => {
-  //     try {
-  //       const idData = await axios.get(
-  //         `https://api-billita.xyz/carbrand`
-  //       );
-  //       setIdData(idData.data);
-  //       console.log(`idData:`, idData)
-
-  //       const res = await axios.get(
-  //         `https://api-billita.xyz/carbrand/maker/${id}`
-  //       );
-  //       console.log(`불러오나요?, ${res}`);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //     getCarListByBrand();
-  //   };
-  // }, [brandName]);
-
   return (
     <main>
       <section>

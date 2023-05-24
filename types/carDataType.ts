@@ -48,10 +48,10 @@ export interface carListType {
 }
 
 export interface carListbyBrandDataType {
-  carName: String;
-  imageUrl: String;
+  carName: string;
+  imageUrl: string;
   charge: number;
-  carBrand: String;
-  zoneAddress: String;
-  billitaZone: String;
+  carBrand: string;
+  zoneAddress: string;
+  billitaZone: string;
 }
