@@ -28,7 +28,14 @@ export interface billitaZoneType {
 export interface BillitaZoneListType extends Array<billitaZoneType> {}
 
 export interface isUserRentalNowDataType {
-  imageUrl: String;
-  brandName: String;
-  carName: String;
+  imageUrl: string;
+  brandName: string;
+  carName: string;
+}
+
+export interface MyRentalCarType {
+  rentalId: number;
+  vehicleId: number;
+  startDate: Date;
+  endDate: Date;
 }

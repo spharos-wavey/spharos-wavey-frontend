@@ -5,9 +5,8 @@ import style from "./ModalSideBar.module.css";
 import SectionTitle from "../ui/SectionTitle";
 import Separator from "../ui/Separator";
 import { useRouter } from "next/router";
-import { RentalData } from "@/datas/RentalData";
 import {
-  RentalDataType,
+  MyRentalCarType,
   isUserRentalNowDataType,
 } from "@/types/rentalDataType";
 import axios from "axios";
@@ -17,11 +16,10 @@ export default function ModalSideBar(props: {
   isSideOpen: boolean;
 }) {
   const { isSideOpen, setIsSideOpen } = props;
-  const [rentCarData, setRentCarData] = useState<RentalDataType[]>(
-    [] as RentalDataType[]
+  const [rentCarData, setRentCarData] = useState<MyRentalCarType[]>(
+    [] as MyRentalCarType[]
   );
   const [userName, setUserName] = useState<string>("");
-  const [bookList, setBookList] = useState<isUserRentalNowDataType[]>([]);
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
   console.log(`router.query:`, router.query);
@@ -41,7 +39,7 @@ export default function ModalSideBar(props: {
         const token = "Bearer " + localStorage.getItem("Authorization");
         const uid = localStorage.getItem("uid");
         const res = await axios.get(
-          `https://api-billita.xyz/rental/RESERVATION`,
+          `https://api-billita.xyz/rental/${PURCASE_STATE}`,
           {
             headers: {
               Authorization: token,
@@ -69,29 +67,6 @@ export default function ModalSideBar(props: {
       }
       console.log(userName);
     }
-  }, []);
-
-  useEffect(() => {
-    const getCurrentRentKeyData = async () => {
-      try {
-        const token = "Bearer " + localStorage.getItem("Authorization");
-        const uid = localStorage.getItem("uid");
-        const res = await axios.get(
-          `https://api-billita.xyz/booklist/summary/${vehicleId}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        const data = res.data;
-        setBookList(data);
-        console.log(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCurrentRentKeyData();
   }, []);
 
   const actionToHistory = () => {
@@ -160,11 +135,38 @@ const RentCarNonExist = () => {
 };
 
 const RentCar = (props: {
-  rentCarData: RentalDataType;
+  rentCarData: MyRentalCarType;
   setIsSideOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const router = useRouter();
+  
   const { rentCarData } = props;
+  const [summaryData, setSummaryData] = useState<isUserRentalNowDataType>({} as isUserRentalNowDataType);
+
+  useEffect(() => {
+    const getCurrentRentKeyData = async () => {
+      try {
+        const token = "Bearer " + localStorage.getItem("Authorization");
+        const uid = localStorage.getItem("uid");
+        const res = await axios.get(
+          `https://api-billita.xyz/booklist/summary/${rentCarData.vehicleId}`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        const data = res.data;
+        setSummaryData(data);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getCurrentRentKeyData();
+  }, []);
+
+
   const handlePush = () => {
     props.setIsSideOpen(false);
     router.push(`/rental/${rentCarData.rentalId}/detail`);
@@ -180,7 +182,7 @@ const RentCar = (props: {
         <div className={style.reserveWrapper}>
           <div className={style.textWrap}>
             <div className={style.carName}>
-              {rentCarData.carBrand} {rentCarData.carName}
+              {summaryData?.brandName} {summaryData?.carName}
             </div>
             <div className={style.period}>
               {serviceStartTime.getMonth()}월 {serviceStartTime.getDate()}일{" "}
@@ -193,10 +195,10 @@ const RentCar = (props: {
           </div>
           <div className={style.imgWrap}>
             <Image
-              src={rentCarData.imageUrl}
+              src={summaryData.imageUrl}
               width="300"
               height="300"
-              alt={rentCarData.carName}
+              alt={summaryData?.carName}
             />
           </div>
         </div>
