@@ -38,7 +38,6 @@ export interface carDataType {
 }
 
 export interface carListType {
-  id: number;
   carName: string;
   carBrand: string;
   carImage: string;
@@ -46,4 +45,13 @@ export interface carListType {
   defaultPrice: number;
   canBook: boolean;
   purchaseStatus: string;
+}
+
+export interface carListbyBrandDataType {
+  carName: string;
+  imageUrl: string;
+  charge: number;
+  carBrand: string;
+  zoneAddress: string;
+  billitaZone: string;
 }

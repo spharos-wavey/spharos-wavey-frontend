@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import style from "./ModalSideBar.module.css";
 import SectionTitle from "../ui/SectionTitle";
 import Separator from "../ui/Separator";
@@ -15,54 +14,72 @@ export default function ModalSideBar(props: {
   isSideOpen: boolean;
 }) {
   const { isSideOpen, setIsSideOpen } = props;
-  const [rentCarData, setRentCarData] = useState<RentalDataType>(
-    {} as RentalDataType
+  const [rentCarData, setRentCarData] = useState<RentalDataType[]>(
+    [] as RentalDataType[]
   );
+  const [userName, setUserName] = useState<string>("");
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
   console.log(`router.query:`, router.query);
 
 
-  if (typeof window !== 'undefined') {
-    console.log('auth', localStorage.getItem("Authorization"));
-    console.log('uid', localStorage.getItem("uid"));
-  }
 
-  
+  const handleLogout = () => {
+    localStorage.removeItem("Authorization");
+    localStorage.removeItem("uid");
+    localStorage.removeItem("nickName");
+    setIsSideOpen(false);
+  };
 
   useEffect(() => {
-    if(!localStorage.getItem("Authorization") && !localStorage.getItem("uid")) return;
+    if (!localStorage.getItem("Authorization") && !localStorage.getItem("uid"))
+      return;
     const getData = async () => {
       try {
-        const token = "Bearer "+localStorage.getItem("Authorization");
+        const token = "Bearer " + localStorage.getItem("Authorization");
         const uid = localStorage.getItem("uid");
-        const res = await axios.get(
-          `http://api-billita.xyz/rental/ALL`,
-          {
-            headers: {
-              Authorization: token,
-              uuid: uid,
-            },
-          })
+        const res = await axios.get(`http://api-billita.xyz/rental/RESERVATION`, {
+          headers: {
+            Authorization: token,
+            uuid: uid,
+          },
+        });
+        // const res = await axios.get(`http://api-billita.xyz/rental/RESERVATION`, {
+        //   headers: {
+        //     Authorization: token,
+        //     uuid: uid,
+        //   },
+        // });
         const data = res.data;
+        setRentCarData(data);
         console.log(data);
-        // const rentalData = data.find(
-        //   (item: rentalDataType) => item.purchaseState === PURCASE_STATE
-        // );
-        // if (!rentalData) return;
-        // setRentCarData(rentalData);
       } catch (err) {
         console.log(err);
       }
     };
-
     getData();
   }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const nickName = localStorage.getItem("nickName");
+      if (nickName !== undefined && typeof nickName === "string") {
+        setUserName(nickName);
+      } else {
+        setUserName("빌리타");
+      }
+      console.log(userName);
+    }
+  }, []);
+
+  const actionToHistory = () => {
+    router.push("/rentHistory");
+  };
   return (
     <>
       <div className={style.topWrap}>
         <div className={style.greetingBinding}>
-          <div className={style.greeting}>빌리타님</div>
+          <div className={style.greeting}>{userName}님</div>
           <div className={style.greeting}>안녕하세요!</div>
           <div className={style.bluehighlightsmfont}>마이페이지</div>
         </div>
@@ -76,15 +93,18 @@ export default function ModalSideBar(props: {
         </div>
       </div>
 
-      <RentCar rentCarData={rentCarData} setIsSideOpen={setIsSideOpen} />
-
+      {rentCarData.length > 0 ? (
+        <RentCar rentCarData={rentCarData[0]} setIsSideOpen={setIsSideOpen} />
+      ) : <RentCarNonExist />
+      }
+      
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
-          <li>이용내역</li>
+          <li onClick={() => actionToHistory()}>이용내역</li>
           <li>스마트키</li>
           <li>결제카드 등록</li>
           <li>이벤트/쿠폰</li>
-          <li>고객센터</li>
+          <li onClick={handleLogout}>로그아웃</li>
         </ul>
       </div>
 
@@ -96,17 +116,25 @@ export default function ModalSideBar(props: {
           {/* <a href="">
             <li>사고접수 현황</li>
           </a> */}
-          <a href="">
             <li>개인정보 처리방침</li>
-          </a>
-          <a href="">
             <li>About Billita</li>
-          </a>
         </ul>
       </div>
     </>
   );
 }
+
+const RentCarNonExist = () => {
+    return (
+      <div className={style.grayWrapper}>
+        <div className={style.nonRentNotice}>
+          <SectionTitle fontSize={0.8}>
+            현재 대여중인 차량이 없습니다.
+          </SectionTitle>
+        </div>
+      </div>
+    );
+  };
 
 const RentCar = (props: {
   rentCarData: RentalDataType;
@@ -129,7 +157,7 @@ const RentCar = (props: {
         <div className={style.reserveWrapper}>
           <div className={style.textWrap}>
             <div className={style.carName}>
-              {rentCarData.carBrand} {rentCarData.carModel}
+              {rentCarData.carBrand} {rentCarData.carName}
             </div>
             <div className={style.period}>
               {serviceStartTime.getMonth()}월 {serviceStartTime.getDate()}일{" "}
@@ -145,7 +173,7 @@ const RentCar = (props: {
               src={rentCarData.imageUrl}
               width="300"
               height="300"
-              alt={rentCarData.carModel}
+              alt={rentCarData.carName}
             />
           </div>
         </div>

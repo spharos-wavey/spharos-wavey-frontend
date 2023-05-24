@@ -1,5 +1,5 @@
 import React from 'react'
-import style from "./RentalLogWrapper.module.css";
+import style from "./RentalLogNotExist.module.css";
 
 export default function RentalLogNotExist() {
   return (

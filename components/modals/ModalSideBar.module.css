@@ -53,7 +53,7 @@
 }
 
 .grayWrapper {
-  background-color: #d6d6d6;
+  background-color: #d6d6d650;
 }
 .paddingWrap {
   padding: 4vh 10vw 4vh 10vw;
@@ -119,6 +119,11 @@
   font-size: 0.7rem;
   font-weight: bold;
   list-style: none;
+}
+
+.nonRentNotice {
+  opacity: 0.5;
+  padding: 4vh 10vw 4vh 10vw;
 }
 
 @keyframes slideIn {

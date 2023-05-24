@@ -30,7 +30,7 @@
   padding: 2rem 1.57rem;
   display: flex;
   flex-direction: row;
-  animation: slide 10s linear infinite;
+  animation: slide 15s linear infinite;
 }
 
 .cardsWrap:hover {

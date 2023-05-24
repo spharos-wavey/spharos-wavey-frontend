@@ -1,0 +1,49 @@
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #D6D6D6;
+  margin-top: 1rem;
+  padding: 1rem;
+  align-items: center;
+}
+.textWrap{
+  width: 70%;
+}
+.availability {
+  font-size: 0.6rem;
+  background-color: var(--billita-blueHighlight);
+  border-radius: 5px;
+  color: white;
+  padding: 4px 6px 3px;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+.carName {
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+}
+
+.period {
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+.imgWrap {
+  width: 30%;
+}
+.imgWrap img {
+  width: 100%;
+  height: auto;
+}
+.hr{
+  width: 4rem;
+  background-color: var(--billita-blueHighlight);
+  border: 0;
+  height: 1px;
+  margin-top: 1rem;
+}

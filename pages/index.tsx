@@ -27,27 +27,11 @@ export default Page;
 
 export const getStaticProps = async () => {
 
-  // const res = await fetch("https://api-billita.xyz/frame/brands");
-  // const data = await res.json();
+  const res = await fetch("https://api-billita.xyz/carbrand");
+  const data = await res.json();
 
-  const data = [
-    {
-      id: 1,
-      name: "BMW",
-    },
-    {
-      id: 2,
-      name: "테슬라",
-    },
-    {
-      id: 3,
-      name: "현대",
-    },
-    {
-      id: 4,
-      name: "벤츠",
-    },
-  ]
+
+
 
   return {
     props: {
