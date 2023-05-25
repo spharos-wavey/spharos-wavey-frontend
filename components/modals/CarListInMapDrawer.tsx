@@ -1,11 +1,10 @@
-import { carInMapType } from '@/types/carDataType'
 import React, { Dispatch, SetStateAction } from 'react'
-import style from './CarListInMapDrawer.module.css'
+import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { Close } from '@mui/icons-material';
+import { carInMapType } from '@/types/carDataType'
+import style from './CarListInMapDrawer.module.css'
 import CloseOrSlideBtn from '../ui/CloseOrSlideBtn';
 import ProgressBar from '../ui/ProgressBar';
-import { useRouter } from 'next/router';
 
 export default function CarListInMapDrawer(props:{data: carInMapType[], isOpen:boolean, setIsOpen:Dispatch<SetStateAction<boolean>>, zoneName:string}) {
 
@@ -39,7 +38,7 @@ export default function CarListInMapDrawer(props:{data: carInMapType[], isOpen:b
                 <div className={style.drawerItemTitle}>{item.carName}</div>
                 <ProgressBar value={item.currentCharge} />
                 <div className={style.price}>{item.defaultPrice.toLocaleString('ko')}</div>
-                <div className={style.distancePrice}><span>추가거리</span> 1km : {item.distancePrice.toLocaleString('ko')}</div>
+                <div className={style.distancePrice}><span>추가거리당 요금</span> {item.distancePrice.toLocaleString('ko')}원/km</div>
               </div>
               <div className={style.drawerItemImg}>
                 { item.canBook &&
