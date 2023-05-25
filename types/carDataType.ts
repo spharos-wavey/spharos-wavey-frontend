@@ -56,3 +56,14 @@ export interface carListbyBrandDataType {
   zoneAddress: string;
   billitaZone: string;
 }
+
+export interface carInMapType {
+  vehicleId: number;
+  carName: string;
+  carBrandName: string;
+  canBook: boolean;
+  defaultPrice: number;
+  vehicleImage: string;
+  distancePrice: number;
+  currentCharge: number;
+}
