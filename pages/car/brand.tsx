@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import CarList from "@/components/pages/car/CarList";
 import { carListbyBrandDataType } from "@/types/carDataType";
-import SectionTitle from "@/components/ui/SectionTitle";
-import Separator from "@/components/ui/Separator";
 
 function BrandSort(props: { data: carListbyBrandDataType[] }) {
   const router = useRouter();
@@ -15,10 +13,6 @@ function BrandSort(props: { data: carListbyBrandDataType[] }) {
   return (
     <main>
       <section>
-        <SectionTitle
-          fontSize={0.9}
-        >{`빌리타에서 이용가능한 ${brandName} 차량`}</SectionTitle>
-        <Separator gutter={1} />
         <CarList data={data} />
       </section>
     </main>
