@@ -1,6 +1,4 @@
 import React from "react";
-import MapFooter from "./MapFooter";
-import DetailHeader from "../carDetail/DetailHeader";
 import MapHeader from "./MapHeader";
 import { RecoilRoot } from "recoil";
 

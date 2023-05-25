@@ -31,9 +31,9 @@ export default function VehicleCard(props: { item: mainVehicleCardType }) {
             priority
           />
         </div>
-        <IconButton sx={{position:'absolute', right:'1rem'}}>
+        <IconButton sx={{position:'absolute', right:'1rem'}} onClick={handleActive}>
           {
-            active ? <BookmarkAddedIcon sx={{ color: '#00c4df'}} onClick={handleActive}/> : <BookmarkAddOutlinedIcon onClick={handleActive}/>
+            active ? <BookmarkAddedIcon sx={{ color: '#00c4df'}} /> : <BookmarkAddOutlinedIcon />
           }
         </IconButton>
         <div className={style.carTitle}  onClick={()=>router.push(`/car/${data.vehicleId}`)} >{data.carName}</div>

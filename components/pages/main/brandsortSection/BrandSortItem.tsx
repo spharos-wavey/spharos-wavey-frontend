@@ -22,7 +22,6 @@ export default function BrandSortItem(props: { item: brandSortType }) {
           width={40}
           height={40}
           alt={props.item.brandName}
-          priority
         />
         <div className={style.circleOuter}></div>
       </div>

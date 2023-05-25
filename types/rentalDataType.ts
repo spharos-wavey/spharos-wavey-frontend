@@ -20,6 +20,7 @@ export interface timeType {
 
 export interface billitaZoneType {
   billitaZoneLat: number;
+  billitaZoneName: string;
   billitaZoneLng: number;
   billitaZoneId: number;
   rentAbleAmount: number;
