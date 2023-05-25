@@ -40,21 +40,6 @@
 .cardsWrap:inactive {
   animation-play-state: paused;
 }
-.scrollDotWrap {
-  display: flex;
-  margin-top: 1rem;
-  position: absolute;
-  left: 11rem;
-  top: 580px;
-  gap: 0.4rem;
-}
-
-.scrollDot{
-  width: 0.6rem;
-  height: 0.6rem;
-  background-color: aqua;
-  border-radius: 50%;
-}
 
 @keyframes slide {
   0% {
@@ -83,6 +68,7 @@
   animation: spin 1s linear infinite;
   width: 2rem;
   height: 2rem;
+  margin-top: 0.5rem;
 }
 
 .loader img {

@@ -21,7 +21,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       handleLoginPage();
     }
     else{
-      alert("언제했지 호호")
+      alert("로그인 언제했지 호호")
       handleLicensePage();
     }
   }

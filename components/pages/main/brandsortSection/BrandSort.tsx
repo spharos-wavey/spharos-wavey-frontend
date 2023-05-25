@@ -1,4 +1,3 @@
-// import { brandSortData } from "@/datas/brandSortData";
 import SectionTitle from "@/components/ui/SectionTitle";
 import style from "@/components/pages/main/brandsortSection/BrandSort.module.css";
 import { brandSortType } from "@/types/brandSortType";

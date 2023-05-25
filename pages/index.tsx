@@ -1,5 +1,4 @@
 import EventBanner from "@/components/pages/main/EventBanner";
-import { NextPageWithLayout } from "./_app";
 import Layout from "@/components/layouts/layout";
 import LogoMainPage from "@/components/ui/Logo";
 import BrandSort from "@/components/pages/main/brandsortSection/BrandSort";
