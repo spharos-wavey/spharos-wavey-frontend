@@ -27,7 +27,7 @@ export default function SimpleBackLayout(props: {
                 priority={true}
               />
             </li>
-            <li className={style.title}>{brandName}{props.title}</li>
+            <li className={style.title}>{brandName}{" "}{props.title}</li>
             <li className={style.hidden}>
               <Image
                 src="/assets/images/icons/leftArrowIconBlack.svg"
