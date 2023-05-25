@@ -63,7 +63,7 @@ export default function DetailInfoWrapper() {
         }
       >
         <DetailInfoTop
-          name={carData?.frameInfo.name}
+          name={carData?.frameInfo.carName}
           imageUrl={carData?.frameInfo.image}
           charge={carData?.charge}
           wash={carData?.washTime.slice(0, 10).replace(/-/gi, ".")}

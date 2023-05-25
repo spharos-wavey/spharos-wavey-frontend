@@ -1,9 +1,9 @@
+import Image from "next/image";
+import axios from "axios";
 import style from "@/components/pages/main/vehicleRecommendSection/VehicleRecommendMain.module.css";
 import { mainVehicleCardType } from "@/types/eventBannerType";
 import VehicleCard from "./VehicleCard";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import axios from "axios";
 
 export default function VehicleRecommendMain() {
   const [mainCarData, setMainCarData] = useState<mainVehicleCardType[]>();

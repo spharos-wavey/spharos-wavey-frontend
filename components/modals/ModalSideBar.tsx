@@ -7,7 +7,7 @@ import Separator from "../ui/Separator";
 import { useRouter } from "next/router";
 import {
   MyRentalCarType,
-  isUserRentalNowDataType,
+  IsUserRentalNowDataType,
 } from "@/types/rentalDataType";
 import axios from "axios";
 
@@ -141,7 +141,7 @@ const RentCar = (props: {
   const router = useRouter();
   
   const { rentCarData } = props;
-  const [summaryData, setSummaryData] = useState<isUserRentalNowDataType>({} as isUserRentalNowDataType);
+  const [summaryData, setSummaryData] = useState<IsUserRentalNowDataType>({} as IsUserRentalNowDataType);
 
   useEffect(() => {
     const getCurrentRentKeyData = async () => {

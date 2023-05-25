@@ -17,7 +17,7 @@ export interface carDataType {
     id: number;
     carBrand: string;
     foreignCar: boolean;
-    name: string;
+    carName: string;
     capacity: string;
     recommend: boolean;
     defaultPrice: number;
