@@ -1,6 +1,7 @@
 import CustomOverlay from "@/components/layouts/map/CustomOverlay";
 import MapFooter from "@/components/layouts/map/MapFooter";
 import CarListInMapDrawer from "@/components/modals/CarListInMapDrawer";
+import PageLoader from "@/components/ui/PageLoader";
 import { locationState } from "@/state/location";
 import { carInMapType } from "@/types/carDataType";
 import { locationType } from "@/types/location";
@@ -150,6 +151,8 @@ export default function KakaoMap() {
 
   console.log("zonelist: ", zoneList);
 
+  if(!zoneList) return <PageLoader />
+
   return (
     <>
     <CarListInMapDrawer data={carInMapList} isOpen={isOpen} setIsOpen={setIsOpen} zoneName={billitaZone}/>
@@ -178,3 +181,4 @@ export default function KakaoMap() {
     </>
   );
 }
+

@@ -2,7 +2,6 @@ import { carInMapType } from '@/types/carDataType'
 import React, { Dispatch, SetStateAction } from 'react'
 import style from './CarListInMapDrawer.module.css'
 import Image from 'next/image';
-import { Close } from '@mui/icons-material';
 import CloseOrSlideBtn from '../ui/CloseOrSlideBtn';
 import ProgressBar from '../ui/ProgressBar';
 import { useRouter } from 'next/router';
