@@ -31,6 +31,7 @@ export default function ModalSideBar(props: {
     localStorage.removeItem("Authorization");
     localStorage.removeItem("uid");
     localStorage.removeItem("nickName");
+    sessionStorage.removeItem("carDetail");
     setIsSideOpen(false);
   };
 
@@ -76,14 +77,18 @@ export default function ModalSideBar(props: {
     router.push("/rentHistory");
   };
   const popModal = () => {
-      setIsSideOpen(false);
-      setIsModalOpen(true);
-      return;
-  }
+    setIsSideOpen(false);
+    setIsModalOpen(true);
+    return;
+  };
   return (
     <>
-    <LogInRequiredModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} isLogin={isLogin}/>
-    <>
+      <LogInRequiredModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        isLogin={isLogin}
+      />
+
       <div className={style.topWrap}>
         <div className={style.greetingBinding}>
           <div className={style.greeting}>{userName}님</div>
@@ -128,7 +133,6 @@ export default function ModalSideBar(props: {
           <li>About Billita</li>
         </ul>
       </div>
-      </>
     </>
   );
 }
@@ -150,9 +154,11 @@ const RentCar = (props: {
   setIsSideOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const router = useRouter();
-  
+
   const { rentCarData } = props;
-  const [summaryData, setSummaryData] = useState<IsUserRentalNowDataType>({} as IsUserRentalNowDataType);
+  const [summaryData, setSummaryData] = useState<IsUserRentalNowDataType>(
+    {} as IsUserRentalNowDataType
+  );
 
   useEffect(() => {
     const getCurrentRentKeyData = async () => {
@@ -176,7 +182,6 @@ const RentCar = (props: {
     };
     getCurrentRentKeyData();
   }, []);
-
 
   const handlePush = () => {
     props.setIsSideOpen(false);
