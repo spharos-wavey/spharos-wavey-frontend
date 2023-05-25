@@ -1,51 +1,48 @@
 import CustomOverlay from "@/components/layouts/map/CustomOverlay";
 import MapFooter from "@/components/layouts/map/MapFooter";
+import CarListInMapDrawer from "@/components/modals/CarListInMapDrawer";
 import { locationState } from "@/state/location";
+import { carInMapType } from "@/types/carDataType";
 import { locationType } from "@/types/location";
 import { BillitaZoneListType, timeType } from "@/types/rentalDataType";
 import axios from "axios";
 import dayjs from "dayjs";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
+import { Map } from "react-kakao-maps-sdk";
 import { useRecoilState } from "recoil";
 
 export default function KakaoMap() {
-  // 사용자 위치
-  const [currentLat, setCurrentLat] = useState<number>(0);
-  const [currentLng, setCurrentLng] = useState<number>(0);
 
-  // 초기에 지도가 포커스 되는 위치
+  // const [currentLat, setCurrentLat] = useState<number>(0);
+  // const [currentLng, setCurrentLng] = useState<number>(0);
+
   const [initLoc, setInitLoc] = useState<locationType>({
     latitude: 0,
     longitude: 0,
   });
 
-  // 차량 세부에서 넘어올 경우 차량의 위치(리코일)
   const [carLocation, setCarLocation] = useRecoilState(locationState);
+  const [billitaZone, setBillitaZone] = useState<string>('');
 
-  // 사용자가 지도를 움직였을 때 센터의 위치
   const [center, setCenter] = useState({
     latitude: 0,
     longitude: 0,
   });
 
-  // api로 이용가능 차량 조회할 때 쓸 위치 - default: 초기 지도 포커스 위치
   const [reqLocation, setReqLocation] = useState<locationType>({
     latitude: 0,
     longitude: 0,
   });
 
-  // 빌리타존 목록
   const [zoneList, setZoneList] = useState<BillitaZoneListType>();
 
-  // 대여 시간
   const [reqTime, setReqTime] = useState<timeType>({
     startTime: "",
     endTime: "",
   });
 
-  // console.log("recoil로 넘어온 차 위치 : ", carLocation);
+  const [carInMapList, setCarInMapList] = useState<carInMapType[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setReqTime({
@@ -58,10 +55,10 @@ export default function KakaoMap() {
     const getLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-          (position) => {
+           (position) => {
             const time = new Date(position.timestamp);
-            setCurrentLat(position.coords.latitude);
-            setCurrentLng(position.coords.longitude);
+            // setCurrentLat(position.coords.latitude);
+            // setCurrentLng(position.coords.longitude);
             if (carLocation.latitude == 0 && carLocation.longitude == 0) {
               setInitLoc({
                 latitude: position.coords.latitude,
@@ -137,14 +134,25 @@ export default function KakaoMap() {
     }
   }, [reqTime, reqLocation]);
 
-  const overLayClickHandler = () => {
-    alert("[준비중] 이용가능 차량 목록 표시");
+  const overLayClickHandler = (billitaZoneId:number, billitaZoneName:string) => {
+    setBillitaZone(billitaZoneName);
+    const getData = async () => {
+      await fetch(`https://api-billita.xyz/vehicle/billitazone?id=${billitaZoneId}&sDate=${reqTime.startTime}&eDate=${reqTime.endTime}`)
+      .then((res) => res.json().then((data) => {
+        console.log("data: ", data);
+        setCarInMapList(data);
+      }
+      )).catch((err) => console.log(err));
+    }
+    getData();
+    setIsOpen(true);
   };
 
   console.log("zonelist: ", zoneList);
 
   return (
     <>
+    <CarListInMapDrawer data={carInMapList} isOpen={isOpen} setIsOpen={setIsOpen} zoneName={billitaZone}/>
       {initLoc.latitude !== 0 && initLoc.longitude !== 0 && (
         <>
           <Map
@@ -159,7 +167,7 @@ export default function KakaoMap() {
                   key={zone.billitaZoneId}
                   lat={zone.billitaZoneLat}
                   lng={zone.billitaZoneLng}
-                  onClickHandler={overLayClickHandler}
+                  onClickHandler={()=>overLayClickHandler(zone.billitaZoneId, zone.billitaZoneName)}
                   availableNumber={zone.rentAbleAmount}
                 />
               ))}

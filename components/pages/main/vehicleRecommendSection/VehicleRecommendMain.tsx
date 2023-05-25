@@ -6,7 +6,7 @@ import Image from "next/image";
 import axios from "axios";
 
 export default function VehicleRecommendMain() {
-  const [mainCarData, setMainCarData] = useState<mainVehicleCardType[]>([]);
+  const [mainCarData, setMainCarData] = useState<mainVehicleCardType[]>();
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
 
@@ -22,8 +22,7 @@ export default function VehicleRecommendMain() {
     }
   }, [lat, lng]);
   
-
-  useEffect(() => { //api 완료되면 연결. 데이터 타입명도 바꿔야함.
+  useEffect(() => { 
     if (lat === 0 && lng === 0) return;
     const getMainCar = async () => {
       try {
@@ -42,7 +41,8 @@ export default function VehicleRecommendMain() {
     <div>
       <div className={style.sectionTitle}>지금 후딱 타이소</div>
       <div className={style.overflowWrap}>
-      {mainCarData.length === 0 ? <MyLoader />:
+      {mainCarData === undefined ? <MyLoader /> : 
+        mainCarData.length === 0 ? <div className={style.noCar}>현재 위치에서 조회된 차량이 없습니다.</div> :
         <div className={style.cardsWrap}>
           {
             mainCarData.map((item: mainVehicleCardType) => {
@@ -61,10 +61,10 @@ export default function VehicleRecommendMain() {
 export const MyLoader = () => {
   return (
     <div className={style.myLoader}>
-      <p>현재위치에서 사용가능한 차량을<br/>불러오고 있습니다.</p>
       <div className={style.loader}>
         <Image src="/assets/images/etc/loader.svg" width={30} height={30} alt='loader'/>
       </div>
+      <p>현재위치에서 사용가능한 차량을<br/>불러오고 있습니다.</p>
     </div>
   )
 }
