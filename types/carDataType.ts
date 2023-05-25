@@ -17,7 +17,7 @@ export interface carDataType {
     id: number;
     carBrand: string;
     foreignCar: boolean;
-    name: string;
+    carName: string;
     capacity: string;
     recommend: boolean;
     defaultPrice: number;
@@ -48,7 +48,7 @@ export interface carListType {
 }
 
 export interface carListbyBrandDataType {
-  id: number;
+  vehicleId: number;
   carName: string;
   imageUrl: string;
   charge: number;
