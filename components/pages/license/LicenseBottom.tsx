@@ -3,8 +3,12 @@ import { Box, TextField, MenuItem, Stack } from "@mui/material";
 import Separator from "@/components/ui/Separator";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { licenseType } from "@/types/licenseType";
+import style from "./LicenseBottom.module.css";
 
-export default function PersonalInfo(props: { title: string; onChange: (value: string) => void  }) {
+export default function PersonalInfo(props: {
+  title: string;
+  onChange: (value: string) => void;
+}) {
   const [userName, setUserName] = useState("");
   const [touched, setTouched] = useState(false);
 
@@ -14,13 +18,13 @@ export default function PersonalInfo(props: { title: string; onChange: (value: s
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    if(validateUserName(value)){
-    setUserName(value);
-  }
-}
+    if (validateUserName(value)) {
+      setUserName(value);
+    }
+  };
   const handleNameBlur = () => {
     setTouched(true);
-  }
+  };
 
   const isNameValid = validateUserName(userName) || !touched;
 
@@ -37,11 +41,16 @@ export default function PersonalInfo(props: { title: string; onChange: (value: s
           InputLabelProps={{ style: { fontSize: 12 } }}
           fullWidth
           placeholder="예: 홍길동"
-          onChange = {handleNameChange}
+          onChange={handleNameChange}
           error={!isNameValid && touched}
           helperText={!isNameValid && touched ? "필수입력란입니다" : ""}
           required
         />
+
+        {/* <div className={style.boxing}>
+          <input type="text" name="userName" className={style.nameInput}/>
+          <label className={style.label}>이름</label>
+        </div> */}
 
         <Separator gutter={1} />
 

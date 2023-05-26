@@ -101,9 +101,9 @@ export default function LicenseTop(props: {
           fullWidth
           required
           onChange={handleExpirationDateChange}
-          error={!validateExpirationDate(expirationDate)}
+          // error={!validateExpirationDate(expirationDate)}
           // helperText={value ? "" : "필수 입력창 입니다."}
-          placeholder="YYYY-MM-DD"
+          placeholder="YYYYMMDD"
         />
 
         <Separator gutter={1} />
@@ -118,7 +118,7 @@ export default function LicenseTop(props: {
           // value={value}
           // onChange={(e) => setValue(e.target.value)}
           // helperText={value ? "" : "필수 입력창 입니다."}
-          placeholder="YYYY-MM-DD"
+          placeholder="YYYYMMDD"
         />
 
         <Separator gutter={1} />
@@ -131,7 +131,7 @@ export default function LicenseTop(props: {
           fullWidth
           required
           // helperText={value ? "" : "필수 입력창 입니다."}
-          placeholder="00-000000-00"
+          placeholder="00-000000-00 숫자만 입력하세요"
         />
         <Separator gutter={3} />
       </Box>

@@ -1,0 +1,21 @@
+.boxing input {
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #333;
+  background: transparent;
+  outline: none;
+}
+
+.label {
+  position: absolute;
+  top: 500;
+  left: 33px;
+  font-size: 14px;
+  color: #999;
+  transition: all 0.3s ease;
+  pointer-events: none;
+
+}
