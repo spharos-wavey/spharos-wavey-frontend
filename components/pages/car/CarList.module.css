@@ -1,49 +1,113 @@
 
-.wrapper {
+
+.listHeader {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #D6D6D6;
-  margin-top: 1rem;
-  padding: 1rem;
   align-items: center;
-}
-.textWrap{
-  width: 70%;
-}
-.availability {
-  font-size: 0.6rem;
-  background-color: var(--billita-blueHighlight);
-  border-radius: 5px;
-  color: white;
-  padding: 4px 6px 3px;
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-  width: fit-content;
-}
-.carName {
-  font-size: 0.8rem;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.5rem;
-  opacity: 0.7;
+  padding-bottom: 1rem;
+  /* border-bottom: 1px solid #01c5df; */
+  opacity: 0.8;
 }
 
-.period {
+.listTitle {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--billita-black);
+}
+.listTitle span {
+  color : var(--billita-blueHighlight);
+  font-size: 1rem;
+}
+.description {
+  margin-top: 3px;
+  font-size: 0.7rem;
+  font-weight: normal;
+}
+.description span {
+  color: var(--billita-blue);
   font-size: 0.8rem;
-  opacity: 0.5;
 }
+.listBody {
+  padding: 0rem 0.3rem;
+}
+.cardItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  border-bottom: thin solid #33333320;
+}
+
+.cardItemText {
+  width: 60%;
+}
+.cardItemTitle {
+  font-size: 1.0rem;
+  font-weight: bold;
+  color: var(--billita-black);
+}
+.battery {
+  margin-top: 1rem;  
+  width: 100px;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid #01c5df30;
+  display: flex;
+}
+
+.battery .icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5rem;
+}
+
 .imgWrap {
-  width: 30%;
+  width: 100px;
+  height: 60px;
 }
+
 .imgWrap img {
   width: 100%;
   height: auto;
 }
-.hr{
-  width: 4rem;
-  background-color: var(--billita-blueHighlight);
-  border: 0;
-  height: 1px;
-  margin-top: 1rem;
+
+.price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--billita-black);
+}
+.price span {
+  font-size: 0.7rem;
+  font-weight: normal;
+}
+.distancePrice {
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+.distancePrice span {
+  font-size: 0.5rem;
+  padding: 0.1rem 0.3rem;
+  color: white;
+  background-color: gray;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.badge {
+  font-size: 0.6rem;
+  padding: 0.1rem 0.3rem;
+  color: white;
+  background-color: var(--billita-blue);
+  border-radius: 5px;
+  width: fit-content;
+  position: absolute;
+  bottom: -0.5rem;
+  right: 0;
+  filter: contrast(175%);
+  opacity: 0.6;
+}
+
+.cardItemImg {
+  position: relative;
 }

@@ -52,6 +52,8 @@ export interface carListbyBrandDataType {
   carName: string;
   imageUrl: string;
   charge: number;
+  defaultPrice: number;
+  distancePrice: number;
   carBrand: string;
   zoneAddress: string;
   billitaZone: string;
