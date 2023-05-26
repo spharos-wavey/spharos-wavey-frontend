@@ -13,7 +13,9 @@ export default function License() {
   //   router.push(sessionStorage.getItem("carDetail") as string);
   //   alert("뀨");
   // };
-  
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  }
   // const extractIdForBookPage = sessionStorage.getItem("carDetail")?.split("/")[2];
   // const handleOpenBookPage = () => {
   //   // router.push(`rental/${extractIdForBookPage}`);
@@ -28,19 +30,20 @@ export default function License() {
   return (
     <main>
       <section>
+        <form onSubmit={handleFormSubmit} action="https://api-billita.xyz/carLicense" method="post">
         <div>
           <LicenseWrapper />
         </div>
-      </section>
-      <BottomFixedContainer>
         <Button
-          btnType={"button"}
+          btnType={"submit"}
           btnEvent={() => handleRegister()}
           shadow={true}
+          width={320}
         >
           등록하기
         </Button>
-      </BottomFixedContainer>
+      </form>
+      </section>
     </main>
   );
 }

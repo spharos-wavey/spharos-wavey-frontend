@@ -10,6 +10,7 @@ interface ButtonStyle {
   backgroundColor?: string | undefined;
   color?: string | undefined;
   fontWeight?: string | undefined;
+  width?: number;
 }
 
 export default function Button(props: ButtonStyle) {
@@ -17,7 +18,7 @@ export default function Button(props: ButtonStyle) {
     <button
       style={{
         borderRadius: "50px",
-        width: "90%",
+        width: props.width? props.width : "90%",
         height: "3rem",
         border: props.border ? props.border : "none",
         color: props.color === undefined ? "var(--billita-white)" : props.color,

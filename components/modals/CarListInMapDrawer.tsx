@@ -1,12 +1,10 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import { carInMapType } from '@/types/carDataType'
-import style from './CarListInMapDrawer.module.css'
-import CloseOrSlideBtn from '../ui/CloseOrSlideBtn';
-import ProgressBar from '../ui/ProgressBar';
-
-export default function CarListInMapDrawer(props:{data: carInMapType[], isOpen:boolean, setIsOpen:Dispatch<SetStateAction<boolean>>, zoneName:string}) {
+import { carInMapType } from "@/types/carDataType";
+import React, { Dispatch, SetStateAction } from "react";
+import style from "./CarListInMapDrawer.module.css";
+import Image from "next/image";
+import CloseOrSlideBtn from "../ui/CloseOrSlideBtn";
+import ProgressBar from "../ui/ProgressBar";
+import { useRouter } from "next/router";
 
 export default function CarListInMapDrawer(props: {
   data: carInMapType[];
