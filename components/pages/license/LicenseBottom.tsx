@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, TextField, MenuItem, Stack } from "@mui/material";
 import Separator from "@/components/ui/Separator";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { licenseType } from "@/types/licenseType";
+import style from "./LicenseBottom.module.css";
 
-export default function PersonalInfo(props: { title: string }) {
+export default function PersonalInfo(props: {
+  title: string;
+  onChange: (value: string) => void;
+}) {
+  const [userName, setUserName] = useState("");
+  const [touched, setTouched] = useState(false);
+
+  const validateUserName = (value: string) => {
+    const regex = /^[가-힣]{2,4}$/;
+    return regex.test(value);
+  };
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (validateUserName(value)) {
+      setUserName(value);
+    }
+  };
+  const handleNameBlur = () => {
+    setTouched(true);
+  };
+
+  const isNameValid = validateUserName(userName) || !touched;
+
   return (
     <>
       <SectionTitle fontSize={0.85}>{props.title}</SectionTitle>
@@ -14,12 +37,20 @@ export default function PersonalInfo(props: { title: string }) {
         <TextField
           label="이름"
           variant="standard"
-          type="name"
+          type="string"
           InputLabelProps={{ style: { fontSize: 12 } }}
           fullWidth
-          // helperText={value ? "" : "필수 입력창 입니다."}
           placeholder="예: 홍길동"
+          onChange={handleNameChange}
+          error={!isNameValid && touched}
+          helperText={!isNameValid && touched ? "필수입력란입니다" : ""}
+          required
         />
+
+        {/* <div className={style.boxing}>
+          <input type="text" name="userName" className={style.nameInput}/>
+          <label className={style.label}>이름</label>
+        </div> */}
 
         <Separator gutter={1} />
 
@@ -51,6 +82,7 @@ export default function PersonalInfo(props: { title: string }) {
           fullWidth
           // helperText={value ? "" : "필수 입력창 입니다."}
           placeholder="예: YYYYYMMDD"
+          required
         />
         <Separator gutter={7} />
       </Box>

@@ -83,11 +83,11 @@ export default function ModalSideBar(props: {
   };
   return (
     <>
-      <LogInRequiredModal
+      {/* <LogInRequiredModal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         isLogin={isLogin}
-      />
+      /> */}
 
       <div className={style.topWrap}>
         <div className={style.greetingBinding}>
