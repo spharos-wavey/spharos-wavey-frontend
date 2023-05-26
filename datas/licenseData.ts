@@ -1,4 +1,4 @@
-export const licenseData = [
+export const licenseTypeData = [
   {
     id: 1,
     classes: "1종",
