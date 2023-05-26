@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, TextField, MenuItem, Stack, Button } from "@mui/material";
+import { Box, TextField, MenuItem, Stack, Button, Select, SelectChangeEvent, FormControl, InputLabel, FormGroup, Input, FormHelperText } from "@mui/material";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Separator from "@/components/ui/Separator";
 import { licenseTypeData } from "@/datas/licenseData";
@@ -29,8 +29,7 @@ interface LicenseInputErrorType {
 }
 
 export default function LicenseWrapper() {
-  const [level, setLevel] = useState("");
-  const [selectedType, setSelectedType] = useState("");
+
   const [inputError, setInputError] = useState<LicenseInputErrorType>({
     level: "",
     type: "",
@@ -43,14 +42,19 @@ export default function LicenseWrapper() {
     userName: "",
   })
 
-  const [touched, setTouched ] = useState(false);
-
   const [inputData, setInputData] = useState<LicenseInputType>(
-    {} as LicenseInputType
+    {
+      level: "1종",
+      type: "",
+      issueDate: "",
+      expireDate: "",
+      licenseNumber: "",
+      address: "",
+      addressDetail: "",
+      birth: "",
+      userName: "",
+    }
   );
-  // const [inputError, setInputError] = useState<LicenseInputErrorType>(
-  //   {} as LicenseInputErrorType
-  // );
 
   const validateLicenseNumber = (value: string) => {
     const regex = /^\d{2}-\d{6}-\d{2}$/;
@@ -98,18 +102,6 @@ export default function LicenseWrapper() {
     return errors;
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setLevel(value);
-    setSelectedType("");
-    // props.onChange(value);
-    console.log(value);
-  };
-  const handleClassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedClass = event.target.value;
-    setSelectedType(selectedClass);
-  };
-
   const validateField = (fieldName: keyof LicenseInputType, value: string) => {
     switch (fieldName) {
       case "expireDate":
@@ -129,199 +121,136 @@ export default function LicenseWrapper() {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    console.log(inputData)
     setInputData((prev) => ({ ...prev, [name]: value }));
     setInputError((prev) => ({ ...prev, [name]: validateField(name as keyof LicenseInputType, value) }));
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handlSelectChange = (event: SelectChangeEvent) => {
+    const { name, value } = event.target;
+    console.log(name, value)
+    setInputData((prev) => ({ ...prev, [name]: value }));
+  };
+
+
+  const handleFormSubmit = () => {
     const errors = validateForm();
+    if(errors) {
+      setInputError(errors);
+      return;
+    }
+    // data fetch
+
     console.log(inputData);
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <FormGroup>
       <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
+      <Separator gutter={1} />
       <Box sx={{ width: "100%" }}>
-        <Separator gutter={1} />
-        <TextField
-          label="면허 구분"
-          name="level"
-          value={inputData.level}
-          select
-          onChange={handleChange}
-          fullWidth
-          size="small"
-          color="primary"
-          variant="standard"
-          InputLabelProps={{ style: { fontSize: 12 } }}
-        >
-          {licenseTypeData.map((item) => {
-            return (
-              <MenuItem key={item.classes} value={item.classes}>
-                {item.classes}
-              </MenuItem>
-            );
-          })}
-        </TextField>
+        <FormControl variant="standard" fullWidth>
+          <InputLabel id="demo-simple-select-standard-label">면허종류</InputLabel>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            name="level"
+            value={inputData.level}
+            label="면허종류"
+            onChange={handlSelectChange}
+          >
+            <MenuItem value="1종">1종</MenuItem>
+            <MenuItem value="2종">2종</MenuItem>
+          </Select>
+        </FormControl>
 
         <Separator gutter={1} />
 
-        <TextField
-          label="면허 구분"
-          name="type"
-          value={inputData.type}
-          select
-          onChange={handleClassChange}
-          fullWidth
-          size="small"
-          color="primary"
-          variant="standard"
-          InputLabelProps={{ style: { fontSize: 12 } }}
-        >
-          {level === "1종" ? (
-            <>
-              <MenuItem value="1종 대형">1종 대형</MenuItem>
-              <MenuItem value="1종 보통">1종 보통</MenuItem>
-              <MenuItem value="1종 특수">1종 특수</MenuItem>
-
-              {/* {licenseTypeData
-                .find((item) => item.classes === "1종")
-                ?.categories.map((category) => (
-                  <MenuItem key={category} value={category}>
-                    {category}
-                  </MenuItem>
-                ))} */}
-            </>
-          ) : (
-            <MenuItem value="2종 보통">2종 보통</MenuItem>
-          )}
-        </TextField>
+        <FormControl variant="standard" fullWidth>
+          <InputLabel id="demo-simple-select-standard-label">면허구분</InputLabel>
+          
+            {
+              inputData.level === "1종" ? 
+                (
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    value={inputData.type}
+                    label="면허구분"
+                    name="type"
+                    onChange={handlSelectChange}
+                  >
+                    <MenuItem value="1종보통">1종보통</MenuItem>
+                    <MenuItem value="1종대형">1종대형</MenuItem>
+                    <MenuItem value="1종특수">1종특수</MenuItem>
+                  </Select>
+                ) :
+                (
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    value={inputData.type}
+                    label="면허구분"
+                    name="type"
+                    onChange={handlSelectChange}
+                  >
+                    <MenuItem value="2종보통">2종보통</MenuItem>
+                  </Select>
+                )
+            }
+        </FormControl>
         <Separator gutter={1} />
-
-        <TextField
-          label="만료일"
-          name="expireDate"
-          value={inputData.expireDate}
-          variant="standard"
-          type="string"
-          InputLabelProps={{ style: { fontSize: 12 } }}
-          fullWidth
-          required
-          // onChange={handleExpirationDateChange}
-          // error={!validateExpirationDate(expirationDate)}
-          helperText={
-            !validateExpirationDate(inputData.expireDate)
-              ? "올바른 형식이 아닙니다"
-              : ""
-          }
-          placeholder="YYYYMMDD"
-        />
-
+        <FormControl variant="standard" fullWidth >
+          <InputLabel htmlFor="expireDate">만료일</InputLabel>
+          <Input
+            id="expireDate"
+            name="expireDate"
+            value={inputData.expireDate}
+            onChange={handleInputChange}
+            error={!!inputError.expireDate}
+            aria-describedby="expireDate-helper-text"
+          />
+          <FormHelperText id="licenseNumber-helper-text">
+            {inputError.expireDate}
+          </FormHelperText>
+        </FormControl>
         <Separator gutter={1} />
-
-        <TextField
-          label="발급일"
-          name="issueDate"
-          value={inputData.issueDate}
-          variant="standard"
-          type="number"
-          InputLabelProps={{ style: { fontSize: 12 } }}
-          fullWidth
-          required
-          // value={value}
-          // onChange={(e) => setValue(e.target.value)}
-          helperText={
-            !validateIssueDate(inputData.issueDate)
-              ? "올바른 형식이 아닙니다"
-              : ""
-          }
-          placeholder="YYYYMMDD"
-        />
-
+        <FormControl variant="standard" fullWidth >
+          <InputLabel htmlFor="issueDate">발급일</InputLabel>
+          <Input
+            id="issueDate"
+            name="issueDate"
+            value={inputData.issueDate}
+            onChange={handleInputChange}
+            error={!!inputError.issueDate}
+            aria-describedby="issueDate-helper-text"
+          />
+          <FormHelperText id="licenseNumber-helper-text">
+            {inputError.issueDate}
+          </FormHelperText>
+        </FormControl>
         <Separator gutter={1} />
-
-        <TextField
-          label="면허 번호"
-          name="licenseNumber"
-          value={inputData.licenseNumber}
-          variant="standard"
-          type="number"
-          InputLabelProps={{ style: { fontSize: 12 } }}
-          fullWidth
-          required
-          // helperText={value ? "" : "필수 입력창 입니다."}
-          placeholder="00-000000-00 숫자만 입력하세요"
-        />
-        <Separator gutter={3} />
+        <FormControl variant="standard" fullWidth >
+          <InputLabel htmlFor="licenseNumber">면허번호</InputLabel>
+          <Input
+            id="licenseNumber"
+            name="licenseNumber"
+            value={inputData.licenseNumber}
+            onChange={handleInputChange}
+            error={!!inputError.licenseNumber}
+            aria-describedby="licenseNumber-helper-text"
+          />
+          <FormHelperText id="licenseNumber-helper-text">
+            {inputError.licenseNumber}
+          </FormHelperText>
+        </FormControl>
+        <Separator gutter={1} />
+        
+          
       </Box>
-      <SectionTitle fontSize={0.85}>개인정보 입력</SectionTitle>
-      <Box sx={{ width: "100%" }}>
-        <Separator gutter={1} />
-
-        <TextField
-          label="이름"
-          name="userName"
-          value={inputData.userName}
-          variant="standard"
-          type="string"
-          InputLabelProps={{ style: { fontSize: 12 } }}
-          fullWidth
-          placeholder="예: 홍길동"
-          // onChange={handleNameChange}
-          // error={!isNameValid && touched}
-          helperText={
-            !validateUserName(inputData.userName)
-              ? "이름을 다시 확인해주세요."
-              : ""
-          }
-          required
-        />
-
-        <Separator gutter={1} />
-
-        <TextField
-          label="주소입력"
-          name="address"
-          value={inputData.address}
-          variant="standard"
-          InputLabelProps={{ style: { fontSize: 12 } }}
-          fullWidth
-          // helperText={value ? "" : "필수 입력창 입니다."}
-          placeholder="예: 부산시 해운대구 APEC로 17"
-        />
-        <Separator gutter={1} />
-
-        <TextField
-          label="상세주소"
-          name="addressDetail"
-          value={inputData.addressDetail}
-          variant="standard"
-          InputLabelProps={{ style: { fontSize: 12 } }}
-          fullWidth
-          // helperText={value ? "" : "필수 입력창 입니다."}
-          placeholder="예: 리더스마크 4층 스파로스 아카데미"
-        />
-        <Separator gutter={1} />
-
-        <TextField
-          label="생년월일"
-          name="birth"
-          value={inputData.birth}
-          variant="standard"
-          type="number"
-          InputLabelProps={{ style: { fontSize: 12 } }}
-          fullWidth
-          // helperText={value ? "" : "필수 입력창 입니다."}
-          placeholder="예: YYYYYMMDD"
-          helperText={
-            !validateBirth(inputData.birth) ? "올바른 형식이 아닙니다" : ""
-          }
-          required
-        />
-        <Separator gutter={7} />
-      </Box>
-      <button>등록하기</button>
-    </form>
+      <Button type="button" variant="contained" sx={{ width: "100%" }} onClick={handleFormSubmit}>
+        다음
+      </Button>
+      </FormGroup>
   );
 }
