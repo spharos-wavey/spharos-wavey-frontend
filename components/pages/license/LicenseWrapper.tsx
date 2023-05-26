@@ -139,13 +139,13 @@ export default function LicenseWrapper() {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    // if (name === "birth" && value.length === 4) {
-    //   setInputData((prev) => ({
-    //     ...prev,
-    //     [name]: value + "",
-    //   }));
-    //   return;
-    // }
+    if (name === "birth" && value.length === 4) {
+      setInputData((prev) => ({
+        ...prev,
+        [name]: value + ".",
+      }));
+      return;
+    }
     console.log(inputData);
     setInputData((prev) => ({ ...prev, [name]: value }));
     setInputError((prev) => ({
