@@ -19,6 +19,7 @@ interface LicenseInputType {
 interface LicenseInputErrorType {
   level: string;
   type: string;
+  issueDate: string;
   expireDate: string;
   licenseNumber: string;
   address: string;
@@ -28,13 +29,28 @@ interface LicenseInputErrorType {
 }
 
 export default function LicenseWrapper() {
-  const [topValue, setTopValue] = useState("");
-  const [bottomValue, setBottomValue] = useState("");
   const [level, setLevel] = useState("");
   const [selectedType, setSelectedType] = useState("");
+  const [inputError, setInputError] = useState<LicenseInputErrorType>({
+    level: "",
+    type: "",
+    issueDate: "",
+    expireDate: "",
+    licenseNumber: "",
+    address: "",
+    addressDetail: "",
+    birth: "",
+    userName: "",
+  })
 
-  const [inputData, setInputData] = useState<LicenseInputType>({} as LicenseInputType);
-  const [inputError, setInputError] = useState<LicenseInputErrorType>({} as LicenseInputErrorType);
+  const [touched, setTouched ] = useState(false);
+
+  const [inputData, setInputData] = useState<LicenseInputType>(
+    {} as LicenseInputType
+  );
+  // const [inputError, setInputError] = useState<LicenseInputErrorType>(
+  //   {} as LicenseInputErrorType
+  // );
 
   const validateLicenseNumber = (value: string) => {
     const regex = /^\d{2}-\d{6}-\d{2}$/;
@@ -61,18 +77,25 @@ export default function LicenseWrapper() {
     return regex.test(value);
   };
 
+  const validateForm = () => {
+    const errors = {} as LicenseInputErrorType;
 
-  const handleTopChange = (value: string) => {
-    setTopValue(value);
-  };
-
-  const handleBottomChange = (value: string) => {
-    setBottomValue(value);
-  };
-
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(inputData);
+    if (!validateExpirationDate(inputData.expireDate) )  {
+      errors.expireDate = "올바른 형식이 아닙니다";
+    }
+    if (!validateIssueDate(inputData.issueDate)) {
+      errors.issueDate = "올바른 형식이 아닙니다";
+    }
+    if (!validateLicenseNumber(inputData.licenseNumber)) {
+      errors.licenseNumber = "올바른 형식이 아닙니다";
+    }
+    if (!validateBirth(inputData.birth)) {
+      errors.birth = "올바른 형식이 아닙니다";
+    }
+    if (!validateUserName(inputData.userName)) {
+      errors.userName = "올바른 형식이 아닙니다";
+    }
+    return errors;
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,11 +110,39 @@ export default function LicenseWrapper() {
     setSelectedType(selectedClass);
   };
 
+  const validateField = (fieldName: keyof LicenseInputType, value: string) => {
+    switch (fieldName) {
+      case "expireDate":
+        return validateExpirationDate(value) ? "" : "올바른 형식이 아닙니다";
+      case "issueDate":
+        return validateIssueDate(value) ? "" : "올바른 형식이 아닙니다";
+      case "licenseNumber":
+        return validateLicenseNumber(value) ? "" : "올바른 형식이 아닙니다";
+      case "birth":
+        return validateBirth(value) ? "" : "올바른 형식이 아닙니다";
+      case "userName":
+        return validateUserName(value) ? "" : "올바른 형식이 아닙니다";
+      default:
+        return "";
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setInputData((prev) => ({ ...prev, [name]: value }));
+    setInputError((prev) => ({ ...prev, [name]: validateField(name as keyof LicenseInputType, value) }));
+  };
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const errors = validateForm();
+    console.log(inputData);
+  };
 
   return (
     <form onSubmit={handleFormSubmit}>
       <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
-      <Box sx={{width:"100%"}}>
+      <Box sx={{ width: "100%" }}>
         <Separator gutter={1} />
         <TextField
           label="면허 구분"
@@ -159,7 +210,11 @@ export default function LicenseWrapper() {
           required
           // onChange={handleExpirationDateChange}
           // error={!validateExpirationDate(expirationDate)}
-          helperText={!validateExpirationDate(inputData.expireDate) ? "올바른 형식이 아닙니다" : ""}
+          helperText={
+            !validateExpirationDate(inputData.expireDate)
+              ? "올바른 형식이 아닙니다"
+              : ""
+          }
           placeholder="YYYYMMDD"
         />
 
@@ -176,7 +231,11 @@ export default function LicenseWrapper() {
           required
           // value={value}
           // onChange={(e) => setValue(e.target.value)}
-          helperText={!validateIssueDate(inputData.issueDate) ? "올바른 형식이 아닙니다" : ""}
+          helperText={
+            !validateIssueDate(inputData.issueDate)
+              ? "올바른 형식이 아닙니다"
+              : ""
+          }
           placeholder="YYYYMMDD"
         />
 
@@ -197,7 +256,7 @@ export default function LicenseWrapper() {
         <Separator gutter={3} />
       </Box>
       <SectionTitle fontSize={0.85}>개인정보 입력</SectionTitle>
-      <Box sx={{width:"100%"}}>
+      <Box sx={{ width: "100%" }}>
         <Separator gutter={1} />
 
         <TextField
@@ -211,7 +270,11 @@ export default function LicenseWrapper() {
           placeholder="예: 홍길동"
           // onChange={handleNameChange}
           // error={!isNameValid && touched}
-          helperText={!validateUserName(inputData.userName) ? "이름을 다시 확인해주세요." : ""}
+          helperText={
+            !validateUserName(inputData.userName)
+              ? "이름을 다시 확인해주세요."
+              : ""
+          }
           required
         />
 
@@ -251,7 +314,9 @@ export default function LicenseWrapper() {
           fullWidth
           // helperText={value ? "" : "필수 입력창 입니다."}
           placeholder="예: YYYYYMMDD"
-          helperText={!validateBirth(inputData.birth) ? "올바른 형식이 아닙니다" : ""}
+          helperText={
+            !validateBirth(inputData.birth) ? "올바른 형식이 아닙니다" : ""
+          }
           required
         />
         <Separator gutter={7} />
