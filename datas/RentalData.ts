@@ -1,7 +1,7 @@
 export const RentalData = [
   {
     rentalId: 1,
-    carModel: "Model 3",
+    carName: "Model 3",
     carBrand: "Tesla",
     capacity: 4,
     defaultPrice: 27000,
@@ -16,7 +16,7 @@ export const RentalData = [
   },
   {
     rentalId: 2,
-    carModel: "Model Random2",
+    carName: "Model Random2",
     carBrand: "Tesla",
     capacity: 4,
     defaultTimePrice: 27000,

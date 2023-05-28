@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RentalTop from "./RentalTop";
 import RentalMiddle from "./RentalMiddle";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
@@ -14,10 +14,36 @@ import axios from "axios";
 
 export default function RentalWrapper(props: { data: RentalDataType }) {
   const data = props.data;
+  console.log(`rentalWrapper data : `, data);
   const router = useRouter();
   const [drawer, setDrawer] = useState(false);
   const [nextDrawer, setNextDrawer] = useState(false);
   const handleDrawer = () => setDrawer(true);
+  
+
+  // const handleRegisterRental = () => {
+  //   setDrawer(false);
+  //   const postData = async () => {
+  //     const result = await axios.post(
+  //       "https://api-billita.xyz/booklist",
+  //       {
+  //         carId: router.query.carId,
+  //         startDate: router.query.startDate,
+  //         endDate: router.query.endDate,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
+  //         },
+  //       }
+  //     );
+  //     console.log("data : ", result.data);
+  //     console.log("img url : ", result.data.frameInfo.image);
+  //   };
+  //   postData();
+  // }
+
+
   const handleCancel = () => {
     console.log(router.query.bookId);
     setDrawer(false);

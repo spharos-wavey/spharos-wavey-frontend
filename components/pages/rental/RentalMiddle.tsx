@@ -5,10 +5,10 @@ import Separator from "@/components/ui/Separator";
 import { RentalDataType } from "@/types/rentalDataType";
 
 export default function RentalMiddle(props: { data: RentalDataType }) {
-  const data = props.data;
+  const data = props.data.frameInfo;
 
-  const serviceStartTime = new Date(data.startDate);
-  const serviceEndTime = new Date(data.endDate);
+  // const serviceStartTime = new Date(data.startDate);
+  // const serviceEndTime = new Date(data.endDate);
 
   return (
     <div className={style.middleWrap}>
@@ -25,13 +25,13 @@ export default function RentalMiddle(props: { data: RentalDataType }) {
       <div className={style.subtitle}>대여시간</div>
       <div className={style.subWrap}>
         <div className={style.content}>
-          {serviceStartTime.getMonth()}월 {serviceStartTime.getDay()}일{" "}
+          {/* {serviceStartTime.getMonth()}월 {serviceStartTime.getDay()}일{" "}
           {serviceStartTime.getHours()}:
-          {String(serviceStartTime.getMinutes()).padStart(2, "0")}{" "}
+          {String(serviceStartTime.getMinutes()).padStart(2, "0")}{" "} */}
           <span>- </span>
-          {serviceEndTime.getMonth()}월 {serviceEndTime.getDay()}일{" "}
+          {/* {serviceEndTime.getMonth()}월 {serviceEndTime.getDay()}일{" "}
           {serviceEndTime.getHours()}:
-          {String(serviceEndTime.getMinutes()).padStart(2, "0")}{" "}
+          {String(serviceEndTime.getMinutes()).padStart(2, "0")}{" "} */}
         </div>
         <div className={style.subtitle}>총 1일 00시간</div>
       </div>
@@ -42,7 +42,7 @@ export default function RentalMiddle(props: { data: RentalDataType }) {
       <div className={style.subWrap}>
         <div className={style.content}>대여위치</div>
         <div className={style.arrowWrap}>
-          <div className={style.location}>{data.billitazone}</div>
+          <div className={style.location}>{props.data.place.name}</div>
           <div className={style.arrow}>
             <Image
               src="/assets/images/icons/rightArrowGreyBold.svg"
@@ -56,7 +56,7 @@ export default function RentalMiddle(props: { data: RentalDataType }) {
       <div className={style.subWrap}>
         <div className={style.content}>반납위치</div>
         <div className={style.arrowWrap}>
-          <div className={style.location}>{data.billitazone}</div>
+          <div className={style.location}>{props.data.place.name}</div>
           <div className={style.arrow}>
             <Image
               src="/assets/images/icons/rightArrowGreyBold.svg"

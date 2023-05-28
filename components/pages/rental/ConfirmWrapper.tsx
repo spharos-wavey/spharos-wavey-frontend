@@ -28,6 +28,10 @@ export default function ConfirmWrapper(props: { data: RentalDataType }) {
   }
   return (
     <main>
+      
+
+
+
       {drawer && (
         <Drawer
           open={drawer}

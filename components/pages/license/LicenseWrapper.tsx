@@ -139,12 +139,26 @@ export default function LicenseWrapper() {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    if (name === "birth" && value.length === 4) {
-      setInputData((prev) => ({
-        ...prev,
-        [name]: value + ".",
-      }));
-      return;
+    if (name === "birth") {
+      const formattedValue = value.replace(/\D/g, "");
+    let formattedInput = formattedValue;
+
+    if (formattedValue.length >= 4) {
+      const year = formattedValue.slice(0, 4);
+      const month = formattedValue.slice(4, 6);
+      const day = formattedValue.slice(6, 8);
+      formattedInput = `${year}.${month}.${day}`;
+    }
+
+    setInputData((prev) => ({
+      ...prev,
+      [name]: formattedInput,
+    }));
+    setInputError((prev) => ({
+      ...prev,
+      [name]: validateField(name as keyof LicenseInputType, formattedInput),
+    }));
+    return;
     }
     console.log(inputData);
     setInputData((prev) => ({ ...prev, [name]: value }));
