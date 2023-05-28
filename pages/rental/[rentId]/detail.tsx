@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 export default function Detail() {
   const router = useRouter();
   const [data, setData] = useState<RentalDataType>();
-  
+
   console.log(router.query);
   const RentID = Number(router.query.rentId);
   // console.log(`detail data : `, data);
@@ -16,13 +16,11 @@ export default function Detail() {
   useEffect(() => {
     const getData = async () => {
       if (router.query.rentId !== undefined) {
-        const rentId = Number(router.query.rentId);
         try {
           const response = await axios.get(
-            `https://api-billita.xyz/vehicle/${rentId}`
+            `https://api-billita.xyz/vehicle/${RentID}`
           );
           setData(response.data);
-          console.log(response.data);
         } catch (error) {
           console.error("Error fetching rental data:", error);
         }
@@ -32,13 +30,10 @@ export default function Detail() {
     getData();
   }, [router.query.rentId]);
 
-  return (
-    <main>
-      {data &&
-      <RentalWrapper data={data} />
-      }
-    </main>
-  );
+  
+
+
+  return <main>{data && <RentalWrapper data={data} />}</main>;
 }
 
 Detail.getLayout = function getLayout(Page: React.ReactNode) {

@@ -58,7 +58,7 @@ export default function ModalForm(props: any) {
           <div className={style.drawerContentWrap}>
             <div className={style.drawerContentBinding}>
               <div className={style.blueHighlight}>예약자</div>
-              <div>김민지</div>
+              <div>{props.userName}</div>
             </div>
             <div className={style.drawerContentBinding}>
               <div className={style.blueHighlight}>대여</div>

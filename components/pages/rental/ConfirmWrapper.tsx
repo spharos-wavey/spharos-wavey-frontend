@@ -17,6 +17,7 @@ export default function ConfirmWrapper(props: { data: RentalDataType }) {
   const router = useRouter();
   const [drawer, setDrawer] = useState(false);
   const [nextDrawer, setNextDrawer] = useState(false);
+  const userName = localStorage.getItem("nickName");
   const handleDrawer = () => setDrawer(true);
   const handleOffOldOpenNew = () => {
     setDrawer(false);
@@ -97,7 +98,7 @@ export default function ConfirmWrapper(props: { data: RentalDataType }) {
                 alt="close"
               />
             </div>
-            <ModalForm setDrawer={setDrawer} title="예약결제 안내" />
+            <ModalForm setDrawer={setDrawer} title="예약결제 안내" userName={userName}/>
 
             <BottomFixedContainer>
               <Button
@@ -120,7 +121,7 @@ export default function ConfirmWrapper(props: { data: RentalDataType }) {
           btnEvent={() => handleDrawer()}
           shadow={true}
         >
-          결제하기 {props.data.defaultPrice.toLocaleString("kr-KO")}원
+          결제하기 {data.frameInfo.defaultPrice.toLocaleString("kr-KO")}원
         </Button>
       </BottomFixedContainer>
     </main>
