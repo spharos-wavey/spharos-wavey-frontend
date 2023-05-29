@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import ConfirmWrapper from "@/components/pages/rental/ConfirmWrapper";
-import { RentalDataType } from "@/types/rentalDataType";
+import { MyRentalCarType, RentalDataType } from "@/types/rentalDataType";
 
 
 export default function RentalConfirm() {
@@ -12,6 +12,7 @@ export default function RentalConfirm() {
 
   console.log(router.query);
   const RentID = Number(router.query.rentId);
+
 
   useEffect(() => {
     const getData = async () => {

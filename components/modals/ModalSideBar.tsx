@@ -24,7 +24,7 @@ export default function ModalSideBar(props: {
   );
   const [userName, setUserName] = useState<string>("");
   const router = useRouter();
-  const PURCASE_STATE = "RESERVATION";
+  const PURCHASE_STATE = "RESERVATION";
   console.log(`router.query:`, router.query);
 
   const handleLogout = () => {
@@ -43,7 +43,7 @@ export default function ModalSideBar(props: {
         const token = "Bearer " + localStorage.getItem("Authorization");
         const uid = localStorage.getItem("uid");
         const res = await axios.get(
-          `https://api-billita.xyz/rental/${PURCASE_STATE}`,
+          `https://api-billita.xyz/rental/${PURCHASE_STATE}`,
           {
             headers: {
               Authorization: token,
@@ -53,7 +53,7 @@ export default function ModalSideBar(props: {
         );
         const data = res.data;
         setRentCarData(data);
-        console.log(data);
+        console.log("ㅇㅇㅇㅇㅇㅇㅇㅇ", data);
       } catch (err) {
         console.log(err);
       }
@@ -156,10 +156,11 @@ const RentCar = (props: {
   const router = useRouter();
 
   const { rentCarData } = props;
+  console.log(rentCarData);
   const [summaryData, setSummaryData] = useState<IsUserRentalNowDataType>(
     {} as IsUserRentalNowDataType
   );
-
+  console.log("eeeeee", rentCarData.vehicleId);
   useEffect(() => {
     const getCurrentRentKeyData = async () => {
       try {
@@ -188,6 +189,7 @@ const RentCar = (props: {
     router.push(`/rental/${rentCarData.rentalId}/detail`);
   };
   const serviceStartTime = new Date(rentCarData.startDate);
+  console.log("dddddddddddd", serviceStartTime);
   const serviceEndTime = new Date(rentCarData.endDate);
 
   return (
@@ -201,10 +203,10 @@ const RentCar = (props: {
               {summaryData?.brandName} {summaryData?.carName}
             </div>
             <div className={style.period}>
-              {serviceStartTime.getMonth()}월 {serviceStartTime.getDate()}일{" "}
+              {serviceStartTime.getMonth()+1}월 {serviceStartTime.getDate()}일{" "}
               {serviceStartTime.getHours()}:
               {String(serviceStartTime.getMinutes()).padStart(2, "0")} -{" "}
-              {serviceEndTime.getMonth()}월 {serviceEndTime.getDate()}일{" "}
+              {serviceEndTime.getMonth()+1}월 {serviceEndTime.getDate()}일{" "}
               {serviceEndTime.getHours()}:
               {String(serviceEndTime.getMinutes()).padStart(2, "0")}
             </div>

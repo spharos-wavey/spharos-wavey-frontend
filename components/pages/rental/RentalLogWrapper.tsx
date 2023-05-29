@@ -12,6 +12,8 @@ export default function RentalLogWrapper(props: {
     [] as RentalDataType[]
   );
   const [userName, setUserName] = useState<string>("");
+  const PURCHASE_STATE = "ALL";
+
 
   useEffect(() => {
     if (!localStorage.getItem("Authorization") && !localStorage.getItem("uid"))
@@ -20,18 +22,13 @@ export default function RentalLogWrapper(props: {
       try {
         const token = "Bearer " + localStorage.getItem("Authorization");
         const uid = localStorage.getItem("uid");
-        const res = await axios.get(`https://api-billita.xyz/rental/ALL`, {
+        const res = await axios.get(`https://api-billita.xyz/rental/${PURCHASE_STATE}`, {
           headers: {
             Authorization: token,
             uuid: uid,
           },
         });
-        // const res = await axios.get(`https://api-billita.xyz/rental/RESERVATION`, {
-        //   headers: {
-        //     Authorization: token,
-        //     uuid: uid,
-        //   },
-        // }); 여기에 MSA때문에 쪼개인 다른 api에 있는 정보를 받아와야한다.
+        
         const data = res.data;
         setServiceHistory(data);
         console.log(data);
@@ -41,6 +38,11 @@ export default function RentalLogWrapper(props: {
     };
     getData();
   }, []);
+
+  
+  const rentCarDataLatest = serviceHistory[0];
+  console.log(serviceHistory);
+
 
   useEffect(() => {
     if (typeof window !== "undefined") {

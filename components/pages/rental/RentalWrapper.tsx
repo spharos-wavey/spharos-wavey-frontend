@@ -78,7 +78,7 @@ export default function RentalWrapper(props: { data: RentalDataType }) {
           variant="temporary"
         >
           <Box position="relative" width="100%" height="370px">
-            <ModalForm setDrawer={setDrawer} title="대여 취소" />
+            <ModalForm title="대여 취소" />
 
             <BottomFixedContainer>
               <Button
