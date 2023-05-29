@@ -1,8 +1,15 @@
 import React from "react";
 import style from "./ModalForm.module.css";
-import Image from "next/image";
+import { MyRentalCarType } from "@/types/rentalDataType";
 
-export default function ModalForm(props: any) {
+export default function ModalForm(props: {
+  title: string;
+  userName?: string;
+  startDate?: Date;
+  endDate?: Date;
+}) {
+  console.log(props.startDate);
+  
   return (
     <div className={style.modalWrap}>
       <div className={style.modalTitle}>{props.title}</div>
@@ -58,15 +65,23 @@ export default function ModalForm(props: any) {
           <div className={style.drawerContentWrap}>
             <div className={style.drawerContentBinding}>
               <div className={style.blueHighlight}>예약자</div>
-              <div>김민지</div>
+              <div>{props.userName}</div>
             </div>
             <div className={style.drawerContentBinding}>
-              <div className={style.blueHighlight}>대여</div>
-              <div>2023-05-07 15:30</div>
+              <div className={style.blueHighlight}>대여일시</div>
+
+              <div>
+                {props.startDate?.getFullYear()}년{" "}
+                {props.startDate && props.startDate?.getMonth() + 1}월 {props.startDate?.getDate()}
+                일{" "}
+              </div>
             </div>
             <div className={style.drawerContentBinding}>
-              <div className={style.blueHighlight}>반납</div>
-              <div>2023-05-07 22:00</div>
+              <div className={style.blueHighlight}>반납일시</div>
+              <div>
+                {props.endDate?.getFullYear()}년 {props.endDate && props.endDate?.getMonth() + 1}
+                월 {props.endDate?.getDate()}일{" "}
+              </div>
             </div>
           </div>
           <div className={style.lastLine}>

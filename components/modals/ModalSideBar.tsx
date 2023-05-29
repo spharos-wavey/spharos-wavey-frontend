@@ -201,7 +201,7 @@ const RentCar = (props: {
               {summaryData?.brandName} {summaryData?.carName}
             </div>
             <div className={style.period}>
-              {serviceStartTime.getMonth()}월 {serviceStartTime.getDate()}일{" "}
+              {serviceStartTime.getMonth()+1}월 {serviceStartTime.getDate()}일{" "}
               {serviceStartTime.getHours()}:
               {String(serviceStartTime.getMinutes()).padStart(2, "0")} -{" "}
               {serviceEndTime.getMonth()}월 {serviceEndTime.getDate()}일{" "}
