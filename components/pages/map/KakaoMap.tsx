@@ -14,9 +14,6 @@ import { useRecoilState } from "recoil";
 
 export default function KakaoMap() {
 
-  // const [currentLat, setCurrentLat] = useState<number>(0);
-  // const [currentLng, setCurrentLng] = useState<number>(0);
-
   const [initLoc, setInitLoc] = useState<locationType>({
     latitude: 0,
     longitude: 0,
@@ -122,14 +119,15 @@ export default function KakaoMap() {
       reqLocation.longitude !== 0 &&
       reqTime !== undefined
     ) {
+      // console.log("reqTime: ", reqTime);
       const getData = async () => {
         const result = await axios.get(
           `https://api-billita.xyz/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${reqLocation.latitude}&lng=${reqLocation.longitude}`
         );
         setZoneList(result.data);
-        // console.log("빌리타존: ", result.data);
-        console.log("reqTime: ", reqTime);
-        console.log("reqLoc : ", reqLocation);
+        console.log("빌리타존: ", result.data);
+        // console.log("reqTime: ", reqTime);
+        // console.log("reqLoc : ", reqLocation);
       };
       getData();
     }
@@ -149,8 +147,6 @@ export default function KakaoMap() {
     setIsOpen(true);
   };
 
-  console.log("zonelist: ", zoneList);
-
   if(!zoneList) return <PageLoader />
 
   return (
@@ -160,7 +156,7 @@ export default function KakaoMap() {
         <>
           <Map
             center={{ lat: initLoc.latitude, lng: initLoc.longitude }}
-            style={{ width: "100%", height: "100vh" }}
+            style={{ width: "100%", height: "100vh", position: "fixed", zIndex: 0, top: 0, left: 0 }}
             level={5}
             onCenterChanged={centerChangeHandler}
           >

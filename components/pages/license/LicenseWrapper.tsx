@@ -1,45 +1,28 @@
-import React, { useState } from "react";
-import {
-  Box,
-  MenuItem,
-  Button,
-  Select,
-  SelectChangeEvent,
-  FormControl,
-  InputLabel,
-  FormGroup,
-  Input,
-  FormHelperText,
-} from "@mui/material";
+
+import React, { useEffect, useState } from "react";
+import { Box, TextField, MenuItem, Stack, Button, Select, SelectChangeEvent, FormControl, InputLabel, FormGroup, Input, FormHelperText } from "@mui/material";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Separator from "@/components/ui/Separator";
-
-interface LicenseInputType {
-  level: string;
-  type: string;
-  expireDate: string;
-  issueDate: string;
-  licenseNumber: string;
-  address: string;
-  addressDetail: string;
-  birth: string;
-  userName: string;
-}
-
-interface LicenseInputErrorType {
-  level: string;
-  type: string;
-  issueDate: string;
-  expireDate: string;
-  licenseNumber: string;
-  address: string;
-  addressDetail: string;
-  birth: string;
-  userName: string;
-}
-
+import { LicenseInputType } from "@/types/licenseType";
+import { useRouter } from "next/router";
+import { Co2Sharp } from "@mui/icons-material";
 export default function LicenseWrapper() {
-  const [inputError, setInputError] = useState<LicenseInputErrorType>({
+  const router = useRouter();
+
+  const [token, setToken] = useState<string | null>();
+  
+  useEffect(() => {
+    if(typeof window !== "undefined") {
+      localStorage.getItem("Authorization") ?
+      setToken(localStorage.getItem("Authorization"))
+      :
+      router.push("/login");
+      return ;
+    }
+  }, []);
+
+
+  const [inputError, setInputError] = useState<LicenseInputType>({
     level: "",
     type: "",
     issueDate: "",
@@ -89,7 +72,7 @@ export default function LicenseWrapper() {
   };
 
   const validateForm = () => {
-    const errors = {} as LicenseInputErrorType;
+    const errors = {} as LicenseInputType;
 
     if (!validateExpirationDate(inputData.expireDate)) {
       errors.expireDate = "올바른 형식이 아닙니다";
@@ -178,22 +161,11 @@ export default function LicenseWrapper() {
     console.log("submit");
     const errors = validateForm();
     console.log(errors);
-    // if (
-    //   errors.address === "" ||
-    //   errors.addressDetail === "" ||
-    //   errors.birth === "" ||
-    //   errors.expireDate === "" ||
-    //   errors.issueDate === "" ||
-    //   errors.licenseNumber === "" ||
-    //   errors.level === "" ||
-    //   errors.type === "" ||
-    //   errors.userName === ""
-    // ) {
-    //   alert("입력값을 확인해주세요");
-    //   return;
-    // }
+    const postData = async () => {
+
     const postData = async () => {
       const token = "Bearer " + localStorage.getItem("Authorization");
+
       console.log(token);
       console.log(inputData);
       await fetch("https://api-billita.xyz/booklist/check/license", {
@@ -214,10 +186,7 @@ export default function LicenseWrapper() {
           userName: inputData.userName,
         }),
       })
-        .then((res) => res.json())
-        .then((res) => {
-          console.log(res);
-        })
+        .then((res) => console.log(res.status))
         .catch((err) => console.log(err));
 
       console.log(inputData);
@@ -226,7 +195,8 @@ export default function LicenseWrapper() {
   };
 
   return (
-    <FormGroup>
+    <section>
+      <FormGroup>
       <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
       <Separator gutter={1} />
       <Box sx={{ width: "100%" }}>
@@ -399,5 +369,6 @@ export default function LicenseWrapper() {
         다음
       </Button>
     </FormGroup>
+    </section>
   );
 }

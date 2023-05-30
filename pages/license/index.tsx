@@ -5,9 +5,7 @@ export default function License() {
  
   return (
     <main>
-      <section>
        <LicenseWrapper />
-      </section>
     </main>
   );
 }
