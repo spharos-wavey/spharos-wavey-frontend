@@ -4,9 +4,6 @@ import style from "./RentalTop.module.css";
 import { RentalFrameInfoType } from "@/types/rentalDataType";
 
 export default function RentalTop(props: { data: RentalFrameInfoType, charge?: number }) {
-  console.log(`rentalTop data : `, props.data, props.charge);
-  // const { carBrand, carName } = props.data;
-
 
   return (
     <div className={style.topWrap}>

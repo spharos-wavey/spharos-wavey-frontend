@@ -119,15 +119,12 @@ export default function KakaoMap() {
       reqLocation.longitude !== 0 &&
       reqTime !== undefined
     ) {
-      // console.log("reqTime: ", reqTime);
       const getData = async () => {
         const result = await axios.get(
           `https://api-billita.xyz/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${reqLocation.latitude}&lng=${reqLocation.longitude}`
         );
         setZoneList(result.data);
         console.log("빌리타존: ", result.data);
-        // console.log("reqTime: ", reqTime);
-        // console.log("reqLoc : ", reqLocation);
       };
       getData();
     }
@@ -138,7 +135,6 @@ export default function KakaoMap() {
     const getData = async () => {
       await fetch(`https://api-billita.xyz/vehicle/billitazone?id=${billitaZoneId}&sDate=${reqTime.startTime}&eDate=${reqTime.endTime}`)
       .then((res) => res.json().then((data) => {
-        console.log("data: ", data);
         setCarInMapList(data);
       }
       )).catch((err) => console.log(err));

@@ -12,7 +12,6 @@ export default function RentHistory() {
       } else {
         setUserName("빌리타");
       }
-      console.log(userName);
     }
   }, [userName]);
 

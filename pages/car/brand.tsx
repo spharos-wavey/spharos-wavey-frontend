@@ -31,8 +31,6 @@ export const getServerSideProps = async (context: Params) => {
   const res = await fetch(`https://api-billita.xyz/carbrand/maker/${brandId}`);
   const data = await res.json();
 
-  console.log(data);
-
   return {
     props: {
       data: data,

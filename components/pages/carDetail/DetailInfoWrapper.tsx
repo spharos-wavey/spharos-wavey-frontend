@@ -33,8 +33,6 @@ export default function DetailInfoWrapper() {
         const result = await axios.get(
           `https://api-billita.xyz/vehicle/${router.query.cid}`
         );
-        console.log("data : ", result.data);
-        console.log("img url : ", result.data.frameInfo.image);
         setCarData(result.data);
       };
       getData();

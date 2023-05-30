@@ -23,7 +23,6 @@ export default function CarBook() {
         const result = await axios.get(
           `https://api-billita.xyz/vehicle/${router.query.cid}`
         );
-        console.log("data : ", result.data);
         setCarData(result.data);
       };
       getData();

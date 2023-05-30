@@ -16,7 +16,6 @@ export default function CarListInMapDrawer(props: {
 
   const router = useRouter();
   const handleDetail = (id: number) => {
-    console.log(id);
     router.push(`/car/${id}`);
   };
 

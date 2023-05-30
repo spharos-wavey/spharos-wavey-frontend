@@ -15,7 +15,6 @@ export default function VehicleRecommendMain() {
       navigator.geolocation.getCurrentPosition((position) => {
         setLat(position.coords.latitude);
         setLng(position.coords.longitude);
-        console.log(`lat, lng`, lat, lng)
       }, error => {
         console.log(error)
       });
@@ -29,7 +28,6 @@ export default function VehicleRecommendMain() {
         const res = await axios.get(`https://api-billita.xyz/billitazone/now?lat=${lat}&lng=${lng}`);
         const data = res.data;
         setMainCarData(data);
-        console.log(mainCarData);
       } catch (err) {
         console.log(err);
       }

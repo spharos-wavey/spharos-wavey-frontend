@@ -12,11 +12,9 @@ export default function RentalMiddle(props: {
   place?: { name: string };
 }) {
   const data = props.data;
-  console.log("MIDDLE!!!", props.data);
   if(!props.rentData) return <></>;
   const serviceStartTime = new Date(props.rentData.startDate);
   const serviceEndTime = new Date(props.rentData.endDate);
-  console.log("시간!!!", serviceStartTime, serviceEndTime);
 
 
   const timeGap = serviceEndTime.getTime() - serviceStartTime.getTime();

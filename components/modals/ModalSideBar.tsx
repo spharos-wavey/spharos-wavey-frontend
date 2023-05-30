@@ -26,7 +26,6 @@ export default function ModalSideBar(props: {
   const [userName, setUserName] = useState<string>("");
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
-  console.log(`router.query:`, router.query);
 
   const handleLogout = () => {
     localStorage.removeItem("Authorization");
@@ -63,7 +62,6 @@ export default function ModalSideBar(props: {
         );
         const data = res.data;
         setRentCarData(data);
-        console.log(data);
       } catch (err) {
         console.log(err);
       }
@@ -79,7 +77,6 @@ export default function ModalSideBar(props: {
       } else {
         setUserName("빌리타");
       }
-      console.log(userName);
     }
   }, []);
 
@@ -198,7 +195,6 @@ const RentCar = (props: {
         );
         const data = res.data;
         setSummaryData(data);
-        console.log(data);
       } catch (err) {
         console.log(err);
       }

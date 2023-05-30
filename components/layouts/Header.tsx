@@ -12,15 +12,12 @@ import ModalSideBar from "../modals/ModalSideBar";
 export default function Header() {
   const [carData, setCarData] = useState<carDataType>();
   const router = useRouter();
-  console.log(router.query.cid);
 
   if (router.query.cid !== undefined) {
     const getData = async () => {
       const result = await axios.get(
         `https://api-billita.xyz/vehicle/${router.query.cid}`
       );
-      console.log("data : ", result.data);
-      console.log("img url : ", result.data.frameInfo.image);
       setCarData(result.data);
     };
     getData();
