@@ -26,8 +26,8 @@ export default function Footer() {
                         ? menuItem.iconActive
                         : menuItem.icon
                     }
-                    width={24}
-                    height={24}
+                    width={30}
+                    height={30}
                     alt={menuItem.name}
                   />
                 </div>

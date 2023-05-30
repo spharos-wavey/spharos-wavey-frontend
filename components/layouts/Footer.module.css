@@ -18,13 +18,16 @@
   list-style: none;
 }
 .footer nav ul li .footerIconContainer {
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  object-fit: cover;
 }
-.footer nav ul li img {
+.footer nav ul li .footerIconContainer img {
+  width: 100%;
+  height: auto;
   filter: grayscale(100%);
 }
 

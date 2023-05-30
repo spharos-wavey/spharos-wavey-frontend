@@ -37,7 +37,10 @@ export default function CarListInMapDrawer(props: {
             : `${style.drawerContainer} ${style.close}`
         }
       >
-        <CloseOrSlideBtn onClick={() => setIsOpen(false)} />
+        <div className={style.drawerInner}>
+        <div className={style.closeBtn}>
+          <CloseOrSlideBtn onClick={() => setIsOpen(false)} />
+        </div>
         <div className={style.drawerHeader}>
           <div className={style.drawerTitle}>검색된 차량 {data.length}대</div>
           <div className={style.drawerLocation}>
@@ -83,6 +86,7 @@ export default function CarListInMapDrawer(props: {
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </>

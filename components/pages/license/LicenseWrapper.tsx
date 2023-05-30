@@ -1,36 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, TextField, MenuItem, Stack, Button, Select, SelectChangeEvent, FormControl, InputLabel, FormGroup, Input, FormHelperText } from "@mui/material";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Separator from "@/components/ui/Separator";
-import { licenseTypeData } from "@/datas/licenseData";
+import { LicenseInputType } from "@/types/licenseType";
+import { useRouter } from "next/router";
+import { Co2Sharp } from "@mui/icons-material";
 
-interface LicenseInputType {
-  level: string;
-  type: string;
-  expireDate: string;
-  issueDate: string;
-  licenseNumber: string;
-  address: string;
-  addressDetail: string;
-  birth: string;
-  userName: string;
-}
-
-interface LicenseInputErrorType {
-  level: string;
-  type: string;
-  issueDate: string;
-  expireDate: string;
-  licenseNumber: string;
-  address: string;
-  addressDetail: string;
-  birth: string;
-  userName: string;
-}
 
 export default function LicenseWrapper() {
+  const router = useRouter();
 
-  const [inputError, setInputError] = useState<LicenseInputErrorType>({
+  const [token, setToken] = useState<string | null>();
+  
+  useEffect(() => {
+    if(typeof window !== "undefined") {
+      localStorage.getItem("Authorization") ?
+      setToken(localStorage.getItem("Authorization"))
+      :
+      router.push("/login");
+      return ;
+    }
+  }, []);
+
+
+  const [inputError, setInputError] = useState<LicenseInputType>({
     level: "",
     type: "",
     issueDate: "",
@@ -40,39 +33,37 @@ export default function LicenseWrapper() {
     addressDetail: "",
     birth: "",
     userName: "",
-  })
+  });
 
-  const [inputData, setInputData] = useState<LicenseInputType>(
-    {
-      level: "1종",
-      type: "",
-      issueDate: "",
-      expireDate: "",
-      licenseNumber: "",
-      address: "",
-      addressDetail: "",
-      birth: "",
-      userName: "",
-    }
-  );
+  const [inputData, setInputData] = useState<LicenseInputType>({
+    level: "1종",
+    type: "",
+    issueDate: "",
+    expireDate: "",
+    licenseNumber: "",
+    address: "",
+    addressDetail: "",
+    birth: "",
+    userName: "",
+  });
 
   const validateLicenseNumber = (value: string) => {
-    const regex = /^\d{2}-\d{6}-\d{2}$/;
+    const regex = /^\d{2}-\d{2}-\d{6}-\d{2}$/;
     return regex.test(value);
   };
 
   const validateExpirationDate = (value: string) => {
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    const regex = /^\d{4}.\d{2}.\d{2}$/;
     return regex.test(value);
   };
 
   const validateIssueDate = (value: string) => {
-    const regex = /^\d{2}-\d{6}-\d{2}$/;
+    const regex = /^\d{4}.\d{2}.\d{2}$/;
     return regex.test(value);
   };
 
   const validateBirth = (value: string) => {
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    const regex = /^\d{4}.\d{2}.\d{2}$/;
     return regex.test(value);
   };
 
@@ -82,22 +73,32 @@ export default function LicenseWrapper() {
   };
 
   const validateForm = () => {
-    const errors = {} as LicenseInputErrorType;
+    const errors = {} as LicenseInputType;
 
-    if (!validateExpirationDate(inputData.expireDate) )  {
+    if (!validateExpirationDate(inputData.expireDate)) {
       errors.expireDate = "올바른 형식이 아닙니다";
+    } else {
+      errors.expireDate = "";
     }
     if (!validateIssueDate(inputData.issueDate)) {
       errors.issueDate = "올바른 형식이 아닙니다";
+    } else {
+      errors.issueDate = "";
     }
     if (!validateLicenseNumber(inputData.licenseNumber)) {
       errors.licenseNumber = "올바른 형식이 아닙니다";
+    } else {
+      errors.licenseNumber = "";
     }
     if (!validateBirth(inputData.birth)) {
       errors.birth = "올바른 형식이 아닙니다";
+    } else {
+      errors.birth = "";
     }
     if (!validateUserName(inputData.userName)) {
       errors.userName = "올바른 형식이 아닙니다";
+    } else {
+      errors.userName = "";
     }
     return errors;
   };
@@ -121,36 +122,85 @@ export default function LicenseWrapper() {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log(inputData)
+
+    if (name === "birth") {
+      const formattedValue = value.replace(/\D/g, "");
+    let formattedInput = formattedValue;
+
+    if (formattedValue.length >= 4) {
+      const year = formattedValue.slice(0, 4);
+      const month = formattedValue.slice(4, 6);
+      const day = formattedValue.slice(6, 8);
+      formattedInput = `${year}.${month}.${day}`;
+    }
+
+    setInputData((prev) => ({
+      ...prev,
+      [name]: formattedInput,
+    }));
+    setInputError((prev) => ({
+      ...prev,
+      [name]: validateField(name as keyof LicenseInputType, formattedInput),
+    }));
+    return;
+    }
+    console.log(inputData);
     setInputData((prev) => ({ ...prev, [name]: value }));
-    setInputError((prev) => ({ ...prev, [name]: validateField(name as keyof LicenseInputType, value) }));
+    setInputError((prev) => ({
+      ...prev,
+      [name]: validateField(name as keyof LicenseInputType, value),
+    }));
   };
 
   const handlSelectChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
-    console.log(name, value)
+    console.log(name, value);
     setInputData((prev) => ({ ...prev, [name]: value }));
   };
 
-
   const handleFormSubmit = () => {
+    console.log("submit");
     const errors = validateForm();
-    if(errors) {
-      setInputError(errors);
-      return;
-    }
-    // data fetch
+    console.log(errors);
+    const postData = async () => {
+      console.log(token);
+      console.log(inputData);
+      await fetch("https://api-billita.xyz/booklist/check/license", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          level: inputData.level,
+          type: inputData.type,
+          expireDate: inputData.expireDate,
+          issueDate: inputData.issueDate,
+          licenseNumber: inputData.licenseNumber,
+          address: inputData.address,
+          addressDetail: inputData.addressDetail,
+          birth: inputData.birth,
+          userName: inputData.userName,
+        }),
+      })
+        .then((res) => console.log(res.status))
+        .catch((err) => console.log(err));
 
-    console.log(inputData);
+      console.log(inputData);
+    };
+    postData();
   };
 
   return (
-    <FormGroup>
+    <section>
+      <FormGroup>
       <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
       <Separator gutter={1} />
       <Box sx={{ width: "100%" }}>
         <FormControl variant="standard" fullWidth>
-          <InputLabel id="demo-simple-select-standard-label">면허종류</InputLabel>
+          <InputLabel id="demo-simple-select-standard-label">
+            면허종류
+          </InputLabel>
           <Select
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
@@ -167,47 +217,45 @@ export default function LicenseWrapper() {
         <Separator gutter={1} />
 
         <FormControl variant="standard" fullWidth>
-          <InputLabel id="demo-simple-select-standard-label">면허구분</InputLabel>
-          
-            {
-              inputData.level === "1종" ? 
-                (
-                  <Select
-                    labelId="demo-simple-select-standard-label"
-                    id="demo-simple-select-standard"
-                    value={inputData.type}
-                    label="면허구분"
-                    name="type"
-                    onChange={handlSelectChange}
-                  >
-                    <MenuItem value="1종보통">1종보통</MenuItem>
-                    <MenuItem value="1종대형">1종대형</MenuItem>
-                    <MenuItem value="1종특수">1종특수</MenuItem>
-                  </Select>
-                ) :
-                (
-                  <Select
-                    labelId="demo-simple-select-standard-label"
-                    id="demo-simple-select-standard"
-                    value={inputData.type}
-                    label="면허구분"
-                    name="type"
-                    onChange={handlSelectChange}
-                  >
-                    <MenuItem value="2종보통">2종보통</MenuItem>
-                  </Select>
-                )
-            }
+          <InputLabel id="demo-simple-select-standard-label">
+            면허구분
+          </InputLabel>
+
+          {inputData.level === "1종" ? (
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={inputData.type}
+              label="면허구분"
+              name="type"
+              onChange={handlSelectChange}
+            >
+              <MenuItem value="1종보통">1종보통</MenuItem>
+              <MenuItem value="1종대형">1종대형</MenuItem>
+              <MenuItem value="1종특수">1종특수</MenuItem>
+            </Select>
+          ) : (
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={inputData.type}
+              label="면허구분"
+              name="type"
+              onChange={handlSelectChange}
+            >
+              <MenuItem value="2종보통">2종보통</MenuItem>
+            </Select>
+          )}
         </FormControl>
         <Separator gutter={1} />
-        <FormControl variant="standard" fullWidth >
+        <FormControl variant="standard" fullWidth>
           <InputLabel htmlFor="expireDate">만료일</InputLabel>
           <Input
             id="expireDate"
             name="expireDate"
             value={inputData.expireDate}
             onChange={handleInputChange}
-            error={!!inputError.expireDate}
+            error={!inputError.expireDate}
             aria-describedby="expireDate-helper-text"
           />
           <FormHelperText id="licenseNumber-helper-text">
@@ -215,42 +263,109 @@ export default function LicenseWrapper() {
           </FormHelperText>
         </FormControl>
         <Separator gutter={1} />
-        <FormControl variant="standard" fullWidth >
+        <FormControl variant="standard" fullWidth>
           <InputLabel htmlFor="issueDate">발급일</InputLabel>
           <Input
             id="issueDate"
             name="issueDate"
             value={inputData.issueDate}
             onChange={handleInputChange}
-            error={!!inputError.issueDate}
+            error={!inputError.issueDate}
             aria-describedby="issueDate-helper-text"
           />
-          <FormHelperText id="licenseNumber-helper-text">
+          <FormHelperText id="issueDate-helper-text">
             {inputError.issueDate}
           </FormHelperText>
         </FormControl>
         <Separator gutter={1} />
-        <FormControl variant="standard" fullWidth >
+        <FormControl variant="standard" fullWidth>
           <InputLabel htmlFor="licenseNumber">면허번호</InputLabel>
           <Input
             id="licenseNumber"
             name="licenseNumber"
             value={inputData.licenseNumber}
             onChange={handleInputChange}
-            error={!!inputError.licenseNumber}
+            error={!inputError.licenseNumber}
             aria-describedby="licenseNumber-helper-text"
           />
           <FormHelperText id="licenseNumber-helper-text">
             {inputError.licenseNumber}
           </FormHelperText>
         </FormControl>
+        <Separator gutter={5} />
+
+        <SectionTitle fontSize={0.85}>개인정보입력</SectionTitle>
+        <FormControl variant="standard" fullWidth>
+          <InputLabel htmlFor="userName">이름</InputLabel>
+          <Input
+            id="userName"
+            name="userName"
+            value={inputData.userName}
+            onChange={handleInputChange}
+            error={!inputError.userName}
+            aria-describedby="userName-helper-text"
+          />
+          <FormHelperText id="userName-helper-text">
+            {inputError.userName}
+          </FormHelperText>
+        </FormControl>
         <Separator gutter={1} />
-        
-          
+        <FormControl variant="standard" fullWidth>
+          <InputLabel htmlFor="birth">생년월일</InputLabel>
+          <Input
+            id="birth"
+            name="birth"
+            value={inputData.birth}
+            onChange={handleInputChange}
+            error={!inputError.birth}
+            aria-describedby="birth-helper-text"
+          />
+          <FormHelperText id="birth-helper-text">
+            {inputError.birth}
+          </FormHelperText>
+        </FormControl>
+        <Separator gutter={1} />
+
+        <FormControl variant="standard" fullWidth>
+          <InputLabel htmlFor="address">주소</InputLabel>
+          <Input
+            id="address"
+            name="address"
+            value={inputData.address}
+            onChange={handleInputChange}
+            error={!inputError.address}
+            aria-describedby="address-helper-text"
+          />
+          <FormHelperText id="address-helper-text">
+            {inputError.address}
+          </FormHelperText>
+        </FormControl>
+        <Separator gutter={1} />
+        <FormControl variant="standard" fullWidth>
+          <InputLabel htmlFor="addressDetail">상세주소</InputLabel>
+          <Input
+            id="addressDetail"
+            name="addressDetail"
+            value={inputData.addressDetail}
+            onChange={handleInputChange}
+            error={!inputError.addressDetail}
+            aria-describedby="addressDetail-helper-text"
+          />
+          <FormHelperText id="addressDetail-helper-text">
+            {inputError.addressDetail}
+          </FormHelperText>
+        </FormControl>
+        <Separator gutter={5} />
       </Box>
-      <Button type="button" variant="contained" sx={{ width: "100%" }} onClick={handleFormSubmit}>
+      <Button
+        type="button"
+        variant="contained"
+        sx={{ width: "100%" }}
+        onClick={handleFormSubmit}
+      >
         다음
       </Button>
-      </FormGroup>
+    </FormGroup>
+    </section>
   );
 }

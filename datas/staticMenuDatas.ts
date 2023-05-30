@@ -27,22 +27,22 @@ export const footerMenuData = [
     id: 1,
     name: "home",
     path: "/",
-    icon: "assets/images/icons/homeIconOutline.svg",
-    iconActive: "assets/images/icons/homeIconContaine.svg",
+    icon: "assets/images/icons/top.svg",
+    iconActive: "assets/images/icons/top.svg",
   },
   {
     id: 2,
     name: "map",
     path: "/map",
-    icon: "assets/images/icons/map.svg",
-    iconActive: "assets/images/icons/map.svg",
+    icon: "assets/images/icons/location.svg",
+    iconActive: "assets/images/icons/location.svg.svg",
   },
   {
     id: 3,
     name: "myPage",
     path: "/login",
-    icon: "assets/images/icons/userIconOutline.svg",
-    iconActive: "assets/images/icons/userIconContaine.svg",
+    icon: "assets/images/icons/account.svg",
+    iconActive: "assets/images/icons/account.svg",
   },
 ];
 
