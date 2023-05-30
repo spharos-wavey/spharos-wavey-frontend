@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import BottomFixedContainer from "../layouts/BottomFixedContainer";
 import { MobileDateTimePicker } from "@mui/x-date-pickers-pro";
-import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import dayjs from "dayjs";
 import { timeType } from "@/types/rentalDataType";
 import Button from "../ui/Button";
@@ -52,7 +51,6 @@ export default function TimeSelect({ setReqTime, setTimeModal, timeModal }: time
     <div className={!timeModal? style.open : style.close}>
     <BottomFixedContainer backgroundColor="white" radius={true}>
         <div style={{ padding: "1rem", display: 'flex', justifyContent: 'space-between' , alignItems: 'center'}}>
-        <DemoItem label="대여 시작">
           <MobileDateTimePicker
             format={"YYYY/MM/DD HH:mm"}
             value={startTime}
@@ -60,8 +58,6 @@ export default function TimeSelect({ setReqTime, setTimeModal, timeModal }: time
             defaultValue={currentTime}
             minDateTime={dayjs().add(10, "minute").startOf("minute")}
           />
-        </DemoItem>
-        <DemoItem label="대여 종료">
           <MobileDateTimePicker
             format={"YYYY/MM/DD HH:mm"}
             value={endTime}
@@ -69,7 +65,6 @@ export default function TimeSelect({ setReqTime, setTimeModal, timeModal }: time
             defaultValue={startTime}
             minDateTime={startTime.add(1, "hour").startOf("minute")}
           />
-        </DemoItem>
         </div>
       
         <Button btnType="button" btnEvent={()=>timeModalHandler()}>
