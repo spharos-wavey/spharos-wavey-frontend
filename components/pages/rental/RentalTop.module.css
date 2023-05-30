@@ -3,12 +3,14 @@
 }
 
 .carImage {
-  width: 95%;
+  width: 300px;
+  height: 140px;
   margin: auto;
 }
 
 .carImage img {
   width: 100%;
+  height: auto;
 }
 
 .carName {

@@ -19,11 +19,11 @@ export default function RentHistory() {
 
   return (
     <main>
-      {userName !== "빌리타" ? (
+      {/* {userName !== "빌리타" ? (
         <RentalLogWrapper isLogin={true} title={`${userName}님의 대여차량`} />
       ) : (
         <RentalLogNotExist />
-      )}
+      )} */}
     </main>
   );
 }
