@@ -8,9 +8,7 @@ import { BookListDataType } from "@/types/carDataType";
 
 export default function BookCar() {
   const router = useRouter();
-  const [data, setData] = useState<RentalDataType>();
-  const v_id = router.query;
-  console.log("라우터쿼리로 차량아이디 확인", v_id);
+  const [carData, setCarData] = useState<RentalDataType>();
   const [bookIdData, setBookIdData] = useState<number>(0);
   const [bookListInfoData, setBookListInfoData] = useState<BookListDataType>({} as BookListDataType);
  
@@ -22,9 +20,9 @@ export default function BookCar() {
         const res = await axios.post(
           `https://api-billita.xyz/booklist`,
           {
-            vehicleId: v_id,
+            vehicleId: router.query.cid,
             // startDate: router.query.startDate,
-            // endDate: router.query.endDate,
+            // endDate: router.query.endDate, 리코일로 받아온 날짜로 변경
           },
           {
             headers: {
@@ -32,7 +30,7 @@ export default function BookCar() {
             },
           }
         );
-        getBookListInfoData(res.data);
+        // getBookListInfoData(res.data);
       } catch (err) {
         console.log("Error while posting booklist");
       }
@@ -40,17 +38,19 @@ export default function BookCar() {
     postBookListData();
   }, [bookIdData]);
 
-  const getBookListInfoData = async (b_id: number) => {
-    const res = await axios.get(
-      `https://api-billita.xyz/booklist/information/${b_id}`
-    );
-    const data = res.data;
-    setBookListInfoData(data);
-  };
+
+
+  // const getBookListInfoData = async (b_id: number) => {
+  //   const res = await axios.get(
+  //     `https://api-billita.xyz/booklist/information/${b_id}`
+  //   );
+  //   const data = res.data;
+  //   setBookListInfoData(data);
+  // };
 
   return (
     <main>
-      <CarBook data={bookListInfoData}/>
+      <CarBook />
     </main>
   );
 }
