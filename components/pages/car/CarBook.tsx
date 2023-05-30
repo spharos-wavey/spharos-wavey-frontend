@@ -45,6 +45,8 @@ export default function CarBook() {
               height={200}
               alt={frameInfo?.carName}
               priority
+              placeholder="blur"
+              blurDataURL="/assets/images/common/billitaLogo.svg"
             />
           </div>
           <div className={style.carName}>

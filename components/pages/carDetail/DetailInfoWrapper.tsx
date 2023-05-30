@@ -18,7 +18,15 @@ export default function DetailInfoWrapper() {
   const handleActive = () => {
     setIsActive(!isActive);
   };
+  
+  const sessionRemainTrash = () => sessionStorage.getItem("carDetail");
 
+  useEffect(()=> {
+    if (sessionRemainTrash()) {
+      sessionStorage.removeItem("carDetail");
+    }
+  }, [sessionRemainTrash])
+  
   useEffect(() => {
     if (router.query.cid !== undefined) {
       const getData = async () => {

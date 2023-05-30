@@ -18,6 +18,7 @@ export default function RentalTop(props: { data: RentalFrameInfoType, charge?: n
           height={200}
           alt={props.data.carName}
           priority
+          placeholder="empty"
         />
       </div>
       <div className={style.carName}>
@@ -29,6 +30,7 @@ export default function RentalTop(props: { data: RentalFrameInfoType, charge?: n
           width="10"
           height="10"
           alt="harryMark"
+          placeholder="empty"
         />
         <div className={style.charge}>{props.charge}%</div>
       </div>
