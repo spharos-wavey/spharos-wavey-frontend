@@ -23,12 +23,18 @@
   font-size: 1.3rem;
   margin-top: 3vw;
 }
-.bluehighlightsmfont {
+.bluehighlightbtn {
   margin-top: 4vh;
-  color: var(--billita-blueHighlight);
-  font-size: 0.7rem;
+  color: var(--billita-white);
+  background-color: var(--billita-blueHighlight);
+  font-size: 1rem;
+  font-weight: bold;
   display: block;
   font-size: 0.7rem;
+  width: fit-content;
+  border-radius: 3px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
 .highlight {
   font-size: 0.5rem;
