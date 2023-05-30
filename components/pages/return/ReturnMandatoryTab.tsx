@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Box, Drawer } from "@mui/material";
 import style from "./ReturnMandatoryTab.module.css";
@@ -7,19 +7,41 @@ import ModalForm from "@/components/modals/ModalForm";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import { staticReturnQuestionData } from "@/datas/staticReturnQuestionData";
+import Swal from "sweetalert2";
 
 export default function ReturnMandatoryTab() {
   const [isYesProperlyParked, setIsYesProperlyParked] =
     useState<boolean>(false);
+  const [isNoProperlyParked, setIsNoProperlyParked] = useState<boolean>(false);
 
   const handleYesParking = () => {
-    setIsYesProperlyParked(!isYesProperlyParked);
-    console.log("첫질문클릭");
+    if (!isNoProperlyParked) {
+      setIsYesProperlyParked(!isYesProperlyParked);
+      console.log("첫질문클릭");
+    }
   };
 
   const handleNoParking = () => {
-    console.log("then where did you park?")
-  }
+    if (!isYesProperlyParked) {
+      console.log("then where did you park?");
+      setIsNoProperlyParked(!isNoProperlyParked);
+    }
+  };
+
+  useEffect(() => {
+    if (isNoProperlyParked) {
+      Swal.fire({
+        text: "아니 차를 그렇게 대시면 어떡해요?",
+        icon: "error",
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        footer: `<a href="">문의하기</a>`,
+      });
+    }
+  }, [!isNoProperlyParked]);
 
   const [questionActive, setQuestionActive] = useState(
     new Array(staticReturnQuestionData.length).fill(false)
@@ -57,10 +79,7 @@ export default function ReturnMandatoryTab() {
       <div className={style.wrapper}>
         <Separator gutter={7} />
         <div className={style.carName}>Tesla Model 3</div>
-        <div
-          className={style.initialQ}
-          onClick={() => handleYesParking()}
-        >
+        <div className={style.initialQ}>
           센텀 리더스마크 주차장B에 반납하셨나요?
         </div>
         <div className={style.initialAnswerWrap}>
@@ -70,14 +89,14 @@ export default function ReturnMandatoryTab() {
           >
             {!isYesProperlyParked ? (
               <Image
-                src="assets/images/icons/greyReturnCheck.svg"
+                src="/assets/images/icons/greyReturnCheck.svg"
                 width="20"
                 height="20"
                 alt="check"
               />
             ) : (
               <Image
-                src="assets/images/icons/activeCheck.svg"
+                src="/assets/images/icons/activeCheck.svg"
                 width="20"
                 height="20"
                 alt="checked"
@@ -85,13 +104,25 @@ export default function ReturnMandatoryTab() {
             )}
             <div onClick={() => handleYesParking()}>네</div>
           </div>
-          <div className={style.initialAnswer} onClick={()=> handleNoParking()}>
-            <Image
-              src="assets/images/icons/greyReturnCheck.svg"
-              width="20"
-              height="20"
-              alt="check"
-            />
+          <div
+            className={style.initialAnswer}
+            onClick={() => handleNoParking()}
+          >
+            {!isNoProperlyParked ? (
+              <Image
+                src="/assets/images/icons/greyReturnCheck.svg"
+                width="20"
+                height="20"
+                alt="check"
+              />
+            ) : (
+              <Image
+                src="/assets/images/icons/activeCheck.svg"
+                width="20"
+                height="20"
+                alt="check"
+              />
+            )}
             <div>아니오</div>
           </div>
         </div>
@@ -126,7 +157,7 @@ export default function ReturnMandatoryTab() {
           <div className={style.lastCheck}>빌리타 이용규칙 및 패널티 안내</div>
           <div className={style.yesWrap}>
             <Image
-              src="assets/images/icons/rightArrowGreyBold.svg"
+              src="/assets/images/icons/rightArrowGreyBold.svg"
               width="10"
               height="10"
               alt="check"

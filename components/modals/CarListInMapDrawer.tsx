@@ -68,7 +68,7 @@ export default function CarListInMapDrawer(props: {
                     {item.defaultPrice.toLocaleString("ko")}
                   </div>
                   <div className={style.distancePrice}>
-                    <span>추가거리</span> 1km :{" "}
+                    <span>추가거리</span> x :{" "}
                     {item.distancePrice.toLocaleString("ko")}
                   </div>
                 </div>
