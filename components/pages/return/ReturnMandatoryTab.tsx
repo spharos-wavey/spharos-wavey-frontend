@@ -9,7 +9,27 @@ import Button from "@/components/ui/Button";
 import { staticReturnQuestionData } from "@/datas/staticReturnQuestionData";
 
 export default function ReturnMandatoryTab() {
-  const [tab, setTab] = useState(false);
+  const [isYesProperlyParked, setIsYesProperlyParked] =
+    useState<boolean>(false);
+
+  const handleYesParking = () => {
+    setIsYesProperlyParked(!isYesProperlyParked);
+    console.log("첫질문클릭");
+  };
+
+  const handleNoParking = () => {
+    console.log("then where did you park?")
+  }
+
+  const [questionActive, setQuestionActive] = useState(
+    new Array(staticReturnQuestionData.length).fill(false)
+  );
+  const activateQuestion = (index: number) => {
+    const updatedActive = [...questionActive];
+    updatedActive[index] = !updatedActive[index];
+    setQuestionActive(updatedActive);
+  };
+
   return (
     <>
       <Drawer
@@ -25,10 +45,10 @@ export default function ReturnMandatoryTab() {
           <BottomFixedContainer>
             <Button
               btnType={"button"}
-              btnEvent={() => alert("action")}
+              btnEvent={() => alert("wanna return?")}
               shadow={true}
             >
-              버튼 바꿔주세욜
+              반납하기
             </Button>
           </BottomFixedContainer>
         </Box>
@@ -37,34 +57,61 @@ export default function ReturnMandatoryTab() {
       <div className={style.wrapper}>
         <Separator gutter={7} />
         <div className={style.carName}>Tesla Model 3</div>
-        <div className={style.initialQ}>
+        <div
+          className={style.initialQ}
+          onClick={() => handleYesParking()}
+        >
           센텀 리더스마크 주차장B에 반납하셨나요?
         </div>
-        <div className={style.answerWrap}>
-          <Image
-            src="assets/images/icons/greyReturnCheck.svg"
-            width="20"
-            height="20"
-            alt="check"
-          />
-          <div>네</div>
-          <Image
-            src="assets/images/icons/greyReturnCheck.svg"
-            width="20"
-            height="20"
-            alt="check"
-          />
-          <div>아니오</div>
+        <div className={style.initialAnswerWrap}>
+          <div
+            className={style.initialAnswer}
+            onClick={() => handleYesParking()}
+          >
+            {!isYesProperlyParked ? (
+              <Image
+                src="assets/images/icons/greyReturnCheck.svg"
+                width="20"
+                height="20"
+                alt="check"
+              />
+            ) : (
+              <Image
+                src="assets/images/icons/activeCheck.svg"
+                width="20"
+                height="20"
+                alt="checked"
+              />
+            )}
+            <div onClick={() => handleYesParking()}>네</div>
+          </div>
+          <div className={style.initialAnswer} onClick={()=> handleNoParking()}>
+            <Image
+              src="assets/images/icons/greyReturnCheck.svg"
+              width="20"
+              height="20"
+              alt="check"
+            />
+            <div>아니오</div>
+          </div>
         </div>
         <hr className={style.hr} />
-        {staticReturnQuestionData.map((q) => (
+        {staticReturnQuestionData.map((q, index) => (
           <div className={style.qWrap} key={q.id}>
             <div className={style.lastCheck}>{q.Questionaire}</div>
-            <div onClick={() => setTab(true)} className={style.yesWrap}>
-              {!tab ? (
+            <div
+              onClick={() => activateQuestion(index)}
+              className={style.yesWrap}
+            >
+              {!questionActive[index] ? (
                 <Image src={q.defaultIcon} width="20" height="20" alt="check" />
               ) : (
-                <Image src={q.activeIcon} width="20" height="20" alt="check" />
+                <Image
+                  src={q.activeIcon}
+                  width="20"
+                  height="20"
+                  alt="checked"
+                />
               )}
 
               <div className={style.answer}>네</div>

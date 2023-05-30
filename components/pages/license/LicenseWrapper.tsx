@@ -6,6 +6,7 @@ import Separator from "@/components/ui/Separator";
 import { LicenseInputType } from "@/types/licenseType";
 import { useRouter } from "next/router";
 import { Co2Sharp } from "@mui/icons-material";
+import Swal from "sweetalert2";
 export default function LicenseWrapper() {
   const router = useRouter();
 
@@ -157,6 +158,20 @@ export default function LicenseWrapper() {
     setInputData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleIncorrectLicense = () => {
+
+    Swal.fire({
+      text: "유효하지 않은 면허정보 입니다.",
+      icon: "error",
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true,
+    });
+    
+  }
+
   const handleFormSubmit = () => {
     console.log("submit");
     const errors = validateForm();
@@ -186,13 +201,16 @@ export default function LicenseWrapper() {
           userName: inputData.userName,
         }),
       })
-        .then((res) => console.log(res.status))
+        .then((res) => {
+          console.log(res.status, res.body)
+        })
         .catch((err) => console.log(err));
 
       console.log(inputData);
     };
     postData();
   };
+}
 
   return (
     <section>
