@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Box, TextField, MenuItem, Stack, Button, Select, SelectChangeEvent, FormControl, InputLabel, FormGroup, Input, FormHelperText } from "@mui/material";
 import SectionTitle from "@/components/ui/SectionTitle";
@@ -5,8 +6,6 @@ import Separator from "@/components/ui/Separator";
 import { LicenseInputType } from "@/types/licenseType";
 import { useRouter } from "next/router";
 import { Co2Sharp } from "@mui/icons-material";
-
-
 export default function LicenseWrapper() {
   const router = useRouter();
 
@@ -163,13 +162,17 @@ export default function LicenseWrapper() {
     const errors = validateForm();
     console.log(errors);
     const postData = async () => {
+
+    const postData = async () => {
+      const token = "Bearer " + localStorage.getItem("Authorization");
+
       console.log(token);
       console.log(inputData);
       await fetch("https://api-billita.xyz/booklist/check/license", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: token,
         },
         body: JSON.stringify({
           level: inputData.level,

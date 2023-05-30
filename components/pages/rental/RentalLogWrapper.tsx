@@ -1,61 +1,136 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import style from "./RentalLogWrapper.module.css";
-import RentalLogCard from "./RentalLogCard";
+import Image from "next/image";
+import RentalTop from "./RentalTop";
+import RentalMiddle from "./RentalMiddle";
+import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
+import Button from "@/components/ui/Button";
+import Drawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
+import ModalForm from "@/components/modals/ModalForm";
 import { RentalDataType } from "@/types/rentalDataType";
+import style from "./RentalWrapper.module.css";
+import Separator from "@/components/ui/Separator";
+import { useRouter } from "next/router";
+import axios from "axios";
 
-export default function RentalLogWrapper(props: {
-  title: string;
-  isLogin: boolean;
-}) {
-  const [serviceHistory, setServiceHistory] = useState<RentalDataType[]>(
-    [] as RentalDataType[]
-  );
-  const [userName, setUserName] = useState<string>("");
+export default function RentalWrapper(props: { data: RentalDataType }) {
+  const data = props.data;
+  console.log(`rentalWrapper data : `, data);
+  const router = useRouter();
+  const [drawer, setDrawer] = useState(false);
+  const [nextDrawer, setNextDrawer] = useState(false);
+  const handleDrawer = () => setDrawer(true);
+  
 
-  useEffect(() => {
-    if (!localStorage.getItem("Authorization") && !localStorage.getItem("uid"))
-      return;
+  // const handleRegisterRental = () => {
+  //   setDrawer(false);
+  //   const postData = async () => {
+  //     const result = await axios.post(
+  //       "https://api-billita.xyz/booklist",
+  //       {
+  //         carId: router.query.carId,
+  //         startDate: router.query.startDate,
+  //         endDate: router.query.endDate,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
+  //         },
+  //       }
+  //     );
+  //     console.log("data : ", result.data);
+  //     console.log("img url : ", result.data.frameInfo.image);
+  //   };
+  //   postData();
+  // }
+
+
+  const handleCancel = () => {
+    console.log(router.query.bookId);
+    setDrawer(false);
     const getData = async () => {
-      try {
-        const token = "Bearer " + localStorage.getItem("Authorization");
-        const uid = localStorage.getItem("uid");
-        const res = await axios.get(`https://api-billita.xyz/rental/ALL`, {
+      const result = await axios.delete(
+        `https://api-billita.xyz/rental/${router.query.bookId}`,
+        {
           headers: {
-            Authorization: token,
-            uuid: uid,
+            Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
           },
-        });
-        // const res = await axios.get(`https://api-billita.xyz/rental/RESERVATION`, {
-        //   headers: {
-        //     Authorization: token,
-        //     uuid: uid,
-        //   },
-        // }); 여기에 MSA때문에 쪼개인 다른 api에 있는 정보를 받아와야한다.
-        const data = res.data;
-        setServiceHistory(data);
-        console.log(data);
-      } catch (err) {
-        console.log(err);
-      }
+        }
+      );
+      console.log("data : ", result.data);
+      console.log("img url : ", result.data.frameInfo.image);
     };
     getData();
-  }, []);
+  };
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const nickName = localStorage.getItem("nickName");
-      if (nickName !== undefined && typeof nickName === "string") {
-        setUserName(nickName);
-      } else {
-        setUserName("빌리타");
-      }
-      console.log(userName);
-    }
-  }, []);
   return (
-    <div className={style.wrapper}>
-     <RentalLogCard title={props.title} />
-    </div>
+    <main>
+      {drawer && (
+        <Drawer
+          open={drawer}
+          PaperProps={{
+            sx: {
+              width: "auto",
+              borderTopRightRadius: 18,
+              borderTopLeftRadius: 18,
+            },
+          }}
+          anchor="bottom"
+          variant="temporary"
+        >
+          <Box position="relative" width="100%" height="370px">
+            <div onClick={() => setDrawer(false)} className={style.closeBtn}>
+              <Image
+                src="/assets/images/icons/modalCloseX.svg"
+                width="20"
+                height="20"
+                alt="close"
+              />
+            </div>
+            <ModalForm title="대여 취소" />
+
+            <BottomFixedContainer>
+              <Button
+                btnType={"button"}
+                btnEvent={() => handleCancel()}
+                shadow={true}
+                color={"var(--billita-secondary)"}
+                border="1px solid var(--billita-secondary)"
+                fontWeight="bold"
+                backgroundColor="var(--billita-white)"
+              >
+                대여 취소하기
+              </Button>
+            </BottomFixedContainer>
+          </Box>
+        </Drawer>
+      )}
+
+      <RentalTop data={data} />
+      <RentalMiddle data={data} />
+      <Separator gutter={7.5} />
+      <BottomFixedContainer>
+        <div className={style.twoBtnWrap}>
+          <Button
+            btnType={"reset"}
+            btnEvent={() => setDrawer(true)}
+            shadow={true}
+            backgroundColor="var(--billita-white)"
+            color="var(--billita-secondary)"
+            border="1px solid var(--billita-secondary)"
+            fontWeight="bold"
+          >
+            대여취소
+          </Button>
+          <Button
+            btnType={"button"}
+            btnEvent={() => alert("action")}
+            shadow={true}
+          >
+            스마트키
+          </Button>
+        </div>
+      </BottomFixedContainer>
+    </main>
   );
 }

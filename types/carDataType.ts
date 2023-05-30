@@ -11,22 +11,7 @@ export interface carDataType {
   charge: number;
   actualReturnedZone: number;
   smartKey: string;
-  frameInfo: {
-    createDate: string | null;
-    updateDate: string | null;
-    id: number;
-    carBrand: string;
-    foreignCar: boolean;
-    carName: string;
-    capacity: string;
-    recommend: boolean;
-    defaultPrice: number;
-    distancePrice: number;
-    carType: string;
-    appearance: string;
-    manuel: string;
-    image: string;
-  };
+  frameInfo: CarFrameDataType;
   washTime: string;
   place: {
     id: number;
@@ -35,6 +20,28 @@ export interface carDataType {
     longitude: number;
     zoneAddress: string;
   };
+}
+
+export interface CarFrameDataType {
+  createDate: string | null;
+  updateDate: string | null;
+  id: number;
+  carBrand: {
+    id: number;
+    foreignCar: boolean;
+    brandName: string;
+    brandImage: string;
+  }
+  foreignCar: boolean;
+  carName: string;
+  capacity: string;
+  recommend: boolean;
+  defaultPrice: number;
+  distancePrice: number;
+  carType: string;
+  appearance: string;
+  manuel: string;
+  image: string;
 }
 
 export interface carListType {
@@ -68,4 +75,19 @@ export interface carInMapType {
   vehicleImage: string;
   distancePrice: number;
   currentCharge: number;
+}
+
+export interface BookListDataType {
+  bookId : number;
+  carBrand : string;
+  carName : string;
+  capacity : string;
+  defaultPrice : number,
+  distancePrice : number,
+  charge : number,
+  startDate : string
+  endDate : string
+  billitaZone : string,
+  imageUrl : string,
+  insuranceId : number,
 }
