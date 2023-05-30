@@ -113,7 +113,7 @@ const Kakao: NextPage = () => {
       }
     };
     getToken();
-  }, [authCode, CLIENT_ID, REDIRECT_URI, REST_API_KEY]);
+  }, [authCode, CLIENT_ID, REDIRECT_URI, REST_API_KEY, router]);
 
   return (
     <Box

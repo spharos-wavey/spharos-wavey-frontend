@@ -6,9 +6,9 @@ import Button from "@/components/ui/Button";
 
 export default function DetailLayout(props: { children: React.ReactNode }) {
   const router = useRouter();
+  const cid = router.query.cid;
   const handleLicensePage = () => {
-    sessionStorage.setItem("carDetail", router.asPath);
-    router.push("/license");
+    router.push(`/car/${cid}/license`);
   };
   const handleLoginPage = () => {
     sessionStorage.setItem("carDetail", router.asPath);
@@ -23,7 +23,6 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       alert("로그인이 필요합니다.");
       handleLoginPage();
     } else {
-      alert("로그인 언제했지 호호");
       handleLicensePage();
     }
   };

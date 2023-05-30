@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
-import RentalLogWrapper from "@/components/pages/rental/RentalLogWrapper";
 import RentalLogNotExist from "@/components/pages/rental/RentalLogNotExist";
 
 export default function RentHistory() {
@@ -19,11 +18,8 @@ export default function RentHistory() {
 
   return (
     <main>
-      {/* {userName !== "빌리타" ? (
-        <RentalLogWrapper isLogin={true} title={`${userName}님의 대여차량`} />
-      ) : (
         <RentalLogNotExist />
-      )} */}
+
     </main>
   );
 }
