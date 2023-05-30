@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./ModalForm.module.css";
-import { MyRentalCarType } from "@/types/rentalDataType";
 
 export default function ModalForm(props: {
   title: string;

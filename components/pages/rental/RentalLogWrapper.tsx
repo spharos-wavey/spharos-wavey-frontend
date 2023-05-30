@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import RentalTop from "./RentalTop";
 import RentalMiddle from "./RentalMiddle";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
@@ -78,6 +79,14 @@ export default function RentalWrapper(props: { data: RentalDataType }) {
           variant="temporary"
         >
           <Box position="relative" width="100%" height="370px">
+            <div onClick={() => setDrawer(false)} className={style.closeBtn}>
+              <Image
+                src="/assets/images/icons/modalCloseX.svg"
+                width="20"
+                height="20"
+                alt="close"
+              />
+            </div>
             <ModalForm title="대여 취소" />
 
             <BottomFixedContainer>

@@ -16,7 +16,7 @@ export default function ModalSideBar(props: {
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSideOpen: boolean;
 }) {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const { isSideOpen, setIsSideOpen } = props;
   const [rentCarData, setRentCarData] = useState<MyRentalCarType[]>(
@@ -76,11 +76,7 @@ export default function ModalSideBar(props: {
   const actionToHistory = () => {
     router.push("/rentHistory");
   };
-  const popModal = () => {
-    setIsSideOpen(false);
-    setIsModalOpen(true);
-    return;
-  };
+ 
   return (
     <>
       {/* <LogInRequiredModal
@@ -114,7 +110,7 @@ export default function ModalSideBar(props: {
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
           <li onClick={() => actionToHistory()}>이용내역</li>
-          <li onClick={() => popModal()}>스마트키</li>
+          <li >스마트키</li>
           <li>결제카드 등록</li>
           <li>이벤트/쿠폰</li>
           <li onClick={handleLogout}>로그아웃</li>

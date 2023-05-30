@@ -2,19 +2,34 @@ import React from "react";
 import Image from "next/image";
 import style from "./RentalMiddle.module.css";
 import Separator from "@/components/ui/Separator";
-import { RentalDataType } from "@/types/rentalDataType";
+import { MyRentalCarType, RentalDataType, RentalFrameInfoType } from "@/types/rentalDataType";
 
-export default function RentalMiddle(props: { data: RentalDataType, startDate: Date, endDate: Date }) {
-  const data = props.data.frameInfo;
-  const serviceStartTime = props.startDate;
-  const serviceEndTime = props.endDate;
-  console.log(serviceStartTime, serviceEndTime);
+export default function RentalMiddle(props: {
+  data: RentalFrameInfoType;
+  startDate?: Date;
+  endDate?: Date;
+  rentData?: MyRentalCarType;
+  place?: { name: string };
+}) {
+  const data = props.data;
+  console.log("MIDDLE!!!", props.data);
+  if(!props.rentData) return <></>;
+  const serviceStartTime = new Date(props.rentData.startDate);
+  const serviceEndTime = new Date(props.rentData.endDate);
+  console.log("시간!!!", serviceStartTime, serviceEndTime);
+
+
+  const timeGap = serviceEndTime.getTime() - serviceStartTime.getTime();
+
+  const hours = Math.floor(timeGap / (1000 * 60 * 60));
+  const minutes = Math.floor((timeGap % (1000 * 60 * 60)) / (1000 * 60));
+
 
   return (
     <div className={style.middleWrap}>
       <div className={style.subWrap}>
         <div className={style.subtitle}>주행요금</div>
-        <div className={style.fare}>{data.distancePrice}원/km</div>
+        <div className={style.fare}>{props.data.distancePrice}원/km</div>
       </div>
       <div className={style.description}>
         *주행요금은 반납 후 실주행거리에 따라 별도로 청구됩니다.
@@ -25,15 +40,15 @@ export default function RentalMiddle(props: { data: RentalDataType, startDate: D
       <div className={style.subtitle}>대여시간</div>
       <div className={style.subWrap}>
         <div className={style.content}>
-          {serviceStartTime?.getMonth()+1}월 {serviceStartTime?.getDay()}일{" "}
+          {serviceStartTime?.getMonth() + 1}월 {serviceStartTime?.getDay()}일{" "}
           {serviceStartTime?.getHours()}:
           {String(serviceStartTime?.getMinutes()).padStart(2, "0")}{" "}
           <span>- </span>
-          {serviceEndTime?.getMonth()+1}월 {serviceEndTime?.getDay()}일{" "}
+          {serviceEndTime?.getMonth() + 1}월 {serviceEndTime?.getDay()}일{" "}
           {serviceEndTime?.getHours()}:
           {String(serviceEndTime?.getMinutes()).padStart(2, "0")}{" "}
         </div>
-        <div className={style.subtitle}>총 1일 00시간</div>
+        <div className={style.subtitle}>{`총 ${hours}시간 ${minutes}분`}</div>
       </div>
 
       <Separator gutter={1.5} />
@@ -42,7 +57,9 @@ export default function RentalMiddle(props: { data: RentalDataType, startDate: D
       <div className={style.subWrap}>
         <div className={style.content}>대여위치</div>
         <div className={style.arrowWrap}>
-          <div className={style.location}>{props.data.place.name}</div>
+          {props.place &&
+            <div className={style.location}>{props.place.name}</div>
+          }
           <div className={style.arrow}>
             <Image
               src="/assets/images/icons/rightArrowGreyBold.svg"
@@ -56,7 +73,9 @@ export default function RentalMiddle(props: { data: RentalDataType, startDate: D
       <div className={style.subWrap}>
         <div className={style.content}>반납위치</div>
         <div className={style.arrowWrap}>
-          <div className={style.location}>{props.data.place.name}</div>
+          {props.place &&
+            <div className={style.location}>{props.place.name}</div>
+          }
           <div className={style.arrow}>
             <Image
               src="/assets/images/icons/rightArrowGreyBold.svg"

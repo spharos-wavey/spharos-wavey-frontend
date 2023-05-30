@@ -9,26 +9,7 @@ place : {
       longitude : number;
       zoneAddress : string;
   },
-frameInfo: {
-    createDate : string;
-    updateDate : string;
-    id : number;
-    carBrand : {
-        id : number;
-       foreignCar : boolean;
-       brandName : string;
-    }
-    carName : string;
-    capacity : string;
-    recommend : boolean;
-    defaultPrice : number;
-    distancePrice : number;
-    carType : string;
-    appearance : string;
-    manual : string;
-    color: string;
-    image : string;
-  },
+frameInfo: RentalFrameInfoType;
   number : string;
   latitude : number;
   longitude: number;
@@ -49,7 +30,26 @@ frameInfo: {
   ]
 }
 
-
+export interface RentalFrameInfoType {
+    createDate : string;
+    updateDate : string;
+    id : number;
+    carBrand : {
+        id : number;
+       foreignCar : boolean;
+       brandName : string;
+    }
+    carName : string;
+    capacity : string;
+    recommend : boolean;
+    defaultPrice : number;
+    distancePrice : number;
+    carType : string;
+    appearance : string;
+    manual : string;
+    color: string;
+    image : string;
+  }
 export interface timeType {
   startTime: string;
   endTime: string;

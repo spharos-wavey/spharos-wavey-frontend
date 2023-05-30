@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import style from "./DetailInfoTop.module.css";
 import MenuItem from "@/components/layouts/MenuItem";
-import { carDetailData, carStatusData } from "@/datas/staticCarData";
+import { carStatusData } from "@/datas/staticCarData";
 import Separator from "@/components/ui/Separator";
 
 interface HeaderType {

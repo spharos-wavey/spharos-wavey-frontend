@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import RentalTop from "./RentalTop";
 import RentalMiddle from "./RentalMiddle";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
@@ -6,27 +7,35 @@ import Button from "@/components/ui/Button";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import ModalForm from "@/components/modals/ModalForm";
-import { RentalDataType } from "@/types/rentalDataType";
+import { MyRentalCarType, RentalDataType } from "@/types/rentalDataType";
 import style from "./RentalWrapper.module.css";
 import Separator from "@/components/ui/Separator";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-export default function RentalWrapper(props: { data: RentalDataType }) {
-  const data = props.data;
+export default function RentalWrapper(props: {
+  data: RentalDataType;
+  rentData: MyRentalCarType;
+}) {
+  const { place } = props.data;
+  console.log("props.data", props.data);
+  // const bookId = props.rentId;
   const router = useRouter();
-  const [drawer, setDrawer] = useState(false);
-  const [nextDrawer, setNextDrawer] = useState(false);
+  const [drawer, setDrawer] = useState<boolean>(false);
+  const [nextDrawer, setNextDrawer] = useState<boolean>(false);
   const handleDrawer = () => setDrawer(true);
+
   const handleCancel = () => {
-    console.log(router.query.bookId);
     setDrawer(false);
+    const bookId = router.query.bookId;
+    console.log("bookId", bookId);
     const getData = async () => {
       const result = await axios.delete(
-        `https://api-billita.xyz/rental/${router.query.bookId}`,
+        `https://api-billita.xyz/rental/${bookId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
+            uid: localStorage.getItem("uid"),
           },
         }
       );
@@ -35,7 +44,10 @@ export default function RentalWrapper(props: { data: RentalDataType }) {
     };
     getData();
   };
-
+  const charge = props.data.charge;
+  const startDate = props.rentData.startDate;
+  const endDate = props.rentData.endDate;
+  const rentData = props.rentData;
   return (
     <main>
       {drawer && (
@@ -52,7 +64,15 @@ export default function RentalWrapper(props: { data: RentalDataType }) {
           variant="temporary"
         >
           <Box position="relative" width="100%" height="370px">
-            <ModalForm setDrawer={setDrawer} title="대여 취소" />
+            <div onClick={() => setDrawer(false)} className={style.closeBtn}>
+              <Image
+                src="/assets/images/icons/modalCloseX.svg"
+                width="20"
+                height="20"
+                alt="close"
+              />
+            </div>
+            <ModalForm title="대여 취소" />
 
             <BottomFixedContainer>
               <Button
@@ -70,9 +90,16 @@ export default function RentalWrapper(props: { data: RentalDataType }) {
           </Box>
         </Drawer>
       )}
-
-      <RentalTop data={data} />
-      <RentalMiddle data={data} />
+ 
+      <RentalTop data={props.data.frameInfo} charge={charge} />  : <></>
+ 
+      <RentalMiddle
+        data={props.data.frameInfo}
+        place={place}
+        startDate={startDate}
+        endDate={endDate}
+        rentData={rentData}
+      />
       <Separator gutter={7.5} />
       <BottomFixedContainer>
         <div className={style.twoBtnWrap}>
