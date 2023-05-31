@@ -19,10 +19,7 @@ export default function KakaoMap() {
     longitude: 0,
   });
 
-  const [carLocation, setCarLocation] = useRecoilState(locationState);
-  const [billitaZone, setBillitaZone] = useState<string>('');
-
-  const [center, setCenter] = useState({
+  const [center, setCenter] = useState<locationType>({
     latitude: 0,
     longitude: 0,
   });
@@ -32,13 +29,14 @@ export default function KakaoMap() {
     longitude: 0,
   });
 
-  const [zoneList, setZoneList] = useState<BillitaZoneListType>();
-
   const [reqTime, setReqTime] = useState<timeType>({
     startTime: "",
     endTime: "",
   });
 
+  const [carLocation, setCarLocation] = useRecoilState(locationState);
+  const [billitaZone, setBillitaZone] = useState<string>('');
+  const [zoneList, setZoneList] = useState<BillitaZoneListType>();
   const [carInMapList, setCarInMapList] = useState<carInMapType[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -143,6 +141,13 @@ export default function KakaoMap() {
     setIsOpen(true);
   };
 
+  // mouseTouchOutHandler = () => {
+  //   this.setState({
+  //     isOpen: false,
+  //   });
+  // };
+
+
   if(!zoneList) return <PageLoader />
 
   return (
@@ -154,7 +159,8 @@ export default function KakaoMap() {
             center={{ lat: initLoc.latitude, lng: initLoc.longitude }}
             style={{ width: "100%", height: "100vh", position: "fixed", zIndex: 0, top: 0, left: 0 }}
             level={5}
-            onCenterChanged={centerChangeHandler}
+            // onCenterChanged={centerChangeHandler}
+            onDragEnd={centerChangeHandler}
           >
             {zoneList?.length !== 0 &&
               zoneList?.map((zone) => (
