@@ -18,8 +18,6 @@ export default function RentalWrapper(props: {
   rentData: MyRentalCarType;
 }) {
   const { place } = props.data;
-  console.log("props.data", props.data);
-  // const bookId = props.rentId;
   const router = useRouter();
   const [drawer, setDrawer] = useState<boolean>(false);
   const [nextDrawer, setNextDrawer] = useState<boolean>(false);
@@ -28,7 +26,6 @@ export default function RentalWrapper(props: {
   const handleCancel = () => {
     setDrawer(false);
     const bookId = router.query.bookId;
-    console.log("bookId", bookId);
     const getData = async () => {
       const result = await axios.delete(
         `https://api-billita.xyz/rental/${bookId}`,
@@ -39,8 +36,6 @@ export default function RentalWrapper(props: {
           },
         }
       );
-      console.log("data : ", result.data);
-      console.log("img url : ", result.data.frameInfo.image);
     };
     getData();
   };

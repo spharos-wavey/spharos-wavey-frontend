@@ -154,7 +154,6 @@ export default function LicenseWrapper() {
       }));
       return;
     }
-    console.log(inputData);
     setInputData((prev) => ({ ...prev, [name]: value }));
     setInputError((prev) => ({
       ...prev,
@@ -164,13 +163,12 @@ export default function LicenseWrapper() {
 
   const handlSelectChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
-    console.log(name, value);
     setInputData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleIncorrectLicense = () => {
     Swal.fire({
-      text: "유효하지 않은 면허정보 입니다.",
+      text: "면허정보를 다시 확인하세요.",
       icon: "error",
       toast: true,
       position: "top",
@@ -181,15 +179,11 @@ export default function LicenseWrapper() {
   };
 
   const handleFormSubmit = () => {
-    console.log("submit");
     const errors = validateForm();
     console.log(errors);
 
     const postData = async () => {
       const token = "Bearer " + localStorage.getItem("Authorization");
-
-      console.log(token);
-      console.log(inputData);
       await fetch("https://api-billita.xyz/booklist/check/license", {
         method: "POST",
         headers: {

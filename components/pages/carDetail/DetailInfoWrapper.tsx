@@ -18,15 +18,21 @@ export default function DetailInfoWrapper() {
   const handleActive = () => {
     setIsActive(!isActive);
   };
+  
+  const sessionRemainTrash = () => sessionStorage.getItem("carDetail");
 
+  useEffect(()=> {
+    if (sessionRemainTrash()) {
+      sessionStorage.removeItem("carDetail");
+    }
+  }, [sessionRemainTrash])
+  
   useEffect(() => {
     if (router.query.cid !== undefined) {
       const getData = async () => {
         const result = await axios.get(
           `https://api-billita.xyz/vehicle/${router.query.cid}`
         );
-        console.log("data : ", result.data);
-        console.log("img url : ", result.data.frameInfo.image);
         setCarData(result.data);
       };
       getData();

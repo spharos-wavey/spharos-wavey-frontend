@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
+import router, { useRouter } from "next/router";
 import Image from "next/image";
-import style from "./CarBook.module.css";
-import {
-  BookListDataType,
-  CarFrameDataType,
-  carDataType,
-} from "@/types/carDataType";
-import { RentalDataType, RentalFrameInfoType } from "@/types/rentalDataType";
-import { useRouter } from "next/router";
 import axios from "axios";
+import style from "./CarBook.module.css";
+import { carDataType } from "@/types/carDataType";
+import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
+import Drawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
+import ModalForm from "@/components/modals/ModalForm";
 import Separator from "@/components/ui/Separator";
 import Button from "@/components/ui/Button";
-import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 
 export default function CarBook() {
   const router = useRouter();
   const [carData, setCarData] = useState<carDataType>();
+  const [drawer, setDrawer] = useState<boolean>(false);
+  const [nextDrawer, setNextDrawer] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string | null>();
+  const [bookId, setBookId] = useState<number>(0);
+
+  useEffect(() => {
+    const userName = localStorage.getItem("nickName");
+    setUserName(userName);
+  }, [userName]);
 
   useEffect(() => {
     if (router.query.cid !== undefined) {
@@ -23,7 +30,6 @@ export default function CarBook() {
         const result = await axios.get(
           `https://api-billita.xyz/vehicle/${router.query.cid}`
         );
-        console.log("data : ", result.data);
         setCarData(result.data);
       };
       getData();
@@ -32,10 +38,128 @@ export default function CarBook() {
 
   const frameInfo = carData?.frameInfo;
   const handleModal = () => {
-    console.log("예약전 주의사항")
-  }
+    setDrawer(true);
+  };
+  const handleNextModalOpen = () => {
+    setDrawer(false);
+    setNextDrawer(true);
+  };
+
+  useEffect(() => {
+    const postBookData = async () => {
+      const token = "Bearer " + localStorage.getItem("Authorization");
+      try {
+        const requestBody = {
+          vehicleId: router.query.cid,
+          startDate: "2023-05-21 20:00",
+          endDate: "2023-05-21 22:00"
+        };
+        const res = await axios.post(
+          `https://api-billita.xyz/booklist`,
+          requestBody,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        const data = res.data;
+        setBookId(data.bookId);
+        console.log(data);
+        
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    postBookData();
+  },[])
+  console.log(`bookId: ${bookId}`)
+
   return (
     <>
+      {drawer && (
+        <Drawer
+          open={drawer}
+          PaperProps={{
+            sx: {
+              width: "auto",
+              borderTopRightRadius: 18,
+              borderTopLeftRadius: 18,
+            },
+          }}
+          anchor="bottom"
+          variant="temporary"
+        >
+          <Box position="relative" width="100%" height="370px">
+            <div onClick={() => setDrawer(false)} className={style.closeBtn}>
+              <Image
+                src="/assets/images/icons/modalCloseX.svg"
+                width="20"
+                height="20"
+                alt="close"
+              />
+            </div>
+            <ModalForm title="예약 전, 필수 확인 사항" />
+
+            <BottomFixedContainer>
+              <Button
+                btnType={"button"}
+                btnEvent={() => handleNextModalOpen()}
+                shadow={true}
+                color={"var(--billita-blueHighlight)"}
+                border="1px solid var(--billita-blueHighlight)"
+                fontWeight="bold"
+                backgroundColor="var(--billita-white)"
+              >
+                잘 알겠어요, 예약할게요
+              </Button>
+            </BottomFixedContainer>
+          </Box>
+        </Drawer>
+      )}
+      {nextDrawer && (
+        <Drawer
+          open={nextDrawer}
+          PaperProps={{
+            sx: {
+              width: "auto",
+              borderTopRightRadius: 18,
+              borderTopLeftRadius: 18,
+            },
+          }}
+          anchor="bottom"
+          variant="temporary"
+        >
+          <Box position="relative" width="100%" height="370px">
+            <div onClick={() => setNextDrawer(false)} className={style.closeBtn}>
+              <Image
+                src="/assets/images/icons/modalCloseX.svg"
+                width="20"
+                height="20"
+                alt="close"
+              />
+            </div>
+            {userName && (
+              <ModalForm title="예약결제 안내" userName={userName} />
+            )}
+
+            <BottomFixedContainer>
+              <Button
+                btnType={"button"}
+                btnEvent={() => alert("next")}
+                shadow={true}
+                color={"var(--billita-blueHighlight)"}
+                border="1px solid var(--billita-blueHighlight)"
+                fontWeight="bold"
+                backgroundColor="var(--billita-white)"
+              >
+                네, 진행할게요
+              </Button>
+            </BottomFixedContainer>
+          </Box>
+        </Drawer>
+      )}
+
       {frameInfo && (
         <div className={style.topWrap}>
           <div className={style.carImage}>
@@ -45,6 +169,8 @@ export default function CarBook() {
               height={200}
               alt={frameInfo?.carName}
               priority
+              placeholder="blur"
+              blurDataURL="/assets/images/common/billitaLogo.svg"
             />
           </div>
           <div className={style.carName}>
@@ -90,11 +216,11 @@ export default function CarBook() {
         <Separator gutter={1.5} />
 
         <div className={style.subtitle}>주차장소</div>
-        {/* <div className={style.subWrap}>
+        <div className={style.subWrap}>
           <div className={style.content}>대여위치</div>
           <div className={style.arrowWrap}>
-            {props.place && (
-              <div className={style.location}>{props.place.name}</div>
+            {carData && (
+              <div className={style.location}>{carData?.place.name}</div>
             )}
             <div className={style.arrow}>
               <Image
@@ -109,8 +235,8 @@ export default function CarBook() {
         <div className={style.subWrap}>
           <div className={style.content}>반납위치</div>
           <div className={style.arrowWrap}>
-            {props.place && (
-              <div className={style.location}>{props.place.name}</div>
+            {carData && (
+              <div className={style.location}>{carData?.place.name}</div>
             )}
             <div className={style.arrow}>
               <Image
@@ -121,7 +247,7 @@ export default function CarBook() {
               />
             </div>
           </div>
-        </div> */}
+        </div>
 
         <Separator gutter={1.5} />
         {frameInfo && (
@@ -148,12 +274,8 @@ export default function CarBook() {
           </div>
         )}
       </div>
-      <BottomFixedContainer >
-        <Button
-          btnType={"button"}
-          btnEvent={() => handleModal()}
-          shadow={true}
-        >
+      <BottomFixedContainer>
+        <Button btnType={"button"} btnEvent={() => handleModal()} shadow={true}>
           결제하기 {frameInfo?.defaultPrice.toLocaleString("kr-KO")}원
         </Button>
       </BottomFixedContainer>

@@ -17,13 +17,11 @@ export default function ReturnMandatoryTab() {
   const handleYesParking = () => {
     if (!isNoProperlyParked) {
       setIsYesProperlyParked(!isYesProperlyParked);
-      console.log("첫질문클릭");
     }
   };
 
   const handleNoParking = () => {
     if (!isYesProperlyParked) {
-      console.log("then where did you park?");
       setIsNoProperlyParked(!isNoProperlyParked);
     }
   };

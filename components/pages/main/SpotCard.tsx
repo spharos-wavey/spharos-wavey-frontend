@@ -3,7 +3,6 @@ import { spotCardType } from "@/types/eventBannerType";
 import Image from "next/image";
 
 export default function SpotCard(props: { item: spotCardType }) {
-  console.log(props.item.img);
   return (
     <div>
       <div className={style.spotCardImg}>

@@ -59,7 +59,6 @@ Detail.getLayout = function getLayout(Page: React.ReactNode) {
 //   try {
 //     const res = await axios.get(`https://api-billita.xyz/vehicle/${context.query.v_id}`);
 //     const data = res.data;
-//     console.log(data);
 
 //     if(res.status === 200) {
 //       return {

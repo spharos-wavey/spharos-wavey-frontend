@@ -11,6 +11,7 @@ import {
 } from "@/types/rentalDataType";
 import axios from "axios";
 import LogInRequiredModal from "./LogInRequiredModal";
+import Swal from "sweetalert2";
 
 export default function ModalSideBar(props: {
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,7 +26,6 @@ export default function ModalSideBar(props: {
   const [userName, setUserName] = useState<string>("");
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
-  console.log(`router.query:`, router.query);
 
   const handleLogout = () => {
     localStorage.removeItem("Authorization");
@@ -33,6 +33,15 @@ export default function ModalSideBar(props: {
     localStorage.removeItem("nickName");
     sessionStorage.removeItem("carDetail");
     setIsSideOpen(false);
+    Swal.fire({
+      text: "로그아웃 되었습니다.",
+      icon: "success",
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: false,
+    });
   };
 
   useEffect(() => {
@@ -53,7 +62,6 @@ export default function ModalSideBar(props: {
         );
         const data = res.data;
         setRentCarData(data);
-        console.log(data);
       } catch (err) {
         console.log(err);
       }
@@ -69,14 +77,13 @@ export default function ModalSideBar(props: {
       } else {
         setUserName("빌리타");
       }
-      console.log(userName);
     }
   }, []);
 
   const actionToHistory = () => {
     router.push("/rentHistory");
   };
- 
+
   return (
     <>
       {/* <LogInRequiredModal
@@ -89,7 +96,18 @@ export default function ModalSideBar(props: {
         <div className={style.greetingBinding}>
           <div className={style.greeting}>{userName}님</div>
           <div className={style.greeting}>안녕하세요!</div>
-          <div className={style.bluehighlightsmfont}>마이페이지</div>
+          {userName === "빌리타" ? (
+            <div
+              className={style.bluehighlightbtn}
+              onClick={() => router.push("/login")}
+            >
+              로그인 하기
+            </div>
+          ) : (
+            <div className={style.bluehighlightbtn} onClick={handleLogout}>
+              로그아웃
+            </div>
+          )}
         </div>
         <div className={style.backBtn} onClick={() => setIsSideOpen(false)}>
           <Image
@@ -110,10 +128,14 @@ export default function ModalSideBar(props: {
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
           <li onClick={() => actionToHistory()}>이용내역</li>
-          <li >스마트키</li>
+          <li>스마트키</li>
           <li>결제카드 등록</li>
           <li>이벤트/쿠폰</li>
-          <li onClick={handleLogout}>로그아웃</li>
+          {userName !== "빌리타" ? (
+            <li onClick={handleLogout}>로그아웃</li>
+          ) : (
+            <></>
+          )}
         </ul>
       </div>
 
@@ -138,7 +160,9 @@ const RentCarNonExist = () => {
     <div className={style.grayWrapper}>
       <div className={style.nonRentNotice}>
         <SectionTitle fontSize={0.8}>
-          현재 대여중인 차량이 없습니다.
+          {!localStorage.getItem("nickName")
+            ? "로그인 하시고 차량을 대여해보세요. 이곳에 표시해드릴게요."
+            : "현재 대여중인 차량이 없습니다."}
         </SectionTitle>
       </div>
     </div>
@@ -171,7 +195,6 @@ const RentCar = (props: {
         );
         const data = res.data;
         setSummaryData(data);
-        console.log(data);
       } catch (err) {
         console.log(err);
       }
@@ -197,10 +220,10 @@ const RentCar = (props: {
               {summaryData?.brandName} {summaryData?.carName}
             </div>
             <div className={style.period}>
-              {serviceStartTime.getMonth()+1}월 {serviceStartTime.getDate()}일{" "}
+              {serviceStartTime.getMonth() + 1}월 {serviceStartTime.getDate()}일{" "}
               {serviceStartTime.getHours()}:
               {String(serviceStartTime.getMinutes()).padStart(2, "0")} -{" "}
-              {serviceEndTime.getMonth()+1}월 {serviceEndTime.getDate()}일{" "}
+              {serviceEndTime.getMonth() + 1}월 {serviceEndTime.getDate()}일{" "}
               {serviceEndTime.getHours()}:
               {String(serviceEndTime.getMinutes()).padStart(2, "0")}
             </div>
