@@ -3,10 +3,12 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { mainEventData } from "@/datas/mainEventData";
 import style from "@/components/pages/main/EventBanner.module.css";
+import { useRouter } from "next/router";
 
 export default function EventBanner() {
   const [bannerData, setBannerData] = useState<eventBannerType>();
   const [isActive, setIsActive] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     // todo: banner image load for fetch
@@ -46,9 +48,9 @@ export default function EventBanner() {
           </div>
           <div className={style.bannerOverlay}>
             <div className={style.bannerText}>
-              지금 당장 확 마 빌리 타 뿌까?
+              지금 어디론가 떠나고 싶으세요?
             </div>
-            <div className={style.bannerButton}>예약하기</div>
+            <div className={style.bannerButton} onClick={()=> router.push("/map")}>예약하기</div>
           </div>
         </>
       )}
