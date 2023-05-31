@@ -160,9 +160,7 @@ const RentCarNonExist = () => {
     <div className={style.grayWrapper}>
       <div className={style.nonRentNotice}>
         <SectionTitle fontSize={0.8}>
-          {!localStorage.getItem("nickName")
-            ? "로그인 하시고 차량을 대여해보세요. 이곳에 표시해드릴게요."
-            : "현재 대여중인 차량이 없습니다."}
+          현재 대여중인 차량이 없습니다.
         </SectionTitle>
       </div>
     </div>
