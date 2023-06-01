@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./DatailHeader.module.css";
+import style from "./DetailHeader.module.css";
 import { headerMenuType } from "@/types/headerType";
 import { detailMenuData } from "@/datas/staticMenuDatas";
 import MenuItem from "@/components/layouts/MenuItem";

@@ -1,9 +1,9 @@
 import React from "react";
-import DetailLayout from "@/components/layouts/carDetail/DatilLayout";
-import DetailInfoWrapper from "@/components/pages/carDetail/DetailInfoWrapper";
 import { GetServerSideProps } from "next";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { carDataType } from "@/types/carDataType";
+import DetailInfoWrapper from "@/components/pages/carDetail/DetailInfoWrapper";
+import DetailLayout from "@/components/layouts/carDetail/DetailLayout";
 
 export default function carDetail(props: { data: carDataType }) {
 

@@ -24,7 +24,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         Component.auth ? 
           <Auth>
             {getLayout(
-              
                <Component {...pageProps} />
             )}
           </Auth>
