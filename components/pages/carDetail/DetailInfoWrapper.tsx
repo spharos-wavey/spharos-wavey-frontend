@@ -4,11 +4,11 @@ import Image from "next/image";
 import DetailInfoTop from "./DetailInfoTop";
 import Separator from "@/components/ui/Separator";
 import { Map } from "react-kakao-maps-sdk";
-import DetailLocation from "./DetailLocation";
 import DetailInfo from "./DetailInfo";
 import { carDataType } from "@/types/carDataType";
-import CustomOverlay from "@/components/layouts/map/CustomOverlay";
 import CustomOverlayCar from "@/components/layouts/map/CustomOverlayCar";
+import { useRecoilValue } from "recoil";
+import { authState } from "@/state/authState";
 
 export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const { carData } = props;
@@ -20,6 +20,9 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const guide:string = carData?.frameInfo.manual;
   const carName:string = carData?.frameInfo.carName;
   console.log(props.carData.frameInfo.manual);
+  const auth = useRecoilValue(authState);
+  console.log(auth);
+
 
   return (
     <>

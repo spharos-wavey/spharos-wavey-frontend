@@ -15,8 +15,6 @@ export default function Page() {
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
-      console.log(window.Kakao.isInitialized());
-      console.log(window.Kakao.Auth);
     }
   }, []);
 

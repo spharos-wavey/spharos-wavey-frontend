@@ -1,25 +1,16 @@
-import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import qs from "qs";
 import axios from "axios";
 import { Box, Stack, CircularProgress } from "@mui/material";
 import React from "react";
+import { useRecoilState } from "recoil";
+import { authState } from "@/state/authState";
 
-interface ResponseType {
-  ok: boolean;
-  error?: any;
-}
-
-interface loginDataType {
-  email: String;
-  nickName: String;
-  profileImageUrl: String;
-}
-
-const Kakao: NextPage = () => {
+export default function Kakao() {
   const router = useRouter();
   const { code: authCode, error: kakaoServerError } = router.query;
+  const [auth, setAuth] = useRecoilState(authState);
 
   const REDIRECT_URI = `${process.env.NEXT_PUBLIC_BASE_URL}/kakao`;
   const NEXT_PUBLIC_KAKAO_JS_KEY = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
@@ -60,25 +51,9 @@ const Kakao: NextPage = () => {
           });
           const data = await res.json();
           localStorage.setItem("nickName", data.properties.nickname);
-
-          const postData: loginDataType = {
-            email: data.kakao_account.email,
-            nickName: data.properties.nickname,
-            profileImageUrl: data.properties.profile_image,
-          };
-
-          // setUserEmail(data.email);
-          // setNickName(data.properties.nickname);
-
+          console.log(data)
           try {
-            // const res = await fetch("https://api-billita.xyz/auth/login", {
-            //   method: "POST",
-            //   body: JSON.stringify({
-            //     email: data.kakao_account.email,
-            //     nickName: data.properties.nickname,
-            //     profileImageUrl: data.properties.profile_image,
-            //   }),
-            // });
+            
             axios
               .post("https://api-billita.xyz/auth/login", {
                 email: data.kakao_account.email,
@@ -89,10 +64,21 @@ const Kakao: NextPage = () => {
                 const jwtToken = res.headers.authorization;
                 localStorage.setItem("Authorization", jwtToken);
                 localStorage.setItem("uid", res.headers.uid);
-
-                sessionStorage.getItem("carDetail")
-                  ? router.push(sessionStorage.getItem("carDetail") as string)
-                  : router.push("/");
+                localStorage.setItem("nickName", data.properties.nickname);
+                localStorage.setItem("profileImageUrl", data.properties.profile_image);
+                localStorage.setItem("email", data.kakao_account.email);
+                console.log(data.properties.nickname);
+                console.log(data.properties.profile_image);
+                console.log(data.kakao_account.email);
+                setAuth({
+                  auth: true,
+                  nickName: data.properties.nickname,
+                  profileImageUrl: data.properties.profile_image,
+                  token: jwtToken,
+                  uid: res.headers.uid,
+                  email: data.kakao_account.email,
+                });
+                router.push("/");
               })
               .catch((err) => router.push("/login"));
           } catch (err) {
@@ -106,7 +92,7 @@ const Kakao: NextPage = () => {
       }
     };
     getToken();
-  }, [authCode, CLIENT_ID, REDIRECT_URI, REST_API_KEY, router]);
+  }, [authCode, CLIENT_ID, REDIRECT_URI, REST_API_KEY, router, setAuth]);
 
   return (
     <Box
@@ -121,5 +107,3 @@ const Kakao: NextPage = () => {
     </Box>
   );
 };
-
-export default Kakao;

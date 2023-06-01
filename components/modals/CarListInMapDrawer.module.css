@@ -21,7 +21,7 @@
   background-color: white;
   border-radius: 10px 10px 0 0;
   position: relative;
-  top: 200px;
+  top: 800px;
   left: 0;
   z-index: 102;
   padding: 2rem;
@@ -162,22 +162,22 @@
 
 @keyframes slideOut {
   0% {
-    transform: translateY(0);
+    top: -600px;
     display: block;
   }
   100% {
-    transform: translateY(100%);
+    top: 800px;
     display: none;
   }
 }
 
 @keyframes slideIn {
   0% {
-    transform: translateY(100%);
+    top: 800px;
     display: none;
   }
   100% {
-    transform: translateY(0);
+    top:-600px;
     display: block;
   }
 }
