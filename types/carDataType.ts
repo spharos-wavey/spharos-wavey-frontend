@@ -40,7 +40,7 @@ export interface CarFrameDataType {
   distancePrice: number;
   carType: string;
   appearance: string;
-  manuel: string;
+  manual: string;
   image: string;
 }
 

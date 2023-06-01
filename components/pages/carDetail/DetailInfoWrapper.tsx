@@ -17,6 +17,10 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
     setIsActive(!isActive);
   };
 
+  const guide:string = carData?.frameInfo.manual;
+  const carName:string = carData?.frameInfo.carName;
+  console.log(props.carData.frameInfo.manual);
+
   return (
     <>
       <div
@@ -73,7 +77,7 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
           longitude={carData?.place.longitude}
         /> */}
         <Separator gutter={1.5} padding={true} />
-        <DetailInfo />
+        { guide && <DetailInfo guide={guide} carName={carName}/>}
       </div>
     </>
   );
