@@ -14,7 +14,7 @@ export default function CarManual(props: { guide: string, carName:string }) {
           width={640}
           height={2000}
           alt={"guide"}
-          priority
+          loading="lazy"
           placeholder="blur"
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQC"
         />
