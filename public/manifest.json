@@ -1,0 +1,22 @@
+{
+  "name": "BILLITA",
+  "short_name": "BILLITA",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/assets/images/icons/billita-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/images/icons/billita-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

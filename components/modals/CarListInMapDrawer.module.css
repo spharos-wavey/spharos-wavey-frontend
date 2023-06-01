@@ -7,18 +7,25 @@
   left: 0;
   z-index: 100;
 }
-
 .drawerContainer {
   width: 100%;
-  height: 70vh;
-  background-color: white;
-  border-radius: 10px 10px 0 0;
-  position: fixed;
-  bottom: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
   left: 0;
   z-index: 101;
+}
+.drawerInner {
+  width: 100%;
+  min-height: 80%;
+  background-color: white;
+  border-radius: 10px 10px 0 0;
+  position: relative;
+  top: 200px;
+  left: 0;
+  z-index: 102;
   padding: 2rem;
-  box-shadow: 0px 5px 10px 10px #01c5df;
+  /* box-shadow: 0px 5px 10px 10px #01c5df; */
   /* --webkit-overflow-scrolling: touch; */
   /* animation: slideUp 0.5s ease-in-out; */
 }
@@ -49,13 +56,14 @@
 }
 
 .open {
-  bottom: 0;
-  transition: all 0.5s ease-in-out;
+  animation: slideIn 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+
 }
 
 .close {
-  bottom: -80vh;
-  transition: all 0.5s ease-in-out;
+  animation: slideOut 0.5s ease-in-out;
+  animation-fill-mode: forwards;
 }
 
 @keyframes slideUp {
@@ -143,4 +151,33 @@
 
 .drawerItemImg {
   position: relative;
+}
+
+.closeBtn {
+  width: 100%;
+  position: sticky;
+  top: 5rem;
+  left: 0;
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateY(0);
+    display: block;
+  }
+  100% {
+    transform: translateY(100%);
+    display: none;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(100%);
+    display: none;
+  }
+  100% {
+    transform: translateY(0);
+    display: block;
+  }
 }

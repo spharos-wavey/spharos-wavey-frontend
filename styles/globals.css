@@ -58,8 +58,19 @@ section {
 }
 
 .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
-  font-size: 0.7rem !important;
+  font-size: 0.75rem !important;
 }
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root input {
+  text-align: center !important;
+}
+
+/* .MuiTypography-root {
+  font-size: 0.75rem !important;
+  color: var(--billita-blueHighlight) !important;
+} */
+
+
 
 /* slide panel */
 .some-custom-overlay-class {

@@ -27,6 +27,11 @@ export default Page;
 export const getStaticProps = async () => {
 
   const res = await fetch("https://api-billita.xyz/carbrand");
+  if(res.status !== 200) {
+    return {
+      notFound: true,
+    };
+  }
   const data = await res.json();
 
   return {

@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BottomFixedContainer from "../layouts/BottomFixedContainer";
-import Button from "../ui/Button";
 import { MobileDateTimePicker } from "@mui/x-date-pickers-pro";
-import { useRecoilState } from "recoil";
 import dayjs from "dayjs";
 import { timeType } from "@/types/rentalDataType";
+import Button from "../ui/Button";
+import style from "./TimeSelectModal.module.css";
+import Swal from "sweetalert2";
+import { useSetRecoilState } from "recoil";
+import { nowTimeState } from "@/state/nowTime";
 
-interface timeModal {
-  setReqTime: React.Dispatch<React.SetStateAction<timeType>>;
+interface timeModalType {
   setTimeModal: React.Dispatch<React.SetStateAction<boolean>>;
+  timeModal: boolean;
 }
 
-export default function TimeSelect({ setReqTime, setTimeModal }: timeModal) {
+export default function TimeSelect({ setTimeModal, timeModal }: timeModalType) {
   const [startTime, setStartTime] = useState<dayjs.Dayjs>(
     dayjs().add(10, "minute")
   );
@@ -19,42 +22,45 @@ export default function TimeSelect({ setReqTime, setTimeModal }: timeModal) {
     dayjs().add(70, "minute")
   );
   const [currentTime, setCurrentTime] = useState<dayjs.Dayjs>(dayjs());
+  const setReqTime = useSetRecoilState<timeType>(nowTimeState);
 
   const timeModalHandler = () => {
-    alert("시간이 설정되었습니다!");
+    if(startTime.isAfter(endTime)) {
+      return;
+    } else if(startTime.isSame(endTime)) {
+      return;
+    } else if(startTime.isBefore(currentTime)) {
+      return;
+    }
+
+    Swal.fire({
+      text: "시간 설정이 변경되었습니다.",
+      icon: "success",
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true,
+    });
+
     setReqTime({
       startTime: startTime.format("YYYY-MM-DD HH:mm"),
       endTime: endTime.format("YYYY-MM-DD HH:mm"),
     });
-    setTimeModal(false);
   };
 
   return (
-    <BottomFixedContainer backgroundColor="white">
-      <div style={{ padding: "10px 0px", fontWeight: "bold" }}>
-        시간을 선택해 주세요.
-      </div>
-      <div
-        style={{
-          display: "flex",
-          gap: "15px",
-          padding: "5px 20px",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <div style={{ height: "80%" }}>
+    <div className={!timeModal? style.open : style.close}>
+    <BottomFixedContainer backgroundColor="white" radius={true}>
+        <div style={{ padding: "1rem", display: 'flex', justifyContent: 'space-between' , alignItems: 'center'}}>
           <MobileDateTimePicker
-            label={"출발시간"}
             format={"YYYY/MM/DD HH:mm"}
             value={startTime}
             onChange={(value) => value && setStartTime(value)}
             defaultValue={currentTime}
             minDateTime={dayjs().add(10, "minute").startOf("minute")}
           />
-        </div>
-        <div>
           <MobileDateTimePicker
-            label={"반납시간"}
             format={"YYYY/MM/DD HH:mm"}
             value={endTime}
             onChange={(value) => value && setEndTime(value)}
@@ -62,25 +68,11 @@ export default function TimeSelect({ setReqTime, setTimeModal }: timeModal) {
             minDateTime={startTime.add(1, "hour").startOf("minute")}
           />
         </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          gap: "15px",
-          padding: "0px 30px",
-        }}
-      >
-        <Button
-          btnType="button"
-          submitType="cancel"
-          btnEvent={() => setTimeModal(false)}
-        >
-          취소
+      
+        <Button btnType="button" btnEvent={()=>timeModalHandler()}>
+          시간 설정
         </Button>
-        <Button btnType="button" btnEvent={timeModalHandler}>
-          시간 선택
-        </Button>
-      </div>
     </BottomFixedContainer>
+    </div>
   );
 }

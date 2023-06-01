@@ -35,11 +35,13 @@
     "recoil": "^0.7.7",
     "recoil-persist": "^4.2.0",
     "styled-components": "^6.0.0-rc.1",
+    "sweetalert2": "^11.7.6",
     "typescript": "5.0.4",
     "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26",
+    "next-pwa": "^5.6.0",
     "webpack": "^3.8.0",
     "webpack-dev-server": "^2.9.7"
   }

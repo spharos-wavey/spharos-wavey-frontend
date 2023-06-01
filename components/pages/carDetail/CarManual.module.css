@@ -1,0 +1,36 @@
+.imgbox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgbox img {
+  width: 100%;
+  height: auto;
+}
+
+.title{
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.title span{
+  color: var(--billita-blueHighlight)
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 0.5rem 0 0.8rem 0;
+  opacity: 0.8;
+}
+
+.prepareNotice {
+  font-size: 0.5rem;
+  text-align: center;
+  opacity: 0.5;
+  margin: 0.5rem 0 1rem 0;
+}

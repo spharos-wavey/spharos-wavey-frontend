@@ -2,10 +2,20 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  z-index: 100;
   text-align: center;
   padding: 0;
   margin: 0;
+  animation: slideIn 0.5s ease-in-out;
+  z-index: 20;
   /* box-shadow: 0 -3px 0.3em 3px rgba(139, 139, 139, 0.08);
   background-color: var(--color-white); */
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

@@ -16,11 +16,8 @@ export default function CarListInMapDrawer(props: {
 
   const router = useRouter();
   const handleDetail = (id: number) => {
-    console.log(id);
     router.push(`/car/${id}`);
   };
-
-  // if(!isOpen) return (<></>)
 
   return (
     <>
@@ -37,7 +34,10 @@ export default function CarListInMapDrawer(props: {
             : `${style.drawerContainer} ${style.close}`
         }
       >
-        <CloseOrSlideBtn onClick={() => setIsOpen(false)} />
+        <div className={style.drawerInner}>
+        <div className={style.closeBtn}>
+          <CloseOrSlideBtn onClick={() => setIsOpen(false)} />
+        </div>
         <div className={style.drawerHeader}>
           <div className={style.drawerTitle}>검색된 차량 {data.length}대</div>
           <div className={style.drawerLocation}>
@@ -65,7 +65,7 @@ export default function CarListInMapDrawer(props: {
                     {item.defaultPrice.toLocaleString("ko")}
                   </div>
                   <div className={style.distancePrice}>
-                    <span>추가거리</span> 1km :{" "}
+                    <span>추가거리</span> x :{" "}
                     {item.distancePrice.toLocaleString("ko")}
                   </div>
                 </div>
@@ -83,6 +83,7 @@ export default function CarListInMapDrawer(props: {
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </>

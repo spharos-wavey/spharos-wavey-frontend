@@ -28,11 +28,7 @@ const Kakao: NextPage = () => {
   //const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   useEffect(() => {
-    // if (!window.Kakao.isInitialized()) {
-    //   window.Kakao.init(NEXT_PUBLIC_KAKAO_JS_KEY);
-    //   console.log(window.Kakao.isInitialized);
-    //   console.log(window.Kakao.Auth);
-    // }
+    
     const getToken = async () => {
       const payload = qs.stringify({
         grant_type: "authorization_code",
@@ -51,9 +47,7 @@ const Kakao: NextPage = () => {
           body: payload,
         });
 
-        console.log(res);
         const data = await res.json();
-        console.log(data.access_token);
         localStorage.setItem("token", data.access_token);
 
         try {
@@ -65,7 +59,6 @@ const Kakao: NextPage = () => {
             },
           });
           const data = await res.json();
-          console.log(data);
           localStorage.setItem("nickName", data.properties.nickname);
 
           const postData: loginDataType = {
@@ -113,7 +106,7 @@ const Kakao: NextPage = () => {
       }
     };
     getToken();
-  }, [authCode, CLIENT_ID, REDIRECT_URI, REST_API_KEY]);
+  }, [authCode, CLIENT_ID, REDIRECT_URI, REST_API_KEY, router]);
 
   return (
     <Box
