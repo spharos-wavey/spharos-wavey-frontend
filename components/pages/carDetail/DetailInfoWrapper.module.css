@@ -13,7 +13,14 @@
   box-shadow: 0px 4px 5px 2px #01c5df;
   position: relative;
   filter: contrast(175%) brightness(1.5);
+  top: 0px;
   z-index: 3;
+  transition: top 0.5s;
+}
+
+.slideDown.active {
+  top: 200px;
+  transition: top 0.5s;
 }
 
 .slideDown img {
@@ -51,7 +58,7 @@
 }
 
 .innerContainer.active {
-  top: 150px;
+  top: 200px;
   transition: 0.5s;
 }
 
@@ -68,7 +75,7 @@
 
 .topBackContainer {
   width: 100%;
-  height: 300px;
+  height: 400px;
   position: absolute;
   background-color: var(--billita-gray);
   border-radius: 1rem 1rem 0 0;
@@ -78,6 +85,6 @@
 }
 
 .topBackContainer.active {
-  top: 70px;
+  top: -10px;
   transition: 0.5s;
 }
