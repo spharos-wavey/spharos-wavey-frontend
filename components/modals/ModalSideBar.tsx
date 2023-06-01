@@ -10,14 +10,12 @@ import {
   IsUserRentalNowDataType,
 } from "@/types/rentalDataType";
 import axios from "axios";
-import LogInRequiredModal from "./LogInRequiredModal";
 import Swal from "sweetalert2";
 
 export default function ModalSideBar(props: {
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSideOpen: boolean;
 }) {
-  // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const { isSideOpen, setIsSideOpen } = props;
   const [rentCarData, setRentCarData] = useState<MyRentalCarType[]>(
@@ -86,12 +84,6 @@ export default function ModalSideBar(props: {
 
   return (
     <>
-      {/* <LogInRequiredModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        isLogin={isLogin}
-      /> */}
-
       <div className={style.topWrap}>
         <div className={style.greetingBinding}>
           <div className={style.greeting}>{userName}님</div>

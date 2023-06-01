@@ -113,7 +113,7 @@ export default function KakaoMap() {
     setIsOpen(true);
   };
 
-  if (zoneList.length === 0) return <PageLoader /> 
+  if (zoneList.length === 0) return <PageLoader text={'현재 위치에서 이용가능한 차량을 호출하고 있습니다.'}/> 
 
   return (
     <>

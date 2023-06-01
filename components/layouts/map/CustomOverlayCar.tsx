@@ -29,7 +29,7 @@ export default function CustomOverlayCar(props:{
           alignItems: "center",
         }}
       >
-        <Image src='/assets/images/icons/car-white.svg' width={12} height={12} alt='carIcon' />
+        <Image src='/assets/images/icons/car-white.svg' width={16} height={16} alt='carIcon' />
       </div>
     </CustomOverlayMap>
      

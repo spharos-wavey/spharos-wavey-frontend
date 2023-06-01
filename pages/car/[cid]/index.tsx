@@ -1,12 +1,12 @@
 import React from "react";
 import DetailLayout from "@/components/layouts/carDetail/DatilLayout";
 import DetailInfoWrapper from "@/components/pages/carDetail/DetailInfoWrapper";
-import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { carDataType } from "@/types/carDataType";
 
 export default function carDetail(props: { data: carDataType }) {
+
   return (
     <main id="carDetail">
       <DetailInfoWrapper carData={props.data} />
@@ -15,7 +15,9 @@ export default function carDetail(props: { data: carDataType }) {
 }
 
 carDetail.getLayout = function getLayout(Page: React.ReactNode) {
-  return <DetailLayout>{Page}</DetailLayout>;
+  return (
+  <DetailLayout>{Page}</DetailLayout>
+  )
 };
 
 export const getServerSideProps: GetServerSideProps = async (context:Params) => {

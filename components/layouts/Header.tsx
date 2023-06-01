@@ -1,29 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { headerMenuData } from "@/datas/staticMenuDatas";
 import style from "@/components/layouts/Header.module.css";
 import MenuItem from "./MenuItem";
-import { useRouter } from "next/router";
-import axios from "axios";
-import { carDataType } from "@/types/carDataType";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import ModalSideBar from "../modals/ModalSideBar";
+import { useRecoilState } from "recoil";
+import { authState } from "@/state/authState";
 
 export default function Header() {
-  const [carData, setCarData] = useState<carDataType>();
-  const router = useRouter();
 
-  if (router.query.cid !== undefined) {
-    const getData = async () => {
-      const result = await axios.get(
-        `https://api-billita.xyz/vehicle/${router.query.cid}`
-      );
-      setCarData(result.data);
-    };
-    getData();
-  }
-
-
+  const [auth, setAuth] = useRecoilState(authState)
+  console.log(auth);
   const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
 
   const toggleMenu = (event: any) => {

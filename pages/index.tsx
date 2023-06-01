@@ -5,8 +5,10 @@ import BrandSort from "@/components/pages/main/brandsortSection/BrandSort";
 import VehicleRecommendMain from "@/components/pages/main/vehicleRecommendSection/VehicleRecommendMain";
 import Separator from "@/components/ui/Separator";
 import { brandSortType } from "@/types/brandSortType";
+import { RecoilRoot } from "recoil";
 
 function Page(props: { data: brandSortType[]; }) {
+  
   return (
     <main>
       <LogoMainPage />
@@ -19,7 +21,9 @@ function Page(props: { data: brandSortType[]; }) {
 }
 
 Page.getLayout = function getLayout(Page: React.ReactNode) {
-  return <Layout>{Page}</Layout>;
+  return (
+    <Layout>{Page}</Layout>
+  );
 };
 
 export default Page;
