@@ -7,7 +7,7 @@ export default function BookCar() {
   
   return (
     <main>
-      <CarBook />
+      {/* <CarBook /> */}
     </main>
   );
 }

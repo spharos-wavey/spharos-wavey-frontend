@@ -6,14 +6,15 @@ import { timeType } from "@/types/rentalDataType";
 import Button from "../ui/Button";
 import style from "./TimeSelectModal.module.css";
 import Swal from "sweetalert2";
+import { useSetRecoilState } from "recoil";
+import { nowTimeState } from "@/state/nowTime";
 
 interface timeModalType {
-  setReqTime: React.Dispatch<React.SetStateAction<timeType>>;
   setTimeModal: React.Dispatch<React.SetStateAction<boolean>>;
   timeModal: boolean;
 }
 
-export default function TimeSelect({ setReqTime, setTimeModal, timeModal }: timeModalType) {
+export default function TimeSelect({ setTimeModal, timeModal }: timeModalType) {
   const [startTime, setStartTime] = useState<dayjs.Dayjs>(
     dayjs().add(10, "minute")
   );
@@ -21,6 +22,7 @@ export default function TimeSelect({ setReqTime, setTimeModal, timeModal }: time
     dayjs().add(70, "minute")
   );
   const [currentTime, setCurrentTime] = useState<dayjs.Dayjs>(dayjs());
+  const setReqTime = useSetRecoilState<timeType>(nowTimeState);
 
   const timeModalHandler = () => {
     if(startTime.isAfter(endTime)) {

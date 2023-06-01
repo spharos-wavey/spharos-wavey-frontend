@@ -19,8 +19,6 @@ export default function CarListInMapDrawer(props: {
     router.push(`/car/${id}`);
   };
 
-  // if(!isOpen) return (<></>)
-
   return (
     <>
       {isOpen ? (
