@@ -1,9 +1,6 @@
 export interface carDataType {
   color: string;
-  feature: {
-    열선: boolean;
-    썬루프: boolean;
-  };
+  feature: CarFeatureType;
   number: string;
   latitude: number;
   longitude: number;
@@ -40,7 +37,7 @@ export interface CarFrameDataType {
   distancePrice: number;
   carType: string;
   appearance: string;
-  manuel: string;
+  manual: string;
   image: string;
 }
 
@@ -65,6 +62,26 @@ export interface carListbyBrandDataType {
   zoneAddress: string;
   billitaZone: string;
 }
+
+export interface carListBrandType {
+  content: carListbyBrandDataType[];
+  pageable: {
+    sort: string[];
+    offset: number;
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  size: number;
+  number: number;
+  sort: string[];
+  numberOfElements: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+}
+
 
 export interface carInMapType {
   vehicleId: number;
@@ -91,3 +108,16 @@ export interface BookListDataType {
   imageUrl : string,
   insuranceId : number,
 }
+
+export interface CarFeatureType {
+  열선시트: boolean;
+  썬루프: boolean;
+  가죽시트: boolean;
+  스마트키: boolean;
+  통풍시트: boolean;
+  내비게이션: boolean;
+  자동에어컨: boolean;
+  후방카메라: boolean;
+  헤드램프: boolean;
+  주차감지센서: boolean;
+};

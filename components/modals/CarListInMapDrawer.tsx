@@ -5,6 +5,8 @@ import Image from "next/image";
 import CloseOrSlideBtn from "../ui/CloseOrSlideBtn";
 import ProgressBar from "../ui/ProgressBar";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
+import { redirectionUrlState } from "@/state/redirectionState";
 
 export default function CarListInMapDrawer(props: {
   data: carInMapType[];
@@ -15,12 +17,11 @@ export default function CarListInMapDrawer(props: {
   const { data, isOpen, setIsOpen, zoneName } = props;
 
   const router = useRouter();
+  const setUrlSettion = useSetRecoilState(redirectionUrlState)
   const handleDetail = (id: number) => {
-    console.log(id);
+    setUrlSettion({ redirectUrl: `/map` })
     router.push(`/car/${id}`);
   };
-
-  // if(!isOpen) return (<></>)
 
   return (
     <>
@@ -68,7 +69,7 @@ export default function CarListInMapDrawer(props: {
                     {item.defaultPrice.toLocaleString("ko")}
                   </div>
                   <div className={style.distancePrice}>
-                    <span>추가거리</span> 1km :{" "}
+                    <span>추가거리</span> x :{" "}
                     {item.distancePrice.toLocaleString("ko")}
                   </div>
                 </div>

@@ -1,38 +1,32 @@
 import React from "react";
-import DetailLayout from "@/components/layouts/carDetail/DatilLayout";
+import { GetServerSideProps } from "next";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+import { carDataType } from "@/types/carDataType";
 import DetailInfoWrapper from "@/components/pages/carDetail/DetailInfoWrapper";
-import { useRouter } from "next/router";
+import DetailLayout from "@/components/layouts/carDetail/DetailLayout";
 
-// const getServersideProps = async () => {
-//   const res = await fetch("http://localhost:3000/api/car/1");
-//   const data = await res.json();
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }
+export default function carDetail(props: { data: carDataType }) {
 
-export default function carDetail(props: { data: any }) {
   return (
     <main id="carDetail">
-      <DetailInfoWrapper />
+      <DetailInfoWrapper carData={props.data} />
     </main>
   );
 }
 
 carDetail.getLayout = function getLayout(Page: React.ReactNode) {
-  return <DetailLayout>{Page}</DetailLayout>;
+  return (
+  <DetailLayout>{Page}</DetailLayout>
+  )
 };
 
-// export async function getStaticPaths() {
-//   // 빌드타임에 호출되는 차량 id 받아오기
-//   const res = await fetch('http://..')
-//   const posts = await res.json()
-
-//   const paths = posts.map((post:any) => ({
-//     params: { id: post.id },
-//   }))
-
-//   return { paths, fallback: false}
-// }
+export const getServerSideProps: GetServerSideProps = async (context:Params) => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const res = await fetch(`${API_URL}/vehicle/${context.params.cid}`);
+  const data = await res.json();
+  return {
+    props: {
+      data: data,
+    },
+  };
+}

@@ -12,35 +12,35 @@ import style from "./RentalWrapper.module.css";
 import Separator from "@/components/ui/Separator";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { authState } from "@/state/authState";
 
 export default function RentalWrapper(props: {
   data: RentalDataType;
   rentData: MyRentalCarType;
 }) {
   const { place } = props.data;
-  console.log("props.data", props.data);
-  // const bookId = props.rentId;
   const router = useRouter();
   const [drawer, setDrawer] = useState<boolean>(false);
   const [nextDrawer, setNextDrawer] = useState<boolean>(false);
   const handleDrawer = () => setDrawer(true);
+  const auth = useRecoilValue(authState);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const TOKEN = "Bearer " + auth.token;
 
   const handleCancel = () => {
     setDrawer(false);
     const bookId = router.query.bookId;
-    console.log("bookId", bookId);
     const getData = async () => {
       const result = await axios.delete(
-        `https://api-billita.xyz/rental/${bookId}`,
+        `${API_URL}/rental/${bookId}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
-            uid: localStorage.getItem("uid"),
+            Authorization: TOKEN,
+            uid: auth.uid,
           },
         }
       );
-      console.log("data : ", result.data);
-      console.log("img url : ", result.data.frameInfo.image);
     };
     getData();
   };

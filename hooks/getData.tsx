@@ -6,7 +6,7 @@
 //   const [data, setData] = useState({});
 
 //   useEffect(() => {
-//     axios.get('https://api-billita.xyz/'+url)
+//     axios.get('${API_URL}/'+url)
 //     .then(res => {
 //       return res
 //     })

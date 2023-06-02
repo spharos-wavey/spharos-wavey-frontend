@@ -10,14 +10,20 @@ import {
   IsUserRentalNowDataType,
 } from "@/types/rentalDataType";
 import axios from "axios";
-import LogInRequiredModal from "./LogInRequiredModal";
+import Swal from "sweetalert2";
+import { useRecoilValue } from "recoil";
+import { authState } from "@/state/authState";
+import RentCar from "../ui/RentCar";
 
 export default function ModalSideBar(props: {
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSideOpen: boolean;
 }) {
-  // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isLogin, setIsLogin] = useState<boolean>(false);
+
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const auth = useRecoilValue(authState);
+  const TOKEN = "Bearer " + auth.token;
+  
   const { isSideOpen, setIsSideOpen } = props;
   const [rentCarData, setRentCarData] = useState<MyRentalCarType[]>(
     [] as MyRentalCarType[]
@@ -25,7 +31,6 @@ export default function ModalSideBar(props: {
   const [userName, setUserName] = useState<string>("");
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
-  console.log(`router.query:`, router.query);
 
   const handleLogout = () => {
     localStorage.removeItem("Authorization");
@@ -33,63 +38,63 @@ export default function ModalSideBar(props: {
     localStorage.removeItem("nickName");
     sessionStorage.removeItem("carDetail");
     setIsSideOpen(false);
+    Swal.fire({
+      text: "로그아웃 되었습니다.",
+      icon: "success",
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: false,
+    });
   };
 
   useEffect(() => {
-    if (!localStorage.getItem("Authorization") && !localStorage.getItem("uid"))
-      return;
-    const getData = async () => {
-      try {
-        const token = "Bearer " + localStorage.getItem("Authorization");
-        const uid = localStorage.getItem("uid");
-        const res = await axios.get(
-          `https://api-billita.xyz/rental/${PURCASE_STATE}`,
-          {
-            headers: {
-              Authorization: token,
-              uid: uid,
-            },
-          }
-        );
-        const data = res.data;
-        setRentCarData(data);
-        console.log(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getData();
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const nickName = localStorage.getItem("nickName");
-      if (nickName !== undefined && typeof nickName === "string") {
-        setUserName(nickName);
-      } else {
-        setUserName("빌리타");
-      }
-      console.log(userName);
+    
+    if (auth.auth) {
+      const getData = async () => {
+        try {
+          const res = await axios.get(
+            `${API_URL}/rental/${PURCASE_STATE}`,
+            {
+              headers: {
+                Authorization: TOKEN,
+                uid: auth.uid,
+              },
+            }
+          );
+          const data = res.data;
+          setRentCarData(data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getData();
     }
-  }, []);
+  }, [auth]);
 
   const actionToHistory = () => {
     router.push("/rentHistory");
   };
- 
+
   return (
     <>
-      {/* <LogInRequiredModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        isLogin={isLogin}
-      /> */}
-
       <div className={style.topWrap}>
         <div className={style.greetingBinding}>
-          <div className={style.greeting}>{userName}님</div>
+          <div className={style.greeting}>{auth.nickName ? auth.nickName : '빌리타'}님</div>
           <div className={style.greeting}>안녕하세요!</div>
-          <div className={style.bluehighlightsmfont}>마이페이지</div>
+          { !auth.auth ? (
+            <div
+              className={style.bluehighlightbtn}
+              onClick={() => router.push("/login")}
+            >
+              로그인 하기
+            </div>
+          ) : (
+            <div className={style.bluehighlightbtn} onClick={handleLogout}>
+              로그아웃
+            </div>
+          )}
         </div>
         <div className={style.backBtn} onClick={() => setIsSideOpen(false)}>
           <Image
@@ -110,10 +115,14 @@ export default function ModalSideBar(props: {
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
           <li onClick={() => actionToHistory()}>이용내역</li>
-          <li >스마트키</li>
+          <li>스마트키</li>
           <li>결제카드 등록</li>
           <li>이벤트/쿠폰</li>
-          <li onClick={handleLogout}>로그아웃</li>
+          {userName !== "빌리타" ? (
+            <li onClick={handleLogout}>로그아웃</li>
+          ) : (
+            <></>
+          )}
         </ul>
       </div>
 
@@ -140,80 +149,6 @@ const RentCarNonExist = () => {
         <SectionTitle fontSize={0.8}>
           현재 대여중인 차량이 없습니다.
         </SectionTitle>
-      </div>
-    </div>
-  );
-};
-
-const RentCar = (props: {
-  rentCarData: MyRentalCarType;
-  setIsSideOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
-  const router = useRouter();
-
-  const { rentCarData } = props;
-  const [summaryData, setSummaryData] = useState<IsUserRentalNowDataType>(
-    {} as IsUserRentalNowDataType
-  );
-
-  useEffect(() => {
-    const getCurrentRentKeyData = async () => {
-      try {
-        const token = "Bearer " + localStorage.getItem("Authorization");
-        const uid = localStorage.getItem("uid");
-        const res = await axios.get(
-          `https://api-billita.xyz/booklist/summary/${rentCarData.vehicleId}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        const data = res.data;
-        setSummaryData(data);
-        console.log(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCurrentRentKeyData();
-  }, []);
-
-  const handlePush = () => {
-    props.setIsSideOpen(false);
-    router.push(`/rental/${rentCarData.rentalId}/detail`);
-  };
-  const serviceStartTime = new Date(rentCarData.startDate);
-  const serviceEndTime = new Date(rentCarData.endDate);
-
-  return (
-    <div className={style.grayWrapper} onClick={handlePush}>
-      <div className={style.paddingWrap}>
-        <SectionTitle fontSize={1}>대여 차량</SectionTitle>
-        <Separator gutter={1.2} />
-        <div className={style.reserveWrapper}>
-          <div className={style.textWrap}>
-            <div className={style.carName}>
-              {summaryData?.brandName} {summaryData?.carName}
-            </div>
-            <div className={style.period}>
-              {serviceStartTime.getMonth()+1}월 {serviceStartTime.getDate()}일{" "}
-              {serviceStartTime.getHours()}:
-              {String(serviceStartTime.getMinutes()).padStart(2, "0")} -{" "}
-              {serviceEndTime.getMonth()}월 {serviceEndTime.getDate()}일{" "}
-              {serviceEndTime.getHours()}:
-              {String(serviceEndTime.getMinutes()).padStart(2, "0")}
-            </div>
-          </div>
-          <div className={style.imgWrap}>
-            <Image
-              src={summaryData.imageUrl}
-              width="300"
-              height="300"
-              alt={summaryData?.carName}
-            />
-          </div>
-        </div>
       </div>
     </div>
   );

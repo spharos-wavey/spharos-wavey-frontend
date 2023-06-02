@@ -4,13 +4,17 @@ import RentalWrapper from "@/components/pages/rental/RentalWrapper";
 import { MyRentalCarType, RentalDataType } from "@/types/rentalDataType";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
+import { authState } from "@/state/authState";
 
 export default function Detail() {
   const router = useRouter();
   const { rentId } = router.query;
   const [rentData, setRentData] = useState<MyRentalCarType>({} as MyRentalCarType);
   const [carData, setCarData] = useState<RentalDataType>();
-
+  const auth = useRecoilValue(authState);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const TOKEN = "Bearer " + auth.token;
 
 
   useEffect(() => {
@@ -18,13 +22,11 @@ export default function Detail() {
       if (rentId !== undefined) {
         try {
           const response = await axios.get(
-            `https://api-billita.xyz/rental?id=${rentId}`,
+            `${API_URL}/rental?id=${rentId}`,
             {
               headers: {
-                Authorization: `Bearer ${localStorage.getItem(
-                  "Authorization"
-                )}`,
-                uid: localStorage.getItem("uid"),
+                Authorization: TOKEN,
+                uid: auth.uid,
               },
             }
           );
@@ -40,7 +42,7 @@ export default function Detail() {
   }, [rentId]);
 
   const getBookData = async (v_id: number) => {
-    const res = await axios.get(`https://api-billita.xyz/vehicle/${v_id}`);
+    const res = await axios.get(`${API_URL}/vehicle/${v_id}`);
 
     const data = res.data;
     setCarData(data);
@@ -52,22 +54,3 @@ export default function Detail() {
 Detail.getLayout = function getLayout(Page: React.ReactNode) {
   return <SimpleBackLayout title="대여 내용 상세">{Page}</SimpleBackLayout>;
 };
-
-// export async function getServerSideProps(context: {
-//   query: { v_id: string };
-// }) {
-//   try {
-//     const res = await axios.get(`https://api-billita.xyz/vehicle/${context.query.v_id}`);
-//     const data = res.data;
-//     console.log(data);
-
-//     if(res.status === 200) {
-//       return {
-//         props: {
-//           data: data,
-//         },
-//       };
-//     }
-//   } catch (err) {
-//   }
-// }

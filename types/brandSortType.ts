@@ -3,3 +3,4 @@ export interface brandSortType {
   brandName: string;
   brandImgUrl?: string;
 }
+

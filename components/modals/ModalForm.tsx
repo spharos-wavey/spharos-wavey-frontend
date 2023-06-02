@@ -7,7 +7,6 @@ export default function ModalForm(props: {
   startDate?: Date;
   endDate?: Date;
 }) {
-  console.log(props.startDate);
   
   return (
     <div className={style.modalWrap}>
