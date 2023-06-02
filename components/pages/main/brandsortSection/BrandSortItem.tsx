@@ -18,7 +18,7 @@ export default function BrandSortItem(props: { item: brandSortType }) {
         console.log(error)
       });
     }
-  }, [lat, lng]);
+  }, []);
 
   const handleSortbyBrand = () => {
     router.push(`/car/brand?brandId=${props.item.id}&brandName=${props.item.brandName}&lat=${lat}&lng=${lng}`);

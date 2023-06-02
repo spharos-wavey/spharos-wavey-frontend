@@ -26,11 +26,14 @@ BrandSort.getLayout = function getLayout(Page: React.ReactNode) {
 export default BrandSort;
 
 export const getServerSideProps = async (context: Params) => {
-  const { brandId } = context.query;
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  
+  const url = `${API_URL}/carbrand/maker/${context.query.brandId}?lat=${context.query.lat}&lng=${context.query.lng}&page=1&size=20`;
+  console.log('apiurl',url)
 
-  const res = await fetch(`${API_URL}/carbrand/maker/${brandId}`);
+  const res = await fetch(url);
   const data = await res.json();
+  console.log(data)
 
   return {
     props: {
