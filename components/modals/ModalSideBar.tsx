@@ -13,6 +13,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
+import RentCar from "../ui/RentCar";
 
 export default function ModalSideBar(props: {
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -148,79 +149,6 @@ const RentCarNonExist = () => {
         <SectionTitle fontSize={0.8}>
           현재 대여중인 차량이 없습니다.
         </SectionTitle>
-      </div>
-    </div>
-  );
-};
-
-const RentCar = (props: {
-  rentCarData: MyRentalCarType;
-  setIsSideOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
-  const router = useRouter();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const { rentCarData } = props;
-  const [summaryData, setSummaryData] = useState<IsUserRentalNowDataType>(
-    {} as IsUserRentalNowDataType
-  );
-
-  useEffect(() => {
-    const getCurrentRentKeyData = async () => {
-      try {
-        const token = "Bearer " + localStorage.getItem("Authorization");
-        const uid = auth.uid;
-        const res = await axios.get(
-          `${API_URL}/booklist/summary/${rentCarData.vehicleId}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        const data = res.data;
-        setSummaryData(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCurrentRentKeyData();
-  }, []);
-
-  const handlePush = () => {
-    props.setIsSideOpen(false);
-    router.push(`/rental/${rentCarData.rentalId}/detail`);
-  };
-  const serviceStartTime = new Date(rentCarData.startDate);
-  const serviceEndTime = new Date(rentCarData.endDate);
-
-  return (
-    <div className={style.grayWrapper} onClick={handlePush}>
-      <div className={style.paddingWrap}>
-        <SectionTitle fontSize={1}>대여 차량</SectionTitle>
-        <Separator gutter={1.2} />
-        <div className={style.reserveWrapper}>
-          <div className={style.textWrap}>
-            <div className={style.carName}>
-              {summaryData?.brandName} {summaryData?.carName}
-            </div>
-            <div className={style.period}>
-              {serviceStartTime.getMonth() + 1}월 {serviceStartTime.getDate()}일{" "}
-              {serviceStartTime.getHours()}:
-              {String(serviceStartTime.getMinutes()).padStart(2, "0")} -{" "}
-              {serviceEndTime.getMonth() + 1}월 {serviceEndTime.getDate()}일{" "}
-              {serviceEndTime.getHours()}:
-              {String(serviceEndTime.getMinutes()).padStart(2, "0")}
-            </div>
-          </div>
-          <div className={style.imgWrap}>
-            <Image
-              src={summaryData.imageUrl}
-              width="300"
-              height="300"
-              alt={summaryData?.carName}
-            />
-          </div>
-        </div>
       </div>
     </div>
   );
