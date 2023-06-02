@@ -5,6 +5,7 @@ import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import { useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
+import LicenseWrapper from "@/components/pages/license/LicenseWrapper";
 
 export default function DetailLayout(props: { children: React.ReactNode }) {
 
@@ -12,9 +13,9 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
   const router = useRouter();
-  const cid = router.query.cid;
 
   const [canRental, setCanRental] = useState<boolean>(true);
+  const [isLicense, setIsLicense] = useState<boolean>(false);
 
   useEffect(() => {
     if (auth.auth) {
@@ -38,12 +39,12 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   }, []);
 
   const handleCheckNextStep = () => {
-    sessionStorage.setItem("redirectUrl",`/car/${cid}/license`)
-    router.push(`/car/${cid}/license`);
+    setIsLicense(true);
   }
 
   return (
     <>
+      <LicenseWrapper isOpen={isLicense} setIsOpen={setIsLicense}/>
       <DetailHeader />
       <div>{props.children}</div>
       {

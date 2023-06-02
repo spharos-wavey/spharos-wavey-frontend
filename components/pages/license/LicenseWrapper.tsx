@@ -23,10 +23,9 @@ import Button from "@/components/ui/Button";
 import style from "./LicenseWrapper.module.css";
 import CloseBtn from "@/components/ui/CloseBtn";
 
-export default function LicenseWrapper() {
+export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Dispatch<React.SetStateAction<boolean>>}) {
 
   const router = useRouter();
-  const { cid } = router.query;
   const [inputError, setInputError] = useState<LicenseInputType>({
     level: "",
     type: "",
@@ -202,7 +201,6 @@ export default function LicenseWrapper() {
           console.log(res.status, res.ok);
           if (res.status === 200) {
             console.log("ok");
-
             router.push(`/car/${router.query.cid}/book`);
           } else {
             console.log("not ok");
@@ -217,7 +215,6 @@ export default function LicenseWrapper() {
   return (
     <>
     <section className={style.licenseWrap}>
-      <CloseBtn align={'right'} />
       <FormGroup>
         <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
         <Separator gutter={1} />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import style from "./DetailInfoWrapper.module.css";
 import Image from "next/image";
 import DetailInfo from "./DetailInfo";
