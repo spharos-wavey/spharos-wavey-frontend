@@ -63,6 +63,26 @@ export interface carListbyBrandDataType {
   billitaZone: string;
 }
 
+export interface carListBrandType {
+  content: carListbyBrandDataType[];
+  pageable: {
+    sort: string[];
+    offset: number;
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  size: number;
+  number: number;
+  sort: string[];
+  numberOfElements: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+}
+
+
 export interface carInMapType {
   vehicleId: number;
   carName: string;

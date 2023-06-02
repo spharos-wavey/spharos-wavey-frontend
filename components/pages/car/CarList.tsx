@@ -1,4 +1,4 @@
-import { carListbyBrandDataType } from "@/types/carDataType";
+import { carListBrandType, carListbyBrandDataType } from "@/types/carDataType";
 import style from "./CarList.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -6,11 +6,11 @@ import ProgressBar from "@/components/ui/ProgressBar";
 import { useSetRecoilState } from "recoil";
 import { redirectionUrlState } from "@/state/redirectionState";
 
-export default function CarList(props: { data: carListbyBrandDataType[] }) {
+export default function CarList(props: { data: carListBrandType }) {
   const carList = props.data;
   const router = useRouter();
   const brandName = router.query.brandName;
-  const dataLength = carList.length;
+  const dataLength = carList.content.length;
 
   const setUrlSettion = useSetRecoilState(redirectionUrlState)
   const handleOpenCarDetail = (vehicleId: number) => {
@@ -28,7 +28,7 @@ export default function CarList(props: { data: carListbyBrandDataType[] }) {
         </div>
       </div>
       <div className={style.listBody}>
-        {carList.map((item) => {
+        {dataLength > 0 && carList.content.map((item:carListbyBrandDataType) => {
           return (
             <div
               key={item.vehicleId}

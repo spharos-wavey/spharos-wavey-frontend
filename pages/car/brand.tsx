@@ -3,9 +3,9 @@ import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import { useRouter } from "next/router";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import CarList from "@/components/pages/car/CarList";
-import { carListbyBrandDataType } from "@/types/carDataType";
+import { carListBrandType } from "@/types/carDataType";
 
-function BrandSort(props: { data: carListbyBrandDataType[] }) {
+function BrandSort(props: { data: carListBrandType }) {
   const router = useRouter();
   const { brandName } = router.query;
   const { data } = props;
