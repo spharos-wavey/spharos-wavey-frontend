@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  TextField,
   MenuItem,
-  Stack,
-  Button,
   Select,
   SelectChangeEvent,
   FormControl,
@@ -17,24 +14,20 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import Separator from "@/components/ui/Separator";
 import { LicenseInputType } from "@/types/licenseType";
 import { useRouter } from "next/router";
-import { Co2Sharp } from "@mui/icons-material";
+import { Co2Sharp, Style } from "@mui/icons-material";
 import Swal from "sweetalert2";
 import { useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
+import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
+import Button from "@/components/ui/Button";
+
+import style from "./LicenseWrapper.module.css";
+import CloseBtn from "@/components/ui/CloseBtn";
+
 export default function LicenseWrapper() {
+
   const router = useRouter();
-
-  const [token, setToken] = useState<string | null>();
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.getItem("Authorization")
-        ? setToken(localStorage.getItem("Authorization"))
-        : router.push("/login");
-      return;
-    }
-  }, []);
-
+  const { cid } = router.query;
   const [inputError, setInputError] = useState<LicenseInputType>({
     level: "",
     type: "",
@@ -222,8 +215,14 @@ export default function LicenseWrapper() {
     postData();
   };
 
+  const handleClose = () => {
+    router.push(`/car/${cid}`);
+  };
+
   return (
-    <section>
+    <>
+    <section className={style.licenseWrap}>
+      <CloseBtn align={'right'} />
       <FormGroup>
         <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
         <Separator gutter={1} />
@@ -388,15 +387,17 @@ export default function LicenseWrapper() {
           </FormControl>
           <Separator gutter={5} />
         </Box>
-        <Button
-          type="button"
-          variant="contained"
-          sx={{ width: "100%" }}
-          onClick={handleFormSubmit}
-        >
-          다음
-        </Button>
       </FormGroup>
     </section>
+    <BottomFixedContainer backgroundColor="transparent">
+      <Button
+        btnType={"button"}
+        btnEvent={() => console.log("go")}
+        shadow={true}
+      >
+        면허정보확인 
+      </Button>
+    </BottomFixedContainer> 
+    </>
   );
 }
