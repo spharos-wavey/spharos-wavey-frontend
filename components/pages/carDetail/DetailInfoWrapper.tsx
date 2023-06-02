@@ -5,7 +5,7 @@ import DetailInfo from "./DetailInfo";
 import DetailInfoTop from "./DetailInfoTop";
 import Separator from "@/components/ui/Separator";
 import { Map } from "react-kakao-maps-sdk";
-import { carDataType } from "@/types/carDataType";
+import { CarFeatureType, carDataType } from "@/types/carDataType";
 import CustomOverlayCar from "@/components/layouts/map/CustomOverlayCar";
 
 export default function DetailInfoWrapper(props: { carData: carDataType }) {
@@ -16,7 +16,7 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
   };
   const guide = carData?.frameInfo.manual;
   const carName = carData?.frameInfo.carName;
-  const carFeature = carData?.feature;
+  const carFeature:CarFeatureType = carData?.feature;
 
   return (
     <>
@@ -74,7 +74,7 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
           longitude={carData?.place.longitude}
         /> */}
         <Separator gutter={1.5} padding={true} />
-        { guide && <DetailInfo guide={guide} carName={carName} carFeature={carFeature}/>}
+        { guide && <DetailInfo guide={guide} carName={carName} />}
       </div>
     </>
   );
