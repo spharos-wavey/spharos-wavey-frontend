@@ -6,7 +6,7 @@ import CarManual from "./CarManual";
 import CarCommentContainer from "./CarCommentContainer";
 import Separator from "@/components/ui/Separator";
 
-export default function DetailInfo(props : {guide : string, carName : string}) {
+export default function DetailInfo(props : {guide : string, carName : string, carFeature: object}) {
   const [optionView, setOptionView] = useState(true);
   const [manualView, setManualView] = useState(false);
   const [commentView, setCommentView] = useState(false);
@@ -49,7 +49,7 @@ export default function DetailInfo(props : {guide : string, carName : string}) {
         />
       </div>
       <Separator gutter={1} padding={true} />
-      {optionView ? <CarOption /> : ""}
+      {optionView ? <CarOption carFeature={props.carFeature}/> : ""}
       {manualView ? <CarManual 
           guide = {props.guide} carName={props.carName} /> : ""}
       {commentView ? <CarCommentContainer /> : ""}

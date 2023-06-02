@@ -1,17 +1,6 @@
 export interface carDataType {
   color: string;
-  feature: {
-    열선시트: boolean;
-    썬루프: boolean;
-    가죽시트: boolean;
-    스마트키: boolean;
-    통풍시트: boolean;
-    내비게이션: boolean;
-    자동에어컨: boolean;
-    후방카메라: boolean;
-    헤드램프: boolean;
-    주차감지센서: boolean;
-  };
+  feature: CarFeatureType;
   number: string;
   latitude: number;
   longitude: number;
@@ -99,3 +88,16 @@ export interface BookListDataType {
   imageUrl : string,
   insuranceId : number,
 }
+
+export interface CarFeatureType {
+  열선시트: boolean;
+  썬루프: boolean;
+  가죽시트: boolean;
+  스마트키: boolean;
+  통풍시트: boolean;
+  내비게이션: boolean;
+  자동에어컨: boolean;
+  후방카메라: boolean;
+  헤드램프: boolean;
+  주차감지센서: boolean;
+};

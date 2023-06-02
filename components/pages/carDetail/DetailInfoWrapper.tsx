@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./DetailInfoWrapper.module.css";
 import Image from "next/image";
+import DetailInfo from "./DetailInfo";
 import DetailInfoTop from "./DetailInfoTop";
 import Separator from "@/components/ui/Separator";
 import { Map } from "react-kakao-maps-sdk";
@@ -13,6 +14,9 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const handleActive = () => {
     setIsActive(!isActive);
   };
+  const guide = carData?.frameInfo.manual;
+  const carName = carData?.frameInfo.carName;
+  const carFeature = carData?.feature;
 
   return (
     <>
@@ -70,7 +74,7 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
           longitude={carData?.place.longitude}
         /> */}
         <Separator gutter={1.5} padding={true} />
-        {/* { guide && <DetailInfo guide={guide} carName={carName}/>} */}
+        { guide && <DetailInfo guide={guide} carName={carName} carFeature={carFeature}/>}
       </div>
     </>
   );
