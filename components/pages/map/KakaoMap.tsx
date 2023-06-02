@@ -73,7 +73,9 @@ export default function KakaoMap() {
       const result = await axios.get(
         `${API_URL}/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${lat}&lng=${lng}`
       );
+      if(result.data.length > 0) {
       setZoneList(result.data);
+      }
       console.log("빌리타존: ", result.data);
     };
     getData();
