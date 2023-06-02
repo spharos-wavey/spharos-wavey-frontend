@@ -10,8 +10,12 @@ export default function SimpleBackLayout(props: {
   const { brandName } = router.query;
 
   const pageUlr = router.pathname;
-  console.log(pageUlr)
+
   const handleBack = () => {
+    if (pageUlr === "/car/brand") {
+      router.push("/");
+      return;
+    }
     router.back();
   }
 

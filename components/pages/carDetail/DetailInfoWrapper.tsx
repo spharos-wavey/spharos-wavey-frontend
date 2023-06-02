@@ -12,7 +12,7 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const { carData } = props;
   const [isActive, setIsActive] = useState<boolean>(false);
   const handleActive = () => {
-    setIsActive(!isActive);
+    setIsActive(!isActive)
   };
   const guide = carData?.frameInfo.manual;
   const carName = carData?.frameInfo.carName;
