@@ -3,6 +3,8 @@ import style from "./CarList.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import ProgressBar from "@/components/ui/ProgressBar";
+import { useSetRecoilState } from "recoil";
+import { redirectionUrlState } from "@/state/redirectionState";
 
 export default function CarList(props: { data: carListbyBrandDataType[] }) {
   const carList = props.data;
@@ -10,7 +12,9 @@ export default function CarList(props: { data: carListbyBrandDataType[] }) {
   const brandName = router.query.brandName;
   const dataLength = carList.length;
 
+  const setUrlSettion = useSetRecoilState(redirectionUrlState)
   const handleOpenCarDetail = (vehicleId: number) => {
+    setUrlSettion({ redirectUrl: router.asPath })
     router.push(`/car/${vehicleId}`);
   };
 

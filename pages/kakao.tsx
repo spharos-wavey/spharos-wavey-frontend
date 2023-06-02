@@ -42,20 +42,19 @@ export default function Kakao() {
           body: payload,
         });
 
-        const data = await res.json();
-        localStorage.setItem("token", data.access_token);
+        const kakaoData = await res.json();
 
         try {
+          console.log(kakaoData);
+          const kakaoToken = 'Bearer ' + kakaoData.access_token;
           const res = await fetch("https://kapi.kakao.com/v2/user/me", {
             method: "GET",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: kakaoToken,
             },
           });
           const data = await res.json();
-          localStorage.setItem("nickName", data.properties.nickname);
-          console.log(data)
           try {
             
             axios
@@ -66,7 +65,7 @@ export default function Kakao() {
               })
               .then((res) => {
                 const jwtToken = res.headers.authorization;
-                localStorage.setItem("Authorization", jwtToken);
+                localStorage.setItem("token", jwtToken);
                 localStorage.setItem("uid", res.headers.uid);
                 localStorage.setItem("nickName", data.properties.nickname);
                 localStorage.setItem("profileImageUrl", data.properties.profile_image);
@@ -82,14 +81,12 @@ export default function Kakao() {
                   uid: res.headers.uid,
                   email: data.kakao_account.email,
                 });
-                if( redirectUrl !== null || redirectUrl !== undefined || redirectUrl !== "" ) {
+                if( redirectUrl !== null && redirectUrl !== undefined && redirectUrl !== "") {
                   router.push(redirectUrl as string);
-                } else {
-                  router.push("/");
-                }
+                } 
+                router.push("/");
               })
-              .catch((err) => router.push("/login"));
-          } catch (err) {
+            } catch (err) {
             console.log(err);
           }
         } catch (err) {

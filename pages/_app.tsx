@@ -5,7 +5,7 @@ import "@/styles/globals.css";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { type ReactElement, type ReactNode } from "react";
-import { RecoilRoot, useRecoilValue } from "recoil";
+import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -38,11 +38,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
 function Auth({ children: page }: { children: ReactNode }) {
   
-  const auth = useRecoilValue(authState);
+  const [auth, setAuth] = useRecoilState(authState);
   console.log(auth);
-  if (!auth.auth) {
+  if (!auth.auth && localStorage.getItem("token")===null) {
     return <AuthChecker />
-  }
-  
+  } 
   return <>{page}</>;
 }
