@@ -9,6 +9,8 @@ export default function SimpleBackLayout(props: {
   const router = useRouter();
   const { brandName } = router.query;
 
+  const pageUlr = router.pathname;
+  console.log(pageUlr)
   const handleBack = () => {
     router.back();
   }

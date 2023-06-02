@@ -86,3 +86,16 @@ section {
   margin: 0px !important;
   padding: 0px !important;
 }
+
+/* mui form */
+#demo-simple-select-standard, #demo-simple-select-standard-label {
+  font-size: 0.8rem !important;
+}
+.css-q8hpuo-MuiFormControl-root input ,.css-q8hpuo-MuiFormControl-root label {
+  font-size: 0.8rem !important;
+}
+
+#licenseNumber-helper-text {
+  font-size: 0.7rem !important;
+  color: var(--billita-blueHighlight) !important;
+}
