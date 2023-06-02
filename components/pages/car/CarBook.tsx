@@ -18,6 +18,7 @@ export default function CarBook() {
   const [nextDrawer, setNextDrawer] = useState<boolean>(false);
   const [userName, setUserName] = useState<string | null>();
   const [bookId, setBookId] = useState<number>(0);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const userName = localStorage.getItem("nickName");
@@ -28,7 +29,7 @@ export default function CarBook() {
     if (router.query.cid !== undefined) {
       const getData = async () => {
         const result = await axios.get(
-          `https://api-billita.xyz/vehicle/${router.query.cid}`
+          `${API_URL}/vehicle/${router.query.cid}`
         );
         setCarData(result.data);
       };
@@ -55,7 +56,7 @@ export default function CarBook() {
           endDate: "2023-05-21 22:00"
         };
         const res = await axios.post(
-          `https://api-billita.xyz/booklist`,
+          `${API_URL}/booklist`,
           requestBody,
           {
             headers: {

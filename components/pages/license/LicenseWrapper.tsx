@@ -19,6 +19,8 @@ import { LicenseInputType } from "@/types/licenseType";
 import { useRouter } from "next/router";
 import { Co2Sharp } from "@mui/icons-material";
 import Swal from "sweetalert2";
+import { useRecoilValue } from "recoil";
+import { authState } from "@/state/authState";
 export default function LicenseWrapper() {
   const router = useRouter();
 
@@ -177,18 +179,20 @@ export default function LicenseWrapper() {
       timerProgressBar: true,
     });
   };
+  const auth = useRecoilValue(authState);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const TOKEN = "Bearer " + auth.token;
 
   const handleFormSubmit = () => {
     const errors = validateForm();
     console.log(errors);
 
     const postData = async () => {
-      const token = "Bearer " + localStorage.getItem("Authorization");
-      await fetch("https://api-billita.xyz/booklist/check/license", {
+      await fetch(`${API_URL}/booklist/check/license`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: token,
+          Authorization: TOKEN,
         },
         body: JSON.stringify({
           level: inputData.level,

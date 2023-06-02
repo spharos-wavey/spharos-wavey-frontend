@@ -30,7 +30,8 @@ export default Page;
 
 export const getStaticProps = async () => {
 
-  const res = await fetch("https://api-billita.xyz/carbrand");
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const res = await fetch(`${API_URL}/carbrand`);
   if(res.status !== 200) {
     return {
       notFound: true,

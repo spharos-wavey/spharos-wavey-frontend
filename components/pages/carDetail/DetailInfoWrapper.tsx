@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./DetailInfoWrapper.module.css";
 import Image from "next/image";
 import DetailInfoTop from "./DetailInfoTop";
 import Separator from "@/components/ui/Separator";
 import { Map } from "react-kakao-maps-sdk";
-import DetailInfo from "./DetailInfo";
 import { carDataType } from "@/types/carDataType";
 import CustomOverlayCar from "@/components/layouts/map/CustomOverlayCar";
-import { useRecoilValue } from "recoil";
-import { authState } from "@/state/authState";
 
 export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const { carData } = props;
@@ -16,13 +13,6 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const handleActive = () => {
     setIsActive(!isActive);
   };
-
-  const guide:string = carData?.frameInfo.manual;
-  const carName:string = carData?.frameInfo.carName;
-  console.log(props.carData.frameInfo.manual);
-  const auth = useRecoilValue(authState);
-  console.log(auth);
-
 
   return (
     <>
@@ -80,7 +70,7 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
           longitude={carData?.place.longitude}
         /> */}
         <Separator gutter={1.5} padding={true} />
-        { guide && <DetailInfo guide={guide} carName={carName}/>}
+        {/* { guide && <DetailInfo guide={guide} carName={carName}/>} */}
       </div>
     </>
   );

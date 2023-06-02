@@ -27,8 +27,9 @@ export default BrandSort;
 
 export const getServerSideProps = async (context: Params) => {
   const { brandId } = context.query;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  const res = await fetch(`https://api-billita.xyz/carbrand/maker/${brandId}`);
+  const res = await fetch(`${API_URL}/carbrand/maker/${brandId}`);
   const data = await res.json();
 
   return {

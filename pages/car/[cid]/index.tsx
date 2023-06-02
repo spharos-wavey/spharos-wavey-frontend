@@ -21,10 +21,9 @@ carDetail.getLayout = function getLayout(Page: React.ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context:Params) => {
-  console.log(context.params.cid);
-  const res = await fetch(`https://api-billita.xyz/vehicle/${context.params.cid}`);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const res = await fetch(`${API_URL}/vehicle/${context.params.cid}`);
   const data = await res.json();
-  console.log(data);
   return {
     props: {
       data: data,
