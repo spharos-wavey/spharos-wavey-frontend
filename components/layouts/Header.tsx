@@ -5,13 +5,9 @@ import MenuItem from "./MenuItem";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import ModalSideBar from "../modals/ModalSideBar";
-import { useRecoilState } from "recoil";
-import { authState } from "@/state/authState";
 
 export default function Header() {
 
-  const [auth, setAuth] = useRecoilState(authState)
-  console.log(auth);
   const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
 
   const toggleMenu = (event: any) => {

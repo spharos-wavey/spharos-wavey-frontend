@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   MenuItem,
@@ -14,7 +14,6 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import Separator from "@/components/ui/Separator";
 import { LicenseInputType } from "@/types/licenseType";
 import { useRouter } from "next/router";
-import { Co2Sharp, Style } from "@mui/icons-material";
 import Swal from "sweetalert2";
 import { useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
@@ -215,10 +214,6 @@ export default function LicenseWrapper() {
     postData();
   };
 
-  const handleClose = () => {
-    router.push(`/car/${cid}`);
-  };
-
   return (
     <>
     <section className={style.licenseWrap}>
@@ -243,9 +238,7 @@ export default function LicenseWrapper() {
               <MenuItem value="2종">2종</MenuItem>
             </Select>
           </FormControl>
-
           <Separator gutter={1} />
-
           <FormControl variant="standard" fullWidth>
             <InputLabel id="demo-simple-select-standard-label">
               면허구분
@@ -323,7 +316,6 @@ export default function LicenseWrapper() {
             </FormHelperText>
           </FormControl>
           <Separator gutter={5} />
-
           <SectionTitle fontSize={0.85}>개인정보입력</SectionTitle>
           <FormControl variant="standard" fullWidth>
             <InputLabel htmlFor="userName">이름</InputLabel>
@@ -355,7 +347,6 @@ export default function LicenseWrapper() {
             </FormHelperText>
           </FormControl>
           <Separator gutter={1} />
-
           <FormControl variant="standard" fullWidth>
             <InputLabel htmlFor="address">주소</InputLabel>
             <Input

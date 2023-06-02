@@ -5,9 +5,27 @@ import BrandSort from "@/components/pages/main/brandsortSection/BrandSort";
 import VehicleRecommendMain from "@/components/pages/main/vehicleRecommendSection/VehicleRecommendMain";
 import Separator from "@/components/ui/Separator";
 import { brandSortType } from "@/types/brandSortType";
-import { RecoilRoot } from "recoil";
+import { useRecoilState } from "recoil";
+import { authState } from "@/state/authState";
+import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
+import { useEffect } from "react";
 
 function Page(props: { data: brandSortType[]; }) {
+
+  const [auth, setAuth] = useRecoilState(authState);
+
+  useEffect(() => {
+    if (!auth.auth && AuthRecoilChecker()&&typeof window !== 'undefined') {
+      setAuth({
+        auth: true, 
+        token: localStorage.getItem("token") as string, 
+        uid: localStorage.getItem("uid") as string, 
+        nickName: localStorage.getItem("nickName") as string,
+        email: localStorage.getItem("email") as string,
+        profileImageUrl: localStorage.getItem("profileImageUrl") as string,
+      });
+    }
+  }, []);
   
   return (
     <main>

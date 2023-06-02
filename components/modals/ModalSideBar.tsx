@@ -49,6 +49,7 @@ export default function ModalSideBar(props: {
   };
 
   useEffect(() => {
+    
     if (auth.auth) {
       const getData = async () => {
         try {
@@ -69,7 +70,7 @@ export default function ModalSideBar(props: {
       };
       getData();
     }
-  }, []);
+  }, [auth]);
 
   const actionToHistory = () => {
     router.push("/rentHistory");
