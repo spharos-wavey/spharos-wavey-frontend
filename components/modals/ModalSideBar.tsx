@@ -157,6 +157,7 @@ const RentCar = (props: {
   setIsSideOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const router = useRouter();
+  const auth = useRecoilValue(authState);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const { rentCarData } = props;
   const [summaryData, setSummaryData] = useState<IsUserRentalNowDataType>(
