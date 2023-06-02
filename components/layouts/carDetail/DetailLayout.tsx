@@ -39,7 +39,11 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   }, []);
 
   const handleCheckNextStep = () => {
-    setIsLicense(true);
+    if(!auth.auth && typeof window !== 'undefined') {
+      sessionStorage.setItem('redirectUrl', `/car/${router.query.cid}`)
+      router.push('/require-login')
+      return;
+    } else setIsLicense(true);
   }
 
   return (

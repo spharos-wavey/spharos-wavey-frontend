@@ -11,7 +11,7 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const { carData } = props;
   const [isActive, setIsActive] = useState<boolean>(false);
   const handleActive = () => {
-    setIsActive(!isActive);
+    setIsActive(!isActive)
   };
 
   return (

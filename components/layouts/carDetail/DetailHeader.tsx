@@ -10,7 +10,6 @@ import { redirectionUrlState } from "@/state/redirectionState";
 export default function DetailHeader() {
   const router = useRouter();
   const redirect = useRecoilValue(redirectionUrlState);
-  console.log(redirect)
   const goBack = () => {
     if(redirect.redirectUrl) {
       router.push(redirect.redirectUrl)

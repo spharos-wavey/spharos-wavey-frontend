@@ -22,6 +22,11 @@ export default function Kakao() {
 
   useEffect(() => {
 
+    if (auth.auth || kakaoServerError) {
+      router.push("/");
+      return;
+    }
+
     if(typeof window !== undefined) {
       const redirectUrl = sessionStorage.getItem("redirectUrl");
       const getToken = async () => {
@@ -83,8 +88,10 @@ export default function Kakao() {
                 });
                 if( redirectUrl !== null && redirectUrl !== undefined && redirectUrl !== "") {
                   router.push(redirectUrl as string);
+                  return;
                 } 
                 router.push("/");
+                return;
               })
             } catch (err) {
             console.log(err);
