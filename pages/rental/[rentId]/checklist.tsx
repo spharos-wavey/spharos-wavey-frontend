@@ -1,6 +1,6 @@
 import React from 'react'
 import SimpleBackLayout from '@/components/layouts/simpleBack/SimpleBackLayout'
-import ReturnMandatoryTab from '@/components/pages/return/ReturnMandatoryTab'
+import ReturnMandatoryTab from '@/components/pages/returned/ReturnMandatoryTab'
 
 export default function Page() {
   return (

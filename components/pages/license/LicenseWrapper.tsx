@@ -23,6 +23,7 @@ import Button from "@/components/ui/Button";
 import style from "./LicenseWrapper.module.css";
 import CloseBtn from "@/components/ui/CloseBtn";
 import SlideDownBtn from "@/components/ui/SlideDownBtn";
+import CarBook from "../car/CarBook";
 
 export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Dispatch<React.SetStateAction<boolean>>}) {
 
@@ -213,6 +214,10 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
     postData();
   };
 
+  const handleCheckNextStep = () => {
+    router.push(`/car/${router.query.cid}/book`);
+  }
+
   return (
     <>
     <div className={style.over} style={ props.isOpen ? {display:'block'} : {display:'none'}}></div>
@@ -220,6 +225,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
     <section className={props.isOpen ? style.licenseWrap : `${style.licenseWrap} ${style.slideClose}`}>
       <SlideDownBtn handleActive={() => props.setIsOpen(false)}  isActive={props.isOpen}/>
       <FormGroup>
+        <button onClick={() => handleCheckNextStep()}>테스트용 넘어가기 버튼</button>
         <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
         <Separator gutter={1} />
         <Box sx={{ width: "100%" }}>
