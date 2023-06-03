@@ -5,9 +5,14 @@ import CarOption from "./CarOption";
 import CarManual from "./CarManual";
 import CarCommentContainer from "./CarCommentContainer";
 import Separator from "@/components/ui/Separator";
-import { CarFeatureType } from "@/types/carDataType";
+import { CarFeatureType, CarFrameDataType } from "@/types/carDataType";
 
-export default function DetailInfo(props : {guide : string, carName : string}) {
+export default function DetailInfo(props: {
+  guide: string;
+  carName: string;
+  feature: CarFeatureType;
+  frameInfo: CarFrameDataType;
+}) {
   const [optionView, setOptionView] = useState(true);
   const [manualView, setManualView] = useState(false);
   const [commentView, setCommentView] = useState(false);
@@ -29,6 +34,7 @@ export default function DetailInfo(props : {guide : string, carName : string}) {
     setOptionView(false);
     setManualView(false);
   };
+  console.log(props.feature);
 
   return (
     <>
@@ -49,10 +55,13 @@ export default function DetailInfo(props : {guide : string, carName : string}) {
           btnEvent={commentHandler}
         />
       </div>
-      <Separator gutter={1} padding={true} />
-      {/* {optionView ? <CarOption carFeature={props.carFeature}/> : ""} */}
-      {manualView ? <CarManual 
-          guide = {props.guide} carName={props.carName} /> : ""}
+      <Separator gutter={2} padding={true} />
+      {optionView ? <CarOption feature={props.feature}/> : ""}
+      {manualView ? (
+        <CarManual guide={props.guide} carName={props.carName} />
+      ) : (
+        ""
+      )}
       {commentView ? <CarCommentContainer /> : ""}
     </>
   );

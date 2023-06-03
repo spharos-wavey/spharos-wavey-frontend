@@ -5,8 +5,9 @@ import DetailInfo from "./DetailInfo";
 import DetailInfoTop from "./DetailInfoTop";
 import Separator from "@/components/ui/Separator";
 import { Map } from "react-kakao-maps-sdk";
-import { CarFeatureType, carDataType } from "@/types/carDataType";
+import { carDataType } from "@/types/carDataType";
 import CustomOverlayCar from "@/components/layouts/map/CustomOverlayCar";
+import DetailLocation from "./DetailLocation";
 
 export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const { carData } = props;
@@ -14,10 +15,11 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const handleActive = () => {
     setIsActive(!isActive)
   };
-  const guide = carData?.frameInfo.manual;
-  const carName = carData?.frameInfo.carName;
-  const carFeature:CarFeatureType = carData?.feature;
-
+  const frameInfo = carData.frameInfo;
+  const guide = frameInfo?.manual;
+  const carName = frameInfo?.carName;
+  const feature = props.carData.feature;
+  console.log(carData)
   return (
     <>
       <div
@@ -60,21 +62,25 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
         }
       >
         <DetailInfoTop
-          name={carData?.frameInfo.carName}
-          imageUrl={carData?.frameInfo.image}
+          maker={frameInfo?.carBrand.brandName}
+          capacity={frameInfo?.capacity}
+          type={frameInfo?.carType}
+          appearance={frameInfo.appearance}
+          name={frameInfo?.carName}
+          imageUrl={frameInfo?.image} 
           charge={carData?.charge}
           wash={carData?.washTime.slice(0, 10).replace(/-/gi, ".")}
-          fare={carData?.frameInfo.distancePrice}
+          fare={frameInfo?.distancePrice}
         />
         <Separator gutter={1} padding={true} />
-        {/* <DetailLocation
+        <DetailLocation
           location={carData?.place.zoneAddress}
           locationName={carData?.place.name}
           latitude={carData?.place.latitude}
           longitude={carData?.place.longitude}
-        /> */}
+        />
         <Separator gutter={1.5} padding={true} />
-        { guide && <DetailInfo guide={guide} carName={carName} />}
+        { guide && feature && <DetailInfo guide={guide} carName={carName} feature= {feature} frameInfo={frameInfo}/>}
       </div>
     </>
   );

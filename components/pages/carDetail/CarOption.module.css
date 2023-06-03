@@ -1,0 +1,27 @@
+.optionTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.optionList {
+  list-style: none;
+}
+
+.optionList li {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--billita-gray);
+}
+.optionDetail {
+  
+}
+
+.blur {
+  opacity: 0.2;
+}
+
+.hidden {
+  display: none;
+}

@@ -3,6 +3,18 @@
   font-weight: bold;
 }
 
+.maker {
+  color: var(--billita-blue);
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+}
+
+.carType {
+  opacity: 0.6;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
 .review {
   font-size: 0.9rem;
   padding: 0.5rem 0 1rem 0;
