@@ -19,7 +19,6 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const guide = frameInfo?.manual;
   const carName = frameInfo?.carName;
   const feature = props.carData.feature;
-  console.log(carData)
   return (
     <>
       <div

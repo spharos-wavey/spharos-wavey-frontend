@@ -3,11 +3,12 @@ import { GetServerSideProps } from "next";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import CarBook from "@/components/pages/car/CarBook";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
+import { carDataType } from "@/types/carDataType";
 
-export default function Book() {
+export default function Book(props: { data: carDataType }) {
   return (
     <main>
-      <CarBook />
+      <CarBook carData={props.data}/>
     </main>
   );
 }
