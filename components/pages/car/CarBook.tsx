@@ -1,43 +1,46 @@
 import React, { useEffect, useState } from "react";
 import router, { useRouter } from "next/router";
 import Image from "next/image";
+import { useRecoilValue } from "recoil";
 import axios from "axios";
 import style from "./CarBook.module.css";
+import { nowTimeState } from "@/state/nowTime";
 import { carDataType } from "@/types/carDataType";
+import { timeType } from "@/types/rentalDataType";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import ModalForm from "@/components/modals/ModalForm";
 import Separator from "@/components/ui/Separator";
 import Button from "@/components/ui/Button";
+import { authState } from "@/state/authState";
+import PaymentReady from "./PaymentReady";
 
-export default function CarBook() {
+export default function CarBook(props: { carData: carDataType }) {
   const router = useRouter();
-  const [carData, setCarData] = useState<carDataType>();
   const [drawer, setDrawer] = useState<boolean>(false);
   const [nextDrawer, setNextDrawer] = useState<boolean>(false);
   const [userName, setUserName] = useState<string | null>();
+  const reqTime = useRecoilValue<timeType>(nowTimeState);
   const [bookId, setBookId] = useState<number>(0);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const auth = useRecoilValue(authState);
 
-  useEffect(() => {
-    const userName = localStorage.getItem("nickName");
-    setUserName(userName);
-  }, [userName]);
+  const serviceStartTime = new Date(reqTime.startTime);
+  const serviceEndTime = new Date(reqTime.endTime);
+  const timeDiff = Math.abs(
+    serviceEndTime.getTime() - serviceStartTime.getTime()
+  );
+  const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  const [isPaymentReady, setIsPaymentReady] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (router.query.cid !== undefined) {
-      const getData = async () => {
-        const result = await axios.get(
-          `${API_URL}/vehicle/${router.query.cid}`
-        );
-        setCarData(result.data);
-      };
-      getData();
-    }
-  }, [router.query]);
+  const carData = props.carData;
+  const frameInfo = props.carData?.frameInfo;
 
-  const frameInfo = carData?.frameInfo;
   const handleModal = () => {
     setDrawer(true);
   };
@@ -45,39 +48,47 @@ export default function CarBook() {
     setDrawer(false);
     setNextDrawer(true);
   };
+  console.log("Dddd", auth.uid);
+  console.log(router.query.cid);
 
   useEffect(() => {
     const postBookData = async () => {
-      const token = "Bearer " + localStorage.getItem("Authorization");
+      const TOKEN = "Bearer " + auth.token;
       try {
         const requestBody = {
           vehicleId: router.query.cid,
           startDate: "2023-05-21 20:00",
-          endDate: "2023-05-21 22:00"
+          endDate: "2023-05-21 22:00",
         };
-        const res = await axios.post(
-          `${API_URL}/booklist`,
-          requestBody,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const res = await axios.post(`${API_URL}/booklist`, requestBody, {
+          headers: {
+            Authorization: TOKEN,
+          },
+        });
         const data = res.data;
         setBookId(data.bookId);
         console.log(data);
-        
       } catch (err) {
         console.log(err);
       }
     };
     postBookData();
-  },[])
-  console.log(`bookId: ${bookId}`)
+  }, []);
+  console.log(`bookId: ${bookId}`);
+
+  const handlePaymentReady = () => {
+    setNextDrawer(false);
+    setIsPaymentReady(true)
+  }
 
   return (
     <>
+      <PaymentReady
+        carData = {carData}
+        isOpen={isPaymentReady}
+        setIsOpen={setIsPaymentReady}
+        bookIdData={bookId}
+      />
       {drawer && (
         <Drawer
           open={drawer}
@@ -132,7 +143,10 @@ export default function CarBook() {
           variant="temporary"
         >
           <Box position="relative" width="100%" height="370px">
-            <div onClick={() => setNextDrawer(false)} className={style.closeBtn}>
+            <div
+              onClick={() => setNextDrawer(false)}
+              className={style.closeBtn}
+            >
               <Image
                 src="/assets/images/icons/modalCloseX.svg"
                 width="20"
@@ -140,14 +154,19 @@ export default function CarBook() {
                 alt="close"
               />
             </div>
-            {userName && (
-              <ModalForm title="예약결제 안내" userName={userName} />
+            {auth.nickName && (
+              <ModalForm
+                title="예약결제 안내"
+                userName={auth.nickName}
+                startDate="2023-06-04 20:00"
+                endDate="2023-06-04 22:00"
+              />
             )}
 
             <BottomFixedContainer>
               <Button
                 btnType={"button"}
-                btnEvent={() => alert("next")}
+                btnEvent={() => handlePaymentReady()}
                 shadow={true}
                 color={"var(--billita-blueHighlight)"}
                 border="1px solid var(--billita-blueHighlight)"
@@ -201,18 +220,18 @@ export default function CarBook() {
         <Separator gutter={1.8} />
 
         <div className={style.subtitle}>대여시간</div>
-        {/* <div className={style.subWrap}>
+        <div className={style.subWrap}>
           <div className={style.content}>
-            {serviceStartTime?.getMonth() + 1}월 {serviceStartTime?.getDay()}일{" "}
+            {serviceStartTime?.getMonth() + 1}월 {serviceStartTime?.getDate()}일{" "}
             {serviceStartTime?.getHours()}:
             {String(serviceStartTime?.getMinutes()).padStart(2, "0")}{" "}
             <span>- </span>
-            {serviceEndTime?.getMonth() + 1}월 {serviceEndTime?.getDay()}일{" "}
+            {serviceEndTime?.getMonth() + 1}월 {serviceEndTime?.getDate()}일{" "}
             {serviceEndTime?.getHours()}:
             {String(serviceEndTime?.getMinutes()).padStart(2, "0")}{" "}
           </div>
           <div className={style.subtitle}>{`총 ${hours}시간 ${minutes}분`}</div>
-        </div> */}
+        </div>
 
         <Separator gutter={1.5} />
 

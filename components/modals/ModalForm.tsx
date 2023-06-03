@@ -4,10 +4,14 @@ import style from "./ModalForm.module.css";
 export default function ModalForm(props: {
   title: string;
   userName?: string;
-  startDate?: Date;
-  endDate?: Date;
+  startDate?: string;
+  endDate?: string;
 }) {
+  console.log(props.startDate, props.endDate);
   
+  const startDate = props.startDate ? new Date(props.startDate) : null;
+  const endDate = props.endDate ? new Date(props.endDate) : null;
+
   return (
     <div className={style.modalWrap}>
       <div className={style.modalTitle}>{props.title}</div>
@@ -69,16 +73,16 @@ export default function ModalForm(props: {
               <div className={style.blueHighlight}>대여일시</div>
 
               <div>
-                {props.startDate?.getFullYear()}년{" "}
-                {props.startDate && props.startDate?.getMonth() + 1}월 {props.startDate?.getDate()}
+                {startDate?.getFullYear()}년{" "}
+                {startDate && startDate?.getMonth() + 1}월 {startDate?.getDate()}
                 일{" "}
               </div>
             </div>
             <div className={style.drawerContentBinding}>
               <div className={style.blueHighlight}>반납일시</div>
               <div>
-                {props.endDate?.getFullYear()}년 {props.endDate && props.endDate?.getMonth() + 1}
-                월 {props.endDate?.getDate()}일{" "}
+                {endDate?.getFullYear()}년 {endDate && endDate?.getMonth() + 1}
+                월 {endDate?.getDate()}일{" "}
               </div>
             </div>
           </div>

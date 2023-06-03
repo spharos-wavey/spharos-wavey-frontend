@@ -34,7 +34,6 @@ export default function DetailInfo(props: {
     setOptionView(false);
     setManualView(false);
   };
-  console.log(props.feature);
 
   return (
     <>
