@@ -4,7 +4,7 @@ import router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 
-export default function paysuccess() {
+export default function Paysuccess() {
   const router = useRouter();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const PG_TOKEN = router.query.pg_token;
