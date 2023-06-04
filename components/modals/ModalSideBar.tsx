@@ -11,7 +11,7 @@ import {
 } from "@/types/rentalDataType";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
 import RentCar from "../ui/RentCar";
 
@@ -25,6 +25,7 @@ export default function ModalSideBar(props: {
   const TOKEN = "Bearer " + auth.token;
   
   const { isSideOpen, setIsSideOpen } = props;
+  const [authValue, setAuthValue] = useRecoilState(authState);
   const [rentCarData, setRentCarData] = useState<MyRentalCarType[]>(
     [] as MyRentalCarType[]
   );
@@ -33,11 +34,18 @@ export default function ModalSideBar(props: {
   const PURCASE_STATE = "RESERVATION";
 
   const handleLogout = () => {
-    localStorage.removeItem("Authorization");
-    localStorage.removeItem("uid");
-    localStorage.removeItem("nickName");
-    sessionStorage.removeItem("carDetail");
+    localStorage.clear();
+    sessionStorage.clear();
     setIsSideOpen(false);
+    setAuthValue({
+      auth: false,
+      token: "",
+      uid: "",
+      nickName: "",
+      email: "",
+      profileImageUrl: "",
+    });
+    console.log(authValue, "로그아웃");
     Swal.fire({
       text: "로그아웃 되었습니다.",
       icon: "success",
