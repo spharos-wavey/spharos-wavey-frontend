@@ -294,6 +294,9 @@ export default function CarBook(props: { carData: carDataType }) {
           </div>
         )}
       </div>
+
+      <Separator gutter={7} />
+      
       <BottomFixedContainer>
         <Button btnType={"button"} btnEvent={() => handleModal()} shadow={true}>
           결제하기 {frameInfo?.defaultPrice.toLocaleString("kr-KO")}원
