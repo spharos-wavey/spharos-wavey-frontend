@@ -387,7 +387,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
         </Box>
       </FormGroup>
     </section>
-    <BottomFixedContainer backgroundColor="transparent">
+    {/* <BottomFixedContainer backgroundColor="transparent">
       <Button
         btnType={"button"}
         btnEvent={() => console.log("go")}
@@ -395,7 +395,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
       >
         면허정보확인 
       </Button>
-    </BottomFixedContainer> 
+    </BottomFixedContainer>  */}
     </>
   );
 }

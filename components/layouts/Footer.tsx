@@ -1,14 +1,28 @@
 import { footerMenuData } from "@/datas/staticMenuDatas";
 import { footerType } from "@/types/footerType";
 import { useRouter } from "next/router";
-import style from "@/components/layouts/Footer.module.css";
-import Image from "next/image";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { authState } from "@/state/authState";
+import Image from "next/image";
+import style from "@/components/layouts/Footer.module.css";
 
 export default function Footer() {
   const router = useRouter();
-  const auth = useRecoilValue(authState);
+  const [auth, setAuth] = useRecoilState(authState);
+  const handleLogOut = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    setAuth({
+      auth: false,
+      nickName: "",
+      profileImageUrl: "",
+      token: "",
+      uid: "",
+      email: "",
+    });
+    console.log("로그아웃");
+  }
+  console.log(auth);
   return (
     <footer className={style.footer}>
       <nav>
@@ -19,7 +33,7 @@ export default function Footer() {
               auth.auth && menuItem.id === 3 ? 
                 <li
                   key={menuItem.id}
-                  onClick={() => console.log("로그아웃")}
+                  onClick={() => handleLogOut()}
                   className={
                     router.pathname === menuItem.path ? style.active : ""
                   }
