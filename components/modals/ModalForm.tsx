@@ -7,7 +7,6 @@ export default function ModalForm(props: {
   startDate?: string;
   endDate?: string;
 }) {
-  console.log(props.startDate, props.endDate);
   
   const startDate = props.startDate ? new Date(props.startDate) : null;
   const endDate = props.endDate ? new Date(props.endDate) : null;
