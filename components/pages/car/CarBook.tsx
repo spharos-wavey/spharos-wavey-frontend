@@ -48,8 +48,6 @@ export default function CarBook(props: { carData: carDataType }) {
     setDrawer(false);
     setNextDrawer(true);
   };
-  console.log("Dddd", auth.uid);
-  console.log(router.query.cid);
 
   useEffect(() => {
     const postBookData = async () => {
@@ -78,17 +76,19 @@ export default function CarBook(props: { carData: carDataType }) {
 
   const handlePaymentReady = () => {
     setNextDrawer(false);
-    setIsPaymentReady(true)
-  }
+    setIsPaymentReady(true);
+  };
 
   return (
     <>
-      <PaymentReady
-        carData = {carData}
-        isOpen={isPaymentReady}
-        setIsOpen={setIsPaymentReady}
-        bookIdData={bookId}
-      />
+      {isPaymentReady && (
+        <PaymentReady
+          carData={carData}
+          isOpen={isPaymentReady}
+          setIsOpen={setIsPaymentReady}
+          bookIdData={bookId}
+        />
+      )}
       {drawer && (
         <Drawer
           open={drawer}
