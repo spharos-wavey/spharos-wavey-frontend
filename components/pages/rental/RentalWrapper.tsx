@@ -14,12 +14,12 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
+import { carDataType } from "@/types/carDataType";
+import Smartkey from "@/components/pages/rental/Smartkey"
 
 export default function RentalWrapper(props: {
-  data: RentalDataType;
-  rentData: MyRentalCarType;
+  data: carDataType;
 }) {
-  const { place } = props.data;
   const router = useRouter();
   const [drawer, setDrawer] = useState<boolean>(false);
   const [nextDrawer, setNextDrawer] = useState<boolean>(false);
@@ -28,12 +28,17 @@ export default function RentalWrapper(props: {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
 
+  const carData = props.data;
+  const frameInfo = props.data?.frameInfo;
+  const [ isSmartkeyOpen, setIsSmartkeyOpen ] = useState<boolean>(false);
+  console.log(frameInfo, "frameInfo");
+
   const handleCancel = () => {
     setDrawer(false);
-    const bookId = router.query.bookId;
+    const rentId = router.query.rentId;
     const getData = async () => {
       const result = await axios.delete(
-        `${API_URL}/rental/${bookId}`,
+        `${API_URL}/rental/${rentId}`,
         {
           headers: {
             Authorization: TOKEN,
@@ -44,12 +49,16 @@ export default function RentalWrapper(props: {
     };
     getData();
   };
+
+  console.log(props.data);
   const charge = props.data.charge;
-  const startDate = props.rentData.startDate;
-  const endDate = props.rentData.endDate;
-  const rentData = props.rentData;
+  
+  // const startDate = props.rentData.startDate;
+  // const endDate = props.rentData.endDate;
+  // const rentData = props.rentData;
   return (
     <main>
+      <Smartkey isOpen = {isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen}/>
       {drawer && (
         <Drawer
           open={drawer}
@@ -91,14 +100,14 @@ export default function RentalWrapper(props: {
         </Drawer>
       )}
  
-      <RentalTop data={props.data.frameInfo} charge={charge} />  : <></>
+      <RentalTop frameInfo={frameInfo} charge={charge} /> 
  
       <RentalMiddle
-        data={props.data.frameInfo}
-        place={place}
-        startDate={startDate}
-        endDate={endDate}
-        rentData={rentData}
+        frameInfo={frameInfo}
+        place={carData.place}
+        // startDate={startDate}
+        // endDate={endDate}
+        // rentData={rentData}
       />
       <Separator gutter={7.5} />
       <BottomFixedContainer>
@@ -116,7 +125,7 @@ export default function RentalWrapper(props: {
           </Button>
           <Button
             btnType={"button"}
-            btnEvent={() => alert("action")}
+            btnEvent={() => setIsSmartkeyOpen(true)}
             shadow={true}
           >
             스마트키

@@ -2,3 +2,20 @@
   display: flex;
   gap: 1rem;
 }
+
+.closeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eeeeee;
+  position: absolute;
+  border-radius: 100%;
+  width: 62px;
+  height: 62px;
+  background: #0067df;
+  mix-blend-mode: hard-light;
+  box-shadow: 0px 4px 4px #01c5df;
+  right: 8vw;
+  top: 2.3vh;
+  z-index: 999;
+}

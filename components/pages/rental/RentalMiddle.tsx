@@ -2,32 +2,33 @@ import React from "react";
 import Image from "next/image";
 import style from "./RentalMiddle.module.css";
 import Separator from "@/components/ui/Separator";
+import { CarFrameDataType } from "@/types/carDataType";
 import { MyRentalCarType, RentalDataType, RentalFrameInfoType } from "@/types/rentalDataType";
 
 export default function RentalMiddle(props: {
-  data: RentalFrameInfoType;
+  frameInfo: CarFrameDataType;
   startDate?: Date;
   endDate?: Date;
   rentData?: MyRentalCarType;
   place?: { name: string };
 }) {
-  const data = props.data;
-  if(!props.rentData) return <></>;
-  const serviceStartTime = new Date(props.rentData.startDate);
-  const serviceEndTime = new Date(props.rentData.endDate);
+  const frameInfo = props.frameInfo;
+  console.log(frameInfo.distancePrice, "distancePrice");
+  // const serviceStartTime = new Date(props.rentData.startDate);
+  // const serviceEndTime = new Date(props.rentData.endDate);
 
 
-  const timeGap = serviceEndTime.getTime() - serviceStartTime.getTime();
+  // const timeGap = serviceEndTime.getTime() - serviceStartTime.getTime();
 
-  const hours = Math.floor(timeGap / (1000 * 60 * 60));
-  const minutes = Math.floor((timeGap % (1000 * 60 * 60)) / (1000 * 60));
+  // const hours = Math.floor(timeGap / (1000 * 60 * 60));
+  // const minutes = Math.floor((timeGap % (1000 * 60 * 60)) / (1000 * 60));
 
 
   return (
     <div className={style.middleWrap}>
       <div className={style.subWrap}>
         <div className={style.subtitle}>주행요금</div>
-        <div className={style.fare}>{props.data.distancePrice}원/km</div>
+        <div className={style.fare}>{frameInfo.distancePrice}원/km</div>
       </div>
       <div className={style.description}>
         *주행요금은 반납 후 실주행거리에 따라 별도로 청구됩니다.
@@ -36,7 +37,7 @@ export default function RentalMiddle(props: {
       <Separator gutter={1.8} />
 
       <div className={style.subtitle}>대여시간</div>
-      <div className={style.subWrap}>
+      {/* <div className={style.subWrap}>
         <div className={style.content}>
           {serviceStartTime?.getMonth() + 1}월 {serviceStartTime?.getDay()}일{" "}
           {serviceStartTime?.getHours()}:
@@ -47,7 +48,7 @@ export default function RentalMiddle(props: {
           {String(serviceEndTime?.getMinutes()).padStart(2, "0")}{" "}
         </div>
         <div className={style.subtitle}>{`총 ${hours}시간 ${minutes}분`}</div>
-      </div>
+      </div> */}
 
       <Separator gutter={1.5} />
 
@@ -91,7 +92,7 @@ export default function RentalMiddle(props: {
       <div className={style.subWrap}>
         <div className={style.content}>대여요금</div>
         <div className={style.subtitle}>
-          {data.defaultPrice.toLocaleString("kr-KO")}원
+          {frameInfo.defaultPrice.toLocaleString("kr-KO")}원
         </div>
       </div>
 
@@ -101,7 +102,7 @@ export default function RentalMiddle(props: {
       <div className={style.subWrap}>
         <div className={style.kakaopay}>카카오페이</div>
         <div className={style.subtitle}>
-          {data.defaultPrice.toLocaleString("kr-KO")}원
+          {frameInfo.defaultPrice.toLocaleString("kr-KO")}원
         </div>
       </div>
     </div>
