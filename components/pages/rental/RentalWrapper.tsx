@@ -12,7 +12,7 @@ import style from "./RentalWrapper.module.css";
 import Separator from "@/components/ui/Separator";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
 import { carDataType } from "@/types/carDataType";
 import Smartkey from "@/components/pages/rental/Smartkey";

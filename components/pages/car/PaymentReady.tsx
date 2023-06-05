@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import PageLoader from "@/components/ui/PageLoader";
 import { authState } from "@/state/authState";
 import { useRouter } from "next/router";
 import { BookListDataType, carDataType } from "@/types/carDataType";
 import axios from "axios";
 import style from "./PaymentReady.module.css"
+import { timeType } from "@/types/rentalDataType";
+import { nowTimeState } from "@/state/nowTime";
+import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
 
 export default function PaymentReady(props: {
   bookIdData: number;
@@ -17,19 +20,33 @@ export default function PaymentReady(props: {
   const TOKEN = "Bearer " + auth.token;
   const router = useRouter();
   const vehicleId = router.query.cid;
-  const [uidData, setUidData] = useState<string>();
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const reqTime = useRecoilValue<timeType>(nowTimeState);
   const carData = props.carData;
   const frameInfo = props.carData?.frameInfo;
+  const [authValue, setAuth] = useRecoilState(authState);
+
+  useEffect(() => {
+    if (!auth.auth && AuthRecoilChecker()&&typeof window !== 'undefined') {
+      setAuth({
+        auth: true, 
+        token: localStorage.getItem("token") as string, 
+        uid: localStorage.getItem("uid") as string, 
+        nickName: localStorage.getItem("nickName") as string,
+        email: localStorage.getItem("email") as string,
+        profileImageUrl: localStorage.getItem("profileImageUrl") as string,
+      });
+    }
+  }, []);
 
   const readyRequestBody = {
     uuid: auth.uid,
     vehicleId: Number(vehicleId),
     carName: frameInfo?.carName,
     carBrandName: frameInfo?.carBrand.brandName,
-    startDate: "2023-06-08 03:00",
-    endDate: "2023-06-08 04:00",
+    startDate: reqTime.startTime,
+    endDate: reqTime.endTime,
     startZone: carData.place.id,
     returnZone: carData.place.id,
     price: frameInfo?.defaultPrice,
