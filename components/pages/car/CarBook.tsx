@@ -55,8 +55,8 @@ export default function CarBook(props: { carData: carDataType }) {
       try {
         const requestBody = {
           vehicleId: router.query.cid,
-          startDate: "2023-05-21 20:00",
-          endDate: "2023-05-21 22:00",
+          startDate: serviceStartTime,
+          endDate: serviceEndTime,
         };
         const res = await axios.post(`${API_URL}/booklist`, requestBody, {
           headers: {
@@ -79,6 +79,7 @@ export default function CarBook(props: { carData: carDataType }) {
     setIsPaymentReady(true);
   };
 
+  console.log(reqTime);
   return (
     <>
       {isPaymentReady && (
@@ -129,7 +130,7 @@ export default function CarBook(props: { carData: carDataType }) {
           </Box>
         </Drawer>
       )}
-      {nextDrawer && (
+      {nextDrawer && reqTime && (
         <Drawer
           open={nextDrawer}
           PaperProps={{
@@ -158,8 +159,8 @@ export default function CarBook(props: { carData: carDataType }) {
               <ModalForm
                 title="예약결제 안내"
                 userName={auth.nickName}
-                startDate="2023-06-04 20:00"
-                endDate="2023-06-04 22:00"
+                startDate={reqTime.startTime}
+                endDate={reqTime.endTime}
               />
             )}
 
