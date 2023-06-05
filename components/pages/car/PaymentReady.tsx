@@ -19,34 +19,30 @@ export default function PaymentReady(props: {
   const vehicleId = router.query.cid;
   const [uidData, setUidData] = useState<string>();
 
-
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const carData = props.carData;
   const frameInfo = props.carData?.frameInfo;
-  console.log("auth.uid in payment page", auth.uid);
-  console.log("TOKEN", TOKEN);
-  console.log("결제준비페이지", props.carData);
 
   const readyRequestBody = {
     uuid: auth.uid,
     vehicleId: Number(vehicleId),
     carName: frameInfo?.carName,
     carBrandName: frameInfo?.carBrand.brandName,
-    startDate: "2023-06-04 20:00",
-    endDate: "2023-06-04 22:00",
+    startDate: "2023-06-08 03:00",
+    endDate: "2023-06-08 04:00",
     startZone: carData.place.id,
     returnZone: carData.place.id,
     price: frameInfo?.defaultPrice,
     insuranceId: 1,
     reward: 1000,
   };
-  console.log("readyRequestBody", readyRequestBody);
 
   useEffect(() => {
     if (props.bookIdData !== undefined) {
       const getPaymentReady = async () => {
         console.log(readyRequestBody);
         const res = await axios.post(
-          `https://api-billita.xyz/purchase/kakao/ready`,
+          `${API_URL}/purchase/kakao/ready`,
           readyRequestBody,
           {
             headers: {
@@ -54,9 +50,6 @@ export default function PaymentReady(props: {
             },
           }
         );
-        sessionStorage.setItem("tid", res.data.tid);
-        console.log(res.data);
-        console.log(res.data.purchaseNumber);
         sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
         router.push(res.data.next_redirect_pc_url);
       };

@@ -12,6 +12,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
   const router = useRouter();
+  console.log(router.query, "query")
 
   const [canRental, setCanRental] = useState<boolean>(true);
   const [isLicense, setIsLicense] = useState<boolean>(false);

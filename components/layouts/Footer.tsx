@@ -20,9 +20,7 @@ export default function Footer() {
       uid: "",
       email: "",
     });
-    console.log("로그아웃");
   }
-  console.log(auth);
   return (
     <footer className={style.footer}>
       <nav>

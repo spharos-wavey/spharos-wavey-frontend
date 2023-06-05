@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import RentalTop from "./RentalTop";
 import RentalMiddle from "./RentalMiddle";
@@ -7,58 +7,96 @@ import Button from "@/components/ui/Button";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import ModalForm from "@/components/modals/ModalForm";
-import { MyRentalCarType, RentalDataType } from "@/types/rentalDataType";
+import { RentalDetailType } from "@/types/rentalDataType";
 import style from "./RentalWrapper.module.css";
 import Separator from "@/components/ui/Separator";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authState } from "@/state/authState";
 import { carDataType } from "@/types/carDataType";
-import Smartkey from "@/components/pages/rental/Smartkey"
+import Smartkey from "@/components/pages/rental/Smartkey";
+import Swal from "sweetalert2";
 
-export default function RentalWrapper(props: {
-  data: carDataType;
-}) {
+export default function RentalWrapper() {
   const router = useRouter();
   const [drawer, setDrawer] = useState<boolean>(false);
   const [nextDrawer, setNextDrawer] = useState<boolean>(false);
+  const [vehicleData, setVehicleData] = useState<carDataType>();
   const handleDrawer = () => setDrawer(true);
   const auth = useRecoilValue(authState);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
+  console.log(auth.token, "auth.token");
 
-  const carData = props.data;
-  const frameInfo = props.data?.frameInfo;
-  const [ isSmartkeyOpen, setIsSmartkeyOpen ] = useState<boolean>(false);
-  console.log(frameInfo, "frameInfo");
+  const [isSmartkeyOpen, setIsSmartkeyOpen] = useState<boolean>(false);
+  const [rentData, setRentData] = useState<RentalDetailType>();
+
+  const rentId = router.query.rentId;
 
   const handleCancel = () => {
     setDrawer(false);
-    const rentId = router.query.rentId;
-    const getData = async () => {
-      const result = await axios.delete(
-        `${API_URL}/rental/${rentId}`,
-        {
+    const getCancelRequest = async () => {
+      const result = await axios.get(`${API_URL}/rental/cancel/${rentId}`, {
+        headers: {
+          Authorization: TOKEN,
+          uid: auth.uid,
+        },
+      });
+    };
+    getCancelRequest();
+    Swal.fire({
+      title: "예약이 취소되었습니다.",
+      icon: "success",
+      confirmButtonText: "확인",
+    }).then(() => {
+      router.push("/");
+    });
+  };
+
+  useEffect(() => {
+    const getMyRentalData = async () => {
+      if (rentId !== undefined) {
+        const result = await axios.get(`${API_URL}/rental?id=${rentId}`, {
           headers: {
             Authorization: TOKEN,
             uid: auth.uid,
           },
-        }
-      );
+        });
+        console.log(result.data, "result.data");
+        const myRentalData: RentalDetailType = result.data;
+        setRentData(myRentalData);
+      }
     };
-    getData();
-  };
+    getMyRentalData();
+  }, [rentId]);
 
-  console.log(props.data);
-  const charge = props.data.charge;
-  
+  useEffect(() => {
+    const getVehicleData = async () => {
+      if (rentData !== undefined) {
+        const result = await axios.get(
+          `${API_URL}/vehicle/${rentData?.vehicleId}`,
+          {}
+        );
+        const v_data: carDataType = result.data;
+        setVehicleData(v_data);
+      }
+    };
+    getVehicleData();
+  }, [rentData]);
+
+  const frameInfo = vehicleData?.frameInfo;
+  const carImage = frameInfo?.image;
+  const carName = frameInfo?.carName;
+  const carBrand = frameInfo?.carBrand.brandName;
+  const battery = vehicleData?.charge;
+
   // const startDate = props.rentData.startDate;
   // const endDate = props.rentData.endDate;
   // const rentData = props.rentData;
   return (
     <main>
-      <Smartkey isOpen = {isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen}/>
+      <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} />
       {drawer && (
         <Drawer
           open={drawer}
@@ -99,16 +137,16 @@ export default function RentalWrapper(props: {
           </Box>
         </Drawer>
       )}
- 
-      <RentalTop frameInfo={frameInfo} charge={charge} /> 
- 
-      <RentalMiddle
-        frameInfo={frameInfo}
-        place={carData.place}
-        // startDate={startDate}
-        // endDate={endDate}
-        // rentData={rentData}
-      />
+      {carImage && carName && carBrand && (
+        <RentalTop
+          carImage={carImage}
+          carName={carName}
+          carBrand={carBrand}
+          battery={battery}
+        />
+      )}
+
+      {rentData && <RentalMiddle rentData={rentData} />}
       <Separator gutter={7.5} />
       <BottomFixedContainer>
         <div className={style.twoBtnWrap}>
