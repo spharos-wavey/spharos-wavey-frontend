@@ -11,6 +11,7 @@ export default function Paysuccess() {
   
   const [purchaseNo, setPurchaseNo] = useState<string | null>("");
   const [authValue, setAuthValue] = useState<string | null>("");
+  const [rentId, setRentId] = useState<string | null>("");
 
   useEffect(()=> {
     if(typeof window !== undefined){
@@ -38,7 +39,8 @@ export default function Paysuccess() {
           }
         );
         const data = response.data;
-        console.log(data);
+        console.log(data.rentId);
+        setRentId(data.rentId);
       } catch (error) {
         console.error("Error fetching payment data:", error);
       }
@@ -49,7 +51,19 @@ export default function Paysuccess() {
   postPaymentApprove();
 },[PG_TOKEN, purchaseNo])
 
+
+useEffect(() => {
+  const timeout = setTimeout(() => {
+    console.log(rentId, "결제승인 내 체크");
+    router.push(`/rental/${rentId}`); 
+  }, 2000);
+
+  return () => {
+    clearTimeout(timeout);
+  };
+}, [rentId]);
+
   return (
-    <div>결제가 완료되었습니다. 확인 페이지로 이동합니다.</div>
+    <PageLoader text="결제가 진행중입니다." />
   )
 }

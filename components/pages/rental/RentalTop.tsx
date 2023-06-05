@@ -1,27 +1,27 @@
 import React from "react";
 import Image from "next/image";
 import style from "./RentalTop.module.css";
-import { CarFrameDataType } from "@/types/carDataType";
 
-export default function RentalTop(props: { frameInfo: CarFrameDataType, charge?: number }) {
-
-  const frameInfo = props.frameInfo;
-  console.log(props.charge);
+export default function RentalTop(props: {
+  carImage: string;
+  carName: string;
+  carBrand: string;
+  battery?: number;
+}) {
   return (
     <div className={style.topWrap}>
       <div className={style.carImage}>
-        
         <Image
-          src={frameInfo.image}
+          src={props.carImage}
           width={345}
           height={200}
-          alt={frameInfo.carName}
+          alt={props.carName}
           priority
           placeholder="empty"
         />
       </div>
       <div className={style.carName}>
-        {frameInfo.carBrand.brandName} {frameInfo.carName}
+        {props.carBrand} {props.carName}
       </div>
       <div className={style.harrypotterBinding}>
         <Image
@@ -31,7 +31,7 @@ export default function RentalTop(props: { frameInfo: CarFrameDataType, charge?:
           alt="harryMark"
           placeholder="empty"
         />
-        <div className={style.charge}>{props.charge}%</div>
+        <div className={style.charge}>{props.battery}%</div>
       </div>
     </div>
   );

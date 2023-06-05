@@ -45,7 +45,7 @@ const RentCar = (props: {
 
   const handlePush = () => {
     props.setIsSideOpen(false);
-    router.push(`/rental/${rentCarData.rentalId}/detail`);
+    router.push(`/rental/${rentCarData.rentalId}`);
   };
   const serviceStartTime = new Date(rentCarData.startDate);
   const serviceEndTime = new Date(rentCarData.endDate);

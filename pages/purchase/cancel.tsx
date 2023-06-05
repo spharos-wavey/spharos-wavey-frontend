@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import router from 'next/router'
 import PageLoader from '@/components/ui/PageLoader'
 
-export default function Cyarancel() {
+export default function Cancel() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       router.push('/'); 

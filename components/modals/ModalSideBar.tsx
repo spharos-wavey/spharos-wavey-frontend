@@ -32,6 +32,7 @@ export default function ModalSideBar(props: {
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
 
+
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();

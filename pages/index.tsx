@@ -9,8 +9,38 @@ import { useRecoilState } from "recoil";
 import { authState } from "@/state/authState";
 import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
+import requestLocationPermission from "@/components/util/requestLocationPermission";
 
 function Page(props: { data: brandSortType[]; }) {
+
+  useEffect(() => {
+    const handleGeolocationError = (error: GeolocationPositionError) => {
+      Swal.fire({
+        text: "GPS를 허용해주세요.",
+        icon: "error",
+        toast: true,
+        position: "top",
+        showConfirmButton: true,
+        confirmButtonText: "위치 공유 허용",
+        timer: 4000,
+        timerProgressBar: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          requestLocationPermission();
+        }
+      });
+    };
+
+
+    
+    if (typeof window !== "undefined" && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        () => {}, // Success callback
+        handleGeolocationError // Error callback
+      );
+    }
+  }, []);
 
   const [auth, setAuth] = useRecoilState(authState);
 

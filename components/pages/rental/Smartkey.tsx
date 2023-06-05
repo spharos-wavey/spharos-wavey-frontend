@@ -1,62 +1,120 @@
 import React from "react";
 import Image from "next/image";
 import style from "./Smartkey.module.css";
-import { styled } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { styled } from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
+import Drawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
+import Button from "@/components/ui/Button";
+import ModalForm from "@/components/modals/ModalForm";
+import { useRouter } from "next/router";
 
 export default function Smartkey(props: {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const router = useRouter();
+  const [drawer, setDrawer] = React.useState(false);
   const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 158,
     height: 35,
     padding: 0,
-    display: 'flex',
-    '&:active': {
-      '& .MuiSwitch-thumb': {
+    display: "flex",
+    "&:active": {
+      "& .MuiSwitch-thumb": {
         width: 155,
       },
-      '& .MuiSwitch-switchBase.Mui-checked': {
-        transform: 'translateX(9px)',
+      "& .MuiSwitch-switchBase.Mui-checked": {
+        transform: "translateX(9px)",
       },
     },
-    '& .MuiSwitch-switchBase': {
+    "& .MuiSwitch-switchBase": {
       padding: 2,
-      '&.Mui-checked': {
-        transform: 'translateX(120px)',
-        color: '#fff',
-        '& + .MuiSwitch-track': {
+      "&.Mui-checked": {
+        transform: "translateX(120px)",
+        color: "#fff",
+        "& + .MuiSwitch-track": {
           opacity: 1,
-          backgroundColor: theme.palette.mode === 'dark' ? '#177ddc' : '#1890ff',
+          backgroundColor:
+            theme.palette.mode === "dark" ? "#177ddc" : "#1890ff",
         },
       },
     },
-    '& .MuiSwitch-thumb': {
-      boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
+    "& .MuiSwitch-thumb": {
+      boxShadow: "0 2px 4px 0 rgb(0 35 11 / 20%)",
       width: 35,
       height: 30,
       borderRadius: 30,
-      transition: theme.transitions.create(['width'], {
+      transition: theme.transitions.create(["width"], {
         duration: 200,
       }),
     },
-    '& .MuiSwitch-track': {
+    "& .MuiSwitch-track": {
       borderRadius: 32 / 2,
       opacity: 1,
       backgroundColor:
-        theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
-      boxSizing: 'border-box',
+        theme.palette.mode === "dark"
+          ? "rgba(255,255,255,.35)"
+          : "rgba(0,0,0,.25)",
+      boxSizing: "border-box",
     },
   }));
-  
+  const handleReturned = () => {
+    setDrawer(true);
+  }
+  const handleGoCheckList = () => {
+    setDrawer(false);
+    router.push(`/rental/${router.query.rentId}/checklist`);
+  }
   return (
     <div
       className={style.over}
       style={props.isOpen ? { display: "block" } : { display: "none" }}
     >
+
+{drawer && (
+        <Drawer
+          open={drawer}
+          PaperProps={{
+            sx: {
+              width: "auto",
+              borderTopRightRadius: 18,
+              borderTopLeftRadius: 18,
+            },
+          }}
+          anchor="bottom"
+          variant="temporary"
+        >
+          <Box position="relative" width="100%" height="370px">
+            <div onClick={() => setDrawer(false)} className={style.closeBtn}>
+              <Image
+                src="/assets/images/icons/modalCloseX.svg"
+                width="20"
+                height="20"
+                alt="close"
+              />
+            </div>
+            <ModalForm title="반납하기" />
+
+            <BottomFixedContainer>
+              <Button
+                btnType={"button"}
+                btnEvent={() => handleGoCheckList()}
+                shadow={true}
+                color={"var(--billita-blueHighlight)"}
+                border="1px solid var(--billita-blueHighlight)"
+                fontWeight="bold"
+                backgroundColor="var(--billita-white)"
+              >
+                반납하기
+              </Button>
+            </BottomFixedContainer>
+          </Box>
+        </Drawer>
+      )}
       <div className={style.cover}>
         <div className={style.smartkeyHeader}>
           <div style={{ width: "30px" }}></div>
@@ -95,12 +153,23 @@ export default function Smartkey(props: {
         </div>
 
         <div className={style.toggle}>
-      <Stack direction="row" spacing={1} alignItems="center">
-        <Typography variant="body2" sx={{ fontSize: 13 }}>문닫기</Typography>
-        <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} />
-        <Typography variant="body2" sx={{ fontSize: 13 }}>문열기</Typography>
-      </Stack>
-      </div>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Typography variant="body2" sx={{ fontSize: 13 }}>
+              문닫기
+            </Typography>
+            <AntSwitch
+              defaultChecked
+              inputProps={{ "aria-label": "ant design" }}
+            />
+            <Typography variant="body2" sx={{ fontSize: 13 }}>
+              문열기
+            </Typography>
+          </Stack>
+        </div>
+        
+        <div className={style.notice}>운행시작 15분 전부터 차량도어 제어 가능</div>
+        <div className={style.notice}>반납시간 10분 전입니다.</div>
+        <div className={style.notice} onClick={()=>handleReturned()}>반납하기</div>
       </div>
     </div>
   );
