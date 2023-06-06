@@ -35,7 +35,7 @@ export default function Header() {
       <nav>
         <ul>
           <MenuItem menuItem={headerMenuData[0]} key={headerMenuData[0].id} onClick={toggleMenu}/>
-          <MenuItem menuItem={headerMenuData[1]} key={headerMenuData[1].id} />
+          {/* <MenuItem menuItem={headerMenuData[1]} key={headerMenuData[1].id} /> */}
         </ul>
       </nav>
     </header>
