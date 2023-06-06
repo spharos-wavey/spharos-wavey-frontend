@@ -55,21 +55,27 @@ export default function RentalWrapper() {
   };
 
   useEffect(() => {
+    console.log(rentId, "rentId")
+    console.log(TOKEN, "TOKEN")
     const getMyRentalData = async () => {
-      if (rentId !== undefined) {
-        const result = await axios.get(`${API_URL}/rental?id=${rentId}`, {
-          headers: {
-            Authorization: TOKEN,
-            uid: auth.uid,
-          },
-        });
+      if (rentId !== undefined || TOKEN !== 'Bearer ') {
+        try {
+          const result = await axios.get(`${API_URL}/rental?id=${rentId}`, {
+            headers: {
+              Authorization: TOKEN,
+              uid: auth.uid,
+            },
+          });
         console.log(result.data, "result.data");
         const myRentalData: RentalDetailType = result.data;
         setRentData(myRentalData);
       }
-    };
+      catch (error) {
+        console.log('retry getMyRentalData')
+      }
+    }};
     getMyRentalData();
-  }, [rentId]);
+  }, [rentId, TOKEN, auth.uid]);
 
   useEffect(() => {
     const getVehicleData = async () => {

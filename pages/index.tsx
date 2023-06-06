@@ -31,8 +31,6 @@ function Page(props: { data: brandSortType[]; }) {
         }
       });
     };
-
-
     
     if (typeof window !== "undefined" && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
