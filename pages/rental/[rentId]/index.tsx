@@ -28,3 +28,4 @@ export default function Detail() {
 Detail.getLayout = function getLayout(Page: React.ReactNode) {
   return <SimpleBackLayout title="대여 내용 상세">{Page}</SimpleBackLayout>;
 };
+
