@@ -14,20 +14,6 @@ export default function SimpleBackLayout(props: {
   const { brandName } = router.query;
 
   const pageUrl = router.pathname;
-  const [auth, setAuth] = useRecoilState(authState);
-
-  useEffect(() => {
-    if (!auth.auth && AuthRecoilChecker()&&typeof window !== 'undefined') {
-      setAuth({
-        auth: true, 
-        token: localStorage.getItem("token") as string, 
-        uid: localStorage.getItem("uid") as string, 
-        nickName: localStorage.getItem("nickName") as string,
-        email: localStorage.getItem("email") as string,
-        profileImageUrl: localStorage.getItem("profileImageUrl") as string,
-      });
-    }
-  }, []);
 
   const handleBack = () => {
     if (pageUrl === "/car/brand" || pageUrl === "/rental/[rentId]") {

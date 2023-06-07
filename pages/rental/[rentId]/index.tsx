@@ -4,8 +4,12 @@ import RentalWrapper from "@/components/pages/rental/RentalWrapper";
 import { useRecoilState } from "recoil";
 import { authState } from "@/state/authState";
 import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
+import { GetServerSideProps } from "next";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+import Page from "./checklist";
+import PageLoader from "@/components/ui/PageLoader";
 
-export default function Detail() {
+const Detail = (props:{rentId:string}) => {
   
   const [auth, setAuth] = useRecoilState(authState);
 
@@ -22,10 +26,28 @@ export default function Detail() {
     }
   }, []);
 
-  return <main> <RentalWrapper /></main>;
+  if(auth.auth === false) return (
+    <main>
+      <PageLoader text="정보를 불러오고 있습니다."/>
+    </main>
+  )
+
+  return <main> <RentalWrapper rentId={props.rentId}/></main>;
 }
 
 Detail.getLayout = function getLayout(Page: React.ReactNode) {
   return <SimpleBackLayout title="대여 내용 상세">{Page}</SimpleBackLayout>;
 };
 
+export default Detail;
+
+export const getServerSideProps:GetServerSideProps = async (context:Params) => {
+
+  const {rentId} = context.params;
+
+  return {
+    props: {
+      rentId: rentId,
+    },
+  };
+}
