@@ -55,6 +55,12 @@ function Page(props: { data: brandSortType[]; }) {
     }
   }, []);
   
+  useEffect(()=> {
+    if(window !== undefined) {
+      sessionStorage.removeItem("redirectUrl");
+    }
+  }, [])
+  
   return (
     <main>
       <LogoMainPage />

@@ -9,6 +9,8 @@ import style from "@/components/layouts/Footer.module.css";
 export default function Footer() {
   const router = useRouter();
   const [auth, setAuth] = useRecoilState(authState);
+
+
   const handleLogOut = () => {
     localStorage.clear();
     sessionStorage.clear();
@@ -39,7 +41,7 @@ export default function Footer() {
                   <div className={style.footerIconContainer}>
                     <Image
                       src={
-                        router.pathname === menuItem.path
+                        auth.auth
                           ? menuItem.iconActive
                           : menuItem.icon
                       }
