@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import style from "./DetailInfoWrapper.module.css";
 import Image from "next/image";
 import DetailInfo from "./DetailInfo";
 import DetailInfoTop from "./DetailInfoTop";
-import Separator from "@/components/ui/Separator";
 import { Map } from "react-kakao-maps-sdk";
 import { carDataType } from "@/types/carDataType";
 import CustomOverlayCar from "@/components/layouts/map/CustomOverlayCar";
@@ -11,6 +9,8 @@ import DetailLocation from "./DetailLocation";
 import TimeSelectComponent from "@/components/modals/TimeSelectComponent";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import Separator from "@/components/ui/Separator";
+import style from "./DetailInfoWrapper.module.css";
 
 export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const { carData } = props;

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { timeType } from "@/types/rentalDataType";
+import { nowTimeState } from "@/state/nowTime";
 import { MobileDateTimePicker } from "@mui/x-date-pickers-pro";
 import dayjs from "dayjs";
-import { timeType } from "@/types/rentalDataType";
 import Button from "../ui/Button";
-import style from "./TimeSelectComponent.module.css";
 import Swal from "sweetalert2";
-import { useSetRecoilState } from "recoil";
-import { nowTimeState } from "@/state/nowTime";
+import style from "./TimeSelectComponent.module.css";
 
 interface timeModalType {
   setTimeModal?: React.Dispatch<React.SetStateAction<boolean>>;
