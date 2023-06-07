@@ -1,0 +1,17 @@
+.timePicker {
+  font-size: 0.5rem;
+}
+
+.close {
+  position: fixed;
+  bottom: -300px;
+  z-index: 100;
+  width: 100%;
+  transition: bottom 0.5s ease-in-out;
+
+}
+.open {
+  width: 100%;
+  transition: bottom 0.5s ease-in-out;
+
+}

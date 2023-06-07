@@ -4,7 +4,6 @@ import style from "./DetailInfoTop.module.css";
 import MenuItem from "@/components/layouts/MenuItem";
 import { carStatusData } from "@/datas/staticCarData";
 import Separator from "@/components/ui/Separator";
-
 interface HeaderType {
   maker: string | undefined;
   type: string | undefined;
