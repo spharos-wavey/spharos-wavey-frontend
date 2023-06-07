@@ -30,7 +30,7 @@ export default function SimpleBackLayout(props: {
   }, []);
 
   const handleBack = () => {
-    if (pageUrl === "/car/brand") {
+    if (pageUrl === "/car/brand" || pageUrl === "/rental/[rentId]") {
       router.push("/");
       return;
     }
