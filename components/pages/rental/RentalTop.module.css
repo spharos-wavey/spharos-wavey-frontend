@@ -35,11 +35,17 @@
   display: flex;
   justify-content: center;
   margin-top: 0.7rem;
-  position: relative;
+  align-items: flex-start;
+}
+
+.imgBinding {
+  width: 0.8rem;
+  height: 0.8rem;
+  object-fit: contain;
+  margin-right: 0.3rem;
 }
 
 .harrypotterBinding img {
-  position: absolute;
-  top: 3px;
-  left: 135px;
+  width: 100%;
+  height: auto;
 }

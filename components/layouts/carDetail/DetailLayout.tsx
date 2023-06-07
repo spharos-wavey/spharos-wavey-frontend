@@ -3,19 +3,19 @@ import { useRouter } from "next/router";
 import DetailHeader from "./DetailHeader";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
 import LicenseWrapper from "@/components/pages/license/LicenseWrapper";
+import { userRentalState } from "@/state/userRentalState";
 
 export default function DetailLayout(props: { children: React.ReactNode }) {
   const auth = useRecoilValue(authState);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
   const router = useRouter();
-  console.log(router.query, "query")
 
-  const [canRental, setCanRental] = useState<boolean>(true);
   const [isLicense, setIsLicense] = useState<boolean>(false);
+  const [canUserRent, setCanUserRent] = useRecoilState(userRentalState);
 
   useEffect(() => {
     if (auth.auth) {
@@ -29,7 +29,8 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
             },
           });
           const data = await res.json();
-          setCanRental(data);
+          setCanUserRent(data);
+          console.log(data, "canUserRent")
         } catch (err) {
           console.log(err);
         }
@@ -40,9 +41,6 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       return;
     }
   }, [auth.uid]);
-  console.log(canRental, "차 빌릴수있나요?");
-  console.log(auth.uid === undefined, "유저아이디");
-  console.log(auth, "로그인상태")
 
   const handleCheckNextStep = () => {
     if (!auth.auth && typeof window !== "undefined") {
@@ -57,7 +55,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       <DetailHeader />
       <div>{props.children}</div>
 
-      {auth.auth && canRental ? (
+      {auth.auth && canUserRent ? (
         <BottomFixedContainer backgroundColor="transparent">
           <Button
             btnType="button"
@@ -67,7 +65,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
             면허정보확인
           </Button>
         </BottomFixedContainer>
-      ) : auth.auth && !canRental ? null : ( // 버튼 안보여줌 (returning null means no rendering)
+      ) : auth.auth && !canUserRent ? null : (
         <BottomFixedContainer backgroundColor="transparent">
           <Button
             btnType="button"
