@@ -18,21 +18,19 @@ import { carDataType } from "@/types/carDataType";
 import Smartkey from "@/components/pages/rental/Smartkey";
 import Swal from "sweetalert2";
 
-export default function RentalWrapper() {
+export default function RentalWrapper(props: { rentId: string }) {
   const router = useRouter();
+  const rentId:string = props.rentId;
   const [drawer, setDrawer] = useState<boolean>(false);
-  const [nextDrawer, setNextDrawer] = useState<boolean>(false);
   const [vehicleData, setVehicleData] = useState<carDataType>();
-  const handleDrawer = () => setDrawer(true);
   const auth = useRecoilValue(authState);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
   console.log(auth.token, "auth.token");
+  console.log(auth.uid)
 
   const [isSmartkeyOpen, setIsSmartkeyOpen] = useState<boolean>(false);
   const [rentData, setRentData] = useState<RentalDetailType>();
-
-  const rentId = router.query.rentId;
 
   const handleCancel = () => {
     setDrawer(false);
@@ -55,27 +53,19 @@ export default function RentalWrapper() {
   };
 
   useEffect(() => {
-    console.log(rentId, "rentId")
-    console.log(TOKEN, "TOKEN")
     const getMyRentalData = async () => {
-      if (rentId !== undefined || TOKEN !== 'Bearer ') {
-        try {
-          const result = await axios.get(`${API_URL}/rental?id=${rentId}`, {
-            headers: {
-              Authorization: TOKEN,
-              uid: auth.uid,
-            },
-          });
-        console.log(result.data, "result.data");
-        const myRentalData: RentalDetailType = result.data;
-        setRentData(myRentalData);
-      }
-      catch (error) {
-        console.log('retry getMyRentalData')
-      }
-    }};
+      const result = await axios.get(`${API_URL}/rental?id=${rentId}`, {
+        headers: {
+          Authorization: TOKEN,
+          uid: auth.uid,
+        },
+      });
+        
+      const myRentalData: RentalDetailType = result.data;
+      setRentData(myRentalData);
+    };
     getMyRentalData();
-  }, [rentId, TOKEN, auth.uid]);
+  }, []);
 
   useEffect(() => {
     const getVehicleData = async () => {
