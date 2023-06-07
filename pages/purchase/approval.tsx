@@ -19,7 +19,6 @@ const Paysuccess = (props: {pg_token:string}) => {
       const PURCHASE_NO = sessionStorage.getItem("purchaseNumber");
       const TOKEN = localStorage.getItem("token");
       console.log(PURCHASE_NO, pg_token, "결제승인 내 체크")
-     
       if(PURCHASE_NO !== null && pg_token !== undefined && pg_token !== null && TOKEN !== null && TOKEN !== undefined){
         handlePostPayment(PURCHASE_NO, pg_token, TOKEN);
         return;
@@ -31,7 +30,7 @@ const Paysuccess = (props: {pg_token:string}) => {
 
   const handlePostPayment = (PURCHASE_NO:string, pg_token:string, TOKEN:string) => {
     console.log(PURCHASE_NO, pg_token, "결제승인 내 체크")
-    
+    localStorage.setItem("pg_token", pg_token)
     const postPaymentApprove = async () => {
       const response = await axios.post(
         `${API_URL}/purchase/kakao/approve`, {
