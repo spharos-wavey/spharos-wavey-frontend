@@ -6,7 +6,6 @@ import { authState } from "@/state/authState";
 import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
 import { GetServerSideProps } from "next";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
-import Page from "./checklist";
 import PageLoader from "@/components/ui/PageLoader";
 
 const Detail = (props:{rentId:string}) => {

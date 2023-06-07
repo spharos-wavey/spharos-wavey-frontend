@@ -21,9 +21,6 @@ export default function SimpleBackLayout(props: {
       return;
     }
     router.back();
-    if(auth.auth && pageUrl === "/login") {
-      window.history.go(-1);
-    }
   }
 
   return (
