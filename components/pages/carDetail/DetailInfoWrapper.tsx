@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import style from "./DetailInfoWrapper.module.css";
 import Image from "next/image";
 import DetailInfo from "./DetailInfo";
 import DetailInfoTop from "./DetailInfoTop";
-import Separator from "@/components/ui/Separator";
 import { Map } from "react-kakao-maps-sdk";
 import { carDataType } from "@/types/carDataType";
 import CustomOverlayCar from "@/components/layouts/map/CustomOverlayCar";
 import DetailLocation from "./DetailLocation";
+import TimeSelectComponent from "@/components/modals/TimeSelectComponent";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import Separator from "@/components/ui/Separator";
+import style from "./DetailInfoWrapper.module.css";
 
 export default function DetailInfoWrapper(props: { carData: carDataType }) {
   const { carData } = props;
   const [isActive, setIsActive] = useState<boolean>(false);
   const handleActive = () => {
-    setIsActive(!isActive)
+    setIsActive(!isActive);
   };
   const frameInfo = carData.frameInfo;
   const guide = frameInfo?.manual;
@@ -42,16 +45,27 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
         }
       >
         <Map
-            center={{ lat: carData?.place.latitude, lng: carData?.place.longitude }}
-            style={{ width: "100%", height: "400px", position: "absolute", zIndex: 0, top: 0, left: 0 , borderRadius: '1rem'}}
-            level={5}
-            draggable={true}
-          >
-            <CustomOverlayCar
-              lat={carData?.place.latitude}
-              lng={carData?.place.longitude}
-            />
-          </Map>
+          center={{
+            lat: carData?.place.latitude,
+            lng: carData?.place.longitude,
+          }}
+          style={{
+            width: "100%",
+            height: "400px",
+            position: "absolute",
+            zIndex: 0,
+            top: 0,
+            left: 0,
+            borderRadius: "1rem",
+          }}
+          level={5}
+          draggable={true}
+        >
+          <CustomOverlayCar
+            lat={carData?.place.latitude}
+            lng={carData?.place.longitude}
+          />
+        </Map>
       </div>
       <div
         className={
@@ -66,12 +80,15 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
           type={frameInfo?.carType}
           appearance={frameInfo.appearance}
           name={frameInfo?.carName}
-          imageUrl={frameInfo?.image} 
+          imageUrl={frameInfo?.image}
           charge={carData?.charge}
           wash={carData?.washTime.slice(0, 10).replace(/-/gi, ".")}
           fare={frameInfo?.distancePrice}
         />
         <Separator gutter={1} padding={true} />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <TimeSelectComponent />
+        </LocalizationProvider>
         <DetailLocation
           location={carData?.place.zoneAddress}
           locationName={carData?.place.name}
@@ -79,7 +96,14 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
           longitude={carData?.place.longitude}
         />
         <Separator gutter={1.5} padding={true} />
-        { guide && feature && <DetailInfo guide={guide} carName={carName} feature= {feature} frameInfo={frameInfo}/>}
+        {guide && feature && (
+          <DetailInfo
+            guide={guide}
+            carName={carName}
+            feature={feature}
+            frameInfo={frameInfo}
+          />
+        )}
       </div>
     </>
   );
