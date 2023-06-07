@@ -26,8 +26,13 @@ export default function CarBook(props: { carData: carDataType }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const auth = useRecoilValue(authState);
 
+  console.log(reqTime);
+
   const serviceStartTime = new Date(reqTime.startTime);
   const serviceEndTime = new Date(reqTime.endTime);
+  console.log(serviceStartTime, "serviceStartTime");
+  console.log(reqTime.startTime, "serviceStartTime");
+
   const timeDiff = Math.abs(
     serviceEndTime.getTime() - serviceStartTime.getTime()
   );
@@ -49,15 +54,16 @@ export default function CarBook(props: { carData: carDataType }) {
     setNextDrawer(true);
   };
 
+  const requestBody = {
+    vehicleId: router.query.cid,
+    startDate: reqTime.startTime,
+    endDate: reqTime.endTime,
+  };
+
   useEffect(() => {
     const postBookData = async () => {
       const TOKEN = "Bearer " + auth.token;
       try {
-        const requestBody = {
-          vehicleId: router.query.cid,
-          startDate: serviceStartTime,
-          endDate: serviceEndTime,
-        };
         const res = await axios.post(`${API_URL}/booklist`, requestBody, {
           headers: {
             Authorization: TOKEN,
