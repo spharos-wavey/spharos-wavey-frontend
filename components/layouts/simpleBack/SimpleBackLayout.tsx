@@ -1,9 +1,8 @@
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import Image from "next/image";
 import { authState } from "@/state/authState";
-import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
 import style from "./SimpleBackLayout.module.css";
 
 export default function SimpleBackLayout(props: {
@@ -11,14 +10,28 @@ export default function SimpleBackLayout(props: {
   title?: React.ReactNode;
 }) {
   const router = useRouter();
+  const auth = useRecoilValue(authState);
+  const [redirectUrlValue, setRedirectUrlValue] = useState<string>();
   const { brandName } = router.query;
-
   const pageUrl = router.pathname;
+  useEffect(() => {
+    if(typeof window !== undefined){
+      const redirectUrl = sessionStorage.getItem("redirectUrl");
+      redirectUrl !== null ? setRedirectUrlValue(redirectUrl) : setRedirectUrlValue("");
+    }
+  },[])
 
   const handleBack = () => {
-    if (pageUrl === "/car/brand" || pageUrl === "/rental/[rentId]") {
+    if (pageUrl === "/car/brand") {
       router.push("/");
       return;
+    }
+    if(!auth.auth && redirectUrlValue){
+        router.push(redirectUrlValue);
+        return;
+    }
+    else if (pageUrl.includes("/rental/")){
+      router.push("/");
     }
     router.back();
   }

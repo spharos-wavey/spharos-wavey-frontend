@@ -24,13 +24,15 @@ export default function RentalTop(props: {
         {props.carBrand} {props.carName}
       </div>
       <div className={style.harrypotterBinding}>
-        <Image
-          src="/assets/images/icons/harrypotter.svg"
-          width="10"
-          height="10"
-          alt="harryMark"
-          placeholder="empty"
-        />
+        <div className={style.imgBinding}>
+          <Image
+            src="/assets/images/icons/harrypotter.svg"
+            width="40"
+            height="40"
+            alt="harryMark"
+            placeholder="empty"
+          />
+        </div>
         <div className={style.charge}>{props.battery}%</div>
       </div>
     </div>

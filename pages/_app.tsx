@@ -40,7 +40,6 @@ function Auth({ children: page }: { children: ReactNode }) {
   
   const auth = useRecoilValue(authState);
   
-  console.log(auth);
   if (!auth.auth && localStorage.getItem("token")===null) {
     return <AuthChecker />
   } 

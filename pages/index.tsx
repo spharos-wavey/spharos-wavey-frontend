@@ -43,7 +43,7 @@ function Page(props: { data: brandSortType[]; }) {
   const [auth, setAuth] = useRecoilState(authState);
 
   useEffect(() => {
-    if (!auth.auth && AuthRecoilChecker()&&typeof window !== 'undefined') {
+    if (!auth.auth && AuthRecoilChecker()&& typeof window !== 'undefined') {
       setAuth({
         auth: true, 
         token: localStorage.getItem("token") as string, 
@@ -53,7 +53,13 @@ function Page(props: { data: brandSortType[]; }) {
         profileImageUrl: localStorage.getItem("profileImageUrl") as string,
       });
     }
-  }, []);
+  }, [auth.auth]);
+  
+  useEffect(()=> {
+    if(typeof window !== undefined) {
+      sessionStorage.removeItem("redirectUrl");
+    }
+  }, [])
   
   return (
     <main>

@@ -198,12 +198,9 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
         }),
       })
         .then((res) => {
-          console.log(res.status, res.ok);
           if (res.status === 200) {
-            console.log("ok");
             router.push(`/car/${router.query.cid}/book`);
           } else {
-            console.log("not ok");
             handleIncorrectLicense();
           }
         })
@@ -385,15 +382,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
         </Box>
       </FormGroup>
     </section>
-    {/* <BottomFixedContainer backgroundColor="transparent">
-      <Button
-        btnType={"button"}
-        btnEvent={() => console.log("go")}
-        shadow={true}
-      >
-        면허정보확인 
-      </Button>
-    </BottomFixedContainer>  */}
+    
     </>
   );
 }

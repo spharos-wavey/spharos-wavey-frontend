@@ -50,7 +50,6 @@ export default function Kakao() {
         const kakaoData = await res.json();
 
         try {
-          console.log(kakaoData);
           const kakaoToken = 'Bearer ' + kakaoData.access_token;
           const res = await fetch("https://kapi.kakao.com/v2/user/me", {
             method: "GET",
@@ -75,9 +74,6 @@ export default function Kakao() {
                 localStorage.setItem("nickName", data.properties.nickname);
                 localStorage.setItem("profileImageUrl", data.properties.profile_image);
                 localStorage.setItem("email", data.kakao_account.email);
-                console.log(data.properties.nickname);
-                console.log(data.properties.profile_image);
-                console.log(data.kakao_account.email);
                 setAuth({
                   auth: true,
                   nickName: data.properties.nickname,

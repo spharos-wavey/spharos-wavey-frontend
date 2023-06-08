@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
@@ -78,14 +78,12 @@ export default function CarBook(props: { carData: carDataType }) {
     };
     postBookData();
   }, []);
-  console.log(`bookId: ${bookId}`);
 
   const handlePaymentReady = () => {
     setNextDrawer(false);
     setIsPaymentReady(true);
   };
 
-  console.log(reqTime);
   return (
     <>
       {isPaymentReady && (
@@ -204,12 +202,15 @@ export default function CarBook(props: { carData: carDataType }) {
             {frameInfo.carBrand.brandName} {frameInfo.carName}
           </div>
           <div className={style.harrypotterBinding}>
-            <Image
-              src="/assets/images/icons/harrypotter.svg"
-              width="10"
-              height="10"
-              alt="harryMark"
-            />
+        <div className={style.imgBinding}>
+          <Image
+            src="/assets/images/icons/harrypotter.svg"
+            width="40"
+            height="40"
+            alt="harryMark"
+            placeholder="empty"
+          />
+        </div>
             <div className={style.charge}>{carData.charge}%</div>
           </div>
         </div>
@@ -303,7 +304,7 @@ export default function CarBook(props: { carData: carDataType }) {
       </div>
 
       <Separator gutter={7} />
-      
+
       <BottomFixedContainer>
         <Button btnType={"button"} btnEvent={() => handleModal()} shadow={true}>
           결제하기 {frameInfo?.defaultPrice.toLocaleString("kr-KO")}원

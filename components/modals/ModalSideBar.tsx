@@ -1,18 +1,15 @@
 import * as React from "react";
-import { useState, Dispatch, SetStateAction, useEffect } from "react";
-import Image from "next/image";
-import style from "./ModalSideBar.module.css";
-import SectionTitle from "../ui/SectionTitle";
-import Separator from "../ui/Separator";
-import { useRouter } from "next/router";
-import {
-  MyRentalCarType,
-  IsUserRentalNowDataType,
-} from "@/types/rentalDataType";
-import axios from "axios";
-import Swal from "sweetalert2";
+import { useState, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
+import { userRentalState } from "@/state/userRentalState";
+import Image from "next/image";
+import style from "./ModalSideBar.module.css";
+import axios from "axios";
+import SectionTitle from "../ui/SectionTitle";
+import { useRouter } from "next/router";
+import { MyRentalCarType } from "@/types/rentalDataType";
+import Swal from "sweetalert2";
 import RentCar from "../ui/RentCar";
 
 export default function ModalSideBar(props: {
@@ -22,13 +19,13 @@ export default function ModalSideBar(props: {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const auth = useRecoilValue(authState);
   const TOKEN = "Bearer " + auth.token;
+  const canUserBook  = useRecoilValue(userRentalState);
 
   const { isSideOpen, setIsSideOpen } = props;
   const [authValue, setAuthValue] = useRecoilState(authState);
   const [rentCarData, setRentCarData] = useState<MyRentalCarType[]>(
     [] as MyRentalCarType[]
   );
-  const [userName, setUserName] = useState<string>("");
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
 
@@ -45,7 +42,6 @@ export default function ModalSideBar(props: {
       email: "",
       profileImageUrl: "",
     });
-    console.log(authValue, "로그아웃");
     Swal.fire({
       text: "로그아웃 되었습니다.",
       icon: "success",
@@ -93,19 +89,21 @@ export default function ModalSideBar(props: {
   };
 
   const handleSmartKey = () => {
-    !auth.auth
-      ? (setIsSideOpen(false),
-        Swal.fire({
-          text: "로그인이 필요한 서비스입니다.",
-          icon: "warning",
-          toast: true,
-          position: "top",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: false,
-        }))
-      : console.log("smartkey");
-        // router.push("/smartKey")
+    if (!canUserBook.canUserBook) {
+      router.push(`/rental/${rentCarData[0].rentalId}`);
+    }
+    else{
+      setIsSideOpen(false);
+      Swal.fire({
+        text: "대여 후 이용 가능한 서비스 입니다.",
+        icon: "info",
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: false,
+      });
+    }
   };
 
   return (
@@ -148,7 +146,11 @@ export default function ModalSideBar(props: {
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
           <li onClick={() => actionToHistory()}>이용내역</li>
-          <li onClick={() => handleSmartKey()}>스마트키</li>
+          {
+            auth.auth ?
+            <li onClick={() => handleSmartKey()}>스마트키</li> 
+            :<></>
+          }
           <li>적립금 정책</li>
           {auth.auth ? <li onClick={handleLogout}>로그아웃</li> : <></>}
         </ul>

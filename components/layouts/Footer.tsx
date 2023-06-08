@@ -5,21 +5,37 @@ import { useRecoilState } from "recoil";
 import { authState } from "@/state/authState";
 import Image from "next/image";
 import style from "@/components/layouts/Footer.module.css";
+import Swal from "sweetalert2";
 
 export default function Footer() {
   const router = useRouter();
   const [auth, setAuth] = useRecoilState(authState);
+
+
   const handleLogOut = () => {
     localStorage.clear();
     sessionStorage.clear();
-    setAuth({
-      auth: false,
-      nickName: "",
-      profileImageUrl: "",
-      token: "",
-      uid: "",
-      email: "",
+    Swal.fire({
+      text: "로그아웃 하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "네",
+      cancelButtonText: "아니요",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setAuth({
+          auth: false,
+          nickName: "",
+          profileImageUrl: "",
+          token: "",
+          uid: "",
+          email: "",
+        });
+      }
+      else{
+        return
+      }
     });
+    
   }
   return (
     <footer className={style.footer}>
@@ -39,7 +55,7 @@ export default function Footer() {
                   <div className={style.footerIconContainer}>
                     <Image
                       src={
-                        router.pathname === menuItem.path
+                        auth.auth
                           ? menuItem.iconActive
                           : menuItem.icon
                       }

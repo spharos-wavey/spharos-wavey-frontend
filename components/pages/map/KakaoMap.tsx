@@ -76,7 +76,6 @@ export default function KakaoMap() {
       if(result.data.length > 0) {
       setZoneList(result.data);
       }
-      console.log("빌리타존: ", result.data);
     };
     getData();
   }
@@ -89,7 +88,6 @@ export default function KakaoMap() {
           `${API_URL}/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${initLoc.latitude}&lng=${initLoc.longitude}`
         );
         setZoneList(result.data);
-        console.log("빌리타존: ", result.data);
       }
   
       getData();

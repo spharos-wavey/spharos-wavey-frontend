@@ -35,14 +35,14 @@ export const footerMenuData = [
     name: "map",
     path: "/map",
     icon: "assets/images/icons/location.svg",
-    iconActive: "assets/images/icons/location.svg.svg",
+    iconActive: "assets/images/icons/location.svg",
   },
   {
     id: 3,
     name: "myPage",
     path: "/login",
     icon: "assets/images/icons/account.svg",
-    iconActive: "assets/images/icons/account.svg",
+    iconActive: "assets/images/icons/logout.svg",
   },
 ];
 
