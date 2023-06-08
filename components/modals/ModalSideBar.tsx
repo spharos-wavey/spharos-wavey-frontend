@@ -19,7 +19,7 @@ export default function ModalSideBar(props: {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const auth = useRecoilValue(authState);
   const TOKEN = "Bearer " + auth.token;
-  const canUserBook  = useRecoilValue(userRentalState);
+  const canUserBook = useRecoilValue(userRentalState);
 
   const { isSideOpen, setIsSideOpen } = props;
   const [authValue, setAuthValue] = useRecoilState(authState);
@@ -28,7 +28,6 @@ export default function ModalSideBar(props: {
   );
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
-
 
   const handleLogout = () => {
     localStorage.clear();
@@ -91,8 +90,7 @@ export default function ModalSideBar(props: {
   const handleSmartKey = () => {
     if (!canUserBook.canUserBook) {
       router.push(`/rental/${rentCarData[0].rentalId}`);
-    }
-    else{
+    } else {
       setIsSideOpen(false);
       Swal.fire({
         text: "대여 후 이용 가능한 서비스 입니다.",
@@ -145,12 +143,14 @@ export default function ModalSideBar(props: {
 
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
-          <li onClick={() => actionToHistory()}>이용내역</li>
-          {
-            auth.auth ?
-            <li onClick={() => handleSmartKey()}>스마트키</li> 
-            :<></>
-          }
+          {auth.auth ? (
+            <>
+              <li onClick={() => actionToHistory()}>이용내역</li>
+              <li onClick={() => handleSmartKey()}>스마트키</li>
+            </>
+          ) : (
+            <></>
+          )}
           <li>적립금 정책</li>
           {auth.auth ? <li onClick={handleLogout}>로그아웃</li> : <></>}
         </ul>
