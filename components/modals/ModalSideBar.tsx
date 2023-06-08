@@ -42,7 +42,6 @@ export default function ModalSideBar(props: {
       email: "",
       profileImageUrl: "",
     });
-    console.log(authValue, "로그아웃");
     Swal.fire({
       text: "로그아웃 되었습니다.",
       icon: "success",
@@ -89,7 +88,6 @@ export default function ModalSideBar(props: {
       : router.push("/rentHistory");
   };
 
-  console.log(canUserBook.canUserBook, "canUserBook");
   const handleSmartKey = () => {
     if (!canUserBook.canUserBook) {
       router.push(`/rental/${rentCarData[0].rentalId}`);

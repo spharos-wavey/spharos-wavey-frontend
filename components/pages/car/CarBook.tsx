@@ -78,14 +78,12 @@ export default function CarBook(props: { carData: carDataType }) {
     };
     postBookData();
   }, []);
-  console.log(`bookId: ${bookId}`);
 
   const handlePaymentReady = () => {
     setNextDrawer(false);
     setIsPaymentReady(true);
   };
 
-  console.log(reqTime);
   return (
     <>
       {isPaymentReady && (

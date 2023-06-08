@@ -18,7 +18,6 @@ const Paysuccess = (props: {pg_token:string}) => {
     if(typeof window !== undefined){
       const PURCHASE_NO = sessionStorage.getItem("purchaseNumber");
       const TOKEN = localStorage.getItem("token");
-      console.log(PURCHASE_NO, pg_token, "결제승인 내 체크")
       if(PURCHASE_NO !== null && pg_token !== undefined && pg_token !== null && TOKEN !== null && TOKEN !== undefined){
         handlePostPayment(PURCHASE_NO, pg_token, TOKEN);
         return;
@@ -29,7 +28,6 @@ const Paysuccess = (props: {pg_token:string}) => {
   // step 02
 
   const handlePostPayment = (PURCHASE_NO:string, pg_token:string, TOKEN:string) => {
-    console.log(PURCHASE_NO, pg_token, "결제승인 내 체크")
     localStorage.setItem("pg_token", pg_token)
     const postPaymentApprove = async () => {
       const response = await axios.post(
@@ -46,7 +44,6 @@ const Paysuccess = (props: {pg_token:string}) => {
       return response;
     } 
     postPaymentApprove().then((res) => {
-      console.log(res.data, "결제승인 내 체크")
       setIsRedirect(res.data.rentId);
       return;
     }).catch((err) => {
@@ -71,7 +68,6 @@ export default Paysuccess
 export const getServerSideProps:GetServerSideProps = async (context:Params) => {
 
   const { pg_token } = context.query;
-  console.log(pg_token, "pg_token")
   
   return {
     props: {

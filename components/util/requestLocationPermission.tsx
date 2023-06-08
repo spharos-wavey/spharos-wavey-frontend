@@ -19,17 +19,14 @@ const requestLocationPermission = () => {
           }).then((permissionResult) => {
             if (permissionResult.isConfirmed) {
               navigator.geolocation.getCurrentPosition(
-                () => {
-                  console.log("Location permission granted");
+                () => {// Success callback
                 },
                 () => {
                   // Error occurred while requesting location permission
-                  console.error("Error requesting location permission");
                 }
               );
             } else {
               // User denied location permission
-              console.log("User denied location permission");
             }
           });
         }

@@ -26,8 +26,6 @@ export default function RentalWrapper(props: { rentId: string }) {
   const auth = useRecoilValue(authState);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
-  console.log(auth.token, "auth.token");
-  console.log(auth.uid)
 
   const [isSmartkeyOpen, setIsSmartkeyOpen] = useState<boolean>(false);
   const [rentData, setRentData] = useState<RentalDetailType>();

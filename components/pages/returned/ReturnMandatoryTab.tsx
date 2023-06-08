@@ -4,7 +4,6 @@ import { useRecoilValue } from "recoil";
 import Image from "next/image";
 import { authState } from "@/state/authState";
 import { Box, Drawer } from "@mui/material";
-import axios from "axios";
 import style from "./ReturnMandatoryTab.module.css";
 import Swal from "sweetalert2";
 import Separator from "@/components/ui/Separator";
@@ -41,7 +40,7 @@ export default function ReturnMandatoryTab() {
   useEffect(() => {
     if (isNoProperlyParked) {
       Swal.fire({
-        text: "아니 차를 그렇게 대시면 어떡해요?",
+        text: "고객센터로 문의주시기 바랍니다",
         icon: "error",
         toast: true,
         position: "top",

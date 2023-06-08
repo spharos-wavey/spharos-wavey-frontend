@@ -30,14 +30,12 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
           });
           const data = await res.json();
           setCanUserRent(data);
-          console.log(data, "canUserRent")
         } catch (err) {
           console.log(err);
         }
       };
       getData();
     } else {
-      console.log("로그인이 필요합니다.");
       return;
     }
   }, [auth.uid]);

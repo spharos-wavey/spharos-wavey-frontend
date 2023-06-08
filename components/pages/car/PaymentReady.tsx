@@ -57,7 +57,6 @@ export default function PaymentReady(props: {
   useEffect(() => {
     if (props.bookIdData !== undefined) {
       const getPaymentReady = async () => {
-        console.log(readyRequestBody);
         const res = await axios.post(
           `${API_URL}/purchase/kakao/ready`,
           readyRequestBody,

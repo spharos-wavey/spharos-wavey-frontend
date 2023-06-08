@@ -29,11 +29,9 @@ export const getServerSideProps = async (context: Params) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   
   const url = `${API_URL}/carbrand/maker/${context.query.brandId}?lat=${context.query.lat}&lng=${context.query.lng}&page=1&size=20`;
-  console.log('apiurl',url)
 
   const res = await fetch(url);
   const data = await res.json();
-  console.log(data)
 
   return {
     props: {
