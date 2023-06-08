@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import Image from "next/image";
 import { authState } from "@/state/authState";
 import style from "./SimpleBackLayout.module.css";
+import { userRentalState } from "@/state/userRentalState";
 
 export default function SimpleBackLayout(props: {
   children?: React.ReactNode;
@@ -12,8 +13,11 @@ export default function SimpleBackLayout(props: {
   const router = useRouter();
   const auth = useRecoilValue(authState);
   const [redirectUrlValue, setRedirectUrlValue] = useState<string>();
+  const canUserRentMore = useRecoilValue(userRentalState);
   const { brandName } = router.query;
   const pageUrl = router.pathname;
+  
+  
   useEffect(() => {
     if(typeof window !== undefined){
       const redirectUrl = sessionStorage.getItem("redirectUrl");
@@ -22,6 +26,10 @@ export default function SimpleBackLayout(props: {
   },[])
 
   const handleBack = () => {
+    if (!canUserRentMore.canUserBook && pageUrl.includes("/rental/")){
+      router.push("/");
+      return;
+    }
     if (pageUrl === "/car/brand") {
       router.push("/");
       return;
@@ -30,10 +38,8 @@ export default function SimpleBackLayout(props: {
         router.push(redirectUrlValue);
         return;
     }
-    else if (pageUrl.includes("/rental/")){
-      router.push("/");
-    }
     router.back();
+    console.log(canUserRentMore.canUserBook, pageUrl.includes("/rental/"));
   }
 
   return (

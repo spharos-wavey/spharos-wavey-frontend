@@ -102,13 +102,13 @@
 }
 
 .location {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   opacity: 0.6;
   margin-bottom: 0.3rem;
-  margin-right: 1rem;
-  text-decoration: underline;
-  text-underline-offset: 5px;
-  text-decoration-thickness: 0.4px;
+  /* margin-right: 1rem; */
+  /* text-decoration: underline; */
+  /* text-underline-offset: 5px; */
+  /* text-decoration-thickness: 0.4px; */
   align-items: center;
   display: flex;
 }

@@ -35,7 +35,6 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
     };
     getBillitaZoneInfo();
   }, [frameInfo.billitaZoneId]);
-  console.log(place)
   
 
   return (
@@ -69,35 +68,15 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
       <div className={style.subtitle}>주차장소</div>
       <div className={style.subWrap}>
         <div className={style.content}>대여위치</div>
-        <div className={style.arrowWrap}>
           {place &&
             <div className={style.location}>{place.name}</div>
           }
-          <div className={style.arrow}>
-            <Image
-              src="/assets/images/icons/rightArrowGreyBold.svg"
-              width="10"
-              height="10"
-              alt="arrow"
-            />
-          </div>
-        </div>
       </div>
       <div className={style.subWrap}>
         <div className={style.content}>반납위치</div>
-        <div className={style.arrowWrap}>
           { place &&
             <div className={style.location}>{place.name}</div>
           }
-          <div className={style.arrow}>
-            <Image
-              src="/assets/images/icons/rightArrowGreyBold.svg"
-              width="10"
-              height="10"
-              alt="arrow"
-            />
-          </div>
-        </div>
       </div>
 
       <Separator gutter={1.5} />

@@ -20,6 +20,7 @@ export default function ReturnMandatoryTab() {
   const USER_UID = auth.uid;
   const RETURNED_TIME = "2023-06-08 02:00";
   const FINAL_PRICE = "10000";
+  const [drawer, setDrawer] = useState<boolean>(false);
 
   const [isYesProperlyParked, setIsYesProperlyParked] =
     useState<boolean>(false);
@@ -56,40 +57,31 @@ export default function ReturnMandatoryTab() {
     new Array(staticReturnQuestionData.length).fill(false)
   );
 
-  useEffect(() => {
-    const allQuestionsClicked = questionActive.every((isActive) => isActive);
-    if (allQuestionsClicked) {
-      handleReturnConfirmed();
-    }
-  }, [questionActive]);
+  // const allQuestionsClicked = questionActive.every((isActive) => isActive);
 
   const handleActionAPI = async () => {
-      try {
-        const response = await fetch(
-          `${API_URL}/rental/${router.query.rentId}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: TOKEN,
-              uid: USER_UID,
-            },
-            body: JSON.stringify({
-              returnTime: RETURNED_TIME,
-              finalPrice: FINAL_PRICE,
-            }),
-          }
-        );
-        if (response.ok) {
-          handleSwalReturnConfirm();
-          // router.push("/");
-        } else {
-          throw new Error("반납요청 실패");
-        }
-      } catch (error) {
-        console.log(error);
+    try {
+      const response = await fetch(`${API_URL}/rental/${router.query.rentId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: TOKEN,
+          uid: USER_UID,
+        },
+        body: JSON.stringify({
+          returnTime: RETURNED_TIME,
+          finalPrice: FINAL_PRICE,
+        }),
+      });
+      if (response.ok) {
+        handleSwalReturnConfirm();
+        // router.push("/");
+      } else {
+        throw new Error("반납요청 실패");
       }
-    
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleAnswerAllPlz = () => {
@@ -117,11 +109,11 @@ export default function ReturnMandatoryTab() {
   };
 
   const handleReturnConfirmed = () => {
-    if(!isYesProperlyParked || questionActive.includes(false)){
-      handleAnswerAllPlz()}
-      else{
-      handleActionAPI();
-      }
+    if (!isYesProperlyParked || questionActive.includes(false)) {
+      handleAnswerAllPlz();
+    } else {
+      setDrawer(!drawer);
+    }
   };
 
   const activateQuestion = (index: number) => {
@@ -133,6 +125,7 @@ export default function ReturnMandatoryTab() {
   return (
     <>
       <Drawer
+        open={drawer}
         PaperProps={{
           sx: { width: 390, borderTopLeftRadius: 18, borderTopRightRadius: 18 },
         }}
@@ -145,7 +138,7 @@ export default function ReturnMandatoryTab() {
           <BottomFixedContainer>
             <Button
               btnType={"button"}
-              btnEvent={() => alert("wanna return?")}
+              btnEvent={() => router.push("/rentHistory")}
               shadow={true}
             >
               반납하기

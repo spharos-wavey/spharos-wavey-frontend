@@ -27,7 +27,9 @@ const Detail = (props:{rentId:string}) => {
 
   if(auth.auth === false) return (
     <main>
-      <PageLoader text="정보를 불러오고 있습니다."/>
+      <section>
+        <PageLoader text="정보를 불러오고 있습니다."/>
+      </section>
     </main>
   )
 

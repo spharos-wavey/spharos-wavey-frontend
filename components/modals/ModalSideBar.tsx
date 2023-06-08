@@ -84,7 +84,7 @@ export default function ModalSideBar(props: {
           timer: 2000,
           timerProgressBar: false,
         })
-      : router.push("/rentHistory");
+      : router.push("/rental/history");
   };
 
   const handleSmartKey = () => {
