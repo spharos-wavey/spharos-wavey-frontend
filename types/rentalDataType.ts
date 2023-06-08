@@ -20,12 +20,16 @@ export interface IsUserRentalNowDataType {
   carName: string;
 }
 
-export interface MyRentalCarType {
+export interface MyRentalCarType{
   rentalId: number;
   vehicleId: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
+  returnZoneId: number;
+  price: number;
+  purchaseStatus: string;
 }
+
 
 export interface RentalDetailType {
   rentalId: number;

@@ -42,7 +42,7 @@ export default function RentalWrapper(props: { rentId: string }) {
     };
     getCancelRequest();
     Swal.fire({
-      title: "예약이 취소되었습니다.",
+      title: "대여가 취소되었습니다.",
       icon: "success",
       confirmButtonText: "확인",
     }).then(() => {

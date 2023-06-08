@@ -246,35 +246,15 @@ export default function CarBook(props: { carData: carDataType }) {
         <div className={style.subtitle}>주차장소</div>
         <div className={style.subWrap}>
           <div className={style.content}>대여위치</div>
-          <div className={style.arrowWrap}>
             {carData && (
               <div className={style.location}>{carData?.place.name}</div>
             )}
-            <div className={style.arrow}>
-              <Image
-                src="/assets/images/icons/rightArrowGreyBold.svg"
-                width="10"
-                height="10"
-                alt="arrow"
-              />
-            </div>
-          </div>
         </div>
         <div className={style.subWrap}>
           <div className={style.content}>반납위치</div>
-          <div className={style.arrowWrap}>
             {carData && (
               <div className={style.location}>{carData?.place.name}</div>
             )}
-            <div className={style.arrow}>
-              <Image
-                src="/assets/images/icons/rightArrowGreyBold.svg"
-                width="10"
-                height="10"
-                alt="arrow"
-              />
-            </div>
-          </div>
         </div>
 
         <Separator gutter={1.5} />
