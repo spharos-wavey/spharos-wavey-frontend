@@ -5,6 +5,7 @@ import MenuItem from "./MenuItem";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import ModalSideBar from "../modals/ModalSideBar";
+import Image from "next/image";
 
 export default function Header() {
 
@@ -38,6 +39,10 @@ export default function Header() {
           {/* <MenuItem menuItem={headerMenuData[1]} key={headerMenuData[1].id} /> */}
         </ul>
       </nav>
+      <div className={style.headerLogo}>
+        <h1>Billita</h1>
+        <Image src="/assets/images/common/billitaLogo.svg" width={129} height={65} alt="Welcome to Billita" priority/>
+      </div>
     </header>
     </>
   );

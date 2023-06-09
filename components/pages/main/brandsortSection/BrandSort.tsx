@@ -7,9 +7,9 @@ export default function BrandSort(props: { data: brandSortType[] }) {
   const data = props.data;
 
   return (
-    <div>
+    <div style={{paddingTop: '2rem'}}>
       <div style={{padding: '0 1.5rem'}}>
-        <SectionTitle>브랜드 별 검색</SectionTitle>
+        <SectionTitle fontSize={1.0}>브랜드 별 검색</SectionTitle>
       </div>
       <div className={style.brandNav}>
         {data && data.map((item: brandSortType) => {

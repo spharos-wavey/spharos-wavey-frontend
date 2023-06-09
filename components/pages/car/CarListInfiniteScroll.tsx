@@ -7,6 +7,8 @@ import { useSetRecoilState } from "recoil";
 import { redirectionUrlState } from "@/state/redirectionState";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import DataLoader from "@/components/ui/DataLoader";
+import PageLoader from "@/components/ui/PageLoader";
 
 export default function CarListInfiniteScroll(props:{ }) {
   
@@ -46,8 +48,9 @@ export default function CarListInfiniteScroll(props:{ }) {
       <div className={style.listHeader}>
         <div className={style.listTitle}>
           <span>빌리타</span>에서 빌려타는 기회!
-
-          <div className={style.description}><span>{carList && carList.length}</span>대의 <span>{brandName}</span>차량이 대기중입니다</div>
+          {
+            contentsData === undefined ? null : <div className={style.description}><span>{carList && carList.length}</span>대의 <span>{brandName}</span>차량이 대기중입니다</div>
+          }
         </div>
       </div>
       <div className={style.listBody}>
@@ -55,9 +58,8 @@ export default function CarListInfiniteScroll(props:{ }) {
           dataLength={carList?.length}
           next={handleGetMoreData}
           hasMore={contentsData?.last !== true}
-          loader={<h4>Loading...</h4>}
+          loader={<GetLoader/>}
         >
-          {carList?.length === 0 && <div>차량이 없습니다</div>}
         { carList && carList?.map((item:carListbyBrandDataType) => {
           return (
             <div
@@ -82,8 +84,9 @@ export default function CarListInfiniteScroll(props:{ }) {
                   <Image
                     src={item.imageUrl}
                     alt={item.carName}
-                    width={100}
-                    height={60}
+                    width={400}
+                    height={400}
+                    priority={true}
                   />
                 </div>
               </div>
@@ -94,4 +97,12 @@ export default function CarListInfiniteScroll(props:{ }) {
       </div>
     </>
   );
+}
+
+const GetLoader = () => {
+  return (
+    <div style={{ width: '100%', padding: '1rem', display: 'flex', justifyContent: 'center'}}>
+      <DataLoader/>
+    </div>
+  )
 }

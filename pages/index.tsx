@@ -63,7 +63,6 @@ function Page(props: { data: brandSortType[]; }) {
   
   return (
     <main>
-      <LogoMainPage />
       <BrandSort data={props.data}/>
       <VehicleRecommendMain />
       <Separator gutter={20} />
