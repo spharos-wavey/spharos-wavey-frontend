@@ -28,9 +28,10 @@
 }
 
 .brandName {
-  margin-top: 1rem;
+  margin-top: 0.6rem;
   text-align: center;
   color: var(--billita-primary);
+  font-size: 0.7rem;
   font-weight: bold;
   opacity: 0.6;
 }
@@ -47,11 +48,11 @@
 }
 .circleOuter:hover {
   opacity: 1;
-  background-color: rgba(0,0,255,0.1);
+  /* background-color: rgba(0,0,255,0.1); */
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   animation: turn 1s linear infinite;
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='100' ry='100' stroke='%2300B1FBFF' stroke-width='15' stroke-dasharray='50%25 90%25' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='100' ry='100' stroke='%2300B1FBFF' stroke-width='10' stroke-dasharray='50%25 90%25' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
   border-radius: 100px;
 }
 

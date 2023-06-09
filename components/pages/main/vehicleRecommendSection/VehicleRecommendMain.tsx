@@ -39,7 +39,7 @@ export default function VehicleRecommendMain() {
   
   return (
     <div>
-      <div className={style.sectionTitle}>내 주변의 차량입니다. 함 타보이소</div>
+      <div className={style.sectionTitle}>함 타보이소 ~ </div>
       <div className={style.overflowWrap}>
       {mainCarData === undefined ? <MyLoader /> : 
         mainCarData.length === 0 ? <div className={style.noCar}>현재 위치에서 조회된 차량이 없습니다.</div> :
