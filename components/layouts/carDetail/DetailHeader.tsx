@@ -15,13 +15,16 @@ export default function DetailHeader() {
   
 
   const goBack = () => {
-    if(userAlreadyBook.canUserBook) {
-      router.push('/');
-      return
-    }
+    // if(userAlreadyBook.canUserBook) {
+    //   router.push('/');
+    //   return
+    // }
     if(redirect.redirectUrl) {
       router.push(redirect.redirectUrl)
       return
+    }
+    else {
+      router.push("/")
     }
   }
   

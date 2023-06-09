@@ -5,12 +5,6 @@ export const headerMenuData = [
     path: "/sidebar",
     icon: "assets/images/icons/menuIcon.svg",
   },
-  {
-    id: 2,
-    name: "search",
-    path: "/search",
-    icon: "assets/images/icons/searchIcon.svg",
-  },
 ];
 
 export const detailMenuData = [
