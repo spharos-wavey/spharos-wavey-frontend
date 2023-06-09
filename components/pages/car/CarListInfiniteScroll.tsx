@@ -5,12 +5,18 @@ import { useRouter } from "next/router";
 import ProgressBar from "@/components/ui/ProgressBar";
 import { useSetRecoilState } from "recoil";
 import { redirectionUrlState } from "@/state/redirectionState";
+import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-export default function CarList(props: { data: carListBrandType }) {
-  const carList = props.data;
+export default function CarListInfiniteScroll(props:{ }) {
+  
   const router = useRouter();
-  const brandName = router.query.brandName;
-  const dataLength = carList.content.length;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const { brandId, brandName, lat, lng } = router.query;
+  const [page, setPage] = useState<number>(1);
+  const [size, setSize] = useState<string>("20");
+  const [contentsData, setContentsData] = useState<carListBrandType>();
+  const [carList, setCarList] = useState<carListbyBrandDataType[]>([] as carListbyBrandDataType[]);
 
   const setUrlSettion = useSetRecoilState(redirectionUrlState)
   const handleOpenCarDetail = (vehicleId: number) => {
@@ -18,18 +24,41 @@ export default function CarList(props: { data: carListBrandType }) {
     router.push(`/car/${vehicleId}`);
   };
 
-  console.log(carList)
+
+  useEffect(() => {
+    if( brandId && page && size && lat && lng ) {
+    const getData = async () => {
+      const res = await fetch(`${API_URL}/carbrand/maker/${brandId}?lat=${lat}&lng=${lng}&page=${page}&size=${size}`);
+      const data = await res.json();
+      setContentsData(data);
+      setCarList([...carList, ...data.content])
+    }
+    getData();
+    }
+  }, [brandId, page, size, lat, lng])
+
+  const handleGetMoreData = () =>{
+    setPage(page+1);
+  }
+
   return (
     <>
       <div className={style.listHeader}>
         <div className={style.listTitle}>
           <span>빌리타</span>에서 빌려타는 기회!
 
-          <div className={style.description}><span>{dataLength}</span>대의 <span>{brandName}</span>차량이 대기중입니다</div>
+          <div className={style.description}><span>{carList && carList.length}</span>대의 <span>{brandName}</span>차량이 대기중입니다</div>
         </div>
       </div>
       <div className={style.listBody}>
-        {dataLength > 0 && carList.content.map((item:carListbyBrandDataType) => {
+        <InfiniteScroll
+          dataLength={carList?.length}
+          next={handleGetMoreData}
+          hasMore={contentsData?.last !== true}
+          loader={<h4>Loading...</h4>}
+        >
+          {carList?.length === 0 && <div>차량이 없습니다</div>}
+        { carList && carList?.map((item:carListbyBrandDataType) => {
           return (
             <div
               key={item.vehicleId}
@@ -61,6 +90,7 @@ export default function CarList(props: { data: carListBrandType }) {
             </div>
           );
         })}
+        </InfiniteScroll>
       </div>
     </>
   );
