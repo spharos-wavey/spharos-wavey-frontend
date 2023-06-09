@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
-import RentalLogNotExist from "@/components/pages/rental/RentalLogNotExist";
 import RentalHistory from "@/components/pages/history/RentalHistory";
 import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
 import { authState } from "@/state/authState";
-import { GetServerSideProps } from "next";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { MyRentalCarType } from "@/types/rentalDataType";
 
 export default function RentHistory() {
@@ -25,7 +22,7 @@ export default function RentHistory() {
         profileImageUrl: localStorage.getItem("profileImageUrl") as string,
       });
     }
-  }, []);
+  }, [auth.auth, setAuth]);
 
   useEffect(() => {
     console.log(auth.token, "auth.token");
@@ -46,7 +43,7 @@ export default function RentHistory() {
       setRentalData(data);
     };
     getRentalAllData();
-  }, [auth.token, auth.uid]);
+  }, [auth.token, auth.uid, API_URL]);
 
   return (
     <main>

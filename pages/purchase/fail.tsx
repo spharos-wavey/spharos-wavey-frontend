@@ -11,7 +11,7 @@ export default function Fail() {
     return () => {
       clearTimeout(timeout);
     };
-  }, [router]);
+  }, []);
 
 
   return (
