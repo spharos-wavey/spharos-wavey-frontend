@@ -9,12 +9,12 @@ import Swal from "sweetalert2";
 import { useSetRecoilState } from "recoil";
 import { nowTimeState } from "@/state/nowTime";
 
-interface timeModalType {
+interface TimeModalType {
   setTimeModal: React.Dispatch<React.SetStateAction<boolean>>;
   timeModal: boolean;
 }
 
-export default function TimeSelect({ setTimeModal, timeModal }: timeModalType) {
+export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
   const [startTime, setStartTime] = useState<dayjs.Dayjs>(
     dayjs().add(10, "minute")
   );
