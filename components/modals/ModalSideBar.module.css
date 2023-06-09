@@ -109,6 +109,7 @@
 .menuUl li {
   padding: 15px 10px;
   opacity: 0.6;
+  margin: 5px 0px;
 }
 
 .bottomMenuWrap {

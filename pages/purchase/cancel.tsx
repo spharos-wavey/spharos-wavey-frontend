@@ -11,7 +11,7 @@ export default function Cancel() {
     return () => {
       clearTimeout(timeout);
     };
-  }, [router]);
+  }, []);
   return (
     <PageLoader text="결제를 취소 하셨습니다. 메인화면으로 이동합니다." />
   )

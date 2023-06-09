@@ -18,7 +18,7 @@ export default function ReturnMandatoryTab() {
   const auth = useRecoilValue(authState);
   const TOKEN = "Bearer " + auth.token;
   const USER_UID = auth.uid;
-  const RETURNED_TIME = "2023-06-08 02:00";
+  const RETURNED_TIME = "2023-06-09 15:23";
   const FINAL_PRICE = "10000";
   const [drawer, setDrawer] = useState<boolean>(false);
 
@@ -138,7 +138,7 @@ export default function ReturnMandatoryTab() {
           <BottomFixedContainer>
             <Button
               btnType={"button"}
-              btnEvent={() => router.push("/")}
+              btnEvent={() => handleActionAPI()}
               shadow={true}
             >
               반납하기

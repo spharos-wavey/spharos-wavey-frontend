@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import style from "./RentalMiddle.module.css";
 import Separator from "@/components/ui/Separator";
-import { CarFrameDataType } from "@/types/carDataType";
 import { BillitaZoneType, RentalDetailType } from "@/types/rentalDataType";
 import axios from "axios";
 

@@ -99,7 +99,7 @@
   font-size: 0.6rem;
   padding: 0.1rem 0.3rem;
   color: white;
-  background-color: var(--billita-blue);
+  background-color: #1F64BB;
   border-radius: 5px;
   width: fit-content;
   position: absolute;
@@ -112,6 +112,14 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.badgeReservation {
+  background-color: var(--billita-blue);
+}
+
+.badgeCanceled {
+  background-color: var(--billita-secondary);
 }
 
 .cardItemImg {
