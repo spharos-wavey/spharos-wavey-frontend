@@ -13,7 +13,7 @@ export default function RentHistory() {
   const [auth, setAuth] = useRecoilState(authState);
   const [rentalData, setRentalData] = useState<MyRentalCarType[]>();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
+  console.log(rentalData, "history");
   useEffect(() => {
     if (!auth.auth && AuthRecoilChecker() && typeof window !== "undefined") {
       setAuth({
@@ -51,11 +51,23 @@ export default function RentHistory() {
   return (
     <main>
       <section>
-        {rentalData && rentalData.length > 0
-          ? rentalData.map((data: MyRentalCarType) => (
-              <RentalHistory rentalData={data} key={data.rentalId} />
-            ))
-          : "이용 내역이 없습니다."}
+      {rentalData && rentalData.length > 0 ? (
+          <>
+            {rentalData
+              .filter((data: MyRentalCarType) => data.purchaseState === "RESERVATION")
+              .map((data: MyRentalCarType) => (
+                <RentalHistory rentalData={data} key={data.rentalId} />
+              ))}
+            
+            {rentalData
+              .filter((data: MyRentalCarType) => data.purchaseState !== "RESERVATION")
+              .map((data: MyRentalCarType) => (
+                <RentalHistory rentalData={data} key={data.rentalId} />
+              ))}
+          </>
+        ) : (
+          "이용 내역이 없습니다."
+        )}
       </section>
     </main>
   );

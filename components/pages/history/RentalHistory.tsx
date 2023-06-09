@@ -8,7 +8,8 @@ export default function RentalHistory(props: { rentalData: MyRentalCarType }) {
   const rentalData = props.rentalData;
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [carData, setCarData] = useState<carDataType>();
-
+  console.log(rentalData, "childrenPage");
+  // console.log(rentalData.filter((data) => data.purchaseState === "RESERVATION"))
   const useStartDate = new Date(rentalData.startDate);
   const startDate =
     useStartDate.getFullYear() +
@@ -17,10 +18,10 @@ export default function RentalHistory(props: { rentalData: MyRentalCarType }) {
     "월 " +
     useStartDate.getDate() +
     "일 " +
-    useStartDate.getHours() + ":" + useStartDate.getMinutes()
-
+    useStartDate.getHours() +
+    ":" +
+    useStartDate.getMinutes();
   const useEndDate = new Date(rentalData.endDate);
-  // useStartDate.getFullYear() === useEndDate.getFullYear() ? endDate :
   const endDate =
     useStartDate.getFullYear() === useEndDate.getFullYear()
       ? useEndDate.getMonth() +
@@ -28,14 +29,18 @@ export default function RentalHistory(props: { rentalData: MyRentalCarType }) {
         "월 " +
         useEndDate.getDate() +
         "일 " +
-        useEndDate.getHours() + ":" + useEndDate.getMinutes()
+        useEndDate.getHours() +
+        ":" +
+        useEndDate.getMinutes()
       : useEndDate.getFullYear() +
         "년 " +
         (useEndDate.getMonth() + 1) +
         "월 " +
         useEndDate.getDate() +
         "일 " +
-        useEndDate.getHours() + ":" + useEndDate.getMinutes()
+        useEndDate.getHours() +
+        ":" +
+        useEndDate.getMinutes();
 
   useEffect(() => {
     const getVehicleData = async () => {
@@ -48,6 +53,16 @@ export default function RentalHistory(props: { rentalData: MyRentalCarType }) {
     };
     getVehicleData();
   }, []);
+
+  const renderBadge = () => {
+    if (rentalData.purchaseState === "CANCELED") {
+      return "대여취소";
+    } else if (rentalData.purchaseState === "RESERVATION") {
+      return "예약중";
+    } else {
+      return "반납완료";
+    }
+  };
 
   return (
     <div>
@@ -62,13 +77,22 @@ export default function RentalHistory(props: { rentalData: MyRentalCarType }) {
               원
             </div>
             <div className={style.distancePrice}>
-              <span>이용정보</span>
+              {/* <span>{props.rentalData.returnZone}</span> */}
               {startDate} - {endDate}
-              <span>{props.rentalData.returnZoneId}</span>
             </div>
           </div>
           <div className={style.cardItemImg}>
-            <div className={style.badge}>{props.rentalData.purchaseStatus}</div>
+            <div
+              className={
+                rentalData.purchaseState === "RESERVATION"
+                  ? `${style.badge} ${style.badgeReservation}`
+                  : rentalData.purchaseState === "CANCELED"
+                  ? `${style.badge} ${style.badgeCanceled}`
+                  : style.badge
+              }
+            >
+              <span>{renderBadge()}</span>
+            </div>
             <div className={style.imgWrap}>
               <Image
                 src={carData.frameInfo.image}

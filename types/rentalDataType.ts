@@ -25,9 +25,9 @@ export interface MyRentalCarType{
   vehicleId: number;
   startDate: string;
   endDate: string;
-  returnZoneId: number;
+  returnZone: number;
   price: number;
-  purchaseStatus: string;
+  purchaseState: string;
 }
 
 
