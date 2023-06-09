@@ -20,13 +20,10 @@ export default function CarBook(props: { carData: carDataType }) {
   const router = useRouter();
   const [drawer, setDrawer] = useState<boolean>(false);
   const [nextDrawer, setNextDrawer] = useState<boolean>(false);
-  const [userName, setUserName] = useState<string | null>();
   const reqTime = useRecoilValue<timeType>(nowTimeState);
   const [bookId, setBookId] = useState<number>(0);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const auth = useRecoilValue(authState);
-
-  console.log(reqTime);
 
   const serviceStartTime = new Date(reqTime.startTime);
   const serviceEndTime = new Date(reqTime.endTime);
@@ -36,6 +33,7 @@ export default function CarBook(props: { carData: carDataType }) {
   const timeDiff = Math.abs(
     serviceEndTime.getTime() - serviceStartTime.getTime()
   );
+  console.log(timeDiff, "timeDiff")
   const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
   const hours = Math.floor(
     (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
@@ -45,6 +43,7 @@ export default function CarBook(props: { carData: carDataType }) {
 
   const carData = props.carData;
   const frameInfo = props.carData?.frameInfo;
+  const fare = timeDiff/3600000 * frameInfo?.distancePrice;
 
   const handleModal = () => {
     setDrawer(true);
@@ -219,7 +218,7 @@ export default function CarBook(props: { carData: carDataType }) {
       <div className={style.middleWrap}>
         <div className={style.subWrap}>
           <div className={style.subtitle}>주행요금</div>
-          <div className={style.fare}>{frameInfo?.distancePrice}원/km</div>
+          <div className={style.fare}>{fare}원/km</div>
         </div>
         <div className={style.description}>
           *주행요금은 반납 후 실주행거리에 따라 별도로 청구됩니다.

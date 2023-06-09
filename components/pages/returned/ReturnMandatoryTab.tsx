@@ -138,7 +138,7 @@ export default function ReturnMandatoryTab() {
           <BottomFixedContainer>
             <Button
               btnType={"button"}
-              btnEvent={() => router.push("/rentHistory")}
+              btnEvent={() => router.push("/")}
               shadow={true}
             >
               반납하기

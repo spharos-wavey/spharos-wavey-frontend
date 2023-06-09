@@ -83,9 +83,10 @@
 }
 .distancePrice {
   font-size: 0.7rem;
-  font-weight: bold;
 }
 .distancePrice span {
+  width: fit-content;
+  display: block;
   font-size: 0.5rem;
   padding: 0.1rem 0.3rem;
   color: white;
