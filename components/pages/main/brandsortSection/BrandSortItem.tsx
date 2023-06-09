@@ -10,7 +10,7 @@ export default function BrandSortItem(props: { item: brandSortType }) {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
       if (lat!==0 && lng!==0) {
-        router.push(`/car/brand?brandId=${props.item.id}&brandName=${props.item.brandName}&lat=${lat}&lng=${lng}`);
+        router.push(`/car/brand?brandId=${props.item.id}&brandName=${props.item.brandName}&lat=${lat}&lng=${lng}&page=1&size=20`);
       }
     }, error => {
       console.log(error)
