@@ -13,7 +13,7 @@ interface TimeModalType {
   timeModal?: boolean;
 }
 
-export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
+export default function TimeSelectComponent({ setTimeModal, timeModal }: TimeModalType) {
   const [startTime, setStartTime] = useState<dayjs.Dayjs>(
     dayjs().add(10, "minute")
   );

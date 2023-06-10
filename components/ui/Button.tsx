@@ -10,7 +10,7 @@ interface ButtonStyle {
   backgroundColor?: string | undefined;
   color?: string | undefined;
   fontWeight?: string | undefined;
-  width?: number;
+  width?: string;
 }
 
 export default function Button(props: ButtonStyle) {
