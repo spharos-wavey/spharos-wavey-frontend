@@ -1,5 +1,5 @@
 import { carInMapType } from "@/types/carDataType";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import style from "./CarListInMapDrawer.module.css";
 import Image from "next/image";
 import CloseOrSlideBtn from "../ui/CloseOrSlideBtn";
@@ -7,6 +7,7 @@ import ProgressBar from "../ui/ProgressBar";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import { redirectionUrlState } from "@/state/redirectionState";
+import ScrollToTop from "../ui/ScrollToTop";
 
 export default function CarListInMapDrawer(props: {
   data: carInMapType[];
@@ -23,12 +24,24 @@ export default function CarListInMapDrawer(props: {
     router.push(`/car/${id}`);
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      window.scrollTo({ top: 0 });
+    }
+  }, [isOpen]);
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsOpen(false)
+  };
+
   return (
     <>
+      {/* <ScrollToTop /> */}
       {isOpen ? (
         <div
           className={style.drawerOverlay}
-          onClick={() => setIsOpen(false)}
+          onClick={handleScrollToTop}
         ></div>
       ) : null}
       <div
@@ -38,10 +51,11 @@ export default function CarListInMapDrawer(props: {
             : `${style.drawerContainer} ${style.close}`
         }
       >
+       
         <div className={style.drawerInner}>
-          <div className={style.closeBtn}>
-            <CloseOrSlideBtn onClick={() => setIsOpen(false)} />
-          </div>
+        <div className={style.closeBtn}>
+          <CloseOrSlideBtn onClick={handleScrollToTop} />
+        </div>
           <div className={style.drawerHeader}>
             <div className={style.drawerTitle}>검색된 차량 {data.length}대</div>
             <div className={style.drawerLocation}>
