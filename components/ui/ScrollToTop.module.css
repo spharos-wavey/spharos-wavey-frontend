@@ -17,14 +17,12 @@
   visibility: hidden;
   transition: all 0.3s ease-in-out;
   bottom: 1rem;
-
-}
-
+} 
 
 .slideDown {
   margin: 0 auto;
   margin-bottom: -2rem;
-  opacity: 0.8;
+  opacity: 0.6;
   width: 62px;
   height: 62px;
   border-radius: 50%;
