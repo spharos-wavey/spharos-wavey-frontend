@@ -7,6 +7,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
 import LicenseWrapper from "@/components/pages/license/LicenseWrapper";
 import { userRentalState } from "@/state/userRentalState";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 
 export default function DetailLayout(props: { children: React.ReactNode }) {
   const auth = useRecoilValue(authState);

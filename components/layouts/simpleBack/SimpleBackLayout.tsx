@@ -5,6 +5,7 @@ import Image from "next/image";
 import { authState } from "@/state/authState";
 import style from "./SimpleBackLayout.module.css";
 import { userRentalState } from "@/state/userRentalState";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 
 export default function SimpleBackLayout(props: {
   children?: React.ReactNode;
@@ -44,6 +45,7 @@ export default function SimpleBackLayout(props: {
 
   return (
     <div>
+      <ScrollToTop />
       <header className={style.headerContainer}>
         <nav>
           <ul>
