@@ -14,9 +14,6 @@ export default function ModalForm(props: {
   useEffect(() => {
     const startDate = props.startDate ? props.startDate : null;
     const endDate = props.endDate ? props.endDate : null;
-    console.log(startDate, "startDate");
-    console.log(endDate, "endDate");
-    console.log(props.userName, "userName");
     if(startDate && endDate) {
       setStartDate(startDate);
       setEndDate(endDate);

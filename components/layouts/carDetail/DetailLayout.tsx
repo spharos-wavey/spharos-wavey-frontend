@@ -33,6 +33,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
           });
           const data = await res.json();
           setCanUserRent(data);
+          console.log(data, "check with api can-rental");
         } catch (err) {
           console.log(err);
         }
@@ -51,7 +52,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       confirmButtonColor: "var(--billita-primary)",
       timer: 2000,
       timerProgressBar: false,
-  })
+    });
   };
   const handleCheckNextStep = () => {
     if (!auth.auth && typeof window !== "undefined") {
@@ -71,7 +72,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     setTimeModal(false);
   };
 
-  console.log(canUserRent, "canUserRent")
+  console.log(canUserRent, "canUserRent");
   return (
     <>
       <LicenseWrapper isOpen={isLicense} setIsOpen={setIsLicense} />
@@ -80,28 +81,30 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       <div>{props.children}</div>
 
       {canUserRent.canUserBook ? (
-      <BottomFixedContainer backgroundColor="white" display="flex">
-        <Button
-          btnType="button"
-          btnEvent={() => handleSetTime()}
-          shadow={true}
-          width={"48%"}
-          backgroundColor="#fff"
-          color="var(--billita-blueHighlight)"
-          border="2px solid var(--billita-blueHighlight)"
-        >
-          시간수정
-        </Button>
-        <Button
-          btnType="button"
-          btnEvent={() => handleCheckNextStep()}
-          shadow={true}
-          width={"48%"}
-        >
-          예약하기
-        </Button>
-      </BottomFixedContainer>
-    ): <></>}
+        <BottomFixedContainer backgroundColor="white" display="flex">
+          <Button
+            btnType="button"
+            btnEvent={() => handleSetTime()}
+            shadow={true}
+            width={"48%"}
+            backgroundColor="#fff"
+            color="var(--billita-blueHighlight)"
+            border="2px solid var(--billita-blueHighlight)"
+          >
+            시간수정
+          </Button>
+          <Button
+            btnType="button"
+            btnEvent={() => handleCheckNextStep()}
+            shadow={true}
+            width={"48%"}
+          >
+            예약하기
+          </Button>
+        </BottomFixedContainer>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

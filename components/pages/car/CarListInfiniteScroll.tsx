@@ -36,7 +36,7 @@ export default function CarListInfiniteScroll(props:{ }) {
     }
     getData();
     }
-  }, [brandId, page, size, lat, lng, API_URL, carList])
+  }, [brandId, page, size, lat, lng])
 
   const handleGetMoreData = () =>{
     setPage(page+1);

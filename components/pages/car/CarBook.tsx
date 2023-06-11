@@ -13,7 +13,6 @@ import Button from "@/components/ui/Button";
 import { authState } from "@/state/authState";
 import PaymentReady from "./PaymentReady";
 import { useRecoilValue } from "recoil";
-import DataLoader from "@/components/ui/DataLoader";
 import ProgressBar from "@/components/ui/ProgressBar";
 
 export default function CarBook(props: { carData: carDataType }) {
@@ -39,17 +38,15 @@ export default function CarBook(props: { carData: carDataType }) {
     if (!typeof window !== undefined) {
       const startTime = new Date(sessionStorage.getItem("startTime") as string)
       const endTime = new Date(sessionStorage.getItem("endTime") as string)
-      console.log(startTime.getTime(), endTime.getTime())
       const timeDiff = Math.abs(
         endTime.getTime() - startTime.getTime()
       );
-      console.log(timeDiff)
       const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
         (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       );
       const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      console.log(days, hours, minutes);
+
       setTimeDiff(timeDiff);
       setServiceStartTime(startTime);
       setServiceEndTime(endTime);
