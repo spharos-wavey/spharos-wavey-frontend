@@ -10,18 +10,26 @@
   background: #0067df;
   mix-blend-mode: hard-light;
   box-shadow: 0px 4px 4px #01c5df;
-  right: 8vw;
-  top: 2.3vh;
-  z-index: 999;
+  bottom: 340px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  transition: all 0.5s ease-in-out;
+}
+
+.close {
+  transition: all 0.3s ease-in-out;
+  display: none;
 }
 
 .topWrap {
-  padding: 0 1.57rem 0 1.57rem;
+  padding: 2rem 1.57rem 0 1.57rem;
 }
 
 .carImage {
-  width: 300px;
-  height: 140px;
+  width: 280px;
+  height: 180px;
+  object-fit: contain;
   margin: auto;
 }
 
@@ -38,13 +46,13 @@
   font-weight: bold;
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
-  margin-top: 50px;
 }
 
 .charge {
   display: flex;
   justify-content: center;
   font-size: 0.8rem;
+  margin-left: 0.5rem;
   opacity: 0.7;
 }
 
@@ -52,7 +60,7 @@
   display: flex;
   justify-content: center;
   margin-top: 0.7rem;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .imgBinding {
@@ -60,6 +68,7 @@
   height: 0.8rem;
   object-fit: contain;
   margin-right: 0.3rem;
+  margin-top: 0.05rem;
 }
 
 .harrypotterBinding img {
@@ -69,7 +78,7 @@
 
 .middleWrap {
   margin-top: 2rem;
-  padding: 0 1.57rem 0 1.57rem;
+  padding: 0 2rem 0 2rem;
 }
 
 .subWrap {
@@ -84,15 +93,22 @@
 }
 
 .fare {
-  font-size: 0.7rem;
-  opacity: 0.8;
+  font-size: 0.9rem;
   align-items: center;
+  font-weight: bold;
   display: flex;
 }
 
 .description {
-  font-size: 0.4rem;
-  opacity: 0.6;
+  width: 100%;
+  padding: 0.5rem 0;
+  font-size: 0.65rem;
+  background: #f5f5f5;
+  color: #0067df;
+  border-radius: 5px;
+  border: 1px solid #0067df;
+  text-align: center;
+  opacity: 0.8;
 }
 
 .content {
@@ -105,10 +121,9 @@
   font-size: 0.8rem;
   opacity: 0.6;
   margin-bottom: 0.3rem;
-  /* margin-right: 1rem; */
-  /* text-decoration: underline; */
-  /* text-underline-offset: 5px; */
-  /* text-decoration-thickness: 0.4px; */
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 0.4px;
   align-items: center;
   display: flex;
 }
@@ -128,4 +143,11 @@
 .kakaopay {
   font-size: 0.85rem;
   opacity: 0.5;
+}
+
+.resultTxt {
+  font-size: 0.85rem;
+  color: #0067df;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }

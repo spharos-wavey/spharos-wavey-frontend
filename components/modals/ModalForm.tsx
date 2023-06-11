@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./ModalForm.module.css";
 
 export default function ModalForm(props: {
   title: string;
   userName?: string;
-  startDate?: string;
-  endDate?: string;
+  startDate?: Date;
+  endDate?: Date;
 }) {
-  
-  const startDate = props.startDate ? new Date(props.startDate) : null;
-  const endDate = props.endDate ? new Date(props.endDate) : null;
-  console.log(startDate, "startDate");
 
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  
+  useEffect(() => {
+    const startDate = props.startDate ? props.startDate : null;
+    const endDate = props.endDate ? props.endDate : null;
+    console.log(startDate, "startDate");
+    console.log(endDate, "endDate");
+    console.log(props.userName, "userName");
+    if(startDate && endDate) {
+      setStartDate(startDate);
+      setEndDate(endDate);
+    }
+  }, [props.startDate, props.endDate]);
+  
   return (
     <div className={style.modalWrap}>
       <div className={style.modalTitle}>{props.title}</div>

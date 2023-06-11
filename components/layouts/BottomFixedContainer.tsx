@@ -7,6 +7,7 @@ export default function BottomFixedContainer(props: {
   animation?: boolean;
   radius?: boolean;
   bottom?: string;
+  justifyContent?: string;
   display?: string
 }) {
   return (
@@ -16,7 +17,7 @@ export default function BottomFixedContainer(props: {
         width: "100%",
         display: `${props.display === undefined ? "flex" : props.display}`,
         bottom: `${props.bottom === undefined ? "0" : props.bottom}`,
-        justifyContent: 'space-between',
+        justifyContent: `${props.justifyContent === undefined ? "space-between" : props.justifyContent}`,
         borderRadius: `${
           props.radius === undefined ? "0px" : "1rem 1rem 0 0"
         }`,
