@@ -41,7 +41,7 @@ const RentCar = (props: {
       }
     };
     getCurrentRentKeyData();
-  }, []);
+  }, [API_URL, TOKEN, rentCarData.vehicleId]);
 
   const handlePush = () => {
     props.setIsSideOpen(false);

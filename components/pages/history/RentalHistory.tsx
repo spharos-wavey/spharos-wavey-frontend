@@ -52,7 +52,7 @@ export default function RentalHistory(props: { rentalData: MyRentalCarType }) {
       return data;
     };
     getVehicleData();
-  }, []);
+  }, [API_URL, rentalData.vehicleId]);
 
   const renderBadge = () => {
     if (rentalData.purchaseState === "CANCELED") {

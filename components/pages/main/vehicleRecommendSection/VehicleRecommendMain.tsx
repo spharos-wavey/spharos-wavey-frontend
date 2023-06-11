@@ -35,7 +35,7 @@ export default function VehicleRecommendMain() {
       }
     };
     getMainCar();
-  },[lat, lng])
+  },[lat, lng, API_URL])
   
   return (
     <div>

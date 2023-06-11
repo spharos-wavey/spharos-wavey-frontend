@@ -8,6 +8,7 @@ import { authState } from "@/state/authState";
 import LicenseWrapper from "@/components/pages/license/LicenseWrapper";
 import { userRentalState } from "@/state/userRentalState";
 import TimeSelect from "@/components/modals/TimeSelectModal";
+import Swal from "sweetalert2";
 
 export default function DetailLayout(props: { children: React.ReactNode }) {
   const auth = useRecoilValue(authState);
@@ -40,29 +41,43 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     } else {
       return;
     }
-  }, [auth.uid]);
+  }, [auth.uid, auth.auth, TOKEN, API_URL, setCanUserRent]);
 
+  const handleAlertTimeSetting = () => {
+    Swal.fire({
+      text: "시간을 설정해주세요",
+      icon: "warning",
+      confirmButtonText: "확인",
+      confirmButtonColor: "var(--billita-primary)",
+      timer: 2000,
+      timerProgressBar: false,
+  })
+  };
   const handleCheckNextStep = () => {
     if (!auth.auth && typeof window !== "undefined") {
       sessionStorage.setItem("redirectUrl", `/car/${router.query.cid}`);
       router.push("/require-login");
       return;
+    } else if (
+      typeof window !== "undefined" &&
+      !sessionStorage.getItem("startTime") &&
+      !sessionStorage.getItem("endTime")
+    ) {
+      handleAlertTimeSetting();
     } else setIsLicense(true);
   };
 
   const handleSetTime = () => {
     setTimeModal(false);
-  }
+  };
+
   return (
     <>
       <LicenseWrapper isOpen={isLicense} setIsOpen={setIsLicense} />
       <DetailHeader />
-      <TimeSelect
-        setTimeModal={setTimeModal}
-        timeModal={timeModal}
-      />
+      <TimeSelect setTimeModal={setTimeModal} timeModal={timeModal} />
       <div>{props.children}</div>
-      
+
       <BottomFixedContainer backgroundColor="white" display="flex">
         <Button
           btnType="button"
@@ -84,7 +99,6 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
           예약하기
         </Button>
       </BottomFixedContainer>
-     
     </>
   );
 }

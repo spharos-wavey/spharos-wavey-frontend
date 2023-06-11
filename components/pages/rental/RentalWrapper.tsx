@@ -20,7 +20,7 @@ import Swal from "sweetalert2";
 
 export default function RentalWrapper(props: { rentId: string }) {
   const router = useRouter();
-  const rentId:string = props.rentId;
+  const rentId: string = props.rentId;
   const [drawer, setDrawer] = useState<boolean>(false);
   const [vehicleData, setVehicleData] = useState<carDataType>();
   const auth = useRecoilValue(authState);
@@ -58,7 +58,7 @@ export default function RentalWrapper(props: { rentId: string }) {
           uid: auth.uid,
         },
       });
-        
+
       const myRentalData: RentalDetailType = result.data;
       setRentData(myRentalData);
     };
@@ -85,9 +85,11 @@ export default function RentalWrapper(props: { rentId: string }) {
   const carBrand = frameInfo?.carBrand.brandName;
   const battery = vehicleData?.charge;
 
-  // const startDate = props.rentData.startDate;
-  // const endDate = props.rentData.endDate;
-  // const rentData = props.rentData;
+ 
+  const handleClose = () => {
+    setDrawer(false);
+  };
+
   return (
     <main>
       <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} />
@@ -105,7 +107,7 @@ export default function RentalWrapper(props: { rentId: string }) {
           variant="temporary"
         >
           <Box position="relative" width="100%" height="370px">
-            <div onClick={() => setDrawer(false)} className={style.closeBtn}>
+            <div onClick={handleClose} className={ drawer ? `${style.closeBtn}` : `${style.closeBtn} ${style.close}`}>
               <Image
                 src="/assets/images/icons/modalCloseX.svg"
                 width="20"
@@ -115,7 +117,7 @@ export default function RentalWrapper(props: { rentId: string }) {
             </div>
             <ModalForm title="대여 취소" />
 
-            <BottomFixedContainer>
+            <BottomFixedContainer display="initial">
               <Button
                 btnType={"button"}
                 btnEvent={() => handleCancel()}
@@ -142,7 +144,7 @@ export default function RentalWrapper(props: { rentId: string }) {
 
       {rentData && <RentalMiddle rentData={rentData} />}
       <Separator gutter={7.5} />
-      <BottomFixedContainer>
+      <BottomFixedContainer justifyContent="center" display="initial">
         <div className={style.twoBtnWrap}>
           <Button
             btnType={"reset"}

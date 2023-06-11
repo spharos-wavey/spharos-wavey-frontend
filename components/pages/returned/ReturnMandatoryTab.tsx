@@ -57,8 +57,6 @@ export default function ReturnMandatoryTab() {
     new Array(staticReturnQuestionData.length).fill(false)
   );
 
-  // const allQuestionsClicked = questionActive.every((isActive) => isActive);
-
   const handleActionAPI = async () => {
     try {
       const response = await fetch(`${API_URL}/rental/${router.query.rentId}`, {

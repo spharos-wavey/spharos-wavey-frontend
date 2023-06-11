@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import style from "./RentalTop.module.css";
+import ProgressBar from "@/components/ui/ProgressBar";
 
 export default function RentalTop(props: {
   carImage: string;
@@ -33,6 +34,9 @@ export default function RentalTop(props: {
             placeholder="empty"
           />
         </div>
+        {props.battery && (
+          <ProgressBar value={props.battery} isIcon={false} width={"60px"} />
+        )}
         <div className={style.charge}>{props.battery}%</div>
       </div>
     </div>

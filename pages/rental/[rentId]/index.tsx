@@ -23,7 +23,7 @@ const Detail = (props:{rentId:string}) => {
         profileImageUrl: localStorage.getItem("profileImageUrl") as string,
       });
     }
-  }, []);
+  }, [auth.auth, setAuth]);
 
   if(auth.auth === false) return (
     <main>
