@@ -30,25 +30,6 @@ export default function RentalWrapper(props: { rentId: string }) {
   const [isSmartkeyOpen, setIsSmartkeyOpen] = useState<boolean>(false);
   const [rentData, setRentData] = useState<RentalDetailType>();
 
-  const handleCancel = () => {
-    setDrawer(false);
-    const getCancelRequest = async () => {
-      const result = await axios.get(`${API_URL}/rental/cancel/${rentId}`, {
-        headers: {
-          Authorization: TOKEN,
-          uid: auth.uid,
-        },
-      });
-    };
-    getCancelRequest();
-    Swal.fire({
-      title: "대여가 취소되었습니다.",
-      icon: "success",
-      confirmButtonText: "확인",
-    }).then(() => {
-      router.push("/");
-    });
-  };
 
   useEffect(() => {
     const getMyRentalData = async () => {
@@ -60,10 +41,11 @@ export default function RentalWrapper(props: { rentId: string }) {
       });
 
       const myRentalData: RentalDetailType = result.data;
+      console.log(myRentalData, "myRentalData")
       setRentData(myRentalData);
     };
     getMyRentalData();
-  }, []);
+  }, [API_URL, TOKEN, auth.uid, rentId]);
 
   useEffect(() => {
     const getVehicleData = async () => {
@@ -90,6 +72,25 @@ export default function RentalWrapper(props: { rentId: string }) {
     setDrawer(false);
   };
 
+  const handleCancel = () => {
+    setDrawer(false);
+    const getCancelRequest = async () => {
+      const result = await axios.get(`${API_URL}/rental/cancel/${rentId}`, {
+        headers: {
+          Authorization: TOKEN,
+          uid: auth.uid,
+        },
+      });
+    };
+    getCancelRequest();
+    Swal.fire({
+      title: "대여가 취소되었습니다.",
+      icon: "success",
+      confirmButtonText: "확인",
+    }).then(() => {
+      router.push("/");
+    });
+  };
   return (
     <main>
       <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} />
