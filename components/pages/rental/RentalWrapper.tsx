@@ -30,7 +30,6 @@ export default function RentalWrapper(props: { rentId: string }) {
   const [isSmartkeyOpen, setIsSmartkeyOpen] = useState<boolean>(false);
   const [rentData, setRentData] = useState<RentalDetailType>();
 
-
   useEffect(() => {
     const getMyRentalData = async () => {
       const result = await axios.get(`${API_URL}/rental?id=${rentId}`, {
@@ -41,7 +40,7 @@ export default function RentalWrapper(props: { rentId: string }) {
       });
 
       const myRentalData: RentalDetailType = result.data;
-      console.log(myRentalData, "myRentalData")
+      console.log(myRentalData, "myRentalData");
       setRentData(myRentalData);
     };
     getMyRentalData();
@@ -67,7 +66,6 @@ export default function RentalWrapper(props: { rentId: string }) {
   const carBrand = frameInfo?.carBrand.brandName;
   const battery = vehicleData?.charge;
 
- 
   const handleClose = () => {
     setDrawer(false);
   };
@@ -95,44 +93,51 @@ export default function RentalWrapper(props: { rentId: string }) {
     <main>
       <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} />
       {drawer && (
-        <Drawer
-          open={drawer}
-          PaperProps={{
-            sx: {
-              width: "auto",
-              borderTopRightRadius: 18,
-              borderTopLeftRadius: 18,
-            },
-          }}
-          anchor="bottom"
-          variant="temporary"
-        >
-          <Box position="relative" width="100%" height="370px">
-            <div onClick={handleClose} className={ drawer ? `${style.closeBtn}` : `${style.closeBtn} ${style.close}`}>
-              <Image
-                src="/assets/images/icons/modalCloseX.svg"
-                width="20"
-                height="20"
-                alt="close"
-              />
-            </div>
-            <ModalForm title="대여 취소" />
+        <>
+          <div
+            onClick={handleClose}
+            className={
+              drawer ? `${style.closeBtn}` : `${style.closeBtn} ${style.close}`
+            }
+          >
+            <Image
+              src="/assets/images/icons/modalCloseX.svg"
+              width="20"
+              height="20"
+              alt="close"
+            />
+          </div>
+          <Drawer
+            open={drawer}
+            PaperProps={{
+              sx: {
+                width: "auto",
+                borderTopRightRadius: 18,
+                borderTopLeftRadius: 18,
+              },
+            }}
+            anchor="bottom"
+            variant="temporary"
+          >
+            <Box position="relative" width="100%" height="370px">
+              <ModalForm title="대여 취소" />
 
-            <BottomFixedContainer display="initial">
-              <Button
-                btnType={"button"}
-                btnEvent={() => handleCancel()}
-                shadow={true}
-                color={"var(--billita-secondary)"}
-                border="1px solid var(--billita-secondary)"
-                fontWeight="bold"
-                backgroundColor="var(--billita-white)"
-              >
-                대여 취소하기
-              </Button>
-            </BottomFixedContainer>
-          </Box>
-        </Drawer>
+              <BottomFixedContainer display="initial">
+                <Button
+                  btnType={"button"}
+                  btnEvent={() => handleCancel()}
+                  shadow={true}
+                  color={"var(--billita-secondary)"}
+                  border="1px solid var(--billita-secondary)"
+                  fontWeight="bold"
+                  backgroundColor="var(--billita-white)"
+                >
+                  대여 취소하기
+                </Button>
+              </BottomFixedContainer>
+            </Box>
+          </Drawer>
+        </>
       )}
       {carImage && carName && carBrand && (
         <RentalTop

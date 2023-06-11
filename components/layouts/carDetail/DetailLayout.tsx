@@ -33,7 +33,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
           });
           const data = await res.json();
           setCanUserRent(data);
-          console.log(data, "check with api can-rental");
+          console.log(data, canUserRent, "check with api can-rental");
         } catch (err) {
           console.log(err);
         }
@@ -55,16 +55,16 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     });
   };
   const handleCheckNextStep = () => {
-    if (!auth.auth && typeof window !== "undefined") {
-      sessionStorage.setItem("redirectUrl", `/car/${router.query.cid}`);
-      router.push("/require-login");
-      return;
-    } else if (
+    if (
       typeof window !== "undefined" &&
       !sessionStorage.getItem("startTime") &&
       !sessionStorage.getItem("endTime")
     ) {
       handleAlertTimeSetting();
+      return;
+    } else if (!auth.auth && typeof window !== "undefined") {
+      sessionStorage.setItem("redirectUrl", `/car/${router.query.cid}`);
+      router.push("/require-login");
     } else setIsLicense(true);
   };
 
@@ -72,7 +72,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     setTimeModal(false);
   };
 
-  console.log(canUserRent, "canUserRent");
+  console.log(canUserRent.canUserBook, canUserRent, "canUserRent");
   return (
     <>
       <LicenseWrapper isOpen={isLicense} setIsOpen={setIsLicense} />
@@ -80,7 +80,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       <TimeSelect setTimeModal={setTimeModal} timeModal={timeModal} />
       <div>{props.children}</div>
 
-      {canUserRent.canUserBook ? (
+      {canUserRent ? (
         <BottomFixedContainer backgroundColor="white" display="flex">
           <Button
             btnType="button"
