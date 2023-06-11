@@ -71,6 +71,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     setTimeModal(false);
   };
 
+  console.log(canUserRent, "canUserRent")
   return (
     <>
       <LicenseWrapper isOpen={isLicense} setIsOpen={setIsLicense} />
@@ -78,6 +79,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       <TimeSelect setTimeModal={setTimeModal} timeModal={timeModal} />
       <div>{props.children}</div>
 
+      {canUserRent.canUserBook ? (
       <BottomFixedContainer backgroundColor="white" display="flex">
         <Button
           btnType="button"
@@ -99,6 +101,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
           예약하기
         </Button>
       </BottomFixedContainer>
+    ): <></>}
     </>
   );
 }
