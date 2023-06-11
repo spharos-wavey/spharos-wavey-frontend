@@ -63,7 +63,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       />
       <div>{props.children}</div>
       
-      <BottomFixedContainer backgroundColor="transparent">
+      <BottomFixedContainer backgroundColor="white" display="flex">
         <Button
           btnType="button"
           btnEvent={() => handleSetTime()}
