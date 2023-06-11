@@ -6,9 +6,6 @@ import { Map } from "react-kakao-maps-sdk";
 import { carDataType } from "@/types/carDataType";
 import CustomOverlayCar from "@/components/layouts/map/CustomOverlayCar";
 import DetailLocation from "./DetailLocation";
-import TimeSelectComponent from "@/components/modals/TimeSelectComponent";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Separator from "@/components/ui/Separator";
 import style from "./DetailInfoWrapper.module.css";
 
@@ -86,9 +83,6 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
           fare={frameInfo?.distancePrice}
         />
         <Separator gutter={1} padding={true} />
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimeSelectComponent />
-        </LocalizationProvider>
         <DetailLocation
           location={carData?.place.zoneAddress}
           locationName={carData?.place.name}

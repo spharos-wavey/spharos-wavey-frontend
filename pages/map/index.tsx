@@ -11,7 +11,7 @@ export default function Map() {
 Map.getLayout = function getLayout(Page: React.ReactNode) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <MapLayout>{Page}</MapLayout>;
+      <MapLayout>{Page}</MapLayout>
     </LocalizationProvider>
   );
 };

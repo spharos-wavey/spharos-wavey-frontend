@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import BottomFixedContainer from "../layouts/BottomFixedContainer";
 import { MobileDateTimePicker } from "@mui/x-date-pickers-pro";
 import dayjs from "dayjs";
 import { timeType } from "@/types/rentalDataType";
 import Button from "../ui/Button";
 import style from "./TimeSelectModal.module.css";
 import Swal from "sweetalert2";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { nowTimeState } from "@/state/nowTime";
+import { type } from "os";
 
 interface TimeModalType {
   setTimeModal: React.Dispatch<React.SetStateAction<boolean>>;
   timeModal: boolean;
 }
 
-export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
+export default function TimeSelectPickerInMap({ setTimeModal, timeModal }: TimeModalType) {
   const [startTime, setStartTime] = useState<dayjs.Dayjs>(
     dayjs().add(10, "minute")
   );
@@ -21,7 +23,7 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
     dayjs().add(70, "minute")
   );
   const [currentTime, setCurrentTime] = useState<dayjs.Dayjs>(dayjs());
-  const [reqTime, setReqTime] = useRecoilState<timeType>(nowTimeState);
+  const setReqTime = useSetRecoilState<timeType>(nowTimeState);
 
   const timeModalHandler = () => {
     if(startTime.isAfter(endTime)) {
@@ -37,10 +39,11 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
       endTime: endTime.format("YYYY-MM-DD HH:mm"),
     });
 
-    if(typeof window !== undefined) {
+    if(!typeof window !== undefined) {
       sessionStorage.setItem("startTime", startTime.format("YYYY-MM-DD HH:mm"));
       sessionStorage.setItem("endTime", endTime.format("YYYY-MM-DD HH:mm"));
     }
+
     Swal.fire({
       text: "시간 설정이 변경되었습니다.",
       icon: "success",
@@ -50,25 +53,7 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
       timer: 1000,
       timerProgressBar: true,
     });
-
-    
-    setTimeModal(true);
   };
-
-  useEffect(() => {
-    const sessionStartTime = sessionStorage.getItem("startTime");
-    const sessionEndTime = sessionStorage.getItem("endTime");
-    console.log("sessionStorage", sessionStartTime, sessionEndTime);
-
-    if(sessionStartTime && sessionEndTime){
-      setStartTime(dayjs(sessionStartTime as string));
-      setEndTime(dayjs(sessionEndTime as string));
-      setReqTime({
-        startTime: sessionStartTime,
-        endTime: sessionEndTime,
-      });
-    }
-  }, [])
 
   console.log(timeModal)
 

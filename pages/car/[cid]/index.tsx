@@ -4,6 +4,8 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { carDataType } from "@/types/carDataType";
 import DetailInfoWrapper from "@/components/pages/carDetail/DetailInfoWrapper";
 import DetailLayout from "@/components/layouts/carDetail/DetailLayout";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function carDetail(props: { data: carDataType }) {
 
@@ -16,7 +18,9 @@ export default function carDetail(props: { data: carDataType }) {
 
 carDetail.getLayout = function getLayout(Page: React.ReactNode) {
   return (
-  <DetailLayout>{Page}</DetailLayout>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DetailLayout>{Page}</DetailLayout>
+    </LocalizationProvider>
   )
 };
 
