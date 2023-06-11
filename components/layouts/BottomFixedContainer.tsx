@@ -14,7 +14,7 @@ export default function BottomFixedContainer(props: {
       className={style.container}
       style={{
         width: "100%",
-        display: `${props.display} === undefined ? "flex" : props.display}`,
+        display: `${props.display === undefined ? "flex" : props.display}`,
         bottom: `${props.bottom === undefined ? "0" : props.bottom}`,
         justifyContent: 'space-between',
         borderRadius: `${
