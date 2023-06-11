@@ -75,7 +75,7 @@ export default function ReturnMandatoryTab() {
       });
       if (response.ok) {
         handleSwalReturnConfirm();
-        // router.push("/");
+        router.push("/");
       } else {
         throw new Error("반납요청 실패");
       }
@@ -120,7 +120,7 @@ export default function ReturnMandatoryTab() {
     const updatedActive = [...questionActive];
     updatedActive[index] = !updatedActive[index];
     setQuestionActive(updatedActive);
-  };
+  }; 
 
   return (
     <>

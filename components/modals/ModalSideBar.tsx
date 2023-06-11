@@ -147,11 +147,11 @@ export default function ModalSideBar(props: {
             <>
               <li onClick={() => actionToHistory()}>이용내역</li>
               <li onClick={() => handleSmartKey()}>스마트키</li>
+              <li>적립금 정책</li>
             </>
           ) : (
             <></>
           )}
-          <li>적립금 정책</li>
           {auth.auth ? <li onClick={handleLogout}>로그아웃</li> : <></>}
         </ul>
       </div>
