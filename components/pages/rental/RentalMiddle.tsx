@@ -32,7 +32,7 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
       }
     };
     getBillitaZoneInfo();
-  }, [frameInfo.billitaZoneId]);
+  }, [frameInfo.billitaZoneId, API_URL]);
   
 
   return (
@@ -57,8 +57,8 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
           {serviceEndTime?.getMonth() + 1}월 {serviceEndTime?.getDay()}일{" "}
           {serviceEndTime?.getHours()}:
           {String(serviceEndTime?.getMinutes()).padStart(2, "0")}{" "}
-        </div>
-        <div className={style.subtitle}>{`총 ${hours}시간 ${minutes}분`}</div>
+        </div>  
+        <div className={style.displayValue}>{`총 ${hours}시간 ${minutes}분`}</div>
       </div>
 
       <Separator gutter={1.5} />
@@ -82,7 +82,7 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
       <div className={style.subtitle}>결제정보</div>
       <div className={style.subWrap}>
         <div className={style.content}>대여요금</div>
-        <div className={style.subtitle}>
+        <div className={style.displayValue}>
           {frameInfo.price.toLocaleString("kr-KO")}원
         </div>
       </div>
@@ -92,7 +92,7 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
       <div className={style.subtitle}>결제수단</div>
       <div className={style.subWrap}>
         <div className={style.kakaopay}>카카오페이</div>
-        <div className={style.subtitle}>
+        <div className={style.displayValue}>
           {frameInfo.price.toLocaleString("kr-KO")}원
         </div>
       </div>

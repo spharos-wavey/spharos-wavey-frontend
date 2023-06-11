@@ -36,7 +36,6 @@ export default function CarBook(props: { carData: carDataType }) {
   const [requestBody, setRequestBody] = useState<any>();
 
   useEffect(() => {
-    console.log(props.carData)
     if (!typeof window !== undefined) {
       const startTime = new Date(sessionStorage.getItem("startTime") as string)
       const endTime = new Date(sessionStorage.getItem("endTime") as string)
@@ -60,18 +59,19 @@ export default function CarBook(props: { carData: carDataType }) {
       const carData = props.carData;
       const frameInfo = props.carData?.frameInfo;
       const fare = timeDiff/3600000 * (carData.frameInfo.defaultPrice/24) + carData.frameInfo.defaultPrice;
+      const fareRounded = Math.round(fare / 100) * 100;
       console.log(carData.frameInfo.distancePrice);
       console.log(fare);
       setCarData(carData);
       setFrameInfo(frameInfo);
-      setFare(fare);
+      setFare(fareRounded);
       setRequestBody({
         vehicleId: router.query.cid,
         startDate: startTime,
         endDate: endTime,
       });
     }
-  }, [props.carData]);
+  }, [props.carData, router.query.cid]);
 
   const handleModal = () => {
     setDrawer(true);
@@ -117,7 +117,7 @@ export default function CarBook(props: { carData: carDataType }) {
       }
     };
     postBookData();
-  }, [requestBody]);
+  }, [requestBody, auth.token, API_URL]);
 
   return (
     <>
