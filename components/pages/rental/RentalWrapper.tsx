@@ -20,7 +20,7 @@ import Swal from "sweetalert2";
 
 export default function RentalWrapper(props: { rentId: string }) {
   const router = useRouter();
-  const rentId:string = props.rentId;
+  const rentId: string = props.rentId;
   const [drawer, setDrawer] = useState<boolean>(false);
   const [vehicleData, setVehicleData] = useState<carDataType>();
   const auth = useRecoilValue(authState);
@@ -30,26 +30,6 @@ export default function RentalWrapper(props: { rentId: string }) {
   const [isSmartkeyOpen, setIsSmartkeyOpen] = useState<boolean>(false);
   const [rentData, setRentData] = useState<RentalDetailType>();
 
-  const handleCancel = () => {
-    setDrawer(false);
-    const getCancelRequest = async () => {
-      const result = await axios.get(`${API_URL}/rental/cancel/${rentId}`, {
-        headers: {
-          Authorization: TOKEN,
-          uid: auth.uid,
-        },
-      });
-    };
-    getCancelRequest();
-    Swal.fire({
-      title: "대여가 취소되었습니다.",
-      icon: "success",
-      confirmButtonText: "확인",
-    }).then(() => {
-      router.push("/");
-    });
-  };
-
   useEffect(() => {
     const getMyRentalData = async () => {
       const result = await axios.get(`${API_URL}/rental?id=${rentId}`, {
@@ -58,12 +38,12 @@ export default function RentalWrapper(props: { rentId: string }) {
           uid: auth.uid,
         },
       });
-        
+
       const myRentalData: RentalDetailType = result.data;
       setRentData(myRentalData);
     };
     getMyRentalData();
-  }, []);
+  }, [API_URL, TOKEN, auth.uid, rentId]);
 
   useEffect(() => {
     const getVehicleData = async () => {
@@ -85,51 +65,82 @@ export default function RentalWrapper(props: { rentId: string }) {
   const carBrand = frameInfo?.carBrand.brandName;
   const battery = vehicleData?.charge;
 
-  // const startDate = props.rentData.startDate;
-  // const endDate = props.rentData.endDate;
-  // const rentData = props.rentData;
+  const handleClose = () => {
+    setDrawer(false);
+  };
+
+  const handleCancel = () => {
+    setDrawer(false);
+    const getCancelRequest = async () => {
+      const result = await axios.get(`${API_URL}/rental/cancel/${rentId}`, {
+        headers: {
+          Authorization: TOKEN,
+          uid: auth.uid,
+        },
+      });
+    };
+    getCancelRequest();
+    Swal.fire({
+      title: "대여가 취소되었습니다.",
+      icon: "success",
+      confirmButtonText: "확인",
+    }).then(() => {
+      router.push("/");
+    });
+  };
+
+  const handleSmartkeyOpen = () => {
+    router.push(`/rental/${rentId}/smartkey`)
+  }
   return (
     <main>
-      <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} />
+      {/* <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} /> */}
       {drawer && (
-        <Drawer
-          open={drawer}
-          PaperProps={{
-            sx: {
-              width: "auto",
-              borderTopRightRadius: 18,
-              borderTopLeftRadius: 18,
-            },
-          }}
-          anchor="bottom"
-          variant="temporary"
-        >
-          <Box position="relative" width="100%" height="370px">
-            <div onClick={() => setDrawer(false)} className={style.closeBtn}>
-              <Image
-                src="/assets/images/icons/modalCloseX.svg"
-                width="20"
-                height="20"
-                alt="close"
-              />
-            </div>
-            <ModalForm title="대여 취소" />
+        <>
+          <div
+            onClick={handleClose}
+            className={
+              drawer ? `${style.closeBtn}` : `${style.closeBtn} ${style.close}`
+            }
+          >
+            <Image
+              src="/assets/images/icons/modalCloseX.svg"
+              width="20"
+              height="20"
+              alt="close"
+            />
+          </div>
+          <Drawer
+            open={drawer}
+            PaperProps={{
+              sx: {
+                width: "auto",
+                borderTopRightRadius: 18,
+                borderTopLeftRadius: 18,
+              },
+            }}
+            anchor="bottom"
+            variant="temporary"
+          >
+            <Box position="relative" width="100%" height="370px">
+              <ModalForm title="대여 취소" />
 
-            <BottomFixedContainer>
-              <Button
-                btnType={"button"}
-                btnEvent={() => handleCancel()}
-                shadow={true}
-                color={"var(--billita-secondary)"}
-                border="1px solid var(--billita-secondary)"
-                fontWeight="bold"
-                backgroundColor="var(--billita-white)"
-              >
-                대여 취소하기
-              </Button>
-            </BottomFixedContainer>
-          </Box>
-        </Drawer>
+              <BottomFixedContainer display="initial">
+                <Button
+                  btnType={"button"}
+                  btnEvent={() => handleCancel()}
+                  shadow={true}
+                  color={"var(--billita-secondary)"}
+                  border="1px solid var(--billita-secondary)"
+                  fontWeight="bold"
+                  backgroundColor="var(--billita-white)"
+                >
+                  대여 취소하기
+                </Button>
+              </BottomFixedContainer>
+            </Box>
+          </Drawer>
+        </>
       )}
       {carImage && carName && carBrand && (
         <RentalTop
@@ -142,7 +153,7 @@ export default function RentalWrapper(props: { rentId: string }) {
 
       {rentData && <RentalMiddle rentData={rentData} />}
       <Separator gutter={7.5} />
-      <BottomFixedContainer>
+      <BottomFixedContainer justifyContent="center" display="initial">
         <div className={style.twoBtnWrap}>
           <Button
             btnType={"reset"}
@@ -157,7 +168,7 @@ export default function RentalWrapper(props: { rentId: string }) {
           </Button>
           <Button
             btnType={"button"}
-            btnEvent={() => setIsSmartkeyOpen(true)}
+            btnEvent={handleSmartkeyOpen}
             shadow={true}
           >
             스마트키

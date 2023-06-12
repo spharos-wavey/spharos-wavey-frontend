@@ -1,11 +1,11 @@
 import { atom } from "recoil";
-interface userRentalStateType {
+interface UserRentalStateType {
   canUserBook: boolean;
 }
 
-export const userRentalState = atom<userRentalStateType>({
+export const userRentalState = atom<UserRentalStateType>({
   key: "userRentalState",
   default: {
-    canUserBook: false,
+    canUserBook: true,
   },
 });

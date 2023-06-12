@@ -18,7 +18,6 @@ export default function CarList(props: { data: carListBrandType }) {
     router.push(`/car/${vehicleId}`);
   };
 
-  console.log(carList)
   return (
     <>
       <div className={style.listHeader}>

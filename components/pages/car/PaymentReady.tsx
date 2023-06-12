@@ -28,7 +28,7 @@ export default function PaymentReady(props: {
   const [authValue, setAuth] = useRecoilState(authState);
 
   useEffect(() => {
-    if (!auth.auth && AuthRecoilChecker()&&typeof window !== 'undefined') {
+    if (!auth.auth && AuthRecoilChecker()&&typeof window !== undefined) {
       setAuth({
         auth: true, 
         token: localStorage.getItem("token") as string, 
@@ -38,7 +38,7 @@ export default function PaymentReady(props: {
         profileImageUrl: localStorage.getItem("profileImageUrl") as string,
       });
     }
-  }, []);
+  }, [setAuth, auth.auth]);
 
   const readyRequestBody = {
     uuid: auth.uid,
@@ -71,7 +71,7 @@ export default function PaymentReady(props: {
       };
       getPaymentReady();
     }
-  }, [props.bookIdData]);
+  }, [props.bookIdData, router, readyRequestBody, TOKEN, API_URL]);
 
   
 

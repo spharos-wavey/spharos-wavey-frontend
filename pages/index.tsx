@@ -1,6 +1,5 @@
 import EventBanner from "@/components/pages/main/EventBanner";
 import Layout from "@/components/layouts/layout";
-import LogoMainPage from "@/components/ui/Logo";
 import BrandSort from "@/components/pages/main/brandsortSection/BrandSort";
 import VehicleRecommendMain from "@/components/pages/main/vehicleRecommendSection/VehicleRecommendMain";
 import Separator from "@/components/ui/Separator";
@@ -54,7 +53,7 @@ function Page(props: { data: brandSortType[]; }) {
         profileImageUrl: localStorage.getItem("profileImageUrl") as string,
       });
     }
-  }, [auth.auth]);
+  }, [auth.auth, setAuth]);
   
   useEffect(()=> {
     if(typeof window !== undefined) {

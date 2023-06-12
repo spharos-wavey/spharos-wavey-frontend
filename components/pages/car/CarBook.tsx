@@ -13,7 +13,6 @@ import Button from "@/components/ui/Button";
 import { authState } from "@/state/authState";
 import PaymentReady from "./PaymentReady";
 import { useRecoilValue } from "recoil";
-import DataLoader from "@/components/ui/DataLoader";
 import ProgressBar from "@/components/ui/ProgressBar";
 
 export default function CarBook(props: { carData: carDataType }) {
@@ -36,21 +35,18 @@ export default function CarBook(props: { carData: carDataType }) {
   const [requestBody, setRequestBody] = useState<any>();
 
   useEffect(() => {
-    console.log(props.carData)
     if (!typeof window !== undefined) {
       const startTime = new Date(sessionStorage.getItem("startTime") as string)
       const endTime = new Date(sessionStorage.getItem("endTime") as string)
-      console.log(startTime.getTime(), endTime.getTime())
       const timeDiff = Math.abs(
         endTime.getTime() - startTime.getTime()
       );
-      console.log(timeDiff)
       const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
         (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       );
       const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      console.log(days, hours, minutes);
+
       setTimeDiff(timeDiff);
       setServiceStartTime(startTime);
       setServiceEndTime(endTime);
@@ -60,18 +56,18 @@ export default function CarBook(props: { carData: carDataType }) {
       const carData = props.carData;
       const frameInfo = props.carData?.frameInfo;
       const fare = timeDiff/3600000 * (carData.frameInfo.defaultPrice/24) + carData.frameInfo.defaultPrice;
-      console.log(carData.frameInfo.distancePrice);
-      console.log(fare);
+      const fareRounded = Math.round(fare / 100) * 100;
+    
       setCarData(carData);
       setFrameInfo(frameInfo);
-      setFare(fare);
+      setFare(fareRounded);
       setRequestBody({
         vehicleId: router.query.cid,
         startDate: startTime,
         endDate: endTime,
       });
     }
-  }, [props.carData]);
+  }, [props.carData, router.query.cid]);
 
   const handleModal = () => {
     setDrawer(true);
@@ -111,13 +107,12 @@ export default function CarBook(props: { carData: carDataType }) {
         });
         const data = res.data;
         setBookId(data.bookId);
-        console.log(data);
       } catch (err) {
         console.log(err);
       }
     };
     postBookData();
-  }, [requestBody]);
+  }, [requestBody, auth.token, API_URL]);
 
   return (
     <>

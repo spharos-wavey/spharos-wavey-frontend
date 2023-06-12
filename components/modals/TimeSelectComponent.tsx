@@ -13,7 +13,10 @@ interface TimeModalType {
   timeModal?: boolean;
 }
 
-export default function TimeSelectComponent({ setTimeModal, timeModal }: TimeModalType) {
+export default function TimeSelectComponent({
+  setTimeModal,
+  timeModal,
+}: TimeModalType) {
   const [startTime, setStartTime] = useState<dayjs.Dayjs>(
     dayjs().add(10, "minute")
   );
@@ -24,11 +27,11 @@ export default function TimeSelectComponent({ setTimeModal, timeModal }: TimeMod
   const setReqTime = useSetRecoilState<timeType>(nowTimeState);
 
   const timeModalHandler = () => {
-    if(startTime.isAfter(endTime)) {
+    if (startTime.isAfter(endTime)) {
       return;
-    } else if(startTime.isSame(endTime)) {
+    } else if (startTime.isSame(endTime)) {
       return;
-    } else if(startTime.isBefore(currentTime)) {
+    } else if (startTime.isBefore(currentTime)) {
       return;
     }
 
@@ -70,6 +73,7 @@ export default function TimeSelectComponent({ setTimeModal, timeModal }: TimeMod
           </Button>
         </div>
       
+
     </div>
   );
 }

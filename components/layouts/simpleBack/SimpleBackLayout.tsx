@@ -18,7 +18,7 @@ export default function SimpleBackLayout(props: {
   const { brandName } = router.query;
   const pageUrl = router.pathname;
   
-  
+  console.log(canUserRentMore, "simpleBackLayout");
   useEffect(() => {
     if(typeof window !== undefined){
       const redirectUrl = sessionStorage.getItem("redirectUrl");
@@ -27,7 +27,7 @@ export default function SimpleBackLayout(props: {
   },[])
 
   const handleBack = () => {
-    if (!canUserRentMore.canUserBook && pageUrl.includes("/rental/")){
+    if (pageUrl.includes("/rental/")){
       router.push("/");
       return;
     }
@@ -40,7 +40,6 @@ export default function SimpleBackLayout(props: {
         return;
     }
     router.back();
-    console.log(canUserRentMore.canUserBook, pageUrl.includes("/rental/"));
   }
 
   return (

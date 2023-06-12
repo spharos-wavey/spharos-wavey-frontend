@@ -1,6 +1,6 @@
-import style from "@/components/pages/main/SpotRecommend.module.css";
-import { spotCardType } from "@/types/eventBannerType";
 import Image from "next/image";
+import style from "@/components/pages/main/SpotCard.module.css";
+import { spotCardType } from "@/types/eventBannerType";
 
 export default function SpotCard(props: { item: spotCardType }) {
   return (
@@ -18,7 +18,7 @@ export default function SpotCard(props: { item: spotCardType }) {
         <div className={style.cardInfoTop}>
           <div className={style.writer}>
             <div className={style.profile}>
-              <Image src={props.item.profile} alt="" width="200" height="200" />
+              <Image src={props.item.profile} alt="profile" width="200" height="200" />
             </div>
             <div className={style.writersName}>{props.item.writer}</div>
           </div>

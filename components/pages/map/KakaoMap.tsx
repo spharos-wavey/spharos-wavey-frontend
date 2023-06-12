@@ -24,7 +24,7 @@ export default function KakaoMap() {
   const [zoneList, setZoneList] = useState<BillitaZoneListType>([] as BillitaZoneListType);
   const [carInMapList, setCarInMapList] = useState<carInMapType[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  
   useEffect(() => {
     const getLocation = () => {
       if (navigator.geolocation) {

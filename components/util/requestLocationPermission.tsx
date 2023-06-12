@@ -32,11 +32,9 @@ const requestLocationPermission = () => {
         }
       })
       .catch((error: any) => {
-        // Error occurred while requesting location permission
         console.error("Error requesting location permission:", error);
       });
   } else {
-    // User denied location permission
     console.log("User denied location permission");
   }
 };

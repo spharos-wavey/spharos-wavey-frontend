@@ -5,8 +5,9 @@ import { timeType } from "@/types/rentalDataType";
 import Button from "../ui/Button";
 import style from "./TimeSelectModal.module.css";
 import Swal from "sweetalert2";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { nowTimeState } from "@/state/nowTime";
+import router from "next/router";
 
 interface TimeModalType {
   setTimeModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,13 +23,48 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
   );
   const [currentTime, setCurrentTime] = useState<dayjs.Dayjs>(dayjs());
   const [reqTime, setReqTime] = useRecoilState<timeType>(nowTimeState);
+  const canCarBeBooked = useRecoilValue<timeType>(nowTimeState);
+
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const START_TIME = canCarBeBooked.startTime;
+  const END_TIME = canCarBeBooked.endTime;
+
+  const canItBeBooked = async () => {
+
+  console.log(START_TIME, END_TIME, "check")
+    try {
+      const res = await fetch(
+        `${API_URL}/vehicle/book-check?id=${router.query.cid}&sDate=${START_TIME}&eDate=${END_TIME}`,
+        {
+          method: "GET",
+        }
+      );
+      const data = await res.json();
+      console.log(data, "canItBeBooked");
+      console.log(START_TIME, END_TIME, "chec");
+
+      Swal.fire({
+        text: "시간 설정이 변경되었습니다.",
+        icon: "success",
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+      });
+
+      setTimeModal(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const timeModalHandler = () => {
-    if(startTime.isAfter(endTime)) {
+    if (startTime.isAfter(endTime)) {
       return;
-    } else if(startTime.isSame(endTime)) {
+    } else if (startTime.isSame(endTime)) {
       return;
-    } else if(startTime.isBefore(currentTime)) {
+    } else if (startTime.isBefore(currentTime)) {
       return;
     }
 
@@ -37,43 +73,38 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
       endTime: endTime.format("YYYY-MM-DD HH:mm"),
     });
 
-    if(typeof window !== undefined) {
+    canItBeBooked()
+
+    if (typeof window !== undefined) {
       sessionStorage.setItem("startTime", startTime.format("YYYY-MM-DD HH:mm"));
       sessionStorage.setItem("endTime", endTime.format("YYYY-MM-DD HH:mm"));
     }
-    Swal.fire({
-      text: "시간 설정이 변경되었습니다.",
-      icon: "success",
-      toast: true,
-      position: "top",
-      showConfirmButton: false,
-      timer: 1000,
-      timerProgressBar: true,
-    });
-
-    
-    setTimeModal(true);
   };
 
   useEffect(() => {
-    const sessionStartTime = sessionStorage.getItem("startTime");
-    const sessionEndTime = sessionStorage.getItem("endTime");
-    console.log("sessionStorage", sessionStartTime, sessionEndTime);
+    if (typeof window !== undefined) {
+      const sessionStartTime = sessionStorage.getItem("startTime");
+      const sessionEndTime = sessionStorage.getItem("endTime");
 
-    if(sessionStartTime && sessionEndTime){
-      setStartTime(dayjs(sessionStartTime as string));
-      setEndTime(dayjs(sessionEndTime as string));
-      setReqTime({
-        startTime: sessionStartTime,
-        endTime: sessionEndTime,
-      });
+      if (sessionStartTime && sessionEndTime) {
+        setStartTime(dayjs(sessionStartTime as string));
+        setEndTime(dayjs(sessionEndTime as string));
+        setReqTime({
+          startTime: sessionStartTime,
+          endTime: sessionEndTime,
+        });
+      }
     }
-  }, [])
-
-  console.log(timeModal)
+  }, []);
 
   return (
-    <div className={ !timeModal ? `${style.timeModal} ${style.open}` : `${style.timeModal} ${style.close}`}>
+    <div
+      className={
+        !timeModal
+          ? `${style.timeModal} ${style.open}`
+          : `${style.timeModal} ${style.close}`
+      }
+    >
       <div className={style.picker}>
         <MobileDateTimePicker
           format={"YYYY/MM/DD HH:mm"}
@@ -90,7 +121,7 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
           minDateTime={startTime.add(1, "hour").startOf("minute")}
         />
       </div>
-      <Button btnType="button" btnEvent={()=>timeModalHandler()} width="90%">
+      <Button btnType="button" btnEvent={() => timeModalHandler()} width="90%">
         시간 설정
       </Button>
     </div>

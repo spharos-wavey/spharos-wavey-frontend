@@ -86,10 +86,10 @@ export default function ModalSideBar(props: {
         })
       : router.push("/rental/history");
   };
-
+  
   const handleSmartKey = () => {
-    if (!canUserBook.canUserBook) {
-      router.push(`/rental/${rentCarData[0].rentalId}`);
+    if (rentCarData.length > 0) {
+      router.push(`/rental/${rentCarData[0].rentalId}/smartkey`);
     } else {
       setIsSideOpen(false);
       Swal.fire({
@@ -117,7 +117,7 @@ export default function ModalSideBar(props: {
               className={style.bluehighlightbtn}
               onClick={() => router.push("/login")}
             >
-              로그인 하기
+              로그인
             </div>
           ) : (
             <div className={style.bluehighlightbtn} onClick={handleLogout}>
@@ -147,23 +147,17 @@ export default function ModalSideBar(props: {
             <>
               <li onClick={() => actionToHistory()}>이용내역</li>
               <li onClick={() => handleSmartKey()}>스마트키</li>
+              <li>적립금 정책</li>
             </>
           ) : (
             <></>
           )}
-          <li>적립금 정책</li>
           {auth.auth ? <li onClick={handleLogout}>로그아웃</li> : <></>}
         </ul>
       </div>
 
       <div className={style.bottomMenuWrap}>
         <ul className={style.blueMenu}>
-          {/* <a href="">
-            <li>이용상품 안내</li>
-          </a> */}
-          {/* <a href="">
-            <li>사고접수 현황</li>
-          </a> */}
           <li>개인정보 처리방침</li>
           <li>About Billita</li>
         </ul>

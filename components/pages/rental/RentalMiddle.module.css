@@ -1,19 +1,3 @@
-.closeBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #eeeeee;
-  position: absolute;
-  border-radius: 100%;
-  width: 62px;
-  height: 62px;
-  background: #0067df;
-  mix-blend-mode: hard-light;
-  box-shadow: 0px 4px 4px #01c5df;
-  right: 8vw;
-  top: 2.3vh;
-  z-index: 999;
-}
 
 .topWrap {
   padding: 0 1.57rem 0 1.57rem;
@@ -63,7 +47,7 @@
 
 .middleWrap {
   margin-top: 2rem;
-  padding: 0 1.57rem 0 1.57rem;
+  padding: 0 2rem;
 }
 
 .subWrap {
@@ -77,6 +61,13 @@
   margin-bottom: 0.6rem;
 }
 
+.displayValue {
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+  color: #0067df
+}
+
 .fare {
   font-size: 0.7rem;
   opacity: 0.8;
@@ -85,8 +76,15 @@
 }
 
 .description {
-  font-size: 0.4rem;
-  opacity: 0.6;
+  width: 100%;
+  padding: 0.5rem 0;
+  font-size: 0.65rem;
+  background: #f5f5f5;
+  color: #0067df;
+  border-radius: 5px;
+  border: 1px solid #0067df;
+  text-align: center;
+  opacity: 0.8;
 }
 
 .content {
