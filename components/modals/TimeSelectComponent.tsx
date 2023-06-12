@@ -13,7 +13,10 @@ interface TimeModalType {
   timeModal?: boolean;
 }
 
-export default function TimeSelectComponent({ setTimeModal, timeModal }: TimeModalType) {
+export default function TimeSelectComponent({
+  setTimeModal,
+  timeModal,
+}: TimeModalType) {
   const [startTime, setStartTime] = useState<dayjs.Dayjs>(
     dayjs().add(10, "minute")
   );
@@ -24,11 +27,11 @@ export default function TimeSelectComponent({ setTimeModal, timeModal }: TimeMod
   const setReqTime = useSetRecoilState<timeType>(nowTimeState);
 
   const timeModalHandler = () => {
-    if(startTime.isAfter(endTime)) {
+    if (startTime.isAfter(endTime)) {
       return;
-    } else if(startTime.isSame(endTime)) {
+    } else if (startTime.isSame(endTime)) {
       return;
-    } else if(startTime.isBefore(currentTime)) {
+    } else if (startTime.isBefore(currentTime)) {
       return;
     }
 
@@ -49,27 +52,38 @@ export default function TimeSelectComponent({ setTimeModal, timeModal }: TimeMod
   };
 
   return (
-    <div className={!timeModal? style.open : style.close}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' , alignItems: 'center', gap: "5px"}}>
-          <MobileDateTimePicker
-            format={"YYYY/MM/DD HH:mm"}
-            value={startTime}
-            onChange={(value) => value && setStartTime(value)}
-            defaultValue={currentTime}
-            minDateTime={dayjs().add(10, "minute").startOf("minute")}
-          />
-          <MobileDateTimePicker
-            format={"YYYY/MM/DD HH:mm"}
-            value={endTime}
-            onChange={(value) => value && setEndTime(value)}
-            defaultValue={startTime}
-            minDateTime={startTime.add(1, "hour").startOf("minute")}
-          />
-          <Button btnType="button" btnEvent={()=>timeModalHandler()} shadow={true} width={"100%"} >
-            시간 설정
-          </Button>
-        </div>
-      
+    <div className={!timeModal ? style.open : style.close}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: "5px",
+        }}
+      >
+        <MobileDateTimePicker
+          format={"YYYY/MM/DD HH:mm"}
+          value={startTime}
+          onChange={(value) => value && setStartTime(value)}
+          defaultValue={currentTime}
+          minDateTime={dayjs().add(10, "minute").startOf("minute")}
+        />
+        <MobileDateTimePicker
+          format={"YYYY/MM/DD HH:mm"}
+          value={endTime}
+          onChange={(value) => value && setEndTime(value)}
+          defaultValue={startTime}
+          minDateTime={startTime.add(1, "hour").startOf("minute")}
+        />
+        <Button
+          btnType="button"
+          btnEvent={() => timeModalHandler()}
+          shadow={true}
+          width={"100%"}
+        >
+          시간 설정
+        </Button>
+      </div>
     </div>
   );
 }
