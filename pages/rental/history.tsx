@@ -49,12 +49,14 @@ export default function RentHistory() {
           <>
             {rentalData
               .filter((data: MyRentalCarType) => data.purchaseState === "RESERVATION")
+              .reverse()
               .map((data: MyRentalCarType) => (
                 <RentalHistory rentalData={data} key={data.rentalId} />
               ))}
             
             {rentalData
               .filter((data: MyRentalCarType) => data.purchaseState !== "RESERVATION")
+              .reverse()
               .map((data: MyRentalCarType) => (
                 <RentalHistory rentalData={data} key={data.rentalId} />
               ))}

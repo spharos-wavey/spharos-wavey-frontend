@@ -86,10 +86,10 @@ export default function ModalSideBar(props: {
         })
       : router.push("/rental/history");
   };
-
+  
   const handleSmartKey = () => {
-    if (!canUserBook.canUserBook) {
-      router.push(`/rental/${rentCarData[0].rentalId}`);
+    if (rentCarData.length > 0) {
+      router.push(`/rental/${rentCarData[0].rentalId}/smartkey`);
     } else {
       setIsSideOpen(false);
       Swal.fire({
@@ -158,12 +158,6 @@ export default function ModalSideBar(props: {
 
       <div className={style.bottomMenuWrap}>
         <ul className={style.blueMenu}>
-          {/* <a href="">
-            <li>이용상품 안내</li>
-          </a> */}
-          {/* <a href="">
-            <li>사고접수 현황</li>
-          </a> */}
           <li>개인정보 처리방침</li>
           <li>About Billita</li>
         </ul>

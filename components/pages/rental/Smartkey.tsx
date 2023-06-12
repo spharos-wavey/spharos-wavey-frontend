@@ -109,7 +109,7 @@ export default function Smartkey(props: {
             </div>
             <ModalForm title="반납하기" />
 
-            <BottomFixedContainer>
+            <BottomFixedContainer display="initial">
               <Button
                 btnType={"button"}
                 btnEvent={() => handleGoCheckList()}
