@@ -79,11 +79,11 @@ export default function ModalForm(props: {
             <div className={style.drawerContentBinding}>
               <div className={style.blueHighlight}>대여일시</div>
 
-              <div>
+              <div className={style.date}>
                 {startDate?.getFullYear()}년{" "}
                 {startDate && startDate?.getMonth() + 1}월{" "}
-                {startDate?.getDate()}일 {startDate && startDate?.getHours()}시{" "}
-                {startDate && startDate?.getMinutes()}분
+                {startDate?.getDate()}일 <span>{startDate && startDate?.getHours()}</span>시{" "}
+                <span>{startDate && startDate?.getMinutes()}</span>분
               </div>
             </div>
             <div className={style.drawerContentBinding}>

@@ -57,6 +57,7 @@
 
 .date span {
   color: var(--billita-blueHighlight);
+  font-weight: bold;
 }
 
 .lastLine{

@@ -88,9 +88,13 @@ export default function RentalWrapper(props: { rentId: string }) {
       router.push("/");
     });
   };
+
+  const handleSmartkeyOpen = () => {
+    router.push(`/rental/${rentId}/smartkey`)
+  }
   return (
     <main>
-      <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} />
+      {/* <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} /> */}
       {drawer && (
         <>
           <div
@@ -164,7 +168,7 @@ export default function RentalWrapper(props: { rentId: string }) {
           </Button>
           <Button
             btnType={"button"}
-            btnEvent={() => setIsSmartkeyOpen(true)}
+            btnEvent={handleSmartkeyOpen}
             shadow={true}
           >
             스마트키

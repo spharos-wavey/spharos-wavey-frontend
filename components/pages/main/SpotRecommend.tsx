@@ -8,7 +8,7 @@ export default function SpotRecommand() {
     <>
       <Separator gutter={3} />
       <div className={style.sectionWrap}>
-        <SectionTitle>여 가보이소~</SectionTitle>
+        <SectionTitle fontSize={0.8}>여 가보이소~</SectionTitle>
       </div>
       <Separator gutter={0.7} />
       <div className={style.sectionWrap}>

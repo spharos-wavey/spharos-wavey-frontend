@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import BottomFixedContainer from "../layouts/BottomFixedContainer";
 import { MobileDateTimePicker } from "@mui/x-date-pickers-pro";
 import dayjs from "dayjs";
 import { timeType } from "@/types/rentalDataType";
@@ -8,7 +7,6 @@ import style from "./TimeSelectModal.module.css";
 import Swal from "sweetalert2";
 import { useSetRecoilState } from "recoil";
 import { nowTimeState } from "@/state/nowTime";
-import { type } from "os";
 
 interface TimeModalType {
   setTimeModal: React.Dispatch<React.SetStateAction<boolean>>;

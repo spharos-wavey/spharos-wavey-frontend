@@ -21,7 +21,6 @@ const BorderLinearProgress = styled(LinearProgress)(({theme}) => ({
   },
   [`& .${linearProgressClasses.bar}`]: {
       borderRadius: 5,
-      backgroundImage: `url('/assets/images/icons/harrypotter.svg')`,
       backgroundRepeat: 'no-repeat',
       backgroundColor: theme.palette.mode === 'light' ? '#01c5df' : '#0055A4',
   },
