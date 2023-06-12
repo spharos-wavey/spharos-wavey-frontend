@@ -19,7 +19,7 @@ const nextConfig =  withPWA({
   },
 
   images: {
-    domains: ["i.ibb.co", "www.tesla.com", "storage.googleapis.com"],
+    domains: ["i.ibb.co", "www.tesla.com", "storage.googleapis.com","nftimagespharos.s3.ap-northeast-2.amazonaws.com"],
   },
 });
 

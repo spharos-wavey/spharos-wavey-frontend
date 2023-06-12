@@ -10,6 +10,7 @@ import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import requestLocationPermission from "@/components/util/requestLocationPermission";
+import BlogList from "@/components/pages/main/blog/BlogList";
 
 function Page(props: { data: brandSortType[]; }) {
 
@@ -64,7 +65,8 @@ function Page(props: { data: brandSortType[]; }) {
     <main>
       <BrandSort data={props.data}/>
       <VehicleRecommendMain />
-      <Separator gutter={20} />
+      <BlogList/>
+      <Separator gutter={15} />
       <EventBanner />
     </main>
   );
