@@ -33,7 +33,6 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
           });
           const data = await res.json();
           setCanUserRent(data);
-          console.log(data, canUserRent, "check with api can-rental");
         } catch (err) {
           console.log(err);
         }
@@ -72,7 +71,6 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     setTimeModal(false);
   };
 
-  console.log(canUserRent.canUserBook, canUserRent, "canUserRent");
   return (
     <>
       <LicenseWrapper isOpen={isLicense} setIsOpen={setIsLicense} />

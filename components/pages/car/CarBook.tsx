@@ -57,8 +57,7 @@ export default function CarBook(props: { carData: carDataType }) {
       const frameInfo = props.carData?.frameInfo;
       const fare = timeDiff/3600000 * (carData.frameInfo.defaultPrice/24) + carData.frameInfo.defaultPrice;
       const fareRounded = Math.round(fare / 100) * 100;
-      console.log(carData.frameInfo.distancePrice);
-      console.log(fare);
+    
       setCarData(carData);
       setFrameInfo(frameInfo);
       setFare(fareRounded);
@@ -108,7 +107,6 @@ export default function CarBook(props: { carData: carDataType }) {
         });
         const data = res.data;
         setBookId(data.bookId);
-        console.log(data);
       } catch (err) {
         console.log(err);
       }

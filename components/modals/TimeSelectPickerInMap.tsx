@@ -55,8 +55,6 @@ export default function TimeSelectPickerInMap({ setTimeModal, timeModal }: TimeM
     });
   };
 
-  console.log(timeModal)
-
   return (
     <div className={ !timeModal ? `${style.timeModal} ${style.open}` : `${style.timeModal} ${style.close}`}>
       <div className={style.picker}>
