@@ -30,9 +30,17 @@ export default class MyDocument extends Document {
         <Head>
           <link rel="manifest" href="/manifest.json" />
           <meta property="og:title" content="Welcome to Billita" key="title" />
-          <meta property="og:description" content="함 빌리 타보이소" key="og-desc"/>
+          <meta
+            property="og:description"
+            content="함 빌리 타보이소"
+            key="og-desc"
+          />
           {/* <meta property="og:url" content={`${BASE_URL}${router.pathname}`} key="og-url"/> */}
-          <meta property="og:image" content="/assets/images/common/billitaLogo.svg" key="og-image"/>
+          <meta
+            property="og:image"
+            content="/assets/images/common/billitaLogoOnly.svg"
+            key="og-image"
+          />
         </Head>
         <body>
           <Main />
