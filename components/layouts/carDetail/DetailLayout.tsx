@@ -8,6 +8,8 @@ import { authState } from "@/state/authState";
 import LicenseWrapper from "@/components/pages/license/LicenseWrapper";
 import { userRentalState } from "@/state/userRentalState";
 import TimeSelect from "@/components/modals/TimeSelectModal";
+import { timeType } from "@/types/rentalDataType";
+import { nowTimeState } from "@/state/nowTime";
 import Swal from "sweetalert2";
 
 export default function DetailLayout(props: { children: React.ReactNode }) {
@@ -15,10 +17,17 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
   const router = useRouter();
+  const canCarBeBooked = useRecoilValue<timeType>(nowTimeState);
+  console.log(canCarBeBooked, "canCarBeBooked");
+  
+  const START_TIME = canCarBeBooked.startTime;
+  const END_TIME = canCarBeBooked.endTime
+  console.log(typeof canCarBeBooked.startTime, canCarBeBooked.startTime, START_TIME, "check syntax")
 
   const [isLicense, setIsLicense] = useState<boolean>(false);
   const [canUserRent, setCanUserRent] = useRecoilState(userRentalState);
   const [timeModal, setTimeModal] = useState<boolean>(true);
+  console.log(canUserRent, "canUserRent");
 
   useEffect(() => {
     if (auth.auth) {
@@ -42,6 +51,21 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       return;
     }
   }, [auth.uid, auth.auth, TOKEN, API_URL, setCanUserRent]);
+
+  useEffect(()=> {
+    const canItBeBooked = async () => {
+      try {
+        const res = await fetch(`${API_URL}/vehicle/book-check?id=${router.query.cid}&sDate=${START_TIME}&eDate=${END_TIME}`, {
+          method: "GET",
+        });
+        const data = await res.json();
+        console.log(data, "canItBeBooked");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    canItBeBooked();
+  }, [canCarBeBooked, API_URL, router.query.cid])
 
   const handleAlertTimeSetting = () => {
     Swal.fire({
@@ -68,9 +92,20 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   };
 
   const handleSetTime = () => {
+    if(canCarBeBooked) {
     setTimeModal(false);
+    } else {
+      Swal.fire({
+        text: "이용불가능한 시간입니다. 시간을 재설정 해주세요",
+        icon: "warning",
+        confirmButtonText: "확인",
+        confirmButtonColor: "var(--billita-secondary)",
+        timer: 3000,
+        timerProgressBar: false,
+      });
   };
-
+  }
+  
   return (
     <>
       <LicenseWrapper isOpen={isLicense} setIsOpen={setIsLicense} />

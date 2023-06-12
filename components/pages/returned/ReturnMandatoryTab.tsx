@@ -95,6 +95,7 @@ export default function ReturnMandatoryTab() {
   };
 
   const handleSwalReturnConfirm = () => {
+    setDrawer(false);
     Swal.fire({
       text: "반납이 완료되었습니다",
       icon: "success",
@@ -125,7 +126,7 @@ export default function ReturnMandatoryTab() {
       <Drawer
         open={drawer}
         PaperProps={{
-          sx: { width: 390, borderTopLeftRadius: 18, borderTopRightRadius: 18 },
+          sx: { width: 'auto', borderTopLeftRadius: 18, borderTopRightRadius: 18 },
         }}
         anchor="bottom"
         variant="temporary"
@@ -133,7 +134,7 @@ export default function ReturnMandatoryTab() {
         <Box position="relative" width="100%" height="370px">
           <ModalForm title="반납하기" />
 
-          <BottomFixedContainer>
+          <BottomFixedContainer display="initial">
             <Button
               btnType={"button"}
               btnEvent={() => handleActionAPI()}
@@ -226,7 +227,6 @@ export default function ReturnMandatoryTab() {
         ))}
 
         <Separator gutter={3} />
-        <hr className={style.hr} />
 
         <div className={style.qWrap}>
           <div className={style.lastCheck}>빌리타 이용규칙 및 패널티 안내</div>
@@ -241,7 +241,7 @@ export default function ReturnMandatoryTab() {
         </div>
       </div>
 
-      <BottomFixedContainer>
+      <BottomFixedContainer justifyContent="center">
         <Button
           btnType={"button"}
           btnEvent={() => handleReturnConfirmed()}
