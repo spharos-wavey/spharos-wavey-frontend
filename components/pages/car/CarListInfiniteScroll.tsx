@@ -8,7 +8,6 @@ import { redirectionUrlState } from "@/state/redirectionState";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import DataLoader from "@/components/ui/DataLoader";
-import PageLoader from "@/components/ui/PageLoader";
 
 export default function CarListInfiniteScroll(props:{ }) {
   
@@ -37,7 +36,7 @@ export default function CarListInfiniteScroll(props:{ }) {
     }
     getData();
     }
-  }, [brandId, page, size, lat, lng, API_URL, carList])
+  }, [brandId, page, size, lat, lng])
 
   const handleGetMoreData = () =>{
     setPage(page+1);

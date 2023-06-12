@@ -1,15 +1,10 @@
 import React from "react";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
-import { useRouter } from "next/router";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
-import CarList from "@/components/pages/car/CarList";
 import { carListBrandType } from "@/types/carDataType";
 import CarListInfiniteScroll from "@/components/pages/car/CarListInfiniteScroll";
 
 function BrandSort(props: { data: carListBrandType }) {
-  const router = useRouter();
-  const { brandName } = router.query;
-  const { data } = props;
 
   return (
     <main>

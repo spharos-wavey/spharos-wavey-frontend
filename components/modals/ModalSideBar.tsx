@@ -117,7 +117,7 @@ export default function ModalSideBar(props: {
               className={style.bluehighlightbtn}
               onClick={() => router.push("/login")}
             >
-              로그인 하기
+              로그인
             </div>
           ) : (
             <div className={style.bluehighlightbtn} onClick={handleLogout}>

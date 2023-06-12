@@ -33,6 +33,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
           });
           const data = await res.json();
           setCanUserRent(data);
+          console.log(data, canUserRent, "check with api can-rental");
         } catch (err) {
           console.log(err);
         }
@@ -51,19 +52,19 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       confirmButtonColor: "var(--billita-primary)",
       timer: 2000,
       timerProgressBar: false,
-  })
+    });
   };
   const handleCheckNextStep = () => {
-    if (!auth.auth && typeof window !== "undefined") {
-      sessionStorage.setItem("redirectUrl", `/car/${router.query.cid}`);
-      router.push("/require-login");
-      return;
-    } else if (
+    if (
       typeof window !== "undefined" &&
       !sessionStorage.getItem("startTime") &&
       !sessionStorage.getItem("endTime")
     ) {
       handleAlertTimeSetting();
+      return;
+    } else if (!auth.auth && typeof window !== "undefined") {
+      sessionStorage.setItem("redirectUrl", `/car/${router.query.cid}`);
+      router.push("/require-login");
     } else setIsLicense(true);
   };
 
@@ -71,6 +72,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     setTimeModal(false);
   };
 
+  console.log(canUserRent.canUserBook, canUserRent, "canUserRent");
   return (
     <>
       <LicenseWrapper isOpen={isLicense} setIsOpen={setIsLicense} />
@@ -78,27 +80,31 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       <TimeSelect setTimeModal={setTimeModal} timeModal={timeModal} />
       <div>{props.children}</div>
 
-      <BottomFixedContainer backgroundColor="white" display="flex">
-        <Button
-          btnType="button"
-          btnEvent={() => handleSetTime()}
-          shadow={true}
-          width={"48%"}
-          backgroundColor="#fff"
-          color="var(--billita-blueHighlight)"
-          border="2px solid var(--billita-blueHighlight)"
-        >
-          시간수정
-        </Button>
-        <Button
-          btnType="button"
-          btnEvent={() => handleCheckNextStep()}
-          shadow={true}
-          width={"48%"}
-        >
-          예약하기
-        </Button>
-      </BottomFixedContainer>
+      {canUserRent ? (
+        <BottomFixedContainer backgroundColor="white" display="flex">
+          <Button
+            btnType="button"
+            btnEvent={() => handleSetTime()}
+            shadow={true}
+            width={"48%"}
+            backgroundColor="#fff"
+            color="var(--billita-blueHighlight)"
+            border="2px solid var(--billita-blueHighlight)"
+          >
+            시간수정
+          </Button>
+          <Button
+            btnType="button"
+            btnEvent={() => handleCheckNextStep()}
+            shadow={true}
+            width={"48%"}
+          >
+            예약하기
+          </Button>
+        </BottomFixedContainer>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

@@ -40,7 +40,6 @@ export default function SimpleBackLayout(props: {
         return;
     }
     router.back();
-    console.log(canUserRentMore.canUserBook, pageUrl.includes("/rental/"));
   }
 
   return (
