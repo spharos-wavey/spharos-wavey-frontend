@@ -65,7 +65,7 @@ export default function TimeSelectComponent({ setTimeModal, timeModal }: TimeMod
             defaultValue={startTime}
             minDateTime={startTime.add(1, "hour").startOf("minute")}
           />
-          <Button btnType="button" btnEvent={()=>timeModalHandler()} shadow={true} width={100} >
+          <Button btnType="button" btnEvent={()=>timeModalHandler()} shadow={true} width={'100%'} >
             시간 설정
           </Button>
         </div>
