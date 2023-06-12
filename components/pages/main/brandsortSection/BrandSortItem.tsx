@@ -4,10 +4,17 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 export default function BrandSortItem(props: { item: brandSortType }) {
-  const router = useRouter();
-
+  const router = useRouter(); 
   const handleSortbyBrand = () => {
-    router.push(`/car/brand?brandId=${props.item.id}&brandName=${props.item.brandName}`);
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      if (lat!==0 && lng!==0) {
+        router.push(`/car/brand?brandId=${props.item.id}&brandName=${props.item.brandName}&lat=${lat}&lng=${lng}&page=1&size=20`);
+      }
+    }, error => {
+      console.log(error)
+    });
   };
 
   return (

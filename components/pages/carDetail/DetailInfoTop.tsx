@@ -4,9 +4,12 @@ import style from "./DetailInfoTop.module.css";
 import MenuItem from "@/components/layouts/MenuItem";
 import { carStatusData } from "@/datas/staticCarData";
 import Separator from "@/components/ui/Separator";
-
 interface HeaderType {
+  maker: string | undefined;
+  type: string | undefined;
+  capacity: string | undefined;
   name: string | undefined;
+  appearance: string | undefined;
   imageUrl: string | undefined;
   charge: number | undefined;
   wash: string | undefined;
@@ -14,7 +17,11 @@ interface HeaderType {
 }
 
 export default function DetailInfoTop({
+  maker,
+  type,
+  capacity,
   name,
+  appearance,
   imageUrl,
   charge,
   wash,
@@ -22,7 +29,12 @@ export default function DetailInfoTop({
 }: HeaderType) {
   return imageUrl !== undefined ? (
     <>
+      <div className={style.maker}>{maker}</div>
       <div className={style.carName}>{name}</div>
+      <div className={style.carType}>
+        {" "}
+        {type} {appearance} {capacity}인승
+      </div>
       <Separator gutter={1.3} padding={true} />
       <div className={style.carImage}>
         <Image

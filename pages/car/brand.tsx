@@ -3,9 +3,10 @@ import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import { useRouter } from "next/router";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import CarList from "@/components/pages/car/CarList";
-import { carListbyBrandDataType } from "@/types/carDataType";
+import { carListBrandType } from "@/types/carDataType";
+import CarListInfiniteScroll from "@/components/pages/car/CarListInfiniteScroll";
 
-function BrandSort(props: { data: carListbyBrandDataType[] }) {
+function BrandSort(props: { data: carListBrandType }) {
   const router = useRouter();
   const { brandName } = router.query;
   const { data } = props;
@@ -13,7 +14,7 @@ function BrandSort(props: { data: carListbyBrandDataType[] }) {
   return (
     <main>
       <section>
-        <CarList data={data} />
+        <CarListInfiniteScroll />
       </section>
     </main>
   );
@@ -26,9 +27,11 @@ BrandSort.getLayout = function getLayout(Page: React.ReactNode) {
 export default BrandSort;
 
 export const getServerSideProps = async (context: Params) => {
-  const { brandId } = context.query;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  
+  const url = `${API_URL}/carbrand/maker/${context.query.brandId}?lat=${context.query.lat}&lng=${context.query.lng}`;
 
-  const res = await fetch(`https://api-billita.xyz/carbrand/maker/${brandId}`);
+  const res = await fetch(url);
   const data = await res.json();
 
   return {

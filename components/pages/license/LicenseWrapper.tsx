@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
-  TextField,
   MenuItem,
-  Stack,
-  Button,
   Select,
   SelectChangeEvent,
   FormControl,
@@ -17,22 +14,18 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import Separator from "@/components/ui/Separator";
 import { LicenseInputType } from "@/types/licenseType";
 import { useRouter } from "next/router";
-import { Co2Sharp } from "@mui/icons-material";
 import Swal from "sweetalert2";
-export default function LicenseWrapper() {
+import { useRecoilValue } from "recoil";
+import { authState } from "@/state/authState";
+
+import style from "./LicenseWrapper.module.css";
+import CloseBtn from "@/components/ui/CloseBtn";
+import SlideDownBtn from "@/components/ui/SlideDownBtn";
+import CarBook from "../car/CarBook";
+
+export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Dispatch<React.SetStateAction<boolean>>}) {
+
   const router = useRouter();
-
-  const [token, setToken] = useState<string | null>();
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.getItem("Authorization")
-        ? setToken(localStorage.getItem("Authorization"))
-        : router.push("/login");
-      return;
-    }
-  }, []);
-
   const [inputError, setInputError] = useState<LicenseInputType>({
     level: "",
     type: "",
@@ -150,14 +143,14 @@ export default function LicenseWrapper() {
       }));
       setInputError((prev) => ({
         ...prev,
-        [name]: validateField(name as keyof LicenseInputType, formattedInput),
+        [name]: formattedValue.length === 0 ? "필수 입력 항목입니다" : "",
       }));
       return;
     }
     setInputData((prev) => ({ ...prev, [name]: value }));
     setInputError((prev) => ({
       ...prev,
-      [name]: validateField(name as keyof LicenseInputType, value),
+      [name]: value.trim().length === 0? "필수 입력 항목입니다" : "",
     }));
   };
 
@@ -177,18 +170,20 @@ export default function LicenseWrapper() {
       timerProgressBar: true,
     });
   };
+  const auth = useRecoilValue(authState);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const TOKEN = "Bearer " + auth.token;
 
   const handleFormSubmit = () => {
     const errors = validateForm();
     console.log(errors);
 
     const postData = async () => {
-      const token = "Bearer " + localStorage.getItem("Authorization");
-      await fetch("https://api-billita.xyz/booklist/check/license", {
+      await fetch(`${API_URL}/booklist/check/license`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: token,
+          Authorization: TOKEN,
         },
         body: JSON.stringify({
           level: inputData.level,
@@ -203,13 +198,9 @@ export default function LicenseWrapper() {
         }),
       })
         .then((res) => {
-          console.log(res.status, res.ok);
           if (res.status === 200) {
-            console.log("ok");
-
             router.push(`/car/${router.query.cid}/book`);
           } else {
-            console.log("not ok");
             handleIncorrectLicense();
           }
         })
@@ -218,9 +209,18 @@ export default function LicenseWrapper() {
     postData();
   };
 
+  const handleCheckNextStep = () => {
+    router.push(`/car/${router.query.cid}/book`);
+  }
+
   return (
-    <section>
+    <>
+    <div className={style.over} style={ props.isOpen ? {display:'block'} : {display:'none'}}></div>
+    
+    <section className={props.isOpen ? style.licenseWrap : `${style.licenseWrap} ${style.slideClose}`}>
+      <SlideDownBtn handleActive={() => props.setIsOpen(false)}  isActive={props.isOpen}/>
       <FormGroup>
+        <button onClick={() => handleCheckNextStep()}>테스트용 넘어가기 버튼</button>
         <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
         <Separator gutter={1} />
         <Box sx={{ width: "100%" }}>
@@ -240,9 +240,7 @@ export default function LicenseWrapper() {
               <MenuItem value="2종">2종</MenuItem>
             </Select>
           </FormControl>
-
           <Separator gutter={1} />
-
           <FormControl variant="standard" fullWidth>
             <InputLabel id="demo-simple-select-standard-label">
               면허구분
@@ -282,7 +280,7 @@ export default function LicenseWrapper() {
               name="expireDate"
               value={inputData.expireDate}
               onChange={handleInputChange}
-              error={!inputError.expireDate}
+              error={Boolean(inputError.expireDate)}
               aria-describedby="expireDate-helper-text"
             />
             <FormHelperText id="licenseNumber-helper-text">
@@ -297,7 +295,7 @@ export default function LicenseWrapper() {
               name="issueDate"
               value={inputData.issueDate}
               onChange={handleInputChange}
-              error={!inputError.issueDate}
+              error={Boolean(inputError.issueDate)}
               aria-describedby="issueDate-helper-text"
             />
             <FormHelperText id="issueDate-helper-text">
@@ -312,7 +310,7 @@ export default function LicenseWrapper() {
               name="licenseNumber"
               value={inputData.licenseNumber}
               onChange={handleInputChange}
-              error={!inputError.licenseNumber}
+              error={Boolean(inputError.licenseNumber)}
               aria-describedby="licenseNumber-helper-text"
             />
             <FormHelperText id="licenseNumber-helper-text">
@@ -320,7 +318,6 @@ export default function LicenseWrapper() {
             </FormHelperText>
           </FormControl>
           <Separator gutter={5} />
-
           <SectionTitle fontSize={0.85}>개인정보입력</SectionTitle>
           <FormControl variant="standard" fullWidth>
             <InputLabel htmlFor="userName">이름</InputLabel>
@@ -329,7 +326,7 @@ export default function LicenseWrapper() {
               name="userName"
               value={inputData.userName}
               onChange={handleInputChange}
-              error={!inputError.userName}
+              error={Boolean(inputError.userName)}
               aria-describedby="userName-helper-text"
             />
             <FormHelperText id="userName-helper-text">
@@ -344,7 +341,7 @@ export default function LicenseWrapper() {
               name="birth"
               value={inputData.birth}
               onChange={handleInputChange}
-              error={!inputError.birth}
+              error={Boolean(inputError.birth)}
               aria-describedby="birth-helper-text"
             />
             <FormHelperText id="birth-helper-text">
@@ -352,7 +349,6 @@ export default function LicenseWrapper() {
             </FormHelperText>
           </FormControl>
           <Separator gutter={1} />
-
           <FormControl variant="standard" fullWidth>
             <InputLabel htmlFor="address">주소</InputLabel>
             <Input
@@ -360,7 +356,7 @@ export default function LicenseWrapper() {
               name="address"
               value={inputData.address}
               onChange={handleInputChange}
-              error={!inputError.address}
+              error={Boolean(inputError.address)}
               aria-describedby="address-helper-text"
             />
             <FormHelperText id="address-helper-text">
@@ -375,7 +371,7 @@ export default function LicenseWrapper() {
               name="addressDetail"
               value={inputData.addressDetail}
               onChange={handleInputChange}
-              error={!inputError.addressDetail}
+              error={Boolean(inputError.addressDetail)}
               aria-describedby="addressDetail-helper-text"
             />
             <FormHelperText id="addressDetail-helper-text">
@@ -384,15 +380,9 @@ export default function LicenseWrapper() {
           </FormControl>
           <Separator gutter={5} />
         </Box>
-        <Button
-          type="button"
-          variant="contained"
-          sx={{ width: "100%" }}
-          onClick={handleFormSubmit}
-        >
-          다음
-        </Button>
       </FormGroup>
     </section>
+    
+    </>
   );
 }

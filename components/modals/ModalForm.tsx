@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./ModalForm.module.css";
 
 export default function ModalForm(props: {
@@ -7,6 +7,21 @@ export default function ModalForm(props: {
   startDate?: Date;
   endDate?: Date;
 }) {
+
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  
+  useEffect(() => {
+    const startDate = props.startDate ? props.startDate : null;
+    const endDate = props.endDate ? props.endDate : null;
+    console.log(startDate, "startDate");
+    console.log(endDate, "endDate");
+    console.log(props.userName, "userName");
+    if(startDate && endDate) {
+      setStartDate(startDate);
+      setEndDate(endDate);
+    }
+  }, [props.startDate, props.endDate]);
   
   return (
     <div className={style.modalWrap}>
@@ -69,16 +84,16 @@ export default function ModalForm(props: {
               <div className={style.blueHighlight}>대여일시</div>
 
               <div>
-                {props.startDate?.getFullYear()}년{" "}
-                {props.startDate && props.startDate?.getMonth() + 1}월 {props.startDate?.getDate()}
+                {startDate?.getFullYear()}년{" "}
+                {startDate && startDate?.getMonth() + 1}월 {startDate?.getDate()}
                 일{" "}
               </div>
             </div>
             <div className={style.drawerContentBinding}>
               <div className={style.blueHighlight}>반납일시</div>
               <div>
-                {props.endDate?.getFullYear()}년 {props.endDate && props.endDate?.getMonth() + 1}
-                월 {props.endDate?.getDate()}일{" "}
+                {endDate?.getFullYear()}년 {endDate && endDate?.getMonth() + 1}
+                월 {endDate?.getDate()}일{" "}
               </div>
             </div>
           </div>
@@ -90,7 +105,7 @@ export default function ModalForm(props: {
       {props.title === "반납하기" && (
         <>
           <div className={style.greyText}>반납장소에 무사히 도착하셨나요?</div>
-          <div className={style.greyText}>반납을 진행 하시겠습니까?</div>
+          <div className={style.greyText}>반납을 진행을 도와드리겠습니다.</div>
           <div>
             <p className={style.redText}>반납지연 수수료 안내</p>
             <div className={style.ulWrapper}>

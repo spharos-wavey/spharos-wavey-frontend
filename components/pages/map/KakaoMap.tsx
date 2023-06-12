@@ -13,6 +13,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 export default function KakaoMap() {
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [initLoc, setInitLoc] = useState<locationType>({
     latitude: 0,
     longitude: 0,
@@ -70,10 +71,11 @@ export default function KakaoMap() {
     
     const getData = async () => {
       const result = await axios.get(
-        `https://api-billita.xyz/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${lat}&lng=${lng}`
+        `${API_URL}/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${lat}&lng=${lng}`
       );
+      if(result.data.length > 0) {
       setZoneList(result.data);
-      console.log("빌리타존: ", result.data);
+      }
     };
     getData();
   }
@@ -83,10 +85,9 @@ export default function KakaoMap() {
     try {
       const getData = async () => {
         const result = await axios.get(
-          `https://api-billita.xyz/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${initLoc.latitude}&lng=${initLoc.longitude}`
+          `${API_URL}/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${initLoc.latitude}&lng=${initLoc.longitude}`
         );
         setZoneList(result.data);
-        console.log("빌리타존: ", result.data);
       }
   
       getData();
@@ -103,7 +104,7 @@ export default function KakaoMap() {
   const overLayClickHandler = (billitaZoneId:number, billitaZoneName:string) => {
     setBillitaZone(billitaZoneName);
     const getData = async () => {
-      await fetch(`https://api-billita.xyz/vehicle/billitazone?id=${billitaZoneId}&sDate=${reqTime.startTime}&eDate=${reqTime.endTime}`)
+      await fetch(`${API_URL}/vehicle/billitazone?id=${billitaZoneId}&sDate=${reqTime.startTime}&eDate=${reqTime.endTime}`)
       .then((res) => res.json().then((data) => {
         setCarInMapList(data);
       }
@@ -113,7 +114,7 @@ export default function KakaoMap() {
     setIsOpen(true);
   };
 
-  if (zoneList.length === 0) return <PageLoader /> 
+  if (zoneList.length === 0) return <PageLoader text={'현재 위치에서 이용가능한 차량을 호출하고 있습니다.'}/> 
 
   return (
     <>

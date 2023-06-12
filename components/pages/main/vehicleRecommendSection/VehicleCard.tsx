@@ -6,6 +6,8 @@ import { IconButton } from "@mui/material";
 import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { redirectionUrlState } from "@/state/redirectionState";
 
 export default function VehicleCard(props: { item: mainVehicleCardType }) {
 
@@ -15,7 +17,9 @@ export default function VehicleCard(props: { item: mainVehicleCardType }) {
     setActive(!active);
   }
   const data = props.item;
+  const setUrlSettion = useSetRecoilState(redirectionUrlState)
   const handleOpenCarDetail = () => {
+    setUrlSettion({ redirectUrl: `/` })
     router.push(`/car/${data.vehicleId}`)
   }
   

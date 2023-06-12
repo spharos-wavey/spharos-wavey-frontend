@@ -15,8 +15,6 @@ export default function Page() {
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
-      console.log(window.Kakao.isInitialized());
-      console.log(window.Kakao.Auth);
     }
   }, []);
 
@@ -49,7 +47,7 @@ export default function Page() {
           style={{ width: "100%", textAlign: "center" }}
         >
           <Image
-            src="/assets/images/etc/kakao_login_large_wide.svg"
+            src="/assets/images/etc/kakao_login_large_wide.png"
             width={300}
             sizes="(max-width: 600px) 100vw, 600px"
             height={45}

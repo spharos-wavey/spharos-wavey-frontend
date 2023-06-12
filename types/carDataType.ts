@@ -1,17 +1,7 @@
 export interface carDataType {
+  map(arg0: (item: CarFrameDataType) => JSX.Element): import("react").ReactNode;
   color: string;
-  feature: {
-    열선시트: boolean;
-    썬루프: boolean;
-    가죽시트: boolean;
-    스마트키: boolean;
-    통풍시트: boolean;
-    내비게이션: boolean;
-    자동에어컨: boolean;
-    후방카메라: boolean;
-    헤드램프: boolean;
-    주차감지센서: boolean;
-  };
+  feature: CarFeatureType;
   number: string;
   latitude: number;
   longitude: number;
@@ -31,6 +21,7 @@ export interface carDataType {
 }
 
 export interface CarFrameDataType {
+  map(arg0: (item: CarFrameDataType) => any): import("react").ReactNode;
   createDate: string | null;
   updateDate: string | null;
   id: number;
@@ -74,6 +65,26 @@ export interface carListbyBrandDataType {
   billitaZone: string;
 }
 
+export interface carListBrandType {
+  content: carListbyBrandDataType[];
+  pageable: {
+    sort: string[];
+    offset: number;
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  size: number;
+  number: number;
+  sort: string[];
+  numberOfElements: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+}
+
+
 export interface carInMapType {
   vehicleId: number;
   carName: string;
@@ -99,3 +110,16 @@ export interface BookListDataType {
   imageUrl : string,
   insuranceId : number,
 }
+
+export interface CarFeatureType {
+  열선시트: boolean;
+  썬루프: boolean;
+  가죽시트: boolean;
+  스마트키: boolean;
+  통풍시트: boolean;
+  내비게이션: boolean;
+  자동에어컨: boolean;
+  후방카메라: boolean;
+  헤드램프: boolean;
+  주차감지센서: boolean;
+};

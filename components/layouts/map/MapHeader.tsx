@@ -29,7 +29,7 @@ export default function MapHeader() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsActive(false);
-    }, 3000);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 

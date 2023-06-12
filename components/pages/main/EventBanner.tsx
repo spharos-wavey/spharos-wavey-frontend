@@ -50,11 +50,24 @@ export default function EventBanner() {
             <div className={style.bannerText}>
               지금 어디론가 떠나고 싶으세요?
             </div>
-            <div className={style.bannerButton} onClick={()=> router.push("/map")}>예약하기</div>
+            <div
+              className={style.bannerButton}
+              onClick={() => router.push("/map")}
+            >
+              내 주변의 차량 보러가기
+              <div className={style.arrow}>
+                <Image
+                  src="/assets/images/icons/arrow-right.svg"
+                  width={200}
+                  height={200}
+                  alt="arrow"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </>
       )}
     </div>
   );
-
 }

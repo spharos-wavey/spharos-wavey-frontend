@@ -1,28 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { headerMenuData } from "@/datas/staticMenuDatas";
 import style from "@/components/layouts/Header.module.css";
 import MenuItem from "./MenuItem";
-import { useRouter } from "next/router";
-import axios from "axios";
-import { carDataType } from "@/types/carDataType";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import ModalSideBar from "../modals/ModalSideBar";
+import Image from "next/image";
 
 export default function Header() {
-  const [carData, setCarData] = useState<carDataType>();
-  const router = useRouter();
-
-  if (router.query.cid !== undefined) {
-    const getData = async () => {
-      const result = await axios.get(
-        `https://api-billita.xyz/vehicle/${router.query.cid}`
-      );
-      setCarData(result.data);
-    };
-    getData();
-  }
-
 
   const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
 
@@ -51,9 +36,13 @@ export default function Header() {
       <nav>
         <ul>
           <MenuItem menuItem={headerMenuData[0]} key={headerMenuData[0].id} onClick={toggleMenu}/>
-          <MenuItem menuItem={headerMenuData[1]} key={headerMenuData[1].id} />
+          {/* <MenuItem menuItem={headerMenuData[1]} key={headerMenuData[1].id} /> */}
         </ul>
       </nav>
+      <div className={style.headerLogo}>
+        <h1>Billita</h1>
+        <Image src="/assets/images/common/billitaLogo.svg" width={129} height={65} alt="Welcome to Billita" priority/>
+      </div>
     </header>
     </>
   );

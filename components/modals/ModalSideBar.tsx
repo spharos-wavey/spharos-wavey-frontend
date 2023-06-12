@@ -1,38 +1,46 @@
 import * as React from "react";
-import { useState, Dispatch, SetStateAction, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { authState } from "@/state/authState";
+import { userRentalState } from "@/state/userRentalState";
 import Image from "next/image";
 import style from "./ModalSideBar.module.css";
-import SectionTitle from "../ui/SectionTitle";
-import Separator from "../ui/Separator";
-import { useRouter } from "next/router";
-import {
-  MyRentalCarType,
-  IsUserRentalNowDataType,
-} from "@/types/rentalDataType";
 import axios from "axios";
-import LogInRequiredModal from "./LogInRequiredModal";
+import SectionTitle from "../ui/SectionTitle";
+import { useRouter } from "next/router";
+import { MyRentalCarType } from "@/types/rentalDataType";
 import Swal from "sweetalert2";
+import RentCar from "../ui/RentCar";
 
 export default function ModalSideBar(props: {
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSideOpen: boolean;
 }) {
-  // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const auth = useRecoilValue(authState);
+  const TOKEN = "Bearer " + auth.token;
+  const canUserBook = useRecoilValue(userRentalState);
+
   const { isSideOpen, setIsSideOpen } = props;
+  const [authValue, setAuthValue] = useRecoilState(authState);
   const [rentCarData, setRentCarData] = useState<MyRentalCarType[]>(
     [] as MyRentalCarType[]
   );
-  const [userName, setUserName] = useState<string>("");
   const router = useRouter();
   const PURCASE_STATE = "RESERVATION";
 
   const handleLogout = () => {
-    localStorage.removeItem("Authorization");
-    localStorage.removeItem("uid");
-    localStorage.removeItem("nickName");
-    sessionStorage.removeItem("carDetail");
+    localStorage.clear();
+    sessionStorage.clear();
     setIsSideOpen(false);
+    setAuthValue({
+      auth: false,
+      token: "",
+      uid: "",
+      nickName: "",
+      email: "",
+      profileImageUrl: "",
+    });
     Swal.fire({
       text: "로그아웃 되었습니다.",
       icon: "success",
@@ -45,58 +53,66 @@ export default function ModalSideBar(props: {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem("Authorization") && !localStorage.getItem("uid"))
-      return;
-    const getData = async () => {
-      try {
-        const token = "Bearer " + localStorage.getItem("Authorization");
-        const uid = localStorage.getItem("uid");
-        const res = await axios.get(
-          `https://api-billita.xyz/rental/${PURCASE_STATE}`,
-          {
+    if (auth.auth) {
+      const getData = async () => {
+        try {
+          const res = await axios.get(`${API_URL}/rental/${PURCASE_STATE}`, {
             headers: {
-              Authorization: token,
-              uid: uid,
+              Authorization: TOKEN,
+              uid: auth.uid,
             },
-          }
-        );
-        const data = res.data;
-        setRentCarData(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getData();
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const nickName = localStorage.getItem("nickName");
-      if (nickName !== undefined && typeof nickName === "string") {
-        setUserName(nickName);
-      } else {
-        setUserName("빌리타");
-      }
+          });
+          const data = res.data;
+          setRentCarData(data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getData();
     }
-  }, []);
+  }, [auth]);
 
   const actionToHistory = () => {
-    router.push("/rentHistory");
+    setIsSideOpen(false);
+    !auth.auth
+      ? Swal.fire({
+          text: "로그인이 필요한 서비스입니다.",
+          icon: "warning",
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: false,
+        })
+      : router.push("/rental/history");
+  };
+
+  const handleSmartKey = () => {
+    if (!canUserBook.canUserBook) {
+      router.push(`/rental/${rentCarData[0].rentalId}`);
+    } else {
+      setIsSideOpen(false);
+      Swal.fire({
+        text: "대여 후 이용 가능한 서비스 입니다.",
+        icon: "info",
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: false,
+      });
+    }
   };
 
   return (
     <>
-      {/* <LogInRequiredModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        isLogin={isLogin}
-      /> */}
-
       <div className={style.topWrap}>
         <div className={style.greetingBinding}>
-          <div className={style.greeting}>{userName}님</div>
+          <div className={style.greeting}>
+            {auth.nickName ? auth.nickName : "빌리타"}님
+          </div>
           <div className={style.greeting}>안녕하세요!</div>
-          {userName === "빌리타" ? (
+          {!auth.auth ? (
             <div
               className={style.bluehighlightbtn}
               onClick={() => router.push("/login")}
@@ -127,15 +143,16 @@ export default function ModalSideBar(props: {
 
       <div className={style.menuWrap}>
         <ul className={style.menuUl}>
-          <li onClick={() => actionToHistory()}>이용내역</li>
-          <li>스마트키</li>
-          <li>결제카드 등록</li>
-          <li>이벤트/쿠폰</li>
-          {userName !== "빌리타" ? (
-            <li onClick={handleLogout}>로그아웃</li>
+          {auth.auth ? (
+            <>
+              <li onClick={() => actionToHistory()}>이용내역</li>
+              <li onClick={() => handleSmartKey()}>스마트키</li>
+            </>
           ) : (
             <></>
           )}
+          <li>적립금 정책</li>
+          {auth.auth ? <li onClick={handleLogout}>로그아웃</li> : <></>}
         </ul>
       </div>
 
@@ -156,85 +173,19 @@ export default function ModalSideBar(props: {
 }
 
 const RentCarNonExist = () => {
+  const auth = useRecoilValue(authState);
   return (
     <div className={style.grayWrapper}>
       <div className={style.nonRentNotice}>
-        <SectionTitle fontSize={0.8}>
-          현재 대여중인 차량이 없습니다.
-        </SectionTitle>
-      </div>
-    </div>
-  );
-};
-
-const RentCar = (props: {
-  rentCarData: MyRentalCarType;
-  setIsSideOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
-  const router = useRouter();
-
-  const { rentCarData } = props;
-  const [summaryData, setSummaryData] = useState<IsUserRentalNowDataType>(
-    {} as IsUserRentalNowDataType
-  );
-
-  useEffect(() => {
-    const getCurrentRentKeyData = async () => {
-      try {
-        const token = "Bearer " + localStorage.getItem("Authorization");
-        const uid = localStorage.getItem("uid");
-        const res = await axios.get(
-          `https://api-billita.xyz/booklist/summary/${rentCarData.vehicleId}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        const data = res.data;
-        setSummaryData(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCurrentRentKeyData();
-  }, []);
-
-  const handlePush = () => {
-    props.setIsSideOpen(false);
-    router.push(`/rental/${rentCarData.rentalId}/detail`);
-  };
-  const serviceStartTime = new Date(rentCarData.startDate);
-  const serviceEndTime = new Date(rentCarData.endDate);
-
-  return (
-    <div className={style.grayWrapper} onClick={handlePush}>
-      <div className={style.paddingWrap}>
-        <SectionTitle fontSize={1}>대여 차량</SectionTitle>
-        <Separator gutter={1.2} />
-        <div className={style.reserveWrapper}>
-          <div className={style.textWrap}>
-            <div className={style.carName}>
-              {summaryData?.brandName} {summaryData?.carName}
-            </div>
-            <div className={style.period}>
-              {serviceStartTime.getMonth() + 1}월 {serviceStartTime.getDate()}일{" "}
-              {serviceStartTime.getHours()}:
-              {String(serviceStartTime.getMinutes()).padStart(2, "0")} -{" "}
-              {serviceEndTime.getMonth() + 1}월 {serviceEndTime.getDate()}일{" "}
-              {serviceEndTime.getHours()}:
-              {String(serviceEndTime.getMinutes()).padStart(2, "0")}
-            </div>
-          </div>
-          <div className={style.imgWrap}>
-            <Image
-              src={summaryData.imageUrl}
-              width="300"
-              height="300"
-              alt={summaryData?.carName}
-            />
-          </div>
-        </div>
+        {!auth.auth ? (
+          <SectionTitle fontSize={0.8}>
+            로그인이 필요한 서비스입니다.
+          </SectionTitle>
+        ) : (
+          <SectionTitle fontSize={0.8}>
+            현재 대여중인 차량이 없습니다.
+          </SectionTitle>
+        )}
       </div>
     </div>
   );

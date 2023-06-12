@@ -4,11 +4,11 @@ import LinearProgress, {linearProgressClasses} from '@mui/material/LinearProgres
 import Image from 'next/image'
 import { Box } from '@mui/material';
 
-export default function ProgressBar(props: { value: number }) {
+export default function ProgressBar(props: { value: number, isIcon? : boolean, width?: string}) {
 
     return (
-      <Box display='flex' justifyContent='space-between' alignItems='center' sx={{ width: '50%'}} my={1}>
-        <Image src="/assets/images/icons/harrypotter.svg" alt="harrypotter" width={10} height={10}/>
+      <Box display='flex' justifyContent='space-between' alignItems='center' sx={props.width === undefined ? { width: '50%'} : { width: props.width}} my={1}>
+        { props.isIcon === undefined ? <Image src="/assets/images/icons/harrypotter.svg" alt="harrypotter" width={10} height={10}/> : null }
         <BorderLinearProgress sx={{ width: '100px'}}variant="determinate" value={props.value}/>
       </Box>
     )

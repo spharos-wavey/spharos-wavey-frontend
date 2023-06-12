@@ -6,6 +6,8 @@ import VehicleCard from "./VehicleCard";
 import { useEffect, useState } from "react";
 
 export default function VehicleRecommendMain() {
+  
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [mainCarData, setMainCarData] = useState<mainVehicleCardType[]>();
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
@@ -25,7 +27,7 @@ export default function VehicleRecommendMain() {
     if (lat === 0 && lng === 0) return;
     const getMainCar = async () => {
       try {
-        const res = await axios.get(`https://api-billita.xyz/billitazone/now?lat=${lat}&lng=${lng}`);
+        const res = await axios.get(`${API_URL}/billitazone/now?lat=${lat}&lng=${lng}`);
         const data = res.data;
         setMainCarData(data);
       } catch (err) {
@@ -37,7 +39,7 @@ export default function VehicleRecommendMain() {
   
   return (
     <div>
-      <div className={style.sectionTitle}>지금 후딱 타이소</div>
+      <div className={style.sectionTitle}>함 타보이소 ~ </div>
       <div className={style.overflowWrap}>
       {mainCarData === undefined ? <MyLoader /> : 
         mainCarData.length === 0 ? <div className={style.noCar}>현재 위치에서 조회된 차량이 없습니다.</div> :
