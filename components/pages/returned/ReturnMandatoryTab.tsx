@@ -112,6 +112,7 @@ export default function ReturnMandatoryTab() {
       handleAnswerAllPlz();
     } else {
       setDrawer(!drawer);
+      
     }
   };
 
@@ -121,8 +122,25 @@ export default function ReturnMandatoryTab() {
     setQuestionActive(updatedActive);
   }; 
 
+  const handleClose = () => {
+    setDrawer(false);
+  };
+
   return (
     <>
+    <div
+      onClick={handleClose}
+      className={
+        drawer ? `${style.closeBtn}` : `${style.closeBtn} ${style.close}`
+      }
+    >
+      <Image
+        src="/assets/images/icons/modalCloseX.svg"
+        width="20"
+        height="20"
+        alt="close"
+      />
+    </div>
       <Drawer
         open={drawer}
         PaperProps={{
@@ -250,6 +268,7 @@ export default function ReturnMandatoryTab() {
           반납하기
         </Button>
       </BottomFixedContainer>
+      <Separator gutter={3} />
     </>
   );
 }

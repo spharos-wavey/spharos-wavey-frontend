@@ -7,19 +7,18 @@ export default function ModalForm(props: {
   startDate?: Date;
   endDate?: Date;
 }) {
-
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  
+
   useEffect(() => {
     const startDate = props.startDate ? props.startDate : null;
     const endDate = props.endDate ? props.endDate : null;
-    if(startDate && endDate) {
+    if (startDate && endDate) {
       setStartDate(startDate);
       setEndDate(endDate);
     }
   }, [props.startDate, props.endDate, props.userName]);
-  
+
   return (
     <div className={style.modalWrap}>
       <div className={style.modalTitle}>{props.title}</div>
@@ -82,15 +81,18 @@ export default function ModalForm(props: {
 
               <div>
                 {startDate?.getFullYear()}년{" "}
-                {startDate && startDate?.getMonth() + 1}월 {startDate?.getDate()}
-                일{" "} {startDate && startDate?.getHours()}시 {startDate && startDate?.getMinutes()}분
+                {startDate && startDate?.getMonth() + 1}월{" "}
+                {startDate?.getDate()}일 {startDate && startDate?.getHours()}시{" "}
+                {startDate && startDate?.getMinutes()}분
               </div>
             </div>
             <div className={style.drawerContentBinding}>
               <div className={style.blueHighlight}>반납일시</div>
-              <div>
+              <div className={style.date}>
                 {endDate?.getFullYear()}년 {endDate && endDate?.getMonth() + 1}
-                월 {endDate?.getDate()}일{" "} {endDate && endDate?.getHours()}시 {endDate && endDate?.getMinutes()}분
+                월 {endDate?.getDate()}일{" "}
+                <span>{endDate && endDate?.getHours()}</span>시{" "}
+                <span>{endDate && endDate?.getMinutes()}</span>분
               </div>
             </div>
           </div>

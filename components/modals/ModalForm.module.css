@@ -55,6 +55,10 @@
   width: 30%;
 }
 
+.date span {
+  color: var(--billita-blueHighlight);
+}
+
 .lastLine{
   opacity: 0.5;
   font-size: 0.9rem;

@@ -1,3 +1,28 @@
+.closeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eeeeee;
+  position: absolute;
+  border-radius: 100%;
+  width: 62px;
+  height: 62px;
+  background: #0067df;
+  mix-blend-mode: hard-light;
+  box-shadow: 0px 4px 4px #01c5df;
+  bottom: 340px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  transition: all 0.5s ease-in-out;
+}
+
+.close {
+  transition: all 0.3s ease-in-out;
+  display: none;
+}
+
+
 .wrapper {
   padding: 0 1.57rem 0 1.57rem;
 }
