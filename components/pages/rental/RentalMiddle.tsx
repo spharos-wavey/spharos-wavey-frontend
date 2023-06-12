@@ -39,7 +39,6 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
 
   }, [])
 
-  console.log(frameInfo.billitaZoneId, "billitaZoneId")
   useEffect(() => {
     const getBillitaZoneInfo = async () => {
       try {

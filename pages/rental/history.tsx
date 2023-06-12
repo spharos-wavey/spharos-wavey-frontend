@@ -10,7 +10,7 @@ export default function RentHistory() {
   const [auth, setAuth] = useRecoilState(authState);
   const [rentalData, setRentalData] = useState<MyRentalCarType[]>();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  console.log(rentalData, "history");
+
   useEffect(() => {
     if (!auth.auth && AuthRecoilChecker() && typeof window !== "undefined") {
       setAuth({
@@ -25,8 +25,6 @@ export default function RentHistory() {
   }, [auth.auth, setAuth]);
 
   useEffect(() => {
-    console.log(auth.token, "auth.token");
-    console.log(auth.uid, "auth.uid");
     const getRentalAllData = async () => {
       const res = await fetch(`${API_URL}/rental/ALL`, {
         method: "GET",
@@ -35,7 +33,6 @@ export default function RentHistory() {
           uid: auth.uid,
         },
       });
-      console.log(res, "res");
       if (!res.ok) {
         return;
       }

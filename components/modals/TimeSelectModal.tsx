@@ -56,10 +56,10 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
   };
 
   useEffect(() => {
+    if(typeof window !== undefined) {
     const sessionStartTime = sessionStorage.getItem("startTime");
     const sessionEndTime = sessionStorage.getItem("endTime");
-    console.log("sessionStorage", sessionStartTime, sessionEndTime);
-
+    
     if(sessionStartTime && sessionEndTime){
       setStartTime(dayjs(sessionStartTime as string));
       setEndTime(dayjs(sessionEndTime as string));
@@ -68,9 +68,8 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
         endTime: sessionEndTime,
       });
     }
+  }
   }, [])
-
-  console.log(timeModal)
 
   return (
     <div className={ !timeModal ? `${style.timeModal} ${style.open}` : `${style.timeModal} ${style.close}`}>

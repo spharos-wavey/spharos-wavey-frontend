@@ -40,7 +40,6 @@ export default function RentalWrapper(props: { rentId: string }) {
       });
 
       const myRentalData: RentalDetailType = result.data;
-      console.log(myRentalData, "myRentalData");
       setRentData(myRentalData);
     };
     getMyRentalData();
