@@ -42,13 +42,15 @@ export default function ReturnMandatoryTab() {
     if (isNoProperlyParked) {
       Swal.fire({
         text: "고객센터로 문의주시기 바랍니다",
-        icon: "error",
         toast: true,
         position: "top",
         showConfirmButton: false,
         timer: 2000,
         timerProgressBar: true,
-        footer: `<a href="">문의하기</a>`,
+        footer: "문의하기",
+        customClass: {
+          container: "my-swal-warning",
+        },
       });
     }
   }, [!isNoProperlyParked]);
@@ -85,12 +87,14 @@ export default function ReturnMandatoryTab() {
   const handleAnswerAllPlz = () => {
     Swal.fire({
       text: "모든 질문에 답변해주세요",
-      icon: "error",
       toast: true,
       position: "top",
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: true,
+      customClass: {
+        container: "my-swal-warning",
+      },
     });
   };
 
@@ -98,12 +102,14 @@ export default function ReturnMandatoryTab() {
     setDrawer(false);
     Swal.fire({
       text: "반납이 완료되었습니다",
-      icon: "success",
       toast: true,
       position: "top",
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: true,
+      customClass: {
+        container: "my-swal",
+      },
     });
   };
 
@@ -112,7 +118,6 @@ export default function ReturnMandatoryTab() {
       handleAnswerAllPlz();
     } else {
       setDrawer(!drawer);
-      
     }
   };
 
@@ -120,7 +125,7 @@ export default function ReturnMandatoryTab() {
     const updatedActive = [...questionActive];
     updatedActive[index] = !updatedActive[index];
     setQuestionActive(updatedActive);
-  }; 
+  };
 
   const handleClose = () => {
     setDrawer(false);
@@ -128,23 +133,27 @@ export default function ReturnMandatoryTab() {
 
   return (
     <>
-    <div
-      onClick={handleClose}
-      className={
-        drawer ? `${style.closeBtn}` : `${style.closeBtn} ${style.close}`
-      }
-    >
-      <Image
-        src="/assets/images/icons/modalCloseX.svg"
-        width="20"
-        height="20"
-        alt="close"
-      />
-    </div>
+      <div
+        onClick={handleClose}
+        className={
+          drawer ? `${style.closeBtn}` : `${style.closeBtn} ${style.close}`
+        }
+      >
+        <Image
+          src="/assets/images/icons/modalCloseX.svg"
+          width="20"
+          height="20"
+          alt="close"
+        />
+      </div>
       <Drawer
         open={drawer}
         PaperProps={{
-          sx: { width: 'auto', borderTopLeftRadius: 18, borderTopRightRadius: 18 },
+          sx: {
+            width: "auto",
+            borderTopLeftRadius: 18,
+            borderTopRightRadius: 18,
+          },
         }}
         anchor="bottom"
         variant="temporary"
