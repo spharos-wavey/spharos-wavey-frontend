@@ -133,7 +133,7 @@ export default function SmartkeyPage() {
         <div className={style.imgWrap}>
           {doorOpen ? (
             <Image
-              src="/assets/images/car/smartKeyOpen.jpeg"
+              src="/assets/images/car/smartkeyOpen.jpeg"
               width={1000}
               height={1200}
               priority

@@ -13,7 +13,7 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
   const [serviceStartTime, setServiceStartTime] = useState<Date>();
   const [serviceEndTime, setServiceEndTime] = useState<Date>();
   const [timeDiff, setTimeDiff] = useState<number>(0);
-  const [days, setDays] = useState<number>(0);
+  const [daysCount, setDaysCount] = useState<number>(0);
   const [sumHours, setSumHours] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);
 
@@ -27,14 +27,14 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
       const timeDiff = Math.abs(
         endTime.getTime() - startTime.getTime()
       );
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
         (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       );
       const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
       setTimeDiff(timeDiff);
-      setDays(days);
+      setDaysCount(days);
       setSumHours(hours);
-      console.log(hours);
       setMinutes(minutes);
     }
   }, []);
@@ -77,7 +77,7 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
           {serviceEndTime && serviceEndTime?.getHours()}:
           {String(serviceEndTime && serviceEndTime?.getMinutes()).padStart(2, "0")}{" "}
         </div>  
-        <div className={style.displayValue}>{`총 ${days}일 ${sumHours}시간 ${minutes}분`}</div>
+        <div className={style.displayValue}>{`총 ${daysCount}일 ${sumHours}시간 ${minutes}분`}</div>
       </div>
 
       <Separator gutter={1.5} />
