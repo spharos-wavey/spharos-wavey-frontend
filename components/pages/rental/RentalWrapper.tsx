@@ -45,6 +45,9 @@ export default function RentalWrapper(props: { rentId: string }) {
     getMyRentalData();
   }, [API_URL, TOKEN, auth.uid, rentId]);
 
+  console.log(rentData, "rentData")
+
+  
   useEffect(() => {
     const getVehicleData = async () => {
       if (rentData !== undefined) {

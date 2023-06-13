@@ -122,6 +122,7 @@ export default function CarBook(props: { carData: carDataType }) {
           isOpen={isPaymentReady}
           setIsOpen={setIsPaymentReady}
           bookIdData={bookId}
+          fare={fare}
         />
       )}
 
