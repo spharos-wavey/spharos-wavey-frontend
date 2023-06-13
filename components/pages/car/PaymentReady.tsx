@@ -15,6 +15,7 @@ export default function PaymentReady(props: {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   carData: carDataType;
+  fare: number;
 }) {
   const auth = useRecoilValue(authState);
   const TOKEN = "Bearer " + auth.token;
@@ -40,6 +41,8 @@ export default function PaymentReady(props: {
     }
   }, [setAuth, auth.auth]);
 
+  console.log(props.fare, "잘찍히냐?");
+
   const readyRequestBody = {
     uuid: auth.uid,
     vehicleId: Number(vehicleId),
@@ -49,7 +52,7 @@ export default function PaymentReady(props: {
     endDate: reqTime.endTime,
     startZone: carData.place.id,
     returnZone: carData.place.id,
-    price: frameInfo?.defaultPrice,
+    price: props.fare,
     insuranceId: 1,
     reward: 1000,
   };
