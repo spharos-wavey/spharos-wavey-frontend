@@ -16,20 +16,20 @@ function Page(props: { data: brandSortType[] }) {
   useEffect(() => {
     const handleGeolocationError = (error: GeolocationPositionError) => {
       Swal.fire({
-        text: "위치공유를 허용해야만 서비스를 이용할 수 있습니다.",
+        text: "위치공유 허용 시에만 원활한 서비스 이용이 가능합니다.",
         toast: true,
         position: "top",
         showConfirmButton: true,
         confirmButtonText: "확인",
-        // timer: 4000,
+        timer: 5000,
         timerProgressBar: false,
         customClass: {
           container: "mySwal-only-confirm",
-          confirmButton: "mySwalConfirmButton",
+          confirmButton: "mySwalConfirmButtonOnly",
         },
       }).then((result) => {
         if (result.isConfirmed) {
-          requestLocationPermission();
+          // requestLocationPermission();
         }
       });
     };

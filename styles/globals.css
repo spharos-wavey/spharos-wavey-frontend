@@ -116,6 +116,14 @@ section {
   box-shadow: 0 0 0 0.2rem rgba(0, 113, 255, 0.1) !important;
 }
 
+.mySwal-only-confirm .mySwalConfirmButtonOnly {
+  background-color: var(--billita-blueHighlight) !important;
+  border-radius: 1rem !important;
+  font-size: 0.8rem !important;
+  padding: 0.5rem 2rem !important;
+  justify-content: center !important;
+}
+
 .mySwal-only-confirm .swal2-popup.swal2-toast .swal2-styled {
   margin: 0 auto !important;
   justify-content: center !important;
