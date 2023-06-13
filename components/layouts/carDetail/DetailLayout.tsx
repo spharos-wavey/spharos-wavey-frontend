@@ -155,7 +155,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
         </BottomFixedContainer>
       ) : (
         <BottomFixedContainer justifyContent="center">
-          <Discription text="이미 대여중이 차량이 있습니다."/>
+          <Discription text="이미 대여중인 차량이 있습니다."/>
         </BottomFixedContainer>
       )}
     </>

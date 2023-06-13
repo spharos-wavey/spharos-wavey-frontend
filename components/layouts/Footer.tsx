@@ -17,7 +17,6 @@ export default function Footer() {
   const setUserRentalState = useSetRecoilState(userRentalState);
 
   const handleLogOut = () => {
-    
     Swal.fire({
       text: "로그아웃 하시겠습니까?",
       showCancelButton: true,

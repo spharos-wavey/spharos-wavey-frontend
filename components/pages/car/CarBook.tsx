@@ -35,36 +35,36 @@ export default function CarBook(props: { carData: carDataType }) {
   const reqTime = useRecoilValue(nowTimeState);
 
   useEffect(() => {
-      const startTime = new Date(reqTime.startTime);
-      const endTime = new Date(reqTime.endTime);
-      const timeDiff = Math.abs(
-        endTime.getTime() - startTime.getTime()
-      );
-      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    const startTime = new Date(reqTime.startTime);
+    const endTime = new Date(reqTime.endTime);
+    const timeDiff = Math.abs(endTime.getTime() - startTime.getTime());
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 
-      setTimeDiff(timeDiff);
-      setServiceStartTime(startTime);
-      setServiceEndTime(endTime);
-      setDays(days);
-      setHours(hours);
-      setMinutes(minutes);
-      const carData = props.carData;
-      const frameInfo = props.carData?.frameInfo;
-      const fare = timeDiff/3600000 * (carData.frameInfo.defaultPrice/24) + carData.frameInfo.defaultPrice;
-      const fareRounded = Math.round(fare / 100) * 100;
-    
-      setCarData(carData);
-      setFrameInfo(frameInfo);
-      setFare(fareRounded);
-      setRequestBody({
-        vehicleId: router.query.cid,
-        startDate: startTime,
-        endDate: endTime,
-      });
+    setTimeDiff(timeDiff);
+    setServiceStartTime(startTime);
+    setServiceEndTime(endTime);
+    setDays(days);
+    setHours(hours);
+    setMinutes(minutes);
+    const carData = props.carData;
+    const frameInfo = props.carData?.frameInfo;
+    const fare =
+      (timeDiff / 3600000) * (carData.frameInfo.defaultPrice / 24) +
+      carData.frameInfo.defaultPrice;
+    const fareRounded = Math.round(fare / 100) * 100;
+
+    setCarData(carData);
+    setFrameInfo(frameInfo);
+    setFare(fareRounded);
+    setRequestBody({
+      vehicleId: router.query.cid,
+      startDate: startTime,
+      endDate: endTime,
+    });
   }, [props.carData, router.query.cid]);
 
   const handleModal = () => {
@@ -206,9 +206,11 @@ export default function CarBook(props: { carData: carDataType }) {
               "0"
             )}{" "}
           </div>
-          <div
-            className={style.resultTxt}
-          >{`${days}일 ${hours}시간 ${minutes}분`}</div>
+          <div className={style.resultTxt}>총{" "}
+            {
+              days === 0? `${hours}시간 ${minutes}분` : `${days}일 ${hours}시간 ${minutes}분`
+            }
+          </div>
         </div>
 
         <Separator gutter={1.5} />

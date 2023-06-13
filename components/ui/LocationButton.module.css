@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   background-color: var(--billita-white);
-  box-shadow: 0px 5px 10px var(--billita-blueHighlight);
+  box-shadow: 0px 5px 10px #00c4df55;
   border-radius: 50px;
   padding: 0.3rem;
   margin-top: 1rem;
