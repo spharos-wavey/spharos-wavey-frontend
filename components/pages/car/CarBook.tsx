@@ -14,6 +14,7 @@ import { authState } from "@/state/authState";
 import PaymentReady from "./PaymentReady";
 import { useRecoilValue } from "recoil";
 import ProgressBar from "@/components/ui/ProgressBar";
+import { nowTimeState } from "@/state/nowTime";
 
 export default function CarBook(props: { carData: carDataType }) {
   const router = useRouter();
@@ -33,39 +34,42 @@ export default function CarBook(props: { carData: carDataType }) {
   const [fare, setFare] = useState<number>(0);
   const [isPaymentReady, setIsPaymentReady] = useState<boolean>(false);
   const [requestBody, setRequestBody] = useState<any>();
+  const reqTime = useRecoilValue(nowTimeState);
 
   useEffect(() => {
     if (!typeof window !== undefined) {
-      const startTime = new Date(sessionStorage.getItem("startTime") as string)
-      const endTime = new Date(sessionStorage.getItem("endTime") as string)
-      const timeDiff = Math.abs(
-        endTime.getTime() - startTime.getTime()
-      );
-      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-
-      setTimeDiff(timeDiff);
-      setServiceStartTime(startTime);
-      setServiceEndTime(endTime);
-      setDays(days);
-      setHours(hours);
-      setMinutes(minutes);
-      const carData = props.carData;
-      const frameInfo = props.carData?.frameInfo;
-      const fare = timeDiff/3600000 * (carData.frameInfo.defaultPrice/24) + carData.frameInfo.defaultPrice;
-      const fareRounded = Math.round(fare / 100) * 100;
-    
-      setCarData(carData);
-      setFrameInfo(frameInfo);
-      setFare(fareRounded);
-      setRequestBody({
-        vehicleId: router.query.cid,
-        startDate: startTime,
-        endDate: endTime,
-      });
+      const startTime = sessionStorage.getItem("startTime");
+      const endTime = sessionStorage.getItem("endTime");
+      
+      console.log(startTime, endTime, "s,e");
+      const sTimeDate = new Date(startTime as string);
+      const eTimeDate = new Date(endTime as string);
+      if (sTimeDate && eTimeDate) {
+        const timeDiff = Math.abs(eTimeDate.getTime() - sTimeDate.getTime());
+        setTimeDiff(timeDiff);
+        setServiceStartTime(sTimeDate);
+        setServiceEndTime(eTimeDate);
+        setDays(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
+        setHours(
+          Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        );
+        setMinutes(Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)));
+        setFare(
+          Math.round(
+            ((timeDiff / 3600000) *
+              (props.carData.frameInfo.defaultPrice / 24) +
+              props.carData.frameInfo.defaultPrice) /
+              100
+          ) * 100
+        );
+        setRequestBody({
+          vehicleId: router.query.cid,
+          startDate: startTime,
+          endDate: endTime,
+        });
+      }
+      setCarData(props.carData);
+      setFrameInfo(props.carData?.frameInfo);
     }
   }, [props.carData, router.query.cid]);
 
@@ -73,20 +77,20 @@ export default function CarBook(props: { carData: carDataType }) {
     setDrawer(true);
     setNextDrawer(false);
   };
- 
+
   const handleClose = () => {
-      setDrawer(false);
-      setNextDrawer(false);
+    setDrawer(false);
+    setNextDrawer(false);
   };
 
   const handleOpen = () => {
-    if(nextDrawer) {
+    if (nextDrawer) {
       setDrawer(false);
       setNextDrawer(false);
       setIsPaymentReady(true);
       return;
     }
-    if(drawer) {
+    if (drawer) {
       setDrawer(false);
       setNextDrawer(true);
       return;
@@ -96,9 +100,10 @@ export default function CarBook(props: { carData: carDataType }) {
   };
 
   useEffect(() => {
-    if(!requestBody) return;
+    if (!requestBody) return;
     const postBookData = async () => {
       const TOKEN = "Bearer " + auth.token;
+      console.log(TOKEN, "token");
       try {
         const res = await axios.post(`${API_URL}/booklist`, requestBody, {
           headers: {
@@ -126,7 +131,16 @@ export default function CarBook(props: { carData: carDataType }) {
         />
       )}
 
-      <div onClick={handleClose} className={ drawer ? `${style.closeBtn}` : nextDrawer ? `${style.closeBtn}` : `${style.closeBtn} ${style.close}`}>
+      <div
+        onClick={handleClose}
+        className={
+          drawer
+            ? `${style.closeBtn}`
+            : nextDrawer
+            ? `${style.closeBtn}`
+            : `${style.closeBtn} ${style.close}`
+        }
+      >
         <Image
           src="/assets/images/icons/modalCloseX.svg"
           width="20"
@@ -134,7 +148,7 @@ export default function CarBook(props: { carData: carDataType }) {
           alt="close"
         />
       </div>
-      
+
       <Drawer
         open={drawer || nextDrawer}
         PaperProps={{
@@ -147,8 +161,9 @@ export default function CarBook(props: { carData: carDataType }) {
         anchor="bottom"
         variant="temporary"
       >
-        <Box position='relative' width="100%" height="370px">
-          <ModalForm title={drawer ? "예약 전, 필수 확인 사항" : "예약결제 안내"}
+        <Box position="relative" width="100%" height="370px">
+          <ModalForm
+            title={drawer ? "예약 전, 필수 확인 사항" : "예약결제 안내"}
             userName={auth.nickName}
             startDate={serviceStartTime}
             endDate={serviceEndTime}
@@ -163,7 +178,7 @@ export default function CarBook(props: { carData: carDataType }) {
               fontWeight="bold"
               backgroundColor="var(--billita-white)"
             >
-              {drawer ? '잘 알겠어요, 예약할게요' : '네, 진행할게요'}
+              {drawer ? "잘 알겠어요, 예약할게요" : "네, 진행할게요"}
             </Button>
           </BottomFixedContainer>
         </Box>
@@ -193,26 +208,34 @@ export default function CarBook(props: { carData: carDataType }) {
                 placeholder="empty"
               />
             </div>
-            <ProgressBar value={carData.charge} isIcon={false} width={'60px'}/>
+            <ProgressBar value={carData.charge} isIcon={false} width={"60px"} />
             <div className={style.charge}>{carData.charge}%</div>
           </div>
         </div>
       )}
 
       <div className={style.middleWrap}>
-
         <div className={style.subtitle}>대여시간</div>
         <div className={style.subWrap}>
           <div className={style.content}>
-            {serviceStartTime && serviceStartTime?.getMonth() + 1}월 {serviceStartTime && serviceStartTime?.getDate()}일{" "}
+            {serviceStartTime && serviceStartTime?.getMonth() + 1}월{" "}
+            {serviceStartTime && serviceStartTime?.getDate()}일{" "}
             {serviceStartTime && serviceStartTime?.getHours()}:
-            {String(serviceStartTime && serviceStartTime?.getMinutes()).padStart(2, "0")}{" "}
+            {String(
+              serviceStartTime && serviceStartTime?.getMinutes()
+            ).padStart(2, "0")}{" "}
             <span>- </span>
-            {serviceEndTime && serviceEndTime?.getMonth() + 1}월 {serviceEndTime && serviceEndTime?.getDate()}일{" "}
+            {serviceEndTime && serviceEndTime?.getMonth() + 1}월{" "}
+            {serviceEndTime && serviceEndTime?.getDate()}일{" "}
             {serviceEndTime && serviceEndTime?.getHours()}:
-            {String(serviceEndTime && serviceEndTime?.getMinutes()).padStart(2, "0")}{" "}
+            {String(serviceEndTime && serviceEndTime?.getMinutes()).padStart(
+              2,
+              "0"
+            )}{" "}
           </div>
-          <div className={style.resultTxt}>{`${days}일 ${hours}시간 ${minutes}분`}</div>
+          <div
+            className={style.resultTxt}
+          >{`${days}일 ${hours}시간 ${minutes}분`}</div>
         </div>
 
         <Separator gutter={1.5} />
@@ -220,26 +243,23 @@ export default function CarBook(props: { carData: carDataType }) {
         <div className={style.subtitle}>주차장소</div>
         <div className={style.subWrap}>
           <div className={style.content}>대여위치</div>
-            {carData && (
-              <div className={style.location}>{carData?.place.name}</div>
-            )}
+          {carData && (
+            <div className={style.location}>{carData?.place.name}</div>
+          )}
         </div>
         <div className={style.subWrap}>
           <div className={style.content}>반납위치</div>
-            {carData && (
-              <div className={style.location}>{carData?.place.name}</div>
-            )}
+          {carData && (
+            <div className={style.location}>{carData?.place.name}</div>
+          )}
         </div>
 
         <Separator gutter={1.8} />
 
-       
         <div className={style.subtitle}>주행요금</div>
         <div className={style.subWrap}>
-        <div className={style.content}>{frameInfo?.distancePrice}/km</div>
-        <div className={style.resultTxt}>
-          {0}원
-        </div>
+          <div className={style.content}>{frameInfo?.distancePrice}/km</div>
+          <div className={style.resultTxt}>{0}원</div>
         </div>
         <div className={style.description}>
           *주행요금은 반납시 대여시간 초과에 따라 별도로 청구됩니다.
@@ -252,7 +272,7 @@ export default function CarBook(props: { carData: carDataType }) {
             <div className={style.subWrap}>
               <div className={style.content}>대여요금</div>
               <div className={style.resultTxt}>
-                {(fare).toLocaleString("kr-KO")}원
+                {fare.toLocaleString("kr-KO")}원
               </div>
             </div>
           </>
@@ -271,7 +291,6 @@ export default function CarBook(props: { carData: carDataType }) {
         )}
 
         <Separator gutter={7} />
-      
       </div>
 
       <BottomFixedContainer justifyContent="center">

@@ -17,7 +17,10 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
   const router = useRouter();
-  
+  const canCarBeBooked = useRecoilValue<timeType>(nowTimeState);
+  const START_TIME = canCarBeBooked.startTime;
+  const END_TIME = canCarBeBooked.endTime;
+  console.log(START_TIME, END_TIME, "START_TIME, END_TIME");
 
 
 
@@ -49,24 +52,37 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     }
   }, [auth.uid, auth.auth, TOKEN, API_URL, setCanUserRent]);
 
-  useEffect(() => {
-    // const canItBeBooked = async () => {
-    //   try {
-    //     const res = await fetch(
-    //       `${API_URL}/vehicle/book-check?id=${router.query.cid}&sDate=${START_TIME}&eDate=${END_TIME}`,
-    //       {
-    //         method: "GET",
-    //       }
-    //     );
-    //     const data = await res.json();
-    //     console.log(data, "canItBeBooked");
-    //     console.log(START_TIME, END_TIME, "chec")
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // canItBeBooked();
-  }, [router.query.cid]);
+
+
+  const canItBeBooked = async () => {
+    try {
+      const res = await fetch(
+        `${API_URL}/vehicle/book-check?id=${router.query.cid}&sDate=${START_TIME}&eDate=${END_TIME}`,
+        {
+          method: "GET",
+        }
+      );
+      const data = await res.json();
+      console.log(data, "data");
+      if (data === true) {
+        sessionStorage.setItem("startTime", START_TIME);
+        sessionStorage.setItem("endTime", END_TIME);
+        setIsLicense(true);
+      }
+      else{
+        Swal.fire({
+          text: "예약이 불가능한 시간입니다",
+          icon: "warning",
+          confirmButtonText: "확인",
+          confirmButtonColor: "var(--billita-primary)",
+          timer: 2000,
+          timerProgressBar: false,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleAlertTimeSetting = () => {
     Swal.fire({
@@ -78,19 +94,22 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       timerProgressBar: false,
     });
   };
+  
   const handleCheckNextStep = () => {
-    if (
+    if (START_TIME && END_TIME) {
+      canItBeBooked();
+    }
+    else (
       typeof window !== undefined &&
       !sessionStorage.getItem("startTime") &&
       !sessionStorage.getItem("endTime")
-    ) {
-      handleAlertTimeSetting();
-      return;
-    } else if (!auth.auth && typeof window !== "undefined") {
-      sessionStorage.setItem("redirectUrl", `/car/${router.query.cid}`);
-      router.push("/require-login");
-    } else setIsLicense(true);
+    ) 
+    // else if (!auth.auth && typeof window !== "undefined") {
+    //   sessionStorage.setItem("redirectUrl", `/car/${router.query.cid}`);
+    //   router.push("/require-login");
+    // } else setIsLicense(true);
   };
+
 
   const handleSetTime = () => {
     setTimeModal(false);
