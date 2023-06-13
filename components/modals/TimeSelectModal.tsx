@@ -7,7 +7,7 @@ import style from "./TimeSelectModal.module.css";
 import Swal from "sweetalert2";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { nowTimeState } from "@/state/nowTime";
-import router from "next/router";
+import router, { Router } from "next/router";
 
 interface TimeModalType {
   setTimeModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,40 +23,6 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
   );
   const [currentTime, setCurrentTime] = useState<dayjs.Dayjs>(dayjs());
   const [reqTime, setReqTime] = useRecoilState<timeType>(nowTimeState);
-  const canCarBeBooked = useRecoilValue<timeType>(nowTimeState);
-
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const START_TIME = canCarBeBooked.startTime;
-  const END_TIME = canCarBeBooked.endTime;
-
-  const canItBeBooked = async () => {
-
-    try {
-      const res = await fetch(
-        `${API_URL}/vehicle/book-check?id=${router.query.cid}&sDate=${START_TIME}&eDate=${END_TIME}`,
-        {
-          method: "GET",
-        }
-      );
-      const data = await res.json();
-      console.log(data, "canItBeBooked");
-      console.log(START_TIME, END_TIME, "chec");
-
-      Swal.fire({
-        text: "시간 설정이 변경되었습니다.",
-        icon: "success",
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 1000,
-        timerProgressBar: true,
-      });
-
-      setTimeModal(true);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const timeModalHandler = () => {
     if (startTime.isAfter(endTime)) {
@@ -72,8 +38,6 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
       endTime: endTime.format("YYYY-MM-DD HH:mm"),
     });
 
-    canItBeBooked()
-
     if (typeof window !== undefined) {
       sessionStorage.setItem("startTime", startTime.format("YYYY-MM-DD HH:mm"));
       sessionStorage.setItem("endTime", endTime.format("YYYY-MM-DD HH:mm"));
@@ -81,19 +45,7 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
   };
 
   useEffect(() => {
-    if (typeof window !== undefined) {
-      const sessionStartTime = sessionStorage.getItem("startTime");
-      const sessionEndTime = sessionStorage.getItem("endTime");
-
-      if (sessionStartTime && sessionEndTime) {
-        setStartTime(dayjs(sessionStartTime as string));
-        setEndTime(dayjs(sessionEndTime as string));
-        setReqTime({
-          startTime: sessionStartTime,
-          endTime: sessionEndTime,
-        });
-      }
-    }
+    console.log(router);
   }, []);
 
   return (
