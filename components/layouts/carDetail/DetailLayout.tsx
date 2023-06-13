@@ -64,6 +64,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   }, [auth.uid, auth.auth, TOKEN, API_URL, setCanUserRent]);
 
   useEffect(() => {
+
     if (reqTime.startTime && reqTime.endTime) {
       setRequestBody({
         vehicleId: Number(router.query.cid),
