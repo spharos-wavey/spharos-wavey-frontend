@@ -1,7 +1,7 @@
 @import url("./common/font.css");
 
 :root {
-  /* common color */ 
+  /* common color */
   --billita-white: #ffffff;
   --billita-black: #1e1e1e;
   --billita-blue: #0071ff;
@@ -70,8 +70,6 @@ section {
   color: var(--billita-blueHighlight) !important;
 } */
 
-
-
 /* slide panel */
 .some-custom-overlay-class {
   z-index: 1000;
@@ -88,14 +86,116 @@ section {
 }
 
 /* mui form */
-#demo-simple-select-standard, #demo-simple-select-standard-label {
+#demo-simple-select-standard,
+#demo-simple-select-standard-label {
   font-size: 0.8rem !important;
 }
-.css-q8hpuo-MuiFormControl-root input,.css-q8hpuo-MuiFormControl-root label {
+.css-q8hpuo-MuiFormControl-root input,
+.css-q8hpuo-MuiFormControl-root label {
   font-size: 0.8rem !important;
 }
 
 #licenseNumber-helper-text {
   font-size: 0.7rem !important;
   color: var(--billita-blueHighlight) !important;
+}
+
+/* swal custom */
+.mySwalConfirmButton {
+  background-color: var(--billita-blueHighlight) !important;
+  border-radius: 1rem !important;
+  font-size: 0.8rem !important;
+  padding: 0.5rem 2rem !important;
+}
+
+.mySwalConfirmButton {
+  justify-content: center !important;
+}
+
+.mySwalConfirmButton:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 113, 255, 0.1) !important;
+}
+
+.mySwal-only-confirm .swal2-popup.swal2-toast .swal2-styled {
+  margin: 0 auto !important;
+  justify-content: center !important;
+}
+
+.mySwal-only-confirm .swal2-title {
+  font-size: 0.8rem !important;
+}
+
+.mySwalCancelButton {
+  background-color: var(--billita-secondary) !important;
+  border-radius: 1rem !important;
+  font-size: 0.8rem !important;
+  padding: 0.5rem 2rem !important;
+}
+
+.swal2-html-container {
+  font-size: 0.9rem !important;
+  font-weight: normal !important;
+  font-family: var(--billita-hangul) !important;
+}
+
+.swal2-popup {
+  width: 80% !important;
+  border-radius: 1rem !important;
+  padding: 2rem 0 2rem 0 !important;
+}
+
+.my-swal {
+  font-weight: bold !important;
+  font-family: var(--billita-hangul) !important;
+}
+
+.my-swal .swal2-popup {
+  padding: 0 1rem !important;
+  background-color: var(--billita-blue) !important;
+  border-radius: 0.3rem !important;
+  mix-blend-mode: hard-light;
+  opacity: 0.9;
+}
+
+.my-swal .swal2-html-container {
+  font-size: 0.8rem !important;
+  font-weight: normal !important;
+  color: white !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.my-swal .swal2-icon.swal2-info {
+  visibility: hidden;
+  position: absolute;
+}
+
+.my-swal-warning {
+  font-weight: bold !important;
+  font-family: var(--billita-hangul) !important;
+}
+
+.my-swal-warning .swal2-popup {
+  border: 2px solid var(--billita-secondary) !important;
+  background-color: #dadada !important;
+  font-weight: 0.8rem !important;
+  mix-blend-mode: hard-light !important;
+  padding: 0.3rem !important;
+  justify-content: center !important;
+}
+
+.my-swal-warning .swal2-footer {
+  font-size: 0.2rem !important;
+}
+
+.my-swal-warning .swal2-x-mark {
+  /* visibility: hidden !important; */
+}
+
+.my-swal-warning .swal2-popup.swal2-toast .swal2-icon {
+  visibility: hidden !important;
+}
+
+.mySwal-only-confirm {
+  justify-content: center !important;
 }

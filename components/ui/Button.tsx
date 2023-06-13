@@ -10,7 +10,7 @@ interface ButtonStyle {
   backgroundColor?: string | undefined;
   color?: string | undefined;
   fontWeight?: string | undefined;
-  width?: number;
+  width?: string;
 }
 
 export default function Button(props: ButtonStyle) {
@@ -23,7 +23,7 @@ export default function Button(props: ButtonStyle) {
         border: props.border ? props.border : "none",
         color: props.color === undefined ? "var(--billita-white)" : props.color,
         margin: "15px 0",
-        letterSpacing: "-0.2px",
+        letterSpacing: "-0.5px",
         boxShadow: `${
           props.shadow ? "0px 4px 4px rgba(255, 73, 116, 0.3)" : "none"
         }`,

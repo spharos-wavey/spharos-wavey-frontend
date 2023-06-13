@@ -27,10 +27,10 @@
   margin-top: 4vh;
   color: var(--billita-white);
   background-color: var(--billita-blueHighlight);
-  font-size: 1rem;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
   font-weight: bold;
   display: block;
-  font-size: 0.7rem;
   width: fit-content;
   border-radius: 3px;
   padding: 0.5rem 1rem;
@@ -60,6 +60,7 @@
 
 .grayWrapper {
   background-color: #d6d6d650;
+  position: relative;
 }
 .paddingWrap {
   padding: 4vh 10vw 4vh 10vw;
@@ -75,18 +76,22 @@
 }
 
 .carName {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   letter-spacing: 0.5px;
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.3rem;
 }
-
 .period {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   opacity: 0.5;
 }
 .imgWrap {
-  width: 30%;
+  width: 50%;
+  height: 70px;
+  object-fit: cover;
+  position: absolute;
+  right: -3rem;
+  bottom: 3rem;
   /* overflow: hidden; */
 }
 
@@ -104,12 +109,15 @@
 
 .menuUl {
   list-style: none;
+  font-size: 0.9rem;
 }
 
 .menuUl li {
-  padding: 10px;
+  padding: 15px 10px;
   opacity: 0.6;
+  margin: 5px 0px;
 }
+
 .bottomMenuWrap {
   padding: 2rem 0 10rem 2rem;
   background-color: white;

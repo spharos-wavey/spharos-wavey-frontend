@@ -1,14 +1,54 @@
 import { footerMenuData } from "@/datas/staticMenuDatas";
 import { footerType } from "@/types/footerType";
 import { useRouter } from "next/router";
-import style from "@/components/layouts/Footer.module.css";
-import Image from "next/image";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { authState } from "@/state/authState";
+import Image from "next/image";
+import style from "@/components/layouts/Footer.module.css";
+import Swal from "sweetalert2";
+import { bookIdState } from "@/state/bookIdState";
+import { nowTimeState } from "@/state/nowTime";
+import { userRentalState } from "@/state/userRentalState";
 
 export default function Footer() {
   const router = useRouter();
-  const auth = useRecoilValue(authState);
+  const [auth, setAuth] = useRecoilState(authState);
+  const setBookId = useSetRecoilState(bookIdState);
+  const setUserRentalState = useSetRecoilState(userRentalState);
+
+  const handleLogOut = () => {
+    Swal.fire({
+      text: "로그아웃 하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "네",
+      cancelButtonText: "아니요",
+      customClass: {
+        confirmButton: 'mySwalConfirmButton',
+        cancelButton: 'mySwalCancelButton',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        sessionStorage.clear();
+        setBookId({bookId: 0});
+        setUserRentalState({
+          canUserBook: false,
+        });
+        setAuth({
+          auth: false,
+          nickName: "",
+          profileImageUrl: "",
+          token: "",
+          uid: "",
+          email: "",
+        });
+      }
+      else{
+        return
+      }
+    });
+    
+  }
   return (
     <footer className={style.footer}>
       <nav>
@@ -19,7 +59,7 @@ export default function Footer() {
               auth.auth && menuItem.id === 3 ? 
                 <li
                   key={menuItem.id}
-                  onClick={() => console.log("로그아웃")}
+                  onClick={() => handleLogOut()}
                   className={
                     router.pathname === menuItem.path ? style.active : ""
                   }
@@ -27,7 +67,7 @@ export default function Footer() {
                   <div className={style.footerIconContainer}>
                     <Image
                       src={
-                        router.pathname === menuItem.path
+                        auth.auth
                           ? menuItem.iconActive
                           : menuItem.icon
                       }

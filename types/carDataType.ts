@@ -1,4 +1,5 @@
 export interface carDataType {
+  map(arg0: (item: CarFrameDataType) => JSX.Element): import("react").ReactNode;
   color: string;
   feature: CarFeatureType;
   number: string;
@@ -20,6 +21,7 @@ export interface carDataType {
 }
 
 export interface CarFrameDataType {
+  map(arg0: (item: CarFrameDataType) => any): import("react").ReactNode;
   createDate: string | null;
   updateDate: string | null;
   id: number;

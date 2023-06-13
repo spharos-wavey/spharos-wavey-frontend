@@ -1,0 +1,71 @@
+
+.spotCardImg {
+  display: flex;
+  background-color: yellowgreen;
+  border-radius: 15px 15px 0 0;
+  position: relative;
+  width: 100%;
+  box-shadow: 10px 24px 54px rgba(3, 2, 36, 0.06);
+}
+
+.spotCardImg img {
+  width: 100%;
+  height: auto;
+}
+
+.profile {
+  width: 1.7rem;  
+}
+.profile img {
+  width: 100%;
+}
+.cardView img {
+  position: absolute;
+  width: 1.7rem;
+  top: -4px;
+}
+.spotCardInfo {
+  background-color: darkorange;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0 0 15px 15px;
+  color: lightgrey;
+  font-size: 0.7rem;
+}
+
+.cardInfoTop {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+}
+
+.writer {
+  display: flex;
+  align-items: center;
+}
+.writersName {
+  margin-left: 0.5rem;
+}
+.cardView {
+  display: flex;
+  width: 35%;
+  align-items: center;
+  justify-content: space-around;
+}
+.viewCount {
+  line-height: 1.4rem;
+  margin-left: 0.8rem;
+}
+.likeHeart {
+  margin-right: 0.8rem;
+}
+
+.spotName {
+  color: #0e0e0e;
+  font-size: 0.8rem;
+}
+
+.minutes {
+  color: var(--billita-blueHighlight);
+}

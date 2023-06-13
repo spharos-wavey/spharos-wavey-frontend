@@ -1,5 +1,4 @@
 import React from "react";
-import Title from "@/components/ui/Title";
 import LocationButton from "@/components/ui/LocationButton";
 import Separator from "@/components/ui/Separator";
 import { useRouter } from "next/router";
@@ -27,7 +26,6 @@ export default function DetailLocation(props: {
 
   return (
     <>
-      <Title title={"Location"} padding="0px" />
       <Separator gutter={0.5} padding={true} />
       <LocationButton
         location={props.location}

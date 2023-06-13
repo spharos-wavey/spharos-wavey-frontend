@@ -1,10 +1,10 @@
 .topWrap {
-  padding: 0 1.57rem 0 1.57rem;
+  padding: 2rem 1.57rem 0 1.57rem;
 }
 
 .carImage {
-  width: 300px;
-  height: 140px;
+  width: 280px;
+  height: 180px;
   margin: auto;
 }
 
@@ -21,7 +21,6 @@
   font-weight: bold;
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
-  margin-top: 10px;
 }
 
 .charge {
@@ -29,17 +28,24 @@
   justify-content: center;
   font-size: 0.8rem;
   opacity: 0.7;
+  margin-left: 0.5rem;
 }
 
 .harrypotterBinding {
   display: flex;
   justify-content: center;
   margin-top: 0.7rem;
-  position: relative;
+  align-items: center;
+}
+
+.imgBinding {
+  width: 0.8rem;
+  height: 0.8rem;
+  object-fit: contain;
+  margin-right: 0.3rem;
 }
 
 .harrypotterBinding img {
-  position: absolute;
-  top: 3px;
-  left: 135px;
+  width: 100%;
+  height: auto;
 }

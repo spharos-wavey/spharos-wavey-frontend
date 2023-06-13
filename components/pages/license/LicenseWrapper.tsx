@@ -17,14 +17,16 @@ import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import { useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
-import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
-import Button from "@/components/ui/Button";
 
 import style from "./LicenseWrapper.module.css";
 import CloseBtn from "@/components/ui/CloseBtn";
 import SlideDownBtn from "@/components/ui/SlideDownBtn";
+import CarBook from "../car/CarBook";
 
-export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Dispatch<React.SetStateAction<boolean>>}) {
+export default function LicenseWrapper(props:{
+  isOpen:boolean, setIsOpen:React.Dispatch<React.SetStateAction<boolean>>
+  setIsLicense:React.Dispatch<React.SetStateAction<boolean>>
+}) {
 
   const router = useRouter();
   const [inputError, setInputError] = useState<LicenseInputType>({
@@ -144,14 +146,14 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
       }));
       setInputError((prev) => ({
         ...prev,
-        [name]: validateField(name as keyof LicenseInputType, formattedInput),
+        [name]: formattedValue.length === 0 ? "필수 입력 항목입니다" : "",
       }));
       return;
     }
     setInputData((prev) => ({ ...prev, [name]: value }));
     setInputError((prev) => ({
       ...prev,
-      [name]: validateField(name as keyof LicenseInputType, value),
+      [name]: value.trim().length === 0? "필수 입력 항목입니다" : "",
     }));
   };
 
@@ -199,12 +201,11 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
         }),
       })
         .then((res) => {
-          console.log(res.status, res.ok);
           if (res.status === 200) {
-            console.log("ok");
-            router.push(`/car/${router.query.cid}/book`);
+            // router.push(`/car/${router.query.cid}/book`);
+            props.setIsLicense(true);
+            props.setIsOpen(false);
           } else {
-            console.log("not ok");
             handleIncorrectLicense();
           }
         })
@@ -213,6 +214,11 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
     postData();
   };
 
+  const handleCheckNextStep = () => {
+    props.setIsLicense(true);
+    props.setIsOpen(false);
+  }
+
   return (
     <>
     <div className={style.over} style={ props.isOpen ? {display:'block'} : {display:'none'}}></div>
@@ -220,6 +226,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
     <section className={props.isOpen ? style.licenseWrap : `${style.licenseWrap} ${style.slideClose}`}>
       <SlideDownBtn handleActive={() => props.setIsOpen(false)}  isActive={props.isOpen}/>
       <FormGroup>
+        <button onClick={() => handleCheckNextStep()}>테스트용 넘어가기 버튼</button>
         <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
         <Separator gutter={1} />
         <Box sx={{ width: "100%" }}>
@@ -279,7 +286,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
               name="expireDate"
               value={inputData.expireDate}
               onChange={handleInputChange}
-              error={!inputError.expireDate}
+              error={Boolean(inputError.expireDate)}
               aria-describedby="expireDate-helper-text"
             />
             <FormHelperText id="licenseNumber-helper-text">
@@ -294,7 +301,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
               name="issueDate"
               value={inputData.issueDate}
               onChange={handleInputChange}
-              error={!inputError.issueDate}
+              error={Boolean(inputError.issueDate)}
               aria-describedby="issueDate-helper-text"
             />
             <FormHelperText id="issueDate-helper-text">
@@ -309,7 +316,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
               name="licenseNumber"
               value={inputData.licenseNumber}
               onChange={handleInputChange}
-              error={!inputError.licenseNumber}
+              error={Boolean(inputError.licenseNumber)}
               aria-describedby="licenseNumber-helper-text"
             />
             <FormHelperText id="licenseNumber-helper-text">
@@ -325,7 +332,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
               name="userName"
               value={inputData.userName}
               onChange={handleInputChange}
-              error={!inputError.userName}
+              error={Boolean(inputError.userName)}
               aria-describedby="userName-helper-text"
             />
             <FormHelperText id="userName-helper-text">
@@ -340,7 +347,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
               name="birth"
               value={inputData.birth}
               onChange={handleInputChange}
-              error={!inputError.birth}
+              error={Boolean(inputError.birth)}
               aria-describedby="birth-helper-text"
             />
             <FormHelperText id="birth-helper-text">
@@ -355,7 +362,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
               name="address"
               value={inputData.address}
               onChange={handleInputChange}
-              error={!inputError.address}
+              error={Boolean(inputError.address)}
               aria-describedby="address-helper-text"
             />
             <FormHelperText id="address-helper-text">
@@ -370,7 +377,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
               name="addressDetail"
               value={inputData.addressDetail}
               onChange={handleInputChange}
-              error={!inputError.addressDetail}
+              error={Boolean(inputError.addressDetail)}
               aria-describedby="addressDetail-helper-text"
             />
             <FormHelperText id="addressDetail-helper-text">
@@ -381,15 +388,7 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
         </Box>
       </FormGroup>
     </section>
-    <BottomFixedContainer backgroundColor="transparent">
-      <Button
-        btnType={"button"}
-        btnEvent={() => console.log("go")}
-        shadow={true}
-      >
-        면허정보확인 
-      </Button>
-    </BottomFixedContainer> 
+    
     </>
   );
 }

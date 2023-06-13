@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import style from "./MapFooter.module.css";
-import BottomFixedContainer from "../BottomFixedContainer";
-import TimeSelectModal from "@/components/modals/TimeSelectModal";
+import TimeSelect from "@/components/modals/TimeSelectModal";
 
 export default function MapFooter() {
   
-  const [timeModal, setTimeModal] = useState(false);
+  const [timeModal, setTimeModal] = useState<boolean>(true);
   useEffect(() => {
     const handleTouch = (e: TouchEvent) => {
       if (e.touches[0].clientY > 100) {
@@ -22,18 +20,14 @@ export default function MapFooter() {
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeModal(false);
-    }, 3000);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <BottomFixedContainer backgroundColor="transparent">
-      <div className={style.footer}>
-          <TimeSelectModal
-            setTimeModal={setTimeModal}
-            timeModal={timeModal}
-          />
-      </div>
-    </BottomFixedContainer>
+    <TimeSelect
+      setTimeModal={setTimeModal}
+      timeModal={timeModal}
+    />
   );
 }

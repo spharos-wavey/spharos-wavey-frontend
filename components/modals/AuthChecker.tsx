@@ -17,7 +17,7 @@ export default function AuthChecker() {
       router.push("/login");
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [auth.auth, router]);
   
   return (
     <div className={style.authContainer}>

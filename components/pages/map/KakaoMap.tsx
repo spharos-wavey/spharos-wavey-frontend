@@ -24,7 +24,7 @@ export default function KakaoMap() {
   const [zoneList, setZoneList] = useState<BillitaZoneListType>([] as BillitaZoneListType);
   const [carInMapList, setCarInMapList] = useState<carInMapType[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  
   useEffect(() => {
     const getLocation = () => {
       if (navigator.geolocation) {
@@ -76,7 +76,6 @@ export default function KakaoMap() {
       if(result.data.length > 0) {
       setZoneList(result.data);
       }
-      console.log("빌리타존: ", result.data);
     };
     getData();
   }
@@ -89,7 +88,6 @@ export default function KakaoMap() {
           `${API_URL}/billitazone/filter?sDate=${reqTime.startTime}&eDate=${reqTime.endTime}&lat=${initLoc.latitude}&lng=${initLoc.longitude}`
         );
         setZoneList(result.data);
-        console.log("빌리타존: ", result.data);
       }
   
       getData();
@@ -108,7 +106,8 @@ export default function KakaoMap() {
     const getData = async () => {
       await fetch(`${API_URL}/vehicle/billitazone?id=${billitaZoneId}&sDate=${reqTime.startTime}&eDate=${reqTime.endTime}`)
       .then((res) => res.json().then((data) => {
-        setCarInMapList(data);
+        const canBook = data.filter((car:carInMapType) => car.canBook === true);
+        setCarInMapList(canBook);
       }
       )).catch((err) => console.log(err));
     }

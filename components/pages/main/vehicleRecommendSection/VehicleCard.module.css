@@ -48,7 +48,7 @@
 .carTitle {
   margin-top: -2rem;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
   width: 120px;
   white-space: nowrap;
   overflow: hidden;
@@ -56,8 +56,9 @@
 }
 
 .greySubTitle {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   margin-top: 4px;
+  margin-bottom: 4px;
   font-weight: 700;
   color: #AAAAAA;
   width: 100px;

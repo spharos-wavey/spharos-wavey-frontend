@@ -35,11 +35,11 @@ export default function VehicleRecommendMain() {
       }
     };
     getMainCar();
-  },[lat, lng])
+  },[lat, lng, API_URL])
   
   return (
     <div>
-      <div className={style.sectionTitle}>지금 후딱 타이소</div>
+      <div className={style.sectionTitle}>함 타보이소 ~ </div>
       <div className={style.overflowWrap}>
       {mainCarData === undefined ? <MyLoader /> : 
         mainCarData.length === 0 ? <div className={style.noCar}>현재 위치에서 조회된 차량이 없습니다.</div> :
