@@ -41,20 +41,20 @@ export default function PaymentReady(props: {
   };
 
   useEffect(() => {
-    const getPaymentReady = async () => {
-      const res = await axios.post(
-        `${API_URL}/purchase/kakao/ready`,
-        readyRequestBody,
-        {
-          headers: {
-            Authorization: TOKEN,
-          },
-        }
-      );
-      sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
-      router.push(res.data.next_redirect_mobile_url);
-    };
-    getPaymentReady();
+      const getPaymentReady = async () => {
+        const res = await axios.post(
+          `${API_URL}/purchase/kakao/ready`,
+          readyRequestBody,
+          {
+            headers: {
+              Authorization: TOKEN,
+            },
+          }
+        );
+        sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
+        router.push(res.data.next_redirect_pc_url);
+      };
+      getPaymentReady();
   }, [router, readyRequestBody, TOKEN, API_URL]);
 
   return (

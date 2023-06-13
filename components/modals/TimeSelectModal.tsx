@@ -44,12 +44,14 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
 
       Swal.fire({
         text: "시간 설정이 변경되었습니다.",
-        icon: "success",
         toast: true,
         position: "top",
         showConfirmButton: false,
         timer: 1000,
         timerProgressBar: true,
+        customClass: {
+          container: "my-swal",
+        },
       });
 
       setTimeModal(true);
