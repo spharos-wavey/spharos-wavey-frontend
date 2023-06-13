@@ -10,11 +10,13 @@ import Swal from "sweetalert2";
 export default function Footer() {
   const router = useRouter();
   const [auth, setAuth] = useRecoilState(authState);
+  //clean up recoil value when logout
 
 
   const handleLogOut = () => {
     localStorage.clear();
     sessionStorage.clear();
+        
     Swal.fire({
       text: "로그아웃 하시겠습니까?",
       showCancelButton: true,
