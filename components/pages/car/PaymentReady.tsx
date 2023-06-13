@@ -52,7 +52,19 @@ export default function PaymentReady(props: {
           }
         );
         sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
-        router.push(res.data.next_redirect_pc_url);
+        if(typeof window === undefined) {
+          const userAgent = window.navigator.userAgent.toLowerCase();
+          console.log(userAgent, "userAgent");
+  
+          const isMobile = () => {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
+          }
+          if(isMobile()) {
+            router.push(res.data.next_redirect_mobile_url);
+            return;
+          }
+          router.push(res.data.next_redirect_pc_url);
+        }
       };
       getPaymentReady();
    
