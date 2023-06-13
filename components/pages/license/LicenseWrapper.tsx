@@ -23,7 +23,10 @@ import CloseBtn from "@/components/ui/CloseBtn";
 import SlideDownBtn from "@/components/ui/SlideDownBtn";
 import CarBook from "../car/CarBook";
 
-export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Dispatch<React.SetStateAction<boolean>>}) {
+export default function LicenseWrapper(props:{
+  isOpen:boolean, setIsOpen:React.Dispatch<React.SetStateAction<boolean>>
+  setIsLicense:React.Dispatch<React.SetStateAction<boolean>>
+}) {
 
   const router = useRouter();
   const [inputError, setInputError] = useState<LicenseInputType>({
@@ -199,7 +202,9 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
       })
         .then((res) => {
           if (res.status === 200) {
-            router.push(`/car/${router.query.cid}/book`);
+            // router.push(`/car/${router.query.cid}/book`);
+            props.setIsLicense(true);
+            props.setIsOpen(false);
           } else {
             handleIncorrectLicense();
           }
@@ -210,7 +215,8 @@ export default function LicenseWrapper(props:{isOpen:boolean, setIsOpen:React.Di
   };
 
   const handleCheckNextStep = () => {
-    router.push(`/car/${router.query.cid}/book`);
+    props.setIsLicense(true);
+    props.setIsOpen(false);
   }
 
   return (

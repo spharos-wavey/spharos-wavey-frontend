@@ -24,8 +24,8 @@
 }
 
 .slideDown img {
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 1.2rem;
+  height: 1.2rem;
   transition: 0.5s;
 }
 .slideDown.active img {

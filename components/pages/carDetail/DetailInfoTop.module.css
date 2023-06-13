@@ -1,6 +1,7 @@
 .carName {
   font-size: 1.4rem;
   font-weight: bold;
+  margin-top: 1.5rem;
 }
 
 .maker {
@@ -47,6 +48,8 @@
 
 .carStatus ul li {
   list-style: none;
+  width: fit-content;
+  padding: 0 1rem;
 }
 
 .carStatusImg {

@@ -25,13 +25,13 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
   const [reqTime, setReqTime] = useRecoilState<timeType>(nowTimeState);
 
   const timeModalHandler = () => {
-    if (startTime.isAfter(endTime)) {
-      return;
-    } else if (startTime.isSame(endTime)) {
-      return;
-    } else if (startTime.isBefore(currentTime)) {
-      return;
-    }
+    // if (startTime.isAfter(endTime)) {
+    //   return;
+    // } else if (startTime.isSame(endTime)) {
+    //   return;
+    // } else if (startTime.isBefore(currentTime)) {
+    //   return;
+    // }
 
     setReqTime({
       startTime: startTime.format("YYYY-MM-DD HH:mm"),

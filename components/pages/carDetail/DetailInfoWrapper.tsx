@@ -81,9 +81,6 @@ export default function DetailInfoWrapper(props: { carData: carDataType }) {
           charge={carData?.charge}
           wash={carData?.washTime.slice(0, 10).replace(/-/gi, ".")}
           fare={frameInfo?.distancePrice}
-        />
-        <Separator gutter={1} padding={true} />
-        <DetailLocation
           location={carData?.place.zoneAddress}
           locationName={carData?.place.name}
           latitude={carData?.place.latitude}

@@ -10,26 +10,25 @@ export default function LocationButton(props: {
 }) {
   return (
     <div className={style.container} onClick={props.btnEvent}>
-      <div className={style.locationImg}>
+      {/* <div className={style.locationImg}>
         <Image
-          src="/assets/images/icons/fare.png"
+          src="/assets/images/icons/location.svg"
           width={200}
           height={200}
           alt="slideDownBtn"
         />
-      </div>
+      </div> */}
       <div className={style.location}>
         <div
           style={{
-            fontSize: "1rem",
+            fontSize: "0.8rem",
             fontWeight: "bolder",
             color: "var(--billita-blueHighlight)",
           }}
         >
           {props.locationName}
         </div>
-        <Separator gutter={0.3} padding={true} />
-        <div style={{ fontSize: "0.8rem" }}>{props.location}</div>
+        <div style={{ fontSize: "0.7rem" }}>{props.location}</div>
       </div>
     </div>
   );

@@ -20,8 +20,6 @@ export default function CarBook(props: { carData: carDataType }) {
   const router = useRouter();
   const [drawer, setDrawer] = useState<boolean>(false);
   const [nextDrawer, setNextDrawer] = useState<boolean>(false);
-  const [bookId, setBookId] = useState<number>(0);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const auth = useRecoilValue(authState);
   const [serviceStartTime, setServiceStartTime] = useState<Date>();
   const [serviceEndTime, setServiceEndTime] = useState<Date>();
@@ -37,40 +35,36 @@ export default function CarBook(props: { carData: carDataType }) {
   const reqTime = useRecoilValue(nowTimeState);
 
   useEffect(() => {
-    if (!typeof window !== undefined) {
-      const startTime = sessionStorage.getItem("startTime");
-      const endTime = sessionStorage.getItem("endTime");
-      
-      console.log(startTime, endTime, "s,e");
-      const sTimeDate = new Date(startTime as string);
-      const eTimeDate = new Date(endTime as string);
-      if (sTimeDate && eTimeDate) {
-        const timeDiff = Math.abs(eTimeDate.getTime() - sTimeDate.getTime());
-        setTimeDiff(timeDiff);
-        setServiceStartTime(sTimeDate);
-        setServiceEndTime(eTimeDate);
-        setDays(Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
-        setHours(
-          Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-        );
-        setMinutes(Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)));
-        setFare(
-          Math.round(
-            ((timeDiff / 3600000) *
-              (props.carData.frameInfo.defaultPrice / 24) +
-              props.carData.frameInfo.defaultPrice) /
-              100
-          ) * 100
-        );
-        setRequestBody({
-          vehicleId: router.query.cid,
-          startDate: startTime,
-          endDate: endTime,
-        });
-      }
-      setCarData(props.carData);
-      setFrameInfo(props.carData?.frameInfo);
-    }
+      const startTime = new Date(reqTime.startTime);
+      const endTime = new Date(reqTime.endTime);
+      const timeDiff = Math.abs(
+        endTime.getTime() - startTime.getTime()
+      );
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+      setTimeDiff(timeDiff);
+      setServiceStartTime(startTime);
+      setServiceEndTime(endTime);
+      setDays(days);
+      setHours(hours);
+      setMinutes(minutes);
+      const carData = props.carData;
+      const frameInfo = props.carData?.frameInfo;
+      const fare = timeDiff/3600000 * (carData.frameInfo.defaultPrice/24) + carData.frameInfo.defaultPrice;
+      const fareRounded = Math.round(fare / 100) * 100;
+    
+      setCarData(carData);
+      setFrameInfo(frameInfo);
+      setFare(fareRounded);
+      setRequestBody({
+        vehicleId: router.query.cid,
+        startDate: startTime,
+        endDate: endTime,
+      });
   }, [props.carData, router.query.cid]);
 
   const handleModal = () => {
@@ -99,26 +93,6 @@ export default function CarBook(props: { carData: carDataType }) {
     setNextDrawer(false);
   };
 
-  useEffect(() => {
-    if (!requestBody) return;
-    const postBookData = async () => {
-      const TOKEN = "Bearer " + auth.token;
-      console.log(TOKEN, "token");
-      try {
-        const res = await axios.post(`${API_URL}/booklist`, requestBody, {
-          headers: {
-            Authorization: TOKEN,
-          },
-        });
-        const data = res.data;
-        setBookId(data.bookId);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    postBookData();
-  }, [requestBody, auth.token, API_URL]);
-
   return (
     <>
       {isPaymentReady && carData && (
@@ -126,7 +100,6 @@ export default function CarBook(props: { carData: carDataType }) {
           carData={carData}
           isOpen={isPaymentReady}
           setIsOpen={setIsPaymentReady}
-          bookIdData={bookId}
           fare={fare}
         />
       )}
