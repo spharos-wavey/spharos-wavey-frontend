@@ -77,7 +77,7 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
           {serviceEndTime && serviceEndTime?.getHours()}:
           {String(serviceEndTime && serviceEndTime?.getMinutes()).padStart(2, "0")}{" "}
         </div>  
-        <div className={style.displayValue}>{`총 ${sumHours}시간 ${minutes}분`}</div>
+        <div className={style.displayValue}>{`총 ${days}일 ${sumHours}시간 ${minutes}분`}</div>
       </div>
 
       <Separator gutter={1.5} />
