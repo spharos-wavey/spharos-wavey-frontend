@@ -5,7 +5,7 @@ import { authState } from "@/state/authState";
 import { useRouter } from "next/router";
 import { BookListDataType, carDataType } from "@/types/carDataType";
 import axios from "axios";
-import style from "./PaymentReady.module.css"
+import style from "./PaymentReady.module.css";
 import { timeType } from "@/types/rentalDataType";
 import { nowTimeState } from "@/state/nowTime";
 import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
@@ -55,14 +55,14 @@ export default function PaymentReady(props: {
         router.push(res.data.next_redirect_pc_url);
       };
       getPaymentReady();
-   
   }, [router, readyRequestBody, TOKEN, API_URL]);
-
-  
 
   return (
     <>
-      <div className={style.over} style={ props.isOpen? {display: 'block'} : {display: 'none'}}>
+      <div
+        className={style.over}
+        style={props.isOpen ? { display: "block" } : { display: "none" }}
+      >
         <PageLoader text="결제 페이지로 이동합니다." />
       </div>
     </>
