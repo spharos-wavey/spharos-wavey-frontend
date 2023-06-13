@@ -42,7 +42,7 @@ export default function CarOption(props: { feature: CarFeatureType }) {
     {
       id: 4,
       name: '스마트키',
-      icon: "/assets/images/icons/carFeatures/smartKey.png",
+      icon: "/assets/images/icons/carFeatures/smartkey.png",
     },
     {
       id: 5,
@@ -93,7 +93,7 @@ export default function CarOption(props: { feature: CarFeatureType }) {
                       alt="optionImg"
                     />
                   </div>
-                  <div className={style.optionName}>{featureIcons[0].name}</div>
+                  <div className={style.optionName}>{featureIcons[index].name}</div>
                 </div>
               </li>
             );
