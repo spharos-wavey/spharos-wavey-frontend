@@ -52,6 +52,7 @@ export default function PaymentReady(props: {
           }
         );
         sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
+        
         if(typeof window === undefined) {
           const userAgent = window.navigator.userAgent.toLowerCase();
           console.log(userAgent, "userAgent");

@@ -85,7 +85,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   //     timerProgressBar: false,
   //   });
   };
-
+  
   const postBookData = async () => {
     try {
       console.log(requestBody, "requestBody");
