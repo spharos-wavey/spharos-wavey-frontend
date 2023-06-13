@@ -24,9 +24,10 @@ export default function Smartkey(props: {
   const reqTime = useRecoilValue<timeType>(nowTimeState);
   const serviceStartTime = new Date(reqTime.startTime);
   const serviceEndTime = new Date(reqTime.endTime);
-  const isUserOpenDoor:boolean = Number(serviceStartTime) - Date.now() <= 15 * 60 * 1000;
-  const is10MinBeforeReturn:boolean = Number(serviceEndTime) - Date.now() <= 10 * 60 * 1000;
-  console.log(serviceEndTime, Number(serviceStartTime), Number(serviceEndTime), isUserOpenDoor, Date.now());
+  const isUserOpenDoor: boolean =
+    Number(serviceStartTime) - Date.now() <= 15 * 60 * 1000;
+  const is10MinBeforeReturn: boolean =
+    Number(serviceEndTime) - Date.now() <= 10 * 60 * 1000;
   const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 158,
     height: 35,
@@ -73,18 +74,17 @@ export default function Smartkey(props: {
   }));
   const handleReturned = () => {
     setDrawer(true);
-  }
+  };
   const handleGoCheckList = () => {
     setDrawer(false);
     router.push(`/rental/${router.query.rentId}/checklist`);
-  }
+  };
   return (
     <div
       className={style.over}
       style={props.isOpen ? { display: "block" } : { display: "none" }}
     >
-
-{drawer && (
+      {drawer && (
         <Drawer
           open={drawer}
           PaperProps={{
@@ -176,14 +176,18 @@ export default function Smartkey(props: {
             </Typography>
           </Stack>
         </div>
-        
+
         {isUserOpenDoor && (
-        <div className={style.notice}>운행시작 15분 전부터 차량도어 제어 가능</div>
+          <div className={style.notice}>
+            운행시작 15분 전부터 차량도어 제어 가능
+          </div>
         )}
         {is10MinBeforeReturn && (
-        <div className={style.notice}>반납시간 10분 전입니다.</div>
+          <div className={style.notice}>반납시간 10분 전입니다.</div>
         )}
-        <div className={style.notice} onClick={()=>handleReturned()}>반납하기</div>
+        <div className={style.notice} onClick={() => handleReturned()}>
+          반납하기
+        </div>
       </div>
     </div>
   );

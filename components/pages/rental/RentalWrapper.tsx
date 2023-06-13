@@ -44,7 +44,7 @@ export default function RentalWrapper(props: { rentId: string }) {
     };
     getMyRentalData();
   }, [API_URL, TOKEN, auth.uid, rentId]);
-  
+
   useEffect(() => {
     const getVehicleData = async () => {
       if (rentData !== undefined) {
@@ -82,16 +82,19 @@ export default function RentalWrapper(props: { rentId: string }) {
     getCancelRequest();
     Swal.fire({
       title: "대여가 취소되었습니다.",
-      icon: "success",
       confirmButtonText: "확인",
+      customClass: {
+        container: "mySwal-only-confirm",
+        confirmButton: "mySwalConfirmButton",
+      },
     }).then(() => {
       router.push("/");
     });
   };
 
   const handleSmartkeyOpen = () => {
-    router.push(`/rental/${rentId}/smartkey`)
-  }
+    router.push(`/rental/${rentId}/smartkey`);
+  };
   return (
     <main>
       {/* <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} /> */}

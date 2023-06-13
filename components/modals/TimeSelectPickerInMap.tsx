@@ -13,7 +13,10 @@ interface TimeModalType {
   timeModal: boolean;
 }
 
-export default function TimeSelectPickerInMap({ setTimeModal, timeModal }: TimeModalType) {
+export default function TimeSelectPickerInMap({
+  setTimeModal,
+  timeModal,
+}: TimeModalType) {
   const [startTime, setStartTime] = useState<dayjs.Dayjs>(
     dayjs().add(10, "minute")
   );
@@ -24,11 +27,11 @@ export default function TimeSelectPickerInMap({ setTimeModal, timeModal }: TimeM
   const setReqTime = useSetRecoilState<timeType>(nowTimeState);
 
   const timeModalHandler = () => {
-    if(startTime.isAfter(endTime)) {
+    if (startTime.isAfter(endTime)) {
       return;
-    } else if(startTime.isSame(endTime)) {
+    } else if (startTime.isSame(endTime)) {
       return;
-    } else if(startTime.isBefore(currentTime)) {
+    } else if (startTime.isBefore(currentTime)) {
       return;
     }
 
@@ -37,7 +40,7 @@ export default function TimeSelectPickerInMap({ setTimeModal, timeModal }: TimeM
       endTime: endTime.format("YYYY-MM-DD HH:mm"),
     });
 
-    if(!typeof window !== undefined) {
+    if (!typeof window !== undefined) {
       sessionStorage.setItem("startTime", startTime.format("YYYY-MM-DD HH:mm"));
       sessionStorage.setItem("endTime", endTime.format("YYYY-MM-DD HH:mm"));
     }
@@ -48,13 +51,22 @@ export default function TimeSelectPickerInMap({ setTimeModal, timeModal }: TimeM
       toast: true,
       position: "top",
       showConfirmButton: false,
-      timer: 1000,
+      timer: 1500,
       timerProgressBar: true,
+      customClass: {
+        container: "my-swal",
+      },
     });
   };
 
   return (
-    <div className={ !timeModal ? `${style.timeModal} ${style.open}` : `${style.timeModal} ${style.close}`}>
+    <div
+      className={
+        !timeModal
+          ? `${style.timeModal} ${style.open}`
+          : `${style.timeModal} ${style.close}`
+      }
+    >
       <div className={style.picker}>
         <MobileDateTimePicker
           format={"YYYY/MM/DD HH:mm"}
@@ -71,7 +83,7 @@ export default function TimeSelectPickerInMap({ setTimeModal, timeModal }: TimeM
           minDateTime={startTime.add(1, "hour").startOf("minute")}
         />
       </div>
-      <Button btnType="button" btnEvent={()=>timeModalHandler()} width="90%">
+      <Button btnType="button" btnEvent={() => timeModalHandler()} width="90%">
         시간 설정
       </Button>
     </div>

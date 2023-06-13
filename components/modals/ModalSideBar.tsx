@@ -43,12 +43,14 @@ export default function ModalSideBar(props: {
     });
     Swal.fire({
       text: "로그아웃 되었습니다.",
-      icon: "success",
       toast: true,
       position: "top",
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: false,
+      customClass: {
+        container: "my-swal",
+      },
     });
   };
 
@@ -74,19 +76,9 @@ export default function ModalSideBar(props: {
 
   const actionToHistory = () => {
     setIsSideOpen(false);
-    !auth.auth
-      ? Swal.fire({
-          text: "로그인이 필요한 서비스입니다.",
-          icon: "warning",
-          toast: true,
-          position: "top",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: false,
-        })
-      : router.push("/rental/history");
+    router.push("/rental/history");
   };
-  
+
   const handleSmartKey = () => {
     if (rentCarData.length > 0) {
       router.push(`/rental/${rentCarData[0].rentalId}/smartkey`);
@@ -100,6 +92,9 @@ export default function ModalSideBar(props: {
         showConfirmButton: false,
         timer: 2000,
         timerProgressBar: false,
+        customClass: {
+          container: "my-swal",
+        },
       });
     }
   };
@@ -147,7 +142,6 @@ export default function ModalSideBar(props: {
             <>
               <li onClick={() => actionToHistory()}>이용내역</li>
               <li onClick={() => handleSmartKey()}>스마트키</li>
-              <li>적립금 정책</li>
             </>
           ) : (
             <></>

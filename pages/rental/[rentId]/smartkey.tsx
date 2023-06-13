@@ -21,7 +21,7 @@ export default function SmartkeyPage() {
   const rentId = router.query.rentId as string;
   const [rentData, setRentData] = useState<RentalDetailType>();
   const [doorOpen, setDoorOpen] = useState<boolean>(false);
-  
+
   useEffect(() => {
     if (AuthRecoilChecker() && typeof window !== undefined) {
       setAuth({
@@ -51,11 +51,8 @@ export default function SmartkeyPage() {
     }
   }, [API_URL, TOKEN, auth.uid, rentId]);
 
-
   const serviceStartTime = new Date(rentData?.startDate as string);
   const serviceEndTime = new Date(rentData?.endDate as string);
-  console.log(serviceStartTime, "시작시간")
-  console.log(serviceEndTime, typeof serviceEndTime, "smartkey.tsx");
 
   useEffect(() => {
     const getVehicleData = async () => {
@@ -95,14 +92,19 @@ export default function SmartkeyPage() {
   useEffect(() => {
     const checkTimeDifference = () => {
       const currentTime = new Date();
-      const timeDiffer= serviceEndTime.getTime() - currentTime.getTime();
+      const timeDiffer = serviceEndTime.getTime() - currentTime.getTime();
       const minutesDiffer = Math.floor(timeDiffer / (1000 * 60));
 
       minutesDiffer <= 10 ? setShowMessage(true) : setShowMessage(false);
-    
-      const keyActivateIn15min = serviceStartTime.getTime() - currentTime.getTime();
-      const keyActivateIn15minMinutes = Math.floor(keyActivateIn15min / (1000 * 60));
-      keyActivateIn15minMinutes >= 15 ? setLetDoorActivate(true) : setLetDoorActivate(false);
+
+      const keyActivateIn15min =
+        serviceStartTime.getTime() - currentTime.getTime();
+      const keyActivateIn15minMinutes = Math.floor(
+        keyActivateIn15min / (1000 * 60)
+      );
+      keyActivateIn15minMinutes >= 15
+        ? setLetDoorActivate(true)
+        : setLetDoorActivate(false);
     };
     const interval = setInterval(checkTimeDifference, 10000);
     return () => {
@@ -153,20 +155,14 @@ export default function SmartkeyPage() {
           <div className={style.defaultMessage} onClick={handleReturnAction}>
             반납하기
           </div>
-          {
-            letDoorActivate && (
-              <div className={style.statusMessage}>
-                운행시작 15분 전부터 차량도어가 제어 가능합니다
-              </div>     
-            )
-          }
-          {
-            showMessage && (
-              <div className={style.statusMessage}>
-                반납시간 10분 전입니다.
-              </div>
-            )
-          }
+          {letDoorActivate && (
+            <div className={style.statusMessage}>
+              운행시작 15분 전부터 차량도어가 제어 가능합니다
+            </div>
+          )}
+          {showMessage && (
+            <div className={style.statusMessage}>반납시간 10분 전입니다.</div>
+          )}
         </div>
 
         <div className={style.toggleDisplay}>

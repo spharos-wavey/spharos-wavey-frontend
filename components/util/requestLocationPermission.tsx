@@ -8,7 +8,6 @@ const requestLocationPermission = () => {
         if (result.state === "prompt") {
           Swal.fire({
             text: "위치 공유를 허용하시겠습니까?",
-            icon: "question",
             toast: true,
             position: "top",
             showConfirmButton: true,
@@ -16,10 +15,15 @@ const requestLocationPermission = () => {
             confirmButtonText: "허용",
             cancelButtonText: "거부",
             timerProgressBar: false,
+            customClass: {
+              confirmButton: "mySwalConfirmButton",
+              cancelButton: "mySwalCancelButton",
+            },
           }).then((permissionResult) => {
             if (permissionResult.isConfirmed) {
               navigator.geolocation.getCurrentPosition(
-                () => {// Success callback
+                () => {
+                  // Success callback
                 },
                 () => {
                   // Error occurred while requesting location permission
