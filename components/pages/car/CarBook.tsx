@@ -14,13 +14,12 @@ import { authState } from "@/state/authState";
 import PaymentReady from "./PaymentReady";
 import { useRecoilValue } from "recoil";
 import ProgressBar from "@/components/ui/ProgressBar";
+import { nowTimeState } from "@/state/nowTime";
 
 export default function CarBook(props: { carData: carDataType }) {
   const router = useRouter();
   const [drawer, setDrawer] = useState<boolean>(false);
   const [nextDrawer, setNextDrawer] = useState<boolean>(false);
-  const [bookId, setBookId] = useState<number>(0);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const auth = useRecoilValue(authState);
   const [serviceStartTime, setServiceStartTime] = useState<Date>();
   const [serviceEndTime, setServiceEndTime] = useState<Date>();
@@ -33,11 +32,12 @@ export default function CarBook(props: { carData: carDataType }) {
   const [fare, setFare] = useState<number>(0);
   const [isPaymentReady, setIsPaymentReady] = useState<boolean>(false);
   const [requestBody, setRequestBody] = useState<any>();
+  const reqTime = useRecoilValue(nowTimeState);
 
   useEffect(() => {
-    if (!typeof window !== undefined) {
-      const startTime = new Date(sessionStorage.getItem("startTime") as string)
-      const endTime = new Date(sessionStorage.getItem("endTime") as string)
+    
+      const startTime = new Date(reqTime.startTime);
+      const endTime = new Date(reqTime.endTime);
       const timeDiff = Math.abs(
         endTime.getTime() - startTime.getTime()
       );
@@ -66,7 +66,7 @@ export default function CarBook(props: { carData: carDataType }) {
         startDate: startTime,
         endDate: endTime,
       });
-    }
+    
   }, [props.carData, router.query.cid]);
 
   const handleModal = () => {
@@ -95,25 +95,6 @@ export default function CarBook(props: { carData: carDataType }) {
     setNextDrawer(false);
   };
 
-  useEffect(() => {
-    if(!requestBody) return;
-    const postBookData = async () => {
-      const TOKEN = "Bearer " + auth.token;
-      try {
-        const res = await axios.post(`${API_URL}/booklist`, requestBody, {
-          headers: {
-            Authorization: TOKEN,
-          },
-        });
-        const data = res.data;
-        setBookId(data.bookId);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    postBookData();
-  }, [requestBody, auth.token, API_URL]);
-
   return (
     <>
       {isPaymentReady && carData && (
@@ -121,7 +102,6 @@ export default function CarBook(props: { carData: carDataType }) {
           carData={carData}
           isOpen={isPaymentReady}
           setIsOpen={setIsPaymentReady}
-          bookIdData={bookId}
           fare={fare}
         />
       )}

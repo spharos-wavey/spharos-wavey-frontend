@@ -1,0 +1,11 @@
+.description {
+  width: 100%;
+  padding: 0.5rem 0;
+  font-size: 0.65rem;
+  background: #f5f5f5;
+  color: #0067df;
+  border-radius: 5px;
+  border: 1px solid #0067df;
+  text-align: center;
+  opacity: 0.8;
+}

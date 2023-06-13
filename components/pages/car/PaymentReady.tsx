@@ -9,9 +9,9 @@ import style from "./PaymentReady.module.css"
 import { timeType } from "@/types/rentalDataType";
 import { nowTimeState } from "@/state/nowTime";
 import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
+import { bookIdState } from "@/state/bookIdState";
 
 export default function PaymentReady(props: {
-  bookIdData: number;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   carData: carDataType;
@@ -21,27 +21,10 @@ export default function PaymentReady(props: {
   const TOKEN = "Bearer " + auth.token;
   const router = useRouter();
   const vehicleId = router.query.cid;
-
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const reqTime = useRecoilValue<timeType>(nowTimeState);
+  const reqTime = useRecoilValue(nowTimeState);
   const carData = props.carData;
   const frameInfo = props.carData?.frameInfo;
-  const [authValue, setAuth] = useRecoilState(authState);
-
-  useEffect(() => {
-    if (!auth.auth && AuthRecoilChecker()&&typeof window !== undefined) {
-      setAuth({
-        auth: true, 
-        token: localStorage.getItem("token") as string, 
-        uid: localStorage.getItem("uid") as string, 
-        nickName: localStorage.getItem("nickName") as string,
-        email: localStorage.getItem("email") as string,
-        profileImageUrl: localStorage.getItem("profileImageUrl") as string,
-      });
-    }
-  }, [setAuth, auth.auth]);
-
-  console.log(props.fare, "잘찍히냐?");
 
   const readyRequestBody = {
     uuid: auth.uid,
@@ -58,7 +41,6 @@ export default function PaymentReady(props: {
   };
 
   useEffect(() => {
-    if (props.bookIdData !== undefined) {
       const getPaymentReady = async () => {
         const res = await axios.post(
           `${API_URL}/purchase/kakao/ready`,
@@ -73,8 +55,8 @@ export default function PaymentReady(props: {
         router.push(res.data.next_redirect_pc_url);
       };
       getPaymentReady();
-    }
-  }, [props.bookIdData, router, readyRequestBody, TOKEN, API_URL]);
+   
+  }, [router, readyRequestBody, TOKEN, API_URL]);
 
   
 
