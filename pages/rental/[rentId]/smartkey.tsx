@@ -97,14 +97,11 @@ export default function SmartkeyPage() {
       const currentTime = new Date();
       const timeDiffer= serviceEndTime.getTime() - currentTime.getTime();
       const minutesDiffer = Math.floor(timeDiffer / (1000 * 60));
-      console.log(minutesDiffer, "minutesDiffer");
-      console.log(currentTime, serviceEndTime.getTime(), "timeDiffer")
 
       minutesDiffer <= 10 ? setShowMessage(true) : setShowMessage(false);
     
       const keyActivateIn15min = serviceStartTime.getTime() - currentTime.getTime();
       const keyActivateIn15minMinutes = Math.floor(keyActivateIn15min / (1000 * 60));
-      console.log(keyActivateIn15minMinutes, "keyActivateIn15minMinutes");
       keyActivateIn15minMinutes >= 15 ? setLetDoorActivate(true) : setLetDoorActivate(false);
     };
     const interval = setInterval(checkTimeDifference, 10000);
@@ -118,7 +115,6 @@ export default function SmartkeyPage() {
   };
   const handleEvent = (e: React.FormEvent<HTMLInputElement>) => {
     setDoorOpen(!e.currentTarget.checked);
-    console.log(e.currentTarget.checked, "smartkey event");
   };
 
   return (

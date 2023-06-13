@@ -31,7 +31,6 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
 
   const canItBeBooked = async () => {
 
-  console.log(START_TIME, END_TIME, "check")
     try {
       const res = await fetch(
         `${API_URL}/vehicle/book-check?id=${router.query.cid}&sDate=${START_TIME}&eDate=${END_TIME}`,
