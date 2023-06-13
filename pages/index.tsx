@@ -58,6 +58,8 @@ function Page(props: { data: brandSortType[]; }) {
   useEffect(()=> {
     if(typeof window !== undefined) {
       sessionStorage.removeItem("redirectUrl");
+      sessionStorage.removeItem("startTime");
+      sessionStorage.removeItem("endTime");
     }
   }, [])
   

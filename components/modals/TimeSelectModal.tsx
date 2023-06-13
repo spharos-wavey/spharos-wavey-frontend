@@ -92,6 +92,13 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
           startTime: sessionStartTime,
           endTime: sessionEndTime,
         });
+      } else {
+        setStartTime(dayjs().add(10, "minute"));
+        setEndTime(dayjs().add(70, "minute"));
+        setReqTime({
+          startTime: dayjs().add(10, "minute").format("YYYY-MM-DD HH:mm"),
+          endTime: dayjs().add(70, "minute").format("YYYY-MM-DD HH:mm"),
+        });
       }
     }
   }, []);

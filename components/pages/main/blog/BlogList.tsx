@@ -14,10 +14,10 @@ export interface BlogListType {
 export default function BlogList() {
 
   const [blogList, setBlogList] = useState<BlogListType[]>();
-
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   useEffect(() => {
     const getBlogList = async () => {
-      const res = await fetch(`https://api.spharos2nd-nft.xyz/v1/board/blog/main`);
+      const res = await fetch(`${API_URL}/blog/main`);
       const data = await res.json();
       setBlogList(data);
       console.log(data);
