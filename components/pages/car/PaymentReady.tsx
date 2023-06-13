@@ -52,7 +52,7 @@ export default function PaymentReady(props: {
           }
         );
         sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
-        router.push(res.data.next_redirect_pc_url);
+        router.push(res.data.next_redirect_mobile_url);
       };
       getPaymentReady();
    
