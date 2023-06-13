@@ -16,6 +16,9 @@
   z-index: 10000;
   transition: all 0.5s ease-in-out;
 }
+.closeBtn::after {
+  scroll-behavior: none;
+}
 
 .close {
   transition: all 0.3s ease-in-out;
