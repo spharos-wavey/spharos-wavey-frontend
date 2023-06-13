@@ -14,7 +14,7 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
   const [serviceEndTime, setServiceEndTime] = useState<Date>();
   const [timeDiff, setTimeDiff] = useState<number>(0);
   const [days, setDays] = useState<number>(0);
-  const [hours, setHours] = useState<number>(0);
+  const [sumHours, setSumHours] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);
 
   
@@ -33,11 +33,11 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
       const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
       setTimeDiff(timeDiff);
       setDays(days);
-      setHours(hours);
+      setSumHours(hours);
+      console.log(hours);
       setMinutes(minutes);
     }
-
-  }, [])
+  }, []);
 
   useEffect(() => {
     const getBillitaZoneInfo = async () => {
@@ -77,7 +77,7 @@ export default function RentalMiddle(props: {rentData : RentalDetailType}
           {serviceEndTime && serviceEndTime?.getHours()}:
           {String(serviceEndTime && serviceEndTime?.getMinutes()).padStart(2, "0")}{" "}
         </div>  
-        <div className={style.displayValue}>{`총 ${hours}시간 ${minutes}분`}</div>
+        <div className={style.displayValue}>{`총 ${sumHours}시간 ${minutes}분`}</div>
       </div>
 
       <Separator gutter={1.5} />
