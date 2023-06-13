@@ -99,3 +99,56 @@ section {
   font-size: 0.7rem !important;
   color: var(--billita-blueHighlight) !important;
 }
+
+/* swal custom */
+.mySwalConfirmButton {
+  background-color: var(--billita-blueHighlight) !important;
+  border-radius: 1rem !important;
+  font-size: 0.8rem !important;
+  padding: 0.5rem 2rem !important;
+}
+
+.mySwalConfirmButton:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 113, 255, 0.1) !important;
+}
+
+.mySwalCancelButton {
+  background-color: var(--billita-secondary) !important;
+  border-radius: 1rem !important;
+  font-size: 0.8rem !important;
+  padding: 0.5rem 2rem !important;
+}
+
+.swal2-html-container {
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  font-family: var(--billita-hangul) !important;
+}
+
+.swal2-popup {
+  width: 80% !important;
+  border-radius: 1rem !important;
+  padding: 2rem 0 2rem 0!important;
+}
+
+.my-swal{
+  font-weight: bold !important;
+  font-family: var(--billita-hangul) !important;
+}
+
+.my-swal .swal2-popup {
+  padding: 0 1rem !important;
+  background-color: var(--billita-blue) !important;
+  border-radius: 0.3rem !important;
+  mix-blend-mode: hard-light;
+  opacity: 0.9;
+}
+
+.my-swal .swal2-html-container {
+  font-size: 0.8rem !important;
+  font-weight: normal !important;
+  color: white !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
