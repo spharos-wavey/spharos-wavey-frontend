@@ -74,6 +74,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     }
   }, [isLicense]);
 
+
   const handleAlertTimeSetting = () => {
   //   Swal.fire({
   //     text: "시간을 설정해주세요",
@@ -84,7 +85,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
   //     timerProgressBar: false,
   //   });
   };
-
+  
   const postBookData = async () => {
     try {
       console.log(requestBody, "requestBody");
@@ -118,6 +119,7 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
       postBookData();
     };
   };
+
 
   const handleSetTime = () => {
     setTimeModal(false);

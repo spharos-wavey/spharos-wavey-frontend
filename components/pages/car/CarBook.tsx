@@ -35,7 +35,6 @@ export default function CarBook(props: { carData: carDataType }) {
   const reqTime = useRecoilValue(nowTimeState);
 
   useEffect(() => {
-    
       const startTime = new Date(reqTime.startTime);
       const endTime = new Date(reqTime.endTime);
       const timeDiff = Math.abs(
@@ -66,27 +65,26 @@ export default function CarBook(props: { carData: carDataType }) {
         startDate: startTime,
         endDate: endTime,
       });
-    
   }, [props.carData, router.query.cid]);
 
   const handleModal = () => {
     setDrawer(true);
     setNextDrawer(false);
   };
- 
+
   const handleClose = () => {
-      setDrawer(false);
-      setNextDrawer(false);
+    setDrawer(false);
+    setNextDrawer(false);
   };
 
   const handleOpen = () => {
-    if(nextDrawer) {
+    if (nextDrawer) {
       setDrawer(false);
       setNextDrawer(false);
       setIsPaymentReady(true);
       return;
     }
-    if(drawer) {
+    if (drawer) {
       setDrawer(false);
       setNextDrawer(true);
       return;
@@ -106,7 +104,16 @@ export default function CarBook(props: { carData: carDataType }) {
         />
       )}
 
-      <div onClick={handleClose} className={ drawer ? `${style.closeBtn}` : nextDrawer ? `${style.closeBtn}` : `${style.closeBtn} ${style.close}`}>
+      <div
+        onClick={handleClose}
+        className={
+          drawer
+            ? `${style.closeBtn}`
+            : nextDrawer
+            ? `${style.closeBtn}`
+            : `${style.closeBtn} ${style.close}`
+        }
+      >
         <Image
           src="/assets/images/icons/modalCloseX.svg"
           width="20"
@@ -114,7 +121,7 @@ export default function CarBook(props: { carData: carDataType }) {
           alt="close"
         />
       </div>
-      
+
       <Drawer
         open={drawer || nextDrawer}
         PaperProps={{
@@ -127,8 +134,9 @@ export default function CarBook(props: { carData: carDataType }) {
         anchor="bottom"
         variant="temporary"
       >
-        <Box position='relative' width="100%" height="370px">
-          <ModalForm title={drawer ? "예약 전, 필수 확인 사항" : "예약결제 안내"}
+        <Box position="relative" width="100%" height="370px">
+          <ModalForm
+            title={drawer ? "예약 전, 필수 확인 사항" : "예약결제 안내"}
             userName={auth.nickName}
             startDate={serviceStartTime}
             endDate={serviceEndTime}
@@ -143,7 +151,7 @@ export default function CarBook(props: { carData: carDataType }) {
               fontWeight="bold"
               backgroundColor="var(--billita-white)"
             >
-              {drawer ? '잘 알겠어요, 예약할게요' : '네, 진행할게요'}
+              {drawer ? "잘 알겠어요, 예약할게요" : "네, 진행할게요"}
             </Button>
           </BottomFixedContainer>
         </Box>
@@ -173,26 +181,34 @@ export default function CarBook(props: { carData: carDataType }) {
                 placeholder="empty"
               />
             </div>
-            <ProgressBar value={carData.charge} isIcon={false} width={'60px'}/>
+            <ProgressBar value={carData.charge} isIcon={false} width={"60px"} />
             <div className={style.charge}>{carData.charge}%</div>
           </div>
         </div>
       )}
 
       <div className={style.middleWrap}>
-
         <div className={style.subtitle}>대여시간</div>
         <div className={style.subWrap}>
           <div className={style.content}>
-            {serviceStartTime && serviceStartTime?.getMonth() + 1}월 {serviceStartTime && serviceStartTime?.getDate()}일{" "}
+            {serviceStartTime && serviceStartTime?.getMonth() + 1}월{" "}
+            {serviceStartTime && serviceStartTime?.getDate()}일{" "}
             {serviceStartTime && serviceStartTime?.getHours()}:
-            {String(serviceStartTime && serviceStartTime?.getMinutes()).padStart(2, "0")}{" "}
+            {String(
+              serviceStartTime && serviceStartTime?.getMinutes()
+            ).padStart(2, "0")}{" "}
             <span>- </span>
-            {serviceEndTime && serviceEndTime?.getMonth() + 1}월 {serviceEndTime && serviceEndTime?.getDate()}일{" "}
+            {serviceEndTime && serviceEndTime?.getMonth() + 1}월{" "}
+            {serviceEndTime && serviceEndTime?.getDate()}일{" "}
             {serviceEndTime && serviceEndTime?.getHours()}:
-            {String(serviceEndTime && serviceEndTime?.getMinutes()).padStart(2, "0")}{" "}
+            {String(serviceEndTime && serviceEndTime?.getMinutes()).padStart(
+              2,
+              "0"
+            )}{" "}
           </div>
-          <div className={style.resultTxt}>{`${days}일 ${hours}시간 ${minutes}분`}</div>
+          <div
+            className={style.resultTxt}
+          >{`${days}일 ${hours}시간 ${minutes}분`}</div>
         </div>
 
         <Separator gutter={1.5} />
@@ -200,26 +216,23 @@ export default function CarBook(props: { carData: carDataType }) {
         <div className={style.subtitle}>주차장소</div>
         <div className={style.subWrap}>
           <div className={style.content}>대여위치</div>
-            {carData && (
-              <div className={style.location}>{carData?.place.name}</div>
-            )}
+          {carData && (
+            <div className={style.location}>{carData?.place.name}</div>
+          )}
         </div>
         <div className={style.subWrap}>
           <div className={style.content}>반납위치</div>
-            {carData && (
-              <div className={style.location}>{carData?.place.name}</div>
-            )}
+          {carData && (
+            <div className={style.location}>{carData?.place.name}</div>
+          )}
         </div>
 
         <Separator gutter={1.8} />
 
-       
         <div className={style.subtitle}>주행요금</div>
         <div className={style.subWrap}>
-        <div className={style.content}>{frameInfo?.distancePrice}/km</div>
-        <div className={style.resultTxt}>
-          {0}원
-        </div>
+          <div className={style.content}>{frameInfo?.distancePrice}/km</div>
+          <div className={style.resultTxt}>{0}원</div>
         </div>
         <div className={style.description}>
           *주행요금은 반납시 대여시간 초과에 따라 별도로 청구됩니다.
@@ -232,7 +245,7 @@ export default function CarBook(props: { carData: carDataType }) {
             <div className={style.subWrap}>
               <div className={style.content}>대여요금</div>
               <div className={style.resultTxt}>
-                {(fare).toLocaleString("kr-KO")}원
+                {fare.toLocaleString("kr-KO")}원
               </div>
             </div>
           </>
@@ -251,7 +264,6 @@ export default function CarBook(props: { carData: carDataType }) {
         )}
 
         <Separator gutter={7} />
-      
       </div>
 
       <BottomFixedContainer justifyContent="center">
