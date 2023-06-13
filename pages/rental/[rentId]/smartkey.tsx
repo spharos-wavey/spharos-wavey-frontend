@@ -173,6 +173,7 @@ export default function SmartkeyPage() {
                 type={style.checkbox}
                 onClick={handleEvent}
                 checked={doorOpen}
+                inputMode="none"
               />
               <span
                 className={
