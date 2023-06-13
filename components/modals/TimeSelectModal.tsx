@@ -7,7 +7,7 @@ import style from "./TimeSelectModal.module.css";
 import Swal from "sweetalert2";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { nowTimeState } from "@/state/nowTime";
-`import router, { Router } from "next/router";
+import router, { Router } from "next/router";
 
 interface TimeModalType {
   setTimeModal: React.Dispatch<React.SetStateAction<boolean>>;
