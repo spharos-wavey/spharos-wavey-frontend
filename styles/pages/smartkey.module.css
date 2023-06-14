@@ -34,7 +34,7 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin-top: 2rem;
+  margin: 1rem 0;
 }
 .carBrand {
   color: var(--billita-blue);
@@ -61,21 +61,15 @@
   margin-top: 0.5rem;
 }
 
-.carImageWrap {
-  width: 100%;
-  height: 100%;
-}
-
 .imgWrap {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  position: relative;
+  width: 80vw;
+  height: 40vh;
+  object-fit: contain;
+  margin: 0 auto;
 }
 
 .imgWrap img {
-  width: 80%;
+  width: 100%;
   height: auto;
 }
 
@@ -106,6 +100,10 @@
 }
 
 .toggleDisplay {
+  position: fixed;
+  left: 50%;
+  bottom: 220px;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   margin-top: 1rem;
@@ -235,4 +233,29 @@ input:checked + .slider:before {
     transform: translateY(100%);
     display: none;
   }
+}
+
+.discriptionWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0 5rem;
+}
+
+.bigText {
+  position: fixed;
+  left: 50%;
+  bottom: 150px;
+  transform: translateX(-50%);
+  opacity: 0.8;
+  text-align: center;
+  font-family: var(--billita-hangul);
+  color: var(--billita-blue);
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.close {
+  color: var(--billita-gray);
 }
