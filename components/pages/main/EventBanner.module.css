@@ -87,8 +87,8 @@
   border-radius: 0.5rem;
   background-color: none;
   width: fit-content;
-  color: #000048;
-  font-size: 0.8rem;
+  color: blue;
+  font-size: 0.7rem;
   font-weight: bold;
   cursor: pointer;
   border: 2px solid blue;
@@ -96,14 +96,4 @@
   justify-content: space-between;
   line-height: 20px;
   margin-right: 10px;
-}
-
-.arrow {
-  width: 20px;
-  height: 20px;
-}
-
-.arrow img {
-  width: 100%;
-  height: auto;
 }
