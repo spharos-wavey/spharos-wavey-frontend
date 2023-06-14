@@ -26,5 +26,5 @@
 }
 
 .MuiFormLabel-root .css-MuiInputLabel-root {
-  font-size: 0.9rem;
+  font-size: 0.9rem !important;
 }
