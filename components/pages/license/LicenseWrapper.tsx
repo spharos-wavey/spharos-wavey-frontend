@@ -216,6 +216,7 @@ export default function LicenseWrapper(props: {
     postData();
   };
 
+
   const handleCheckNextStep = () => {
     props.setIsLicense(true);
     props.setIsOpen(false);
@@ -227,16 +228,14 @@ export default function LicenseWrapper(props: {
 
   return (
     <>
-      {/* <div className={style.over} style={ props.isOpen ? {display:'block'} : {display:'none'}}></div> */}
-
       <div
+        id="licenseWrap"
         className={
           props.isOpen
             ? style.licenseWrap
             : `${style.licenseWrap} ${style.slideClose}`
         }
       >
-        {/* <SlideDownBtn handleActive={() => props.setIsOpen(false)}  isActive={props.isOpen}/> */}
         <FormGroup>
           <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
           <Separator gutter={1} />
