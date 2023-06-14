@@ -10,7 +10,6 @@ export default function ScrollToTop() {
   };
 
   useEffect(() => {
-    // 스크롤이 1000이상 내려가면 버튼이 나타나고, 1000이하로 올라가면 버튼이 사라짐
     const handleScroll = () => {
       if (window.scrollY > 500) {
         setIsScroll(true);

@@ -11,7 +11,6 @@ export default function EventBanner() {
   const router = useRouter();
 
   useEffect(() => {
-    // todo: banner image load for fetch
     setBannerData(mainEventData);
   }, []);
   return (

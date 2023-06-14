@@ -165,7 +165,6 @@ export default function CarBook(props: { carData: carDataType }) {
               height={200}
               alt={frameInfo?.carName}
               priority={true}
-              // loader={<DataLoader />}
             />
           </div>
           <div className={style.carName}>
@@ -206,10 +205,11 @@ export default function CarBook(props: { carData: carDataType }) {
               "0"
             )}{" "}
           </div>
-          <div className={style.resultTxt}>총{" "}
-            {
-              days === 0? `${hours}시간 ${minutes}분` : `${days}일 ${hours}시간 ${minutes}분`
-            }
+          <div className={style.resultTxt}>
+            총{" "}
+            {days === 0
+              ? `${hours}시간 ${minutes}분`
+              : `${days}일 ${hours}시간 ${minutes}분`}
           </div>
         </div>
 

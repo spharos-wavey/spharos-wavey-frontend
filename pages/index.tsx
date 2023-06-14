@@ -9,7 +9,6 @@ import { authState } from "@/state/authState";
 import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
-import requestLocationPermission from "@/components/util/requestLocationPermission";
 import BlogList from "@/components/pages/main/blog/BlogList";
 
 function Page(props: { data: brandSortType[] }) {
@@ -27,10 +26,6 @@ function Page(props: { data: brandSortType[] }) {
           container: "mySwal-only-confirm",
           confirmButton: "mySwalConfirmButtonOnly",
         },
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // requestLocationPermission();
-        }
       });
     };
 
