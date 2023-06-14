@@ -193,7 +193,7 @@ export default function LicenseWrapper(props: {
         toast: true,
         position: "top",
         showConfirmButton: false,
-        // timer: 2000,
+        timer: 2000,
         timerProgressBar: true,
         customClass: {
           container: "my-swal",
