@@ -190,14 +190,14 @@ export default function SmartkeyPage() {
         </div> */}
       </main>
       <BottomFixedContainer justifyContent="center">
-          <Button
-            btnType="button"
-            btnEvent={handleReturnAction}
-            shadow={true}
-            width="50%"
-          >
-            반납하기
-          </Button>
+        <Button
+          btnType="button"
+          btnEvent={handleReturnAction}
+          shadow={true}
+          width="50%"
+        >
+          반납하기
+        </Button>
       </BottomFixedContainer>
     </>
   );
