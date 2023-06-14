@@ -32,7 +32,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
-          <title>빌리타! 전기차 전용 공유플랫폼</title>
           <link rel="manifest" href="/manifest.json" />
           <meta
             property="og:title"
