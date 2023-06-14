@@ -71,17 +71,6 @@ export default function DetailLayout(props: { children: React.ReactNode }) {
     }
   }, [isLicense]);
 
-  const handleAlertTimeSetting = () => {
-    //   Swal.fire({
-    //     text: "시간을 설정해주세요",
-    //     icon: "warning",
-    //     confirmButtonText: "확인",
-    //     confirmButtonColor: "var(--billita-primary)",
-    //     timer: 2000,
-    //     timerProgressBar: false,
-    //   });
-  };
-
   const postBookData = async () => {
     try {
       const res = await axios.post(`${API_URL}/booklist`, requestBody, {
