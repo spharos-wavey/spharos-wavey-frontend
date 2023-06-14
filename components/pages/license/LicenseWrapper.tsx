@@ -184,40 +184,56 @@ export default function LicenseWrapper(props: {
   const TOKEN = "Bearer " + auth.token;
 
   const handleFormSubmit = () => {
-    const errors = validateForm();
-    console.log(errors);
+    // const errors = validateForm();
+    // console.log(errors);
 
-    const postData = async () => {
-      await fetch(`${API_URL}/booklist/check/license`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: TOKEN,
+    const jumpOver = () => {
+      Swal.fire({
+        text: "면허가 확인되었습니다",
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        // timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+          container: "my-swal",
         },
-        body: JSON.stringify({
-          level: inputData.level,
-          type: inputData.type,
-          expireDate: inputData.expireDate,
-          issueDate: inputData.issueDate,
-          licenseNumber: inputData.licenseNumber,
-          address: inputData.address,
-          addressDetail: inputData.addressDetail,
-          birth: inputData.birth,
-          userName: inputData.userName,
-        }),
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            router.push(`/car/${router.query.cid}/book`);
-            props.setIsLicense(true);
-            props.setIsOpen(false);
-          } else {
-            handleIncorrectLicense();
-          }
-        })
-        .catch((err) => console.log(err));
+      });
+      router.push(`/car/${router.query.cid}/book`);
     };
-    postData();
+    jumpOver();
+
+    // const postData = async () => {
+    //   await fetch(`${API_URL}/booklist/check/license`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: TOKEN,
+    //     },
+    //     body: JSON.stringify({
+    //       level: inputData.level,
+    //       type: inputData.type,
+    //       expireDate: inputData.expireDate,
+    //       issueDate: inputData.issueDate,
+    //       licenseNumber: inputData.licenseNumber,
+    //       address: inputData.address,
+    //       addressDetail: inputData.addressDetail,
+    //       birth: inputData.birth,
+    //       userName: inputData.userName,
+    //     }),
+    //   })
+    //     .then((res) => {
+    //       if (res.status === 200) {
+    //         router.push(`/car/${router.query.cid}/book`);
+    //         props.setIsLicense(true);
+    //         props.setIsOpen(false);
+    //       } else {
+    //         handleIncorrectLicense();
+    //       }
+    //     })
+    //     .catch((err) => console.log(err));
+    // };
+    // postData();
   };
 
   const handleCancleRegister = () => {
@@ -418,7 +434,7 @@ export default function LicenseWrapper(props: {
               shadow={true}
               width={"48%"}
             >
-              등록하기
+              면허 확인
             </Button>
           </BottomFixedContainer>
         </div>
