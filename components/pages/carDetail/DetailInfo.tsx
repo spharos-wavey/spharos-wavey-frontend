@@ -55,7 +55,7 @@ export default function DetailInfo(props: {
         /> */}
       </div>
       <Separator gutter={2} padding={true} />
-      {optionView ? <CarOption feature={props.feature}/> : ""}
+      {optionView ? <CarOption feature={props.feature} /> : ""}
       {manualView ? (
         <CarManual guide={props.guide} carName={props.carName} />
       ) : (

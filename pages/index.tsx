@@ -1,14 +1,14 @@
+import { useRecoilState } from "recoil";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 import EventBanner from "@/components/pages/main/EventBanner";
 import Layout from "@/components/layouts/layout";
 import BrandSort from "@/components/pages/main/brandsortSection/BrandSort";
 import VehicleRecommendMain from "@/components/pages/main/vehicleRecommendSection/VehicleRecommendMain";
 import Separator from "@/components/ui/Separator";
 import { brandSortType } from "@/types/brandSortType";
-import { useRecoilState } from "recoil";
 import { authState } from "@/state/authState";
 import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
-import { useEffect } from "react";
-import Swal from "sweetalert2";
 import BlogList from "@/components/pages/main/blog/BlogList";
 
 function Page(props: { data: brandSortType[] }) {

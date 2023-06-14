@@ -53,7 +53,6 @@ export default function RentalMiddle(props: { rentData: RentalDetailType }) {
     <div className={style.middleWrap}>
       <div className={style.subWrap}>
         <div className={style.subtitle}>주행요금</div>
-        {/* <div className={style.fare}>{frameInfo.price}원/km</div> */}
       </div>
       <div className={style.description}>
         *주행요금은 반납 후 실주행거리에 따라 별도로 청구됩니다.

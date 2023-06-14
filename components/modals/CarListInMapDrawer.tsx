@@ -7,7 +7,6 @@ import ProgressBar from "../ui/ProgressBar";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import { redirectionUrlState } from "@/state/redirectionState";
-import ScrollToTop from "../ui/ScrollToTop";
 
 export default function CarListInMapDrawer(props: {
   data: carInMapType[];
@@ -32,17 +31,13 @@ export default function CarListInMapDrawer(props: {
 
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setIsOpen(false)
+    setIsOpen(false);
   };
 
   return (
     <>
-      {/* <ScrollToTop /> */}
       {isOpen ? (
-        <div
-          className={style.drawerOverlay}
-          onClick={handleScrollToTop}
-        ></div>
+        <div className={style.drawerOverlay} onClick={handleScrollToTop}></div>
       ) : null}
       <div
         className={
@@ -51,11 +46,10 @@ export default function CarListInMapDrawer(props: {
             : `${style.drawerContainer} ${style.close}`
         }
       >
-       
         <div className={style.drawerInner}>
-        <div className={style.closeBtn}>
-          <CloseOrSlideBtn onClick={handleScrollToTop} />
-        </div>
+          <div className={style.closeBtn}>
+            <CloseOrSlideBtn onClick={handleScrollToTop} />
+          </div>
           <div className={style.drawerHeader}>
             <div className={style.drawerTitle}>검색된 차량 {data.length}대</div>
             <div className={style.drawerLocation}>
