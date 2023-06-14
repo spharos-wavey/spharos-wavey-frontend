@@ -1,7 +1,12 @@
 import React from "react";
-import { useRouter } from "next/router";
-import { Html, Head, Main, NextScript } from "next/document";
-import Document, { DocumentContext, DocumentInitialProps } from "next/document";
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentInitialProps,
+} from "next/document";
 import { ServerStyleSheet } from "styled-components";
 import Script from "next/script";
 
@@ -24,18 +29,20 @@ export default class MyDocument extends Document {
     };
   }
   render() {
-    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
     return (
       <Html lang="ko">
         <Head>
           <link rel="manifest" href="/manifest.json" />
-          <meta property="og:title" content="Welcome to Billita" key="title" />
+          <meta
+            property="og:title"
+            content="전기차 전용 공유플랫폼! 빌리타"
+            key="title"
+          />
           <meta
             property="og:description"
-            content="함 빌리 타보이소"
+            content="전기차 전용 공유플랫폼! 빌리타"
             key="og-desc"
           />
-          {/* <meta property="og:url" content={`${BASE_URL}${router.pathname}`} key="og-url"/> */}
           <meta
             property="og:image"
             content="/assets/images/common/billitaLogoOnly.svg"

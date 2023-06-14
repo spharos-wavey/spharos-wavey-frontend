@@ -8,14 +8,12 @@ import { RentalDetailType } from "@/types/rentalDataType";
 import axios from "axios";
 import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
 import Button from "@/components/ui/Button";
-import style from '@/styles/pages/smartkey.module.css';
+import style from "@/styles/pages/smartkey.module.css";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
-import Discription from "@/components/ui/Discription";
 
 export default function SmartkeyPage() {
   const router = useRouter();
-  const [drawer, setDrawer] = useState<boolean>(false);
   const [vehicleData, setVehicleData] = useState<carDataType>();
   const [auth, setAuth] = useRecoilState(authState);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -69,8 +67,6 @@ export default function SmartkeyPage() {
     };
     getVehicleData();
   }, [rentData]);
-
-  // useEffect(() => {
   //   if (rentId !== undefined) {
   //     const smartKeyRequest = async () => {
   //       const result = await axios.patch(
@@ -110,7 +106,7 @@ export default function SmartkeyPage() {
     };
     const interval = setInterval(checkTimeDifference, 10000);
     return () => {
-      clearInterval(interval); // Clean up the interval when the component unmounts
+      clearInterval(interval);
     };
   }, [serviceEndTime]);
 
@@ -125,10 +121,12 @@ export default function SmartkeyPage() {
     <>
       <main>
         <div className={style.carInfoWrap}>
-          <div className={style.carName}>{vehicleData?.frameInfo.carName} {vehicleData?.frameInfo.carBrand.brandName}</div>
+          <div className={style.carName}>
+            {vehicleData?.frameInfo.carName}{" "}
+            {vehicleData?.frameInfo.carBrand.brandName}
+          </div>
           <div className={style.carEtc}>
             <div className={style.carPlate}>{vehicleData?.number}</div>
-            {/* <div className={style.battery}>{vehicleData?.charge}%</div> */}
           </div>
         </div>
         <div className={style.imgWrap}>
@@ -180,14 +178,13 @@ export default function SmartkeyPage() {
             </label>
           </div>
         </div>
-        <div className={doorOpen
-                    ? `${style.bigText}`
-                    : `${style.bigText} ${style.close}`}>
+        <div
+          className={
+            doorOpen ? `${style.bigText}` : `${style.bigText} ${style.close}`
+          }
+        >
           {doorOpen ? "UNLOCK" : "LOCKED"}
         </div>
-        {/* <div className={style.discriptionWrap}>
-        <Discription text="차량 도어를 제어합니다." />
-        </div> */}
       </main>
       <BottomFixedContainer justifyContent="center">
         <Button

@@ -15,7 +15,6 @@ import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
 import { carDataType } from "@/types/carDataType";
-import Smartkey from "@/components/pages/rental/Smartkey";
 import Swal from "sweetalert2";
 
 export default function RentalWrapper(props: { rentId: string }) {

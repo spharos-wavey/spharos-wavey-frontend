@@ -19,9 +19,6 @@ import { useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
 
 import style from "./LicenseWrapper.module.css";
-import CloseBtn from "@/components/ui/CloseBtn";
-import SlideDownBtn from "@/components/ui/SlideDownBtn";
-import CarBook from "../car/CarBook";
 import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 
@@ -111,27 +108,10 @@ export default function LicenseWrapper(props: {
     return errors;
   };
 
-  const validateField = (fieldName: keyof LicenseInputType, value: string) => {
-    switch (fieldName) {
-      case "expireDate":
-        return validateExpirationDate(value) ? "" : "올바른 형식이 아닙니다";
-      case "issueDate":
-        return validateIssueDate(value) ? "" : "올바른 형식이 아닙니다";
-      case "licenseNumber":
-        return validateLicenseNumber(value) ? "" : "올바른 형식이 아닙니다";
-      case "birth":
-        return validateBirth(value) ? "" : "올바른 형식이 아닙니다";
-      case "userName":
-        return validateUserName(value) ? "" : "올바른 형식이 아닙니다";
-      default:
-        return "";
-    }
-  };
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    if (name === "birth") {
+    if (name === "birth" || name === "issueDate" || name === "expireDate") {
       const formattedValue = value.replace(/\D/g, "");
       let formattedInput = formattedValue;
 
@@ -167,12 +147,14 @@ export default function LicenseWrapper(props: {
   const handleIncorrectLicense = () => {
     Swal.fire({
       text: "면허정보를 다시 확인하세요.",
-      icon: "error",
       toast: true,
       position: "top",
       showConfirmButton: false,
-      timer: 1000,
+      timer: 2000,
       timerProgressBar: true,
+      customClass: {
+        container: "my-swal-warning",
+      },
     });
   };
   const auth = useRecoilValue(authState);
@@ -204,7 +186,7 @@ export default function LicenseWrapper(props: {
       })
         .then((res) => {
           if (res.status === 200) {
-            // router.push(`/car/${router.query.cid}/book`);
+            router.push(`/car/${router.query.cid}/book`);
             props.setIsLicense(true);
             props.setIsOpen(false);
           } else {
@@ -215,7 +197,6 @@ export default function LicenseWrapper(props: {
     };
     postData();
   };
-
 
   const handleCheckNextStep = () => {
     props.setIsLicense(true);
@@ -415,7 +396,7 @@ export default function LicenseWrapper(props: {
             </Button>
             <Button
               btnType="button"
-              btnEvent={() => handleCheckNextStep()}
+              btnEvent={() => handleFormSubmit()}
               shadow={true}
               width={"48%"}
             >
