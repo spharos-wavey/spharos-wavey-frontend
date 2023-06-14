@@ -1,0 +1,42 @@
+.header {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--billita-white);
+  background-blend-mode: multiply;
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  transition: top 0.5s ease-in-out;
+}
+
+.header nav ul {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.header nav ul li {
+  width: 20px;
+  height:  30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header nav ul li:nth-child(2) {
+  width: 80px;
+}
+
+.header nav ul li img {
+  width: 100%;
+  height: auto;
+}
+
+.header.close {
+  position: absolute;
+  top: -100px;
+  transition: top 0.5s ease-in-out;
+}

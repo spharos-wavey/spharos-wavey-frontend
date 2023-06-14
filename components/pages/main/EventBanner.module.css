@@ -1,0 +1,99 @@
+.bannerWrap {
+  width: 100%;
+  position: fixed;
+  bottom: -4rem;
+  z-index: 80;
+  background: linear-gradient(180deg, #ffffff00 0%, #ffffff 10%);
+  transition: all 0.3s ease-in-out;
+}
+
+.active {
+  bottom: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.bannerContents {
+  padding: 2rem 1rem 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, #ffffff00 0%, #ffffff 100%);
+}
+
+.bannerContents .bannerLeft {
+  width: 40%;
+  position: relative;
+  top: 1.5rem;
+}
+.bannerLeft h3 {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-family: var(--billita-hangul);
+  font-weight: 600;
+}
+.brandImage {
+  width: 90%;
+  height: 2rem;
+}
+.brandImage img {
+  width: 100%;
+  height: auto;
+}
+.bannerContents .bannerRight {
+  width: 45%;
+}
+.bannerRight {
+  position: relative;
+  top: 1.8rem;
+}
+.bannerRight img {
+  width: 100%;
+  height: auto;
+}
+
+.bannerOverlay {
+  width: 100%;
+  position: relative;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 1rem 1rem 0 0;
+  height: 10rem;
+  padding: 1rem 2rem;
+  background-color: var(--billita-blueHighlight);
+  background-blend-mode: multiply;
+  -webkit-filter: saturate(1.8);
+  opacity: 0.6;
+  backdrop-filter: blur(10px);
+}
+
+.bannerTopText {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.bannerText {
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+}
+
+.bannerButton {
+  position: relative;
+  margin-top: 0.7rem;
+  padding: 0.2rem 0.8rem;
+  border-radius: 0.5rem;
+  background-color: none;
+  width: fit-content;
+  color: blue;
+  font-size: 0.7rem;
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px solid blue;
+  display: flex;
+  justify-content: space-between;
+  line-height: 20px;
+  margin-right: 10px;
+}

@@ -1,0 +1,51 @@
+.topWrap {
+  padding: 2rem 1.57rem 0 1.57rem;
+}
+
+.carImage {
+  width: 280px;
+  height: 180px;
+  margin: auto;
+}
+
+.carImage img {
+  width: 100%;
+  height: auto;
+}
+
+.carName {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
+}
+
+.charge {
+  display: flex;
+  justify-content: center;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-left: 0.5rem;
+}
+
+.harrypotterBinding {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.7rem;
+  align-items: center;
+}
+
+.imgBinding {
+  width: 0.8rem;
+  height: 0.8rem;
+  object-fit: contain;
+  margin-right: 0.3rem;
+}
+
+.harrypotterBinding img {
+  width: 100%;
+  height: auto;
+}

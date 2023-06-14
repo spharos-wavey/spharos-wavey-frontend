@@ -1,0 +1,65 @@
+.carName {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+}
+
+.maker {
+  color: var(--billita-blue);
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+}
+
+.carType {
+  opacity: 0.6;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+.review {
+  font-size: 0.9rem;
+  padding: 0.5rem 0 1rem 0;
+  opacity: 80%;
+}
+
+.carImage {
+  width: 80%;
+  margin: auto;
+}
+
+.carImage img {
+  width: 100%;
+  height: auto;
+}
+
+.carStatus {
+  width: 80%;
+  margin: auto;
+  border: 1px;
+  margin-top: 2rem;
+  padding: 0.5rem;
+}
+
+.carStatus ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carStatus ul li {
+  list-style: none;
+  width: fit-content;
+  padding: 0 1rem;
+}
+
+.carStatusImg {
+  width: 50%;
+  margin: auto;
+}
+
+.carStatus ul li img {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  opacity: 60%;
+}

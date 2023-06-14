@@ -1,0 +1,30 @@
+.licenseWrap {
+  padding: 2rem 2.5rem 2rem 2.5rem;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  z-index: 300;
+  background: #fff;
+  width: 100%;
+  transition: all 0.5s ease-in-out;
+  will-change: top;
+}
+
+.licenseWrap.slideClose {
+  transition: all 0.5s ease-in-out;
+  top: 100vh;
+  will-change: top;
+  position: fixed;
+}
+
+.bottomFixedLayout {
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  z-index: 300;
+  background-color: #fff;
+}
+
+.MuiFormLabel-root .css-MuiInputLabel-root {
+  font-size: 0.9rem !important;
+}

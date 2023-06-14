@@ -1,0 +1,20 @@
+.logoImgWrap {
+  display: flex;
+  justify-content: flex-start;
+  width: 35%;
+}
+
+.logoCenter {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.logoImgWrap img {
+  width: 100%;
+  height: auto;
+}
+
+.logoImgWrap h1 {
+  font-size: 0;
+}

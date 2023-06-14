@@ -1,0 +1,36 @@
+.footer {
+  width: 100%;
+  padding: 1.0rem 3rem;
+  background-color: var(--billita-white);
+  border-radius: 1rem 1rem 0 0;
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+}
+
+.footer nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer nav ul li {
+  list-style: none;
+}
+.footer nav ul li .footerIconContainer {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: cover;
+}
+.footer nav ul li .footerIconContainer img {
+  width: 100%;
+  height: auto;
+  filter: grayscale(100%);
+}
+
+.footer nav ul li.active img {
+  filter: grayscale(0);
+}

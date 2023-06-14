@@ -1,0 +1,41 @@
+.headerContainer {
+  width: 100%;
+  padding: 2rem 1.25rem 1rem 1.25rem;
+  background-color: var(--billita-white);
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  top: 0;
+  z-index: 100;
+}
+
+.headerContainer nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerContainer nav ul li {
+  list-style: none;
+  width: 2rem;
+  height: 2rem;
+}
+
+.headerContainer nav ul li img {
+  width: 80%;
+  height: auto;
+}
+
+.headerLogo h1 {
+  font-size: 0;
+}
+
+.headerLogo {
+  width: 5.5rem;
+  height: 2rem;
+}
+
+.headerLogo img {
+  width: 100%;
+  height: auto;
+}

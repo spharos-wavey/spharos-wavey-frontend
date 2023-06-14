@@ -1,0 +1,81 @@
+.card {
+  background: #FFFFFF;
+  box-shadow: 0px 0px 30px rgba(3, 2, 36, 0.2);
+  border-radius: 0.7rem;
+  padding: 1rem 3.5rem 0.5rem 2rem;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  animation: slideInFromLeft 0.5s ease-in-out;
+}
+
+.carWrap {
+  width: 130px;
+  height: 80px;
+}
+
+.carWrap img{
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: -2rem;
+  margin-left: -1rem;
+  /* 좌우반전 */
+  -moz-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.saveToggle {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 194, 255, 0.03);
+  box-shadow: 0px 4px 4px rgba(255, 73, 116, 0.29);
+}
+
+.saveToggle img {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.carTitle {
+  margin-top: -2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.greySubTitle {
+  font-size: 0.7rem;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  font-weight: 700;
+  color: #AAAAAA;
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-80%);
+    filter: blur(5px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+}

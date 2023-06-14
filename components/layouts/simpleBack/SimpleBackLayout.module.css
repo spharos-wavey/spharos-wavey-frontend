@@ -1,0 +1,32 @@
+.headerContainer {
+  width: 100%;
+  padding: 1.5rem;
+  background-color: var(--billita-white);
+  position: fixed;
+  top: 0px;
+  z-index: 1;
+}
+
+.headerContainer nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.closerButton {
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--billita-white);
+  display: flex;
+  opacity: 0.5;
+}
