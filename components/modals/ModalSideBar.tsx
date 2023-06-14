@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { authState } from "@/state/authState";
 import { userRentalState } from "@/state/userRentalState";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { MyRentalCarType } from "@/types/rentalDataType";
 import Swal from "sweetalert2";
 import RentCar from "../ui/RentCar";
+import { bookIdState } from "@/state/bookIdState";
 
 export default function ModalSideBar(props: {
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,6 +21,8 @@ export default function ModalSideBar(props: {
   const auth = useRecoilValue(authState);
   const TOKEN = "Bearer " + auth.token;
   const canUserBook = useRecoilValue(userRentalState);
+  const setBookId = useSetRecoilState(bookIdState);
+  const setUserRentalState = useSetRecoilState(userRentalState);
 
   const { isSideOpen, setIsSideOpen } = props;
   const [authValue, setAuthValue] = useRecoilState(authState);
@@ -30,27 +33,34 @@ export default function ModalSideBar(props: {
   const PURCASE_STATE = "RESERVATION";
 
   const handleLogout = () => {
-    localStorage.clear();
-    sessionStorage.clear();
-    setIsSideOpen(false);
-    setAuthValue({
-      auth: false,
-      token: "",
-      uid: "",
-      nickName: "",
-      email: "",
-      profileImageUrl: "",
-    });
     Swal.fire({
-      text: "로그아웃 되었습니다.",
-      toast: true,
-      position: "top",
-      showConfirmButton: false,
-      timer: 2000,
-      timerProgressBar: false,
+      text: "로그아웃 하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "네",
+      cancelButtonText: "아니요",
       customClass: {
-        container: "my-swal",
+        confirmButton: "mySwalConfirmButton",
+        cancelButton: "mySwalCancelButton",
       },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        sessionStorage.clear();
+        setBookId({ bookId: 0 });
+        setUserRentalState({
+          canUserBook: false,
+        });
+        setAuthValue({
+          auth: false,
+          nickName: "",
+          profileImageUrl: "",
+          token: "",
+          uid: "",
+          email: "",
+        });
+      } else {
+        return;
+      }
     });
   };
 
