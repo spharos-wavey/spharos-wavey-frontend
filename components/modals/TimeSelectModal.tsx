@@ -30,7 +30,6 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
   const END_TIME = canCarBeBooked.endTime;
 
   const canItBeBooked = async () => {
-
     try {
       const res = await fetch(
         `${API_URL}/vehicle/book-check?id=${router.query.cid}&sDate=${START_TIME}&eDate=${END_TIME}`,
@@ -61,20 +60,12 @@ export default function TimeSelect({ setTimeModal, timeModal }: TimeModalType) {
   };
 
   const timeModalHandler = () => {
-    // if (startTime.isAfter(endTime)) {
-    //   return;
-    // } else if (startTime.isSame(endTime)) {
-    //   return;
-    // } else if (startTime.isBefore(currentTime)) {
-    //   return;
-    // }
-
     setReqTime({
       startTime: startTime.format("YYYY-MM-DD HH:mm"),
       endTime: endTime.format("YYYY-MM-DD HH:mm"),
     });
 
-    canItBeBooked()
+    canItBeBooked();
 
     if (typeof window !== undefined) {
       sessionStorage.setItem("startTime", startTime.format("YYYY-MM-DD HH:mm"));

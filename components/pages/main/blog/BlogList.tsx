@@ -24,7 +24,7 @@ export default function BlogList() {
   }, []);
   return (
     <section>
-      <div className={style.sectionTitle}>함 가보이소 ~ </div>
+      <div className={style.sectionTitle}>빌리타 추천 여행지</div>
       {blogList?.map((blog) => (
         <div className={style.blogWrap} key={blog.id}>
           <div className={style.blogImg}>
@@ -39,10 +39,6 @@ export default function BlogList() {
           <div className={style.blogAuthor}>
             <p>{String(blog.createDate).split("T")[0]} by 빌리타 </p>
             <p>read more</p>
-          </div>
-
-          <div className={style.blogDate}>
-            {/* {blog.createDate.getFullYear()}.{blog.createDate.getMonth()}.{blog.createDate.getDate()} */}
           </div>
         </div>
       ))}

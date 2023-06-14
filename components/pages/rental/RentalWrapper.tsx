@@ -15,7 +15,6 @@ import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
 import { carDataType } from "@/types/carDataType";
-import Smartkey from "@/components/pages/rental/Smartkey";
 import Swal from "sweetalert2";
 
 export default function RentalWrapper(props: { rentId: string }) {
@@ -27,7 +26,6 @@ export default function RentalWrapper(props: { rentId: string }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
 
-  const [isSmartkeyOpen, setIsSmartkeyOpen] = useState<boolean>(false);
   const [rentData, setRentData] = useState<RentalDetailType>();
 
   useEffect(() => {
@@ -97,7 +95,6 @@ export default function RentalWrapper(props: { rentId: string }) {
   };
   return (
     <main>
-      {/* <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} /> */}
       {drawer && (
         <>
           <div

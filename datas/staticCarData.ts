@@ -1,9 +1,3 @@
-export const carDetailData = {
-  id: 1,
-  name: "Tesla Model X",
-  src: "/assets/images/car/tesla-x.png",
-};
-
 export const carStatusData = [
   {
     id: 1,

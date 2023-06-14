@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import React, { useEffect } from "react";
+import { useRecoilValue } from "recoil";
 import PageLoader from "@/components/ui/PageLoader";
 import { authState } from "@/state/authState";
 import { useRouter } from "next/router";
-import { BookListDataType, carDataType } from "@/types/carDataType";
+import { carDataType } from "@/types/carDataType";
 import axios from "axios";
 import style from "./PaymentReady.module.css";
-import { timeType } from "@/types/rentalDataType";
 import { nowTimeState } from "@/state/nowTime";
-import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
-import { bookIdState } from "@/state/bookIdState";
 
 export default function PaymentReady(props: {
   isOpen: boolean;
@@ -41,20 +38,20 @@ export default function PaymentReady(props: {
   };
 
   useEffect(() => {
-      const getPaymentReady = async () => {
-        const res = await axios.post(
-          `${API_URL}/purchase/kakao/ready`,
-          readyRequestBody,
-          {
-            headers: {
-              Authorization: TOKEN,
-            },
-          }
-        );
-        sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
-        router.push(res.data.next_redirect_pc_url);
-      };
-      getPaymentReady();
+    const getPaymentReady = async () => {
+      const res = await axios.post(
+        `${API_URL}/purchase/kakao/ready`,
+        readyRequestBody,
+        {
+          headers: {
+            Authorization: TOKEN,
+          },
+        }
+      );
+      sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
+      router.push(res.data.next_redirect_mobile_url);
+    };
+    getPaymentReady();
   }, [router, readyRequestBody, TOKEN, API_URL]);
 
   return (

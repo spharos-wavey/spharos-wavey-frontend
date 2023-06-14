@@ -39,23 +39,14 @@ export default function DetailInfoTop({
   latitude,
   longitude,
 }: HeaderType) {
-
   const [carLocation, setCarLocation] = useRecoilState(locationState);
   const router = useRouter();
 
-  const onClickHandler = () => {
-    if (latitude !== undefined && longitude !== undefined) {
-      setCarLocation({
-        latitude: latitude,
-        longitude: longitude,
-      });
-      router.push("/map");
-    }
-  };
-
   return imageUrl !== undefined ? (
     <>
-      <div className={style.carName}>{name} - {maker}</div>
+      <div className={style.carName}>
+        {name} - {maker}
+      </div>
       <div className={style.carType}>
         {" "}
         {type} {appearance} {capacity}인승
@@ -70,11 +61,7 @@ export default function DetailInfoTop({
           priority
         />
       </div>
-      <LocationButton
-        location={location}
-        locationName={locationName}
-        btnEvent={onClickHandler}
-      />
+      <LocationButton location={location} locationName={locationName} />
       <div className={style.carStatus}>
         <ul>
           <MenuItem

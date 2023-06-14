@@ -7,13 +7,13 @@ import { carDataType } from "@/types/carDataType";
 import { RentalDetailType } from "@/types/rentalDataType";
 import axios from "axios";
 import AuthRecoilChecker from "@/components/util/AuthRecoilChecker";
-import Smartkey from "@/components/pages/rental/Smartkey";
-import style from "./smartkey.module.css";
+import Button from "@/components/ui/Button";
+import style from "@/styles/pages/smartkey.module.css";
 import SimpleBackLayout from "@/components/layouts/simpleBack/SimpleBackLayout";
+import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
 
 export default function SmartkeyPage() {
   const router = useRouter();
-  const [drawer, setDrawer] = useState<boolean>(false);
   const [vehicleData, setVehicleData] = useState<carDataType>();
   const [auth, setAuth] = useRecoilState(authState);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -67,8 +67,6 @@ export default function SmartkeyPage() {
     };
     getVehicleData();
   }, [rentData]);
-
-  // useEffect(() => {
   //   if (rentId !== undefined) {
   //     const smartKeyRequest = async () => {
   //       const result = await axios.patch(
@@ -108,7 +106,7 @@ export default function SmartkeyPage() {
     };
     const interval = setInterval(checkTimeDifference, 10000);
     return () => {
-      clearInterval(interval); // Clean up the interval when the component unmounts
+      clearInterval(interval);
     };
   }, [serviceEndTime]);
 
@@ -123,13 +121,12 @@ export default function SmartkeyPage() {
     <>
       <main>
         <div className={style.carInfoWrap}>
-          <div className={style.carBrand}>
+          <div className={style.carName}>
+            {vehicleData?.frameInfo.carName}{" "}
             {vehicleData?.frameInfo.carBrand.brandName}
           </div>
-          <div className={style.carName}>{vehicleData?.frameInfo.carName}</div>
           <div className={style.carEtc}>
             <div className={style.carPlate}>{vehicleData?.number}</div>
-            {/* <div className={style.battery}>{vehicleData?.charge}%</div> */}
           </div>
         </div>
         <div className={style.imgWrap}>
@@ -152,9 +149,6 @@ export default function SmartkeyPage() {
           )}
         </div>
         <div className={style.selectedMessage}>
-          <div className={style.defaultMessage} onClick={handleReturnAction}>
-            반납하기
-          </div>
           {letDoorActivate && (
             <div className={style.statusMessage}>
               운행시작 15분 전부터 차량도어가 제어 가능합니다
@@ -166,13 +160,13 @@ export default function SmartkeyPage() {
         </div>
 
         <div className={style.toggleDisplay}>
-          <div>문닫기</div>
-          <form>
+          <div>
             <label className={style.switch}>
               <input
                 type={style.checkbox}
                 onClick={handleEvent}
                 checked={doorOpen}
+                inputMode="none"
               />
               <span
                 className={
@@ -182,10 +176,26 @@ export default function SmartkeyPage() {
                 }
               ></span>
             </label>
-          </form>
-          <div>문열기</div>
+          </div>
+        </div>
+        <div
+          className={
+            doorOpen ? `${style.bigText}` : `${style.bigText} ${style.close}`
+          }
+        >
+          {doorOpen ? "UNLOCK" : "LOCKED"}
         </div>
       </main>
+      <BottomFixedContainer justifyContent="center">
+        <Button
+          btnType="button"
+          btnEvent={handleReturnAction}
+          shadow={true}
+          width="50%"
+        >
+          반납하기
+        </Button>
+      </BottomFixedContainer>
     </>
   );
 }
