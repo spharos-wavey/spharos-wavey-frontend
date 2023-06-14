@@ -22,12 +22,14 @@ import style from "./LicenseWrapper.module.css";
 import CloseBtn from "@/components/ui/CloseBtn";
 import SlideDownBtn from "@/components/ui/SlideDownBtn";
 import CarBook from "../car/CarBook";
+import BottomFixedContainer from "@/components/layouts/BottomFixedContainer";
+import Button from "@/components/ui/Button";
 
-export default function LicenseWrapper(props:{
-  isOpen:boolean, setIsOpen:React.Dispatch<React.SetStateAction<boolean>>
-  setIsLicense:React.Dispatch<React.SetStateAction<boolean>>
+export default function LicenseWrapper(props: {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLicense: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-
   const router = useRouter();
   const [inputError, setInputError] = useState<LicenseInputType>({
     level: "",
@@ -153,7 +155,7 @@ export default function LicenseWrapper(props:{
     setInputData((prev) => ({ ...prev, [name]: value }));
     setInputError((prev) => ({
       ...prev,
-      [name]: value.trim().length === 0? "필수 입력 항목입니다" : "",
+      [name]: value.trim().length === 0 ? "필수 입력 항목입니다" : "",
     }));
   };
 
@@ -217,178 +219,214 @@ export default function LicenseWrapper(props:{
   const handleCheckNextStep = () => {
     props.setIsLicense(true);
     props.setIsOpen(false);
-  }
+  };
+  const handleCancleRegister = () => {
+    console.log("취소");
+    props.setIsOpen(false);
+  };
 
   return (
     <>
-    {/* <div className={style.over} style={ props.isOpen ? {display:'block'} : {display:'none'}}></div> */}
-    
-    <div className={props.isOpen ? style.licenseWrap : `${style.licenseWrap} ${style.slideClose}`}>
-      {/* <SlideDownBtn handleActive={() => props.setIsOpen(false)}  isActive={props.isOpen}/> */}
-      <FormGroup>
-        <button onClick={() => handleCheckNextStep()}>테스트용 넘어가기 버튼</button>
-        <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
-        <Separator gutter={1} />
-        <Box sx={{ width: "100%" }}>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel id="demo-simple-select-standard-label">
-              면허종류
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              name="level"
-              value={inputData.level}
-              label="면허종류"
-              onChange={handlSelectChange}
-            >
-              <MenuItem value="1종">1종</MenuItem>
-              <MenuItem value="2종">2종</MenuItem>
-            </Select>
-          </FormControl>
-          <Separator gutter={1} />
-          <FormControl variant="standard" fullWidth>
-            <InputLabel id="demo-simple-select-standard-label">
-              면허구분
-            </InputLabel>
+      {/* <div className={style.over} style={ props.isOpen ? {display:'block'} : {display:'none'}}></div> */}
 
-            {inputData.level === "1종" ? (
+      <div
+        className={
+          props.isOpen
+            ? style.licenseWrap
+            : `${style.licenseWrap} ${style.slideClose}`
+        }
+      >
+        {/* <SlideDownBtn handleActive={() => props.setIsOpen(false)}  isActive={props.isOpen}/> */}
+        <FormGroup>
+          <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
+          <Separator gutter={1} />
+          <Box sx={{ width: "100%" }}>
+            <FormControl variant="standard" fullWidth>
+              <InputLabel id="demo-simple-select-standard-label">
+                면허종류
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                value={inputData.type}
-                label="면허구분"
-                name="type"
+                name="level"
+                value={inputData.level}
+                label="면허종류"
                 onChange={handlSelectChange}
               >
-                <MenuItem value="1종보통">1종보통</MenuItem>
-                <MenuItem value="1종대형">1종대형</MenuItem>
-                <MenuItem value="1종특수">1종특수</MenuItem>
+                <MenuItem value="1종">1종</MenuItem>
+                <MenuItem value="2종">2종</MenuItem>
               </Select>
-            ) : (
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={inputData.type}
-                label="면허구분"
-                name="type"
-                onChange={handlSelectChange}
-              >
-                <MenuItem value="2종보통">2종보통</MenuItem>
-              </Select>
-            )}
-          </FormControl>
-          <Separator gutter={1} />
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="expireDate">만료일</InputLabel>
-            <Input
-              id="expireDate"
-              name="expireDate"
-              value={inputData.expireDate}
-              onChange={handleInputChange}
-              error={Boolean(inputError.expireDate)}
-              aria-describedby="expireDate-helper-text"
-            />
-            <FormHelperText id="licenseNumber-helper-text">
-              {inputError.expireDate}
-            </FormHelperText>
-          </FormControl>
-          <Separator gutter={1} />
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="issueDate">발급일</InputLabel>
-            <Input
-              id="issueDate"
-              name="issueDate"
-              value={inputData.issueDate}
-              onChange={handleInputChange}
-              error={Boolean(inputError.issueDate)}
-              aria-describedby="issueDate-helper-text"
-            />
-            <FormHelperText id="issueDate-helper-text">
-              {inputError.issueDate}
-            </FormHelperText>
-          </FormControl>
-          <Separator gutter={1} />
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="licenseNumber">면허번호</InputLabel>
-            <Input
-              id="licenseNumber"
-              name="licenseNumber"
-              value={inputData.licenseNumber}
-              onChange={handleInputChange}
-              error={Boolean(inputError.licenseNumber)}
-              aria-describedby="licenseNumber-helper-text"
-            />
-            <FormHelperText id="licenseNumber-helper-text">
-              {inputError.licenseNumber}
-            </FormHelperText>
-          </FormControl>
-          <Separator gutter={5} />
-          <SectionTitle fontSize={0.85}>개인정보입력</SectionTitle>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="userName">이름</InputLabel>
-            <Input
-              id="userName"
-              name="userName"
-              value={inputData.userName}
-              onChange={handleInputChange}
-              error={Boolean(inputError.userName)}
-              aria-describedby="userName-helper-text"
-            />
-            <FormHelperText id="userName-helper-text">
-              {inputError.userName}
-            </FormHelperText>
-          </FormControl>
-          <Separator gutter={1} />
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="birth">생년월일</InputLabel>
-            <Input
-              id="birth"
-              name="birth"
-              value={inputData.birth}
-              onChange={handleInputChange}
-              error={Boolean(inputError.birth)}
-              aria-describedby="birth-helper-text"
-            />
-            <FormHelperText id="birth-helper-text">
-              {inputError.birth}
-            </FormHelperText>
-          </FormControl>
-          <Separator gutter={1} />
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="address">주소</InputLabel>
-            <Input
-              id="address"
-              name="address"
-              value={inputData.address}
-              onChange={handleInputChange}
-              error={Boolean(inputError.address)}
-              aria-describedby="address-helper-text"
-            />
-            <FormHelperText id="address-helper-text">
-              {inputError.address}
-            </FormHelperText>
-          </FormControl>
-          <Separator gutter={1} />
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="addressDetail">상세주소</InputLabel>
-            <Input
-              id="addressDetail"
-              name="addressDetail"
-              value={inputData.addressDetail}
-              onChange={handleInputChange}
-              error={Boolean(inputError.addressDetail)}
-              aria-describedby="addressDetail-helper-text"
-            />
-            <FormHelperText id="addressDetail-helper-text">
-              {inputError.addressDetail}
-            </FormHelperText>
-          </FormControl>
-          <Separator gutter={5} />
-        </Box>
-      </FormGroup>
-    </div>
-    
+            </FormControl>
+            <Separator gutter={1} />
+            <FormControl variant="standard" fullWidth>
+              <InputLabel id="demo-simple-select-standard-label">
+                면허구분
+              </InputLabel>
+
+              {inputData.level === "1종" ? (
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={inputData.type}
+                  label="면허구분"
+                  name="type"
+                  onChange={handlSelectChange}
+                >
+                  <MenuItem value="1종보통">1종보통</MenuItem>
+                  <MenuItem value="1종대형">1종대형</MenuItem>
+                  <MenuItem value="1종특수">1종특수</MenuItem>
+                </Select>
+              ) : (
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={inputData.type}
+                  label="면허구분"
+                  name="type"
+                  onChange={handlSelectChange}
+                >
+                  <MenuItem value="2종보통">2종보통</MenuItem>
+                </Select>
+              )}
+            </FormControl>
+            <Separator gutter={1} />
+            <FormControl variant="standard" fullWidth>
+              <InputLabel htmlFor="expireDate">만료일</InputLabel>
+              <Input
+                id="expireDate"
+                name="expireDate"
+                value={inputData.expireDate}
+                onChange={handleInputChange}
+                error={Boolean(inputError.expireDate)}
+                aria-describedby="expireDate-helper-text"
+              />
+              <FormHelperText id="licenseNumber-helper-text">
+                {inputError.expireDate}
+              </FormHelperText>
+            </FormControl>
+            <Separator gutter={1} />
+            <FormControl variant="standard" fullWidth>
+              <InputLabel htmlFor="issueDate">발급일</InputLabel>
+              <Input
+                id="issueDate"
+                name="issueDate"
+                value={inputData.issueDate}
+                onChange={handleInputChange}
+                error={Boolean(inputError.issueDate)}
+                aria-describedby="issueDate-helper-text"
+              />
+              <FormHelperText id="issueDate-helper-text">
+                {inputError.issueDate}
+              </FormHelperText>
+            </FormControl>
+            <Separator gutter={1} />
+            <FormControl variant="standard" fullWidth>
+              <InputLabel htmlFor="licenseNumber">면허번호</InputLabel>
+              <Input
+                id="licenseNumber"
+                name="licenseNumber"
+                value={inputData.licenseNumber}
+                onChange={handleInputChange}
+                error={Boolean(inputError.licenseNumber)}
+                aria-describedby="licenseNumber-helper-text"
+              />
+              <FormHelperText id="licenseNumber-helper-text">
+                {inputError.licenseNumber}
+              </FormHelperText>
+            </FormControl>
+            <Separator gutter={5} />
+            <SectionTitle fontSize={0.85}>개인정보입력</SectionTitle>
+            <FormControl variant="standard" fullWidth>
+              <InputLabel htmlFor="userName">이름</InputLabel>
+              <Input
+                id="userName"
+                name="userName"
+                value={inputData.userName}
+                onChange={handleInputChange}
+                error={Boolean(inputError.userName)}
+                aria-describedby="userName-helper-text"
+              />
+              <FormHelperText id="userName-helper-text">
+                {inputError.userName}
+              </FormHelperText>
+            </FormControl>
+            <Separator gutter={1} />
+            <FormControl variant="standard" fullWidth>
+              <InputLabel htmlFor="birth">생년월일</InputLabel>
+              <Input
+                id="birth"
+                name="birth"
+                value={inputData.birth}
+                onChange={handleInputChange}
+                error={Boolean(inputError.birth)}
+                aria-describedby="birth-helper-text"
+              />
+              <FormHelperText id="birth-helper-text">
+                {inputError.birth}
+              </FormHelperText>
+            </FormControl>
+            <Separator gutter={1} />
+            <FormControl variant="standard" fullWidth>
+              <InputLabel htmlFor="address">주소</InputLabel>
+              <Input
+                id="address"
+                name="address"
+                value={inputData.address}
+                onChange={handleInputChange}
+                error={Boolean(inputError.address)}
+                aria-describedby="address-helper-text"
+              />
+              <FormHelperText id="address-helper-text">
+                {inputError.address}
+              </FormHelperText>
+            </FormControl>
+            <Separator gutter={1} />
+            <FormControl variant="standard" fullWidth>
+              <InputLabel htmlFor="addressDetail">상세주소</InputLabel>
+              <Input
+                id="addressDetail"
+                name="addressDetail"
+                value={inputData.addressDetail}
+                onChange={handleInputChange}
+                error={Boolean(inputError.addressDetail)}
+                aria-describedby="addressDetail-helper-text"
+              />
+              <FormHelperText id="addressDetail-helper-text">
+                {inputError.addressDetail}
+              </FormHelperText>
+            </FormControl>
+            <Separator gutter={15} />
+          </Box>
+        </FormGroup>
+      </div>
+
+      {props.isOpen ? (
+        <div className={style.bottomFixedLayout}>
+          <BottomFixedContainer>
+            <Button
+              btnType="button"
+              btnEvent={handleCancleRegister}
+              shadow={true}
+              width={"48%"}
+              backgroundColor="#fff"
+              color="var(--billita-blueHighlight)"
+              border="2px solid var(--billita-blueHighlight)"
+            >
+              취소
+            </Button>
+            <Button
+              btnType="button"
+              btnEvent={() => handleCheckNextStep()}
+              shadow={true}
+              width={"48%"}
+            >
+              등록하기
+            </Button>
+          </BottomFixedContainer>
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
