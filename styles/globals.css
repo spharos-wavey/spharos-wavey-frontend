@@ -182,22 +182,18 @@ section {
   font-weight: bold !important;
   font-family: var(--billita-hangul) !important;
 }
+.my-swal-warning .swal2-popup.swal2-toast .swal2-html-container {
+  color: var(--billita-secondary) !important;
+  font-size: 0.7rem !important;
+}
 
 .my-swal-warning .swal2-popup {
-  border: 2px solid var(--billita-secondary) !important;
-  background-color: #dadada !important;
+  border-radius: 0.3rem !important;
+  background-color: #ffffff !important;
   font-weight: 0.8rem !important;
   mix-blend-mode: hard-light !important;
   padding: 0.3rem !important;
   justify-content: center !important;
-}
-
-.my-swal-warning .swal2-footer {
-  font-size: 0.2rem !important;
-}
-
-.my-swal-warning .swal2-x-mark {
-  /* visibility: hidden !important; */
 }
 
 .my-swal-warning .swal2-popup.swal2-toast .swal2-icon {

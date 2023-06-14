@@ -24,7 +24,7 @@ export default function BlogList() {
   }, []);
   return (
     <section>
-      <div className={style.sectionTitle}>함 가보이소 ~ </div>
+      <div className={style.sectionTitle}>빌리타 추천 여행지</div>
       {blogList?.map((blog) => (
         <div className={style.blogWrap} key={blog.id}>
           <div className={style.blogImg}>

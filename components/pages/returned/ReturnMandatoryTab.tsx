@@ -47,7 +47,6 @@ export default function ReturnMandatoryTab() {
         showConfirmButton: false,
         timer: 2000,
         timerProgressBar: true,
-        footer: "문의하기",
         customClass: {
           container: "my-swal-warning",
         },
