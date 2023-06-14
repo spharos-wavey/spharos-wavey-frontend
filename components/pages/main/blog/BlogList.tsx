@@ -40,10 +40,6 @@ export default function BlogList() {
             <p>{String(blog.createDate).split("T")[0]} by 빌리타 </p>
             <p>read more</p>
           </div>
-
-          <div className={style.blogDate}>
-            {/* {blog.createDate.getFullYear()}.{blog.createDate.getMonth()}.{blog.createDate.getDate()} */}
-          </div>
         </div>
       ))}
     </section>

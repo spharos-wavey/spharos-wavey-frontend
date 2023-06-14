@@ -30,7 +30,6 @@ export default function DetailLocation(props: {
       <LocationButton
         location={props.location}
         locationName={props.locationName}
-        btnEvent={onClickHandler}
       />
     </>
   );

@@ -184,9 +184,6 @@ export default function LicenseWrapper(props: {
   const TOKEN = "Bearer " + auth.token;
 
   const handleFormSubmit = () => {
-    // const errors = validateForm();
-    // console.log(errors);
-
     const jumpOver = () => {
       Swal.fire({
         text: "면허가 확인되었습니다",

@@ -2,11 +2,10 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import qs from "qs";
 import axios from "axios";
-import { Box, Stack, CircularProgress } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authState } from "@/state/authState";
-import { redirectionUrlState } from "@/state/redirectionState";
+import PageLoader from "@/components/ui/PageLoader";
 
 export default function Kakao() {
   const router = useRouter();
@@ -21,13 +20,12 @@ export default function Kakao() {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-
     if (auth.auth || kakaoServerError) {
       router.push("/");
       return;
     }
 
-    if(typeof window !== undefined) {
+    if (typeof window !== undefined) {
       const redirectUrl = sessionStorage.getItem("redirectUrl");
       const getToken = async () => {
         const payload = qs.stringify({
@@ -38,81 +36,77 @@ export default function Kakao() {
           client_secret: CLIENT_ID,
         });
 
-      try {
-        const res = await fetch("https://kauth.kakao.com/oauth/token", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-          },
-          body: payload,
-        });
-
-        const kakaoData = await res.json();
-
         try {
-          const kakaoToken = 'Bearer ' + kakaoData.access_token;
-          const res = await fetch("https://kapi.kakao.com/v2/user/me", {
-            method: "GET",
+          const res = await fetch("https://kauth.kakao.com/oauth/token", {
+            method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-              Authorization: kakaoToken,
             },
+            body: payload,
           });
-          const data = await res.json();
+
+          const kakaoData = await res.json();
+
           try {
-            
-            axios
-              .post(`${API_URL}/auth/login`, {
-                email: data.kakao_account.email,
-                nickName: data.properties.nickname,
-                profileImageUrl: data.properties.profile_image,
-              })
-              .then((res) => {
-                const jwtToken = res.headers.authorization;
-                localStorage.setItem("token", jwtToken);
-                localStorage.setItem("uid", res.headers.uid);
-                localStorage.setItem("nickName", data.properties.nickname);
-                localStorage.setItem("profileImageUrl", data.properties.profile_image);
-                localStorage.setItem("email", data.kakao_account.email);
-                setAuth({
-                  auth: true,
+            const kakaoToken = "Bearer " + kakaoData.access_token;
+            const res = await fetch("https://kapi.kakao.com/v2/user/me", {
+              method: "GET",
+              headers: {
+                "Content-Type":
+                  "application/x-www-form-urlencoded;charset=utf-8",
+                Authorization: kakaoToken,
+              },
+            });
+            const data = await res.json();
+            try {
+              axios
+                .post(`${API_URL}/auth/login`, {
+                  email: data.kakao_account.email,
                   nickName: data.properties.nickname,
                   profileImageUrl: data.properties.profile_image,
-                  token: jwtToken,
-                  uid: res.headers.uid,
-                  email: data.kakao_account.email,
-                });
-                if( redirectUrl !== null && redirectUrl !== undefined && redirectUrl !== "") {
-                  router.push(redirectUrl as string);
+                })
+                .then((res) => {
+                  const jwtToken = res.headers.authorization;
+                  localStorage.setItem("token", jwtToken);
+                  localStorage.setItem("uid", res.headers.uid);
+                  localStorage.setItem("nickName", data.properties.nickname);
+                  localStorage.setItem(
+                    "profileImageUrl",
+                    data.properties.profile_image
+                  );
+                  localStorage.setItem("email", data.kakao_account.email);
+                  setAuth({
+                    auth: true,
+                    nickName: data.properties.nickname,
+                    profileImageUrl: data.properties.profile_image,
+                    token: jwtToken,
+                    uid: res.headers.uid,
+                    email: data.kakao_account.email,
+                  });
+                  if (
+                    redirectUrl !== null &&
+                    redirectUrl !== undefined &&
+                    redirectUrl !== ""
+                  ) {
+                    router.push(redirectUrl as string);
+                    return;
+                  }
+                  router.push("/");
                   return;
-                } 
-                router.push("/");
-                return;
-              })
+                });
             } catch (err) {
+              console.log(err);
+            }
+          } catch (err) {
             console.log(err);
           }
         } catch (err) {
           console.log(err);
         }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getToken();
+      };
+      getToken();
     }
   }, [authCode, CLIENT_ID, REDIRECT_URI, REST_API_KEY, router, setAuth]);
 
-  return (
-    <Box
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      height="100vh"
-    >
-      <Stack spacing={2}>
-        <CircularProgress color="primary" />
-      </Stack>
-    </Box>
-  );
-};
+  return <PageLoader />;
+}
