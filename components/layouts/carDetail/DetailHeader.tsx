@@ -12,28 +12,28 @@ export default function DetailHeader() {
   const router = useRouter();
   const redirect = useRecoilValue(redirectionUrlState);
   const userAlreadyBook = useRecoilValue(userRentalState);
-  
 
   const goBack = () => {
-    // if(userAlreadyBook.canUserBook) {
-    //   router.push('/');
-    //   return
-    // }
-    if(redirect.redirectUrl) {
-      router.push(redirect.redirectUrl)
-      return
+    if (redirect.redirectUrl) {
+      router.push(redirect.redirectUrl);
+      return;
+    } else {
+      router.push("/");
     }
-    else {
-      router.push("/")
-    }
-  }
-  
+  };
+
   return (
     <header className={style.headerContainer}>
       <nav>
         <ul>
           {detailMenuData.map((menuItem: headerMenuType) => {
-            return <MenuItem menuItem={menuItem} key={menuItem.id} onClick={goBack}/>;
+            return (
+              <MenuItem
+                menuItem={menuItem}
+                key={menuItem.id}
+                onClick={goBack}
+              />
+            );
           })}
         </ul>
       </nav>

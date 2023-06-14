@@ -22,3 +22,11 @@
 .hidden {
   visibility: hidden;
 }
+
+.closerButton {
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--billita-white);
+  display: flex;
+  opacity: 0.5;
+}

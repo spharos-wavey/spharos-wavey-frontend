@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   color: #eeeeee;
-  position: absolute;
+  position: fixed;
   border-radius: 100%;
   width: 62px;
   height: 62px;
@@ -121,9 +121,9 @@
   font-size: 0.8rem;
   opacity: 0.6;
   margin-bottom: 0.3rem;
-  text-decoration: underline;
+  /* text-decoration: underline;
   text-underline-offset: 5px;
-  text-decoration-thickness: 0.4px;
+  text-decoration-thickness: 0.4px; */
   align-items: center;
   display: flex;
 }

@@ -42,13 +42,14 @@ export default function ReturnMandatoryTab() {
     if (isNoProperlyParked) {
       Swal.fire({
         text: "고객센터로 문의주시기 바랍니다",
-        icon: "error",
         toast: true,
         position: "top",
         showConfirmButton: false,
         timer: 2000,
         timerProgressBar: true,
-        footer: `<a href="">문의하기</a>`,
+        customClass: {
+          container: "my-swal-warning",
+        },
       });
     }
   }, [!isNoProperlyParked]);
@@ -56,8 +57,6 @@ export default function ReturnMandatoryTab() {
   const [questionActive, setQuestionActive] = useState<boolean[]>(
     new Array(staticReturnQuestionData.length).fill(false)
   );
-
-  // const allQuestionsClicked = questionActive.every((isActive) => isActive);
 
   const handleActionAPI = async () => {
     try {
@@ -75,7 +74,7 @@ export default function ReturnMandatoryTab() {
       });
       if (response.ok) {
         handleSwalReturnConfirm();
-        // router.push("/");
+        router.push("/");
       } else {
         throw new Error("반납요청 실패");
       }
@@ -87,24 +86,29 @@ export default function ReturnMandatoryTab() {
   const handleAnswerAllPlz = () => {
     Swal.fire({
       text: "모든 질문에 답변해주세요",
-      icon: "error",
       toast: true,
       position: "top",
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: true,
+      customClass: {
+        container: "my-swal-warning",
+      },
     });
   };
 
   const handleSwalReturnConfirm = () => {
+    setDrawer(false);
     Swal.fire({
       text: "반납이 완료되었습니다",
-      icon: "success",
       toast: true,
       position: "top",
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: true,
+      customClass: {
+        container: "my-swal",
+      },
     });
   };
 
@@ -122,12 +126,33 @@ export default function ReturnMandatoryTab() {
     setQuestionActive(updatedActive);
   };
 
+  const handleClose = () => {
+    setDrawer(false);
+  };
+
   return (
     <>
+      <div
+        onClick={handleClose}
+        className={
+          drawer ? `${style.closeBtn}` : `${style.closeBtn} ${style.close}`
+        }
+      >
+        <Image
+          src="/assets/images/icons/modalCloseX.svg"
+          width="20"
+          height="20"
+          alt="close"
+        />
+      </div>
       <Drawer
         open={drawer}
         PaperProps={{
-          sx: { width: 390, borderTopLeftRadius: 18, borderTopRightRadius: 18 },
+          sx: {
+            width: "auto",
+            borderTopLeftRadius: 18,
+            borderTopRightRadius: 18,
+          },
         }}
         anchor="bottom"
         variant="temporary"
@@ -135,7 +160,7 @@ export default function ReturnMandatoryTab() {
         <Box position="relative" width="100%" height="370px">
           <ModalForm title="반납하기" />
 
-          <BottomFixedContainer>
+          <BottomFixedContainer display="initial">
             <Button
               btnType={"button"}
               btnEvent={() => handleActionAPI()}
@@ -228,7 +253,6 @@ export default function ReturnMandatoryTab() {
         ))}
 
         <Separator gutter={3} />
-        <hr className={style.hr} />
 
         <div className={style.qWrap}>
           <div className={style.lastCheck}>빌리타 이용규칙 및 패널티 안내</div>
@@ -243,7 +267,7 @@ export default function ReturnMandatoryTab() {
         </div>
       </div>
 
-      <BottomFixedContainer>
+      <BottomFixedContainer justifyContent="center">
         <Button
           btnType={"button"}
           btnEvent={() => handleReturnConfirmed()}
@@ -252,6 +276,7 @@ export default function ReturnMandatoryTab() {
           반납하기
         </Button>
       </BottomFixedContainer>
+      <Separator gutter={3} />
     </>
   );
 }

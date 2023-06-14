@@ -8,8 +8,7 @@ export default function RentalHistory(props: { rentalData: MyRentalCarType }) {
   const rentalData = props.rentalData;
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [carData, setCarData] = useState<carDataType>();
-  console.log(rentalData, "childrenPage");
-  // console.log(rentalData.filter((data) => data.purchaseState === "RESERVATION"))
+
   const useStartDate = new Date(rentalData.startDate);
   const startDate =
     useStartDate.getFullYear() +
@@ -52,7 +51,7 @@ export default function RentalHistory(props: { rentalData: MyRentalCarType }) {
       return data;
     };
     getVehicleData();
-  }, []);
+  }, [API_URL, rentalData.vehicleId]);
 
   const renderBadge = () => {
     if (rentalData.purchaseState === "CANCELED") {
@@ -77,7 +76,6 @@ export default function RentalHistory(props: { rentalData: MyRentalCarType }) {
               원
             </div>
             <div className={style.distancePrice}>
-              {/* <span>{props.rentalData.returnZone}</span> */}
               {startDate} - {endDate}
             </div>
           </div>

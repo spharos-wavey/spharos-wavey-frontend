@@ -17,17 +17,18 @@ export default function SimpleBackLayout(props: {
   const canUserRentMore = useRecoilValue(userRentalState);
   const { brandName } = router.query;
   const pageUrl = router.pathname;
-  
-  
+
   useEffect(() => {
-    if(typeof window !== undefined){
+    if (typeof window !== undefined) {
       const redirectUrl = sessionStorage.getItem("redirectUrl");
-      redirectUrl !== null ? setRedirectUrlValue(redirectUrl) : setRedirectUrlValue("");
+      redirectUrl !== null
+        ? setRedirectUrlValue(redirectUrl)
+        : setRedirectUrlValue("");
     }
-  },[])
+  }, []);
 
   const handleBack = () => {
-    if (!canUserRentMore.canUserBook && pageUrl.includes("/rental/")){
+    if (pageUrl.includes("/rental/")) {
       router.push("/");
       return;
     }
@@ -35,13 +36,16 @@ export default function SimpleBackLayout(props: {
       router.push("/");
       return;
     }
-    if(!auth.auth && redirectUrlValue){
-        router.push(redirectUrlValue);
-        return;
+    if (!auth.auth && redirectUrlValue) {
+      router.push(redirectUrlValue);
+      return;
     }
     router.back();
-    console.log(canUserRentMore.canUserBook, pageUrl.includes("/rental/"));
-  }
+  };
+
+  const handleClose = () => {
+    router.push("/");
+  };
 
   return (
     <div>
@@ -49,7 +53,10 @@ export default function SimpleBackLayout(props: {
       <header className={style.headerContainer}>
         <nav>
           <ul>
-            <li onClick={handleBack}>
+            <li
+              className={pageUrl.includes("smartkey") ? `${style.hidden}` : ``}
+              onClick={handleBack}
+            >
               <Image
                 src="/assets/images/icons/leftArrowIconBlack.svg"
                 alt="Back"
@@ -58,13 +65,22 @@ export default function SimpleBackLayout(props: {
                 priority={true}
               />
             </li>
-            <li className={style.title}>{props.title} {brandName ? `(${brandName})` : null}</li>
-            <li className={style.hidden}>
+            <li className={style.title}>
+              {props.title} {brandName ? `(${brandName})` : null}
+            </li>
+            <li
+              onClick={handleClose}
+              className={
+                pageUrl.includes("smartkey")
+                  ? `${style.closerButton}`
+                  : `${style.hidden}`
+              }
+            >
               <Image
-                src="/assets/images/icons/leftArrowIconBlack.svg"
+                src="/assets/images/icons/closePureX.svg"
                 alt="Back"
-                width={20}
-                height={20}
+                width={25}
+                height={25}
                 priority={true}
               />
             </li>

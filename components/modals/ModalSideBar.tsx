@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { authState } from "@/state/authState";
 import { userRentalState } from "@/state/userRentalState";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { MyRentalCarType } from "@/types/rentalDataType";
 import Swal from "sweetalert2";
 import RentCar from "../ui/RentCar";
+import { bookIdState } from "@/state/bookIdState";
 
 export default function ModalSideBar(props: {
   setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,6 +21,8 @@ export default function ModalSideBar(props: {
   const auth = useRecoilValue(authState);
   const TOKEN = "Bearer " + auth.token;
   const canUserBook = useRecoilValue(userRentalState);
+  const setBookId = useSetRecoilState(bookIdState);
+  const setUserRentalState = useSetRecoilState(userRentalState);
 
   const { isSideOpen, setIsSideOpen } = props;
   const [authValue, setAuthValue] = useRecoilState(authState);
@@ -30,25 +33,34 @@ export default function ModalSideBar(props: {
   const PURCASE_STATE = "RESERVATION";
 
   const handleLogout = () => {
-    localStorage.clear();
-    sessionStorage.clear();
-    setIsSideOpen(false);
-    setAuthValue({
-      auth: false,
-      token: "",
-      uid: "",
-      nickName: "",
-      email: "",
-      profileImageUrl: "",
-    });
     Swal.fire({
-      text: "로그아웃 되었습니다.",
-      icon: "success",
-      toast: true,
-      position: "top",
-      showConfirmButton: false,
-      timer: 2000,
-      timerProgressBar: false,
+      text: "로그아웃 하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "네",
+      cancelButtonText: "아니요",
+      customClass: {
+        confirmButton: "mySwalConfirmButton",
+        cancelButton: "mySwalCancelButton",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        sessionStorage.clear();
+        setBookId({ bookId: 0 });
+        setUserRentalState({
+          canUserBook: false,
+        });
+        setAuthValue({
+          auth: false,
+          nickName: "",
+          profileImageUrl: "",
+          token: "",
+          uid: "",
+          email: "",
+        });
+      } else {
+        return;
+      }
     });
   };
 
@@ -74,22 +86,12 @@ export default function ModalSideBar(props: {
 
   const actionToHistory = () => {
     setIsSideOpen(false);
-    !auth.auth
-      ? Swal.fire({
-          text: "로그인이 필요한 서비스입니다.",
-          icon: "warning",
-          toast: true,
-          position: "top",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: false,
-        })
-      : router.push("/rental/history");
+    router.push("/rental/history");
   };
 
   const handleSmartKey = () => {
-    if (!canUserBook.canUserBook) {
-      router.push(`/rental/${rentCarData[0].rentalId}`);
+    if (rentCarData.length > 0) {
+      router.push(`/rental/${rentCarData[0].rentalId}/smartkey`);
     } else {
       setIsSideOpen(false);
       Swal.fire({
@@ -100,6 +102,9 @@ export default function ModalSideBar(props: {
         showConfirmButton: false,
         timer: 2000,
         timerProgressBar: false,
+        customClass: {
+          container: "my-swal",
+        },
       });
     }
   };
@@ -117,7 +122,7 @@ export default function ModalSideBar(props: {
               className={style.bluehighlightbtn}
               onClick={() => router.push("/login")}
             >
-              로그인 하기
+              로그인
             </div>
           ) : (
             <div className={style.bluehighlightbtn} onClick={handleLogout}>
@@ -151,19 +156,12 @@ export default function ModalSideBar(props: {
           ) : (
             <></>
           )}
-          <li>적립금 정책</li>
           {auth.auth ? <li onClick={handleLogout}>로그아웃</li> : <></>}
         </ul>
       </div>
 
       <div className={style.bottomMenuWrap}>
         <ul className={style.blueMenu}>
-          {/* <a href="">
-            <li>이용상품 안내</li>
-          </a> */}
-          {/* <a href="">
-            <li>사고접수 현황</li>
-          </a> */}
           <li>개인정보 처리방침</li>
           <li>About Billita</li>
         </ul>

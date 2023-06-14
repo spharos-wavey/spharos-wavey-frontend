@@ -1,5 +1,4 @@
 import React from "react";
-import Title from "@/components/ui/Title";
 import LocationButton from "@/components/ui/LocationButton";
 import Separator from "@/components/ui/Separator";
 import { useRouter } from "next/router";
@@ -31,7 +30,6 @@ export default function DetailLocation(props: {
       <LocationButton
         location={props.location}
         locationName={props.locationName}
-        btnEvent={onClickHandler}
       />
     </>
   );

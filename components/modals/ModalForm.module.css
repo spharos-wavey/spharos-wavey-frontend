@@ -2,10 +2,10 @@
 
 
 .modalWrap {
-  padding: 3rem 2.5rem;
+  padding: 3rem 2rem;
 }
 .modalTitle {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: bold;
   display: flex;
   margin-bottom: 1.5rem;
@@ -16,6 +16,7 @@
   font-weight: bold;
   opacity: 0.6;
   margin-bottom: 0.4rem;
+  font-size: 0.9rem;
 }
 
 .redText {
@@ -52,6 +53,11 @@
   color: var(--billita-blueHighlight);
   font-weight: bold;
   width: 30%;
+}
+
+.date span {
+  color: var(--billita-blueHighlight);
+  font-weight: bold;
 }
 
 .lastLine{

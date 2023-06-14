@@ -48,14 +48,14 @@ export default function DetailInfo(props: {
           isActive={manualView}
           btnEvent={manualHandler}
         />
-        <InfoTabItem
+        {/* <InfoTabItem
           name="댓글"
           isActive={commentView}
           btnEvent={commentHandler}
-        />
+        /> */}
       </div>
       <Separator gutter={2} padding={true} />
-      {optionView ? <CarOption feature={props.feature}/> : ""}
+      {optionView ? <CarOption feature={props.feature} /> : ""}
       {manualView ? (
         <CarManual guide={props.guide} carName={props.carName} />
       ) : (

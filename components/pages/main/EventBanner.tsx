@@ -11,7 +11,6 @@ export default function EventBanner() {
   const router = useRouter();
 
   useEffect(() => {
-    // todo: banner image load for fetch
     setBannerData(mainEventData);
   }, []);
   return (
@@ -55,15 +54,6 @@ export default function EventBanner() {
               onClick={() => router.push("/map")}
             >
               내 주변의 차량 보러가기
-              <div className={style.arrow}>
-                <Image
-                  src="/assets/images/icons/arrow-right.svg"
-                  width={200}
-                  height={200}
-                  alt="arrow"
-                  priority
-                />
-              </div>
             </div>
           </div>
         </>
