@@ -132,11 +132,33 @@ export default function LicenseWrapper(props: {
       }));
       return;
     }
+
+    if (name === "licenseNumber") {
+      const formattedValue = value.replace(/\D/g, "");
+      let formattedInput = formattedValue;
+      if (formattedValue.length >= 2) {
+        const first = formattedValue.slice(0, 2);
+        const second = formattedValue.slice(2, 4);
+        const third = formattedValue.slice(4, 10);
+        const fourth = formattedValue.slice(10, 12);
+        formattedInput = `${first}-${second}-${third}-${fourth}`;
+      }
+      setInputData((prev) => ({
+        ...prev,
+        [name]: formattedInput,
+      }));
+      setInputError((prev) => ({
+        ...prev,
+        [name]: formattedValue.length === 0 ? "필수 입력 항목입니다" : "",
+      }));
+      return;
+    }
     setInputData((prev) => ({ ...prev, [name]: value }));
     setInputError((prev) => ({
       ...prev,
       [name]: value.trim().length === 0 ? "필수 입력 항목입니다" : "",
     }));
+    return;
   };
 
   const handlSelectChange = (event: SelectChangeEvent) => {
@@ -198,10 +220,6 @@ export default function LicenseWrapper(props: {
     postData();
   };
 
-  const handleCheckNextStep = () => {
-    props.setIsLicense(true);
-    props.setIsOpen(false);
-  };
   const handleCancleRegister = () => {
     console.log("취소");
     props.setIsOpen(false);

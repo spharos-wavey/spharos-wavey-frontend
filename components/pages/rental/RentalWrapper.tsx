@@ -26,7 +26,6 @@ export default function RentalWrapper(props: { rentId: string }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const TOKEN = "Bearer " + auth.token;
 
-  const [isSmartkeyOpen, setIsSmartkeyOpen] = useState<boolean>(false);
   const [rentData, setRentData] = useState<RentalDetailType>();
 
   useEffect(() => {
@@ -96,7 +95,6 @@ export default function RentalWrapper(props: { rentId: string }) {
   };
   return (
     <main>
-      {/* <Smartkey isOpen={isSmartkeyOpen} setIsOpen={setIsSmartkeyOpen} /> */}
       {drawer && (
         <>
           <div
