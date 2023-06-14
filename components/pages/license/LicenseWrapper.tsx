@@ -221,10 +221,10 @@ export default function LicenseWrapper(props:{
 
   return (
     <>
-    <div className={style.over} style={ props.isOpen ? {display:'block'} : {display:'none'}}></div>
+    {/* <div className={style.over} style={ props.isOpen ? {display:'block'} : {display:'none'}}></div> */}
     
-    <section className={props.isOpen ? style.licenseWrap : `${style.licenseWrap} ${style.slideClose}`}>
-      <SlideDownBtn handleActive={() => props.setIsOpen(false)}  isActive={props.isOpen}/>
+    <div className={props.isOpen ? style.licenseWrap : `${style.licenseWrap} ${style.slideClose}`}>
+      {/* <SlideDownBtn handleActive={() => props.setIsOpen(false)}  isActive={props.isOpen}/> */}
       <FormGroup>
         <button onClick={() => handleCheckNextStep()}>테스트용 넘어가기 버튼</button>
         <SectionTitle fontSize={0.85}>운전면허 정보입력</SectionTitle>
@@ -387,7 +387,7 @@ export default function LicenseWrapper(props:{
           <Separator gutter={5} />
         </Box>
       </FormGroup>
-    </section>
+    </div>
     
     </>
   );
