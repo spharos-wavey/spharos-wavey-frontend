@@ -64,7 +64,7 @@ function Page(props: { data: brandSortType[] }) {
     <main>
       <BrandSort data={props.data} />
       <VehicleRecommendMain />
-      <BlogList />
+      {/* <BlogList /> */}
       <Separator gutter={15} />
       <EventBanner />
     </main>
