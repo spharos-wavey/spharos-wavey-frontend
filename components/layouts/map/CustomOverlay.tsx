@@ -34,6 +34,7 @@ export default function CustomOverlay({
               color: "white",
               backgroundColor: "var(--billita-blue)",
               textAlign: "center",
+              opacity: 0.7,
             }}
             onClick={onClickHandler}
           >
