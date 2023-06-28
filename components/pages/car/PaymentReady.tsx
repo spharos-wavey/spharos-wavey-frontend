@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import PageLoader from "@/components/ui/PageLoader";
 import { authState } from "@/state/authState";
@@ -37,22 +37,40 @@ export default function PaymentReady(props: {
     reward: 1000,
   };
 
+  const [isRedirected, setIsRedirected] = useState(false);
+
   useEffect(() => {
+    let timeoutId = setTimeout(() => {
+      setIsRedirected(true);
+    }, 9000);
+
     const getPaymentReady = async () => {
-      const res = await axios.post(
-        `${API_URL}/purchase/kakao/ready`,
-        readyRequestBody,
-        {
-          headers: {
-            Authorization: TOKEN,
-          },
-        }
-      );
-      sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
-      router.push(res.data.next_redirect_mobile_url);
+      try {
+        const res = await axios.post(
+          `${API_URL}/purchase/kakao/ready`,
+          readyRequestBody,
+          {
+            headers: {
+              Authorization: TOKEN,
+            },
+          }
+        );
+        clearTimeout(timeoutId);
+        sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
+        router.push(res.data.next_redirect_mobile_url);
+      } catch (error) {
+        setIsRedirected(true);
+      }
     };
+
     getPaymentReady();
-  }, [router, readyRequestBody, TOKEN, API_URL]);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  if (isRedirected) {
+    return router.push("/purchase/fail");
+  }
 
   return (
     <>
