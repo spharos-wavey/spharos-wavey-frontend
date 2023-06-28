@@ -37,13 +37,9 @@ export default function PaymentReady(props: {
     reward: 1000,
   };
 
-  const [isRedirected, setIsRedirected] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    let timeoutId = setTimeout(() => {
-      setIsRedirected(true);
-    }, 9000);
-
     const getPaymentReady = async () => {
       try {
         const res = await axios.post(
@@ -55,31 +51,24 @@ export default function PaymentReady(props: {
             },
           }
         );
-        clearTimeout(timeoutId);
         sessionStorage.setItem("purchaseNumber", res.data.purchaseNumber);
         router.push(res.data.next_redirect_mobile_url);
       } catch (error) {
-        setIsRedirected(true);
+        router.push("/purchase/fail");
+      } finally {
+        setIsLoading(false);
       }
     };
-
     getPaymentReady();
-
-    return () => clearTimeout(timeoutId);
   }, []);
 
-  if (isRedirected) {
-    return router.push("/purchase/fail");
-  }
-
-  return (
-    <>
-      <div
-        className={style.over}
-        style={props.isOpen ? { display: "block" } : { display: "none" }}
-      >
+  if (isLoading) {
+    return (
+      <div className={style.loaderContainer}>
         <PageLoader text="결제 페이지로 이동합니다." />
       </div>
-    </>
-  );
+    );
+  }
+
+  return <></>;
 }
